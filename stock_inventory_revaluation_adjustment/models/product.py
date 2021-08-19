@@ -17,7 +17,8 @@ class ProductProduct(models.Model):
         """
         # Check Access Rights for Journal Entry creation.
 
-        new_price_round = self.env.company.currency_id.round(new_price)
+        new_price_round = round(new_price, self.env.company.currency_id.decimal_places)
+
         if not self.env["stock.valuation.layer"].check_access_rights(
             "read", raise_exception=False
         ):
@@ -38,8 +39,13 @@ class ProductProduct(models.Model):
             if float_is_zero(quantity_svl, precision_rounding=product.uom_id.rounding):
                 continue
 
-            diff = new_price_round - product.standard_price
-            value = company_id.currency_id.round(quantity_svl * diff)
+            diff = round(
+                new_price_round - product.standard_price,
+                self.env.company.currency_id.decimal_places,
+            )
+            value = round(
+                quantity_svl * diff, self.env.company.currency_id.decimal_places
+            )
             if company_id.currency_id.is_zero(value):
                 continue
 
@@ -114,7 +120,10 @@ class ProductProduct(models.Model):
                                 """%(user)s changed cost from %(previous)s
                                  to %(new_price)s - %(product)s""",
                                 user=self.env.user.name,
-                                previous=product.standard_price,
+                                previous=round(
+                                    product.standard_price,
+                                    self.env.company.currency_id.decimal_places,
+                                ),
                                 new_price=new_price_round,
                                 product=product.display_name,
                             ),
@@ -132,7 +141,10 @@ class ProductProduct(models.Model):
                                 """%(user)s changed cost from %(previous)s
                                  to %(new_price)s - %(product)s""",
                                 user=self.env.user.name,
-                                previous=product.standard_price,
+                                previous=round(
+                                    product.standard_price,
+                                    self.env.company.currency_id.decimal_places,
+                                ),
                                 new_price=new_price_round,
                                 product=product.display_name,
                             ),
@@ -150,7 +162,9 @@ class ProductProduct(models.Model):
                 """%(user)s changed cost from %(previous)s
                     to %(new_price)s - %(product)s""",
                 user=self.env.user.name,
-                previous=product.standard_price,
+                previous=round(
+                    product.standard_price, self.env.company.currency_id.decimal_places
+                ),
                 new_price=new_price_round,
                 product=product.display_name,
             )
