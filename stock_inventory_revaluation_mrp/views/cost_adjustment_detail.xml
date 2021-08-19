@@ -1,0 +1,14 @@
+<odoo>
+
+    <record id="cost_adjustment_detail_mrp_view_tree" model="ir.ui.view">
+        <field name="name">cost.adjustment.detail.mrp.tree</field>
+        <field name="model">cost.adjustment.detail</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="cost_adjustment_id" />
+            </tree>
+        </field>
+    </record>
+
+</odoo>
+
