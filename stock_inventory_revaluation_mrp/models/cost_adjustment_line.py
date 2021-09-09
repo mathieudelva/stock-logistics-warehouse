@@ -8,20 +8,22 @@ class CostAdjustmentLine(models.Model):
     _inherit = "cost.adjustment.line"
 
     mrp_production_ids = fields.Many2many(
-        "mrp.production", string="Manufacturing Orders", compute="_set_productions_boms"
+        "mrp.production",
+        string="Manufacturing Orders",
+        compute="_compute_set_productions_boms",
     )
     production_count = fields.Integer(
-        string="MO's", compute="_set_productions_boms", readonly=False
+        string="MO's", compute="_compute_set_productions_boms", readonly=False
     )
     bom_ids = fields.Many2many(
-        "mrp.bom", string="BOMs", compute="_set_productions_boms"
+        "mrp.bom", string="BOMs", compute="_compute_set_productions_boms"
     )
     bom_count = fields.Integer(
-        string="BOM's", compute="_set_productions_boms", readonly=False
+        string="BOM's", compute="_compute_set_productions_boms", readonly=False
     )
 
     @api.depends("product_id", "state")
-    def _set_productions_boms(self):
+    def _compute_set_productions_boms(self):
         for line in self:
             if line.state not in ("posted"):
                 # Set MO's

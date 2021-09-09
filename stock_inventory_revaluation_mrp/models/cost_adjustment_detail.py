@@ -25,12 +25,12 @@ class CostAdjustmentDetail(models.Model):
     )
     product_original_cost = fields.Float(
         string="Current Cost",
-        readonly=True,
+        # readonly=True,
         default=0,
     )
     product_cost = fields.Float(
         string="Future Cost",
-        readonly=True,
+        # readonly=True,
         states={"confirm": [("readonly", False)]},
         default=0,
     )
@@ -53,6 +53,33 @@ class CostAdjustmentDetail(models.Model):
         string="Currency",
         related="company_id.currency_id",
     )
+    parent_product_id = fields.Many2one("product.product", string="Parent Product")
+    bom_line_id = fields.Many2one(
+        "mrp.bom.line",
+        string="BoM Line",
+    )
+    quantity = fields.Float(related="bom_line_id.product_qty", string="Quantity")
+    bom_id = fields.Many2one(
+        related="bom_line_id.bom_id",
+        string="BoM",
+        store=True,
+    )
+    current_bom_cost = fields.Float(
+        compute="_compute_current_bom_cost", string="Current BoM Cost", store=True
+    )
+    future_bom_cost = fields.Float(
+        compute="_compute_future_bom_cost", string="Future BoM Cost", store=True
+    )
+
+    @api.depends("quantity", "product_original_cost")
+    def _compute_current_bom_cost(self):
+        for line in self:
+            line.current_bom_cost = line.quantity * line.product_original_cost
+
+    @api.depends("quantity", "product_cost")
+    def _compute_future_bom_cost(self):
+        for line in self:
+            line.future_bom_cost = line.quantity * line.product_cost
 
     @api.depends("product_cost", "product_original_cost")
     def _compute_difference(self):

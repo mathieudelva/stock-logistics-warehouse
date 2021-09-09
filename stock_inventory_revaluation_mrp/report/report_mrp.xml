@@ -27,8 +27,11 @@
                                 <tr>
                                     <td><span t-field="line.product_id" /></td>
                                     <td>
-                                        <t t-foreach="line.mrp_production_ids" t-as="mo">
-                                            <span t-field="mo.name" />, 
+                                        <t
+                                            t-foreach="line.mrp_production_ids"
+                                            t-as="mo"
+                                        >
+                                            <span t-field="mo.name" />,
                                         </t>
                                     </td>
                                 </tr>

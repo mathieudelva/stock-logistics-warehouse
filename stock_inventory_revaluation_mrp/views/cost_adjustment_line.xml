@@ -3,13 +3,26 @@
     <record id="cost_adjustment_line_mrp_view_tree" model="ir.ui.view">
         <field name="name">cost.adjustment.line.mrp.tree</field>
         <field name="model">cost.adjustment.line</field>
-        <field name="inherit_id" ref="stock_inventory_revaluation.cost_adjustment_line_view_tree" />
+        <field
+            name="inherit_id"
+            ref="stock_inventory_revaluation.cost_adjustment_line_view_tree"
+        />
         <field name="arch" type="xml">
             <field name="total_difference" position="after">
                 <field name="production_count" optional="show" />
-                <button name="action_view_production" type="object" icon="fa-list" attrs="{'invisible': [('production_count', '=', 0)]}"/>
+                <button
+                    name="action_view_production"
+                    type="object"
+                    icon="fa-list"
+                    attrs="{'invisible': [('production_count', '=', 0)]}"
+                />
                 <field name="bom_count" optional="show" />
-                <button name="action_view_bom" type="object" icon="fa-list" attrs="{'invisible': [('bom_count', '=', 0)]}"/>
+                <button
+                    name="action_view_bom"
+                    type="object"
+                    icon="fa-list"
+                    attrs="{'invisible': [('bom_count', '=', 0)]}"
+                />
             </field>
             <field name="product_id" position="attributes">
                 <attribute name="domain">[("bom_ids", "=", False)]</attribute>
