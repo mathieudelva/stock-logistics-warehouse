@@ -81,6 +81,7 @@ class CostAdjustment(models.Model):
         check_company=True,
         readonly=True,
         states={"draft": [("readonly", False)]},
+        domain="[('bom_ids','=',False)]",
         help="Specify Products to focus your cost adjustment on particular Products. ",
     )
     start_empty = fields.Boolean(
@@ -155,12 +156,9 @@ class CostAdjustment(models.Model):
         self._check_negative()
         self._remove_unchanged_lines()
         for line in self.line_ids:
-            if line.product_type == "product":
-                line.product_id._change_standard_price(
-                    line.product_cost, self.type_id.account_id
-                )
-            else:
-                line.product_id.write({"standard_price": line.product_cost})
+            line.product_id.write({"standard_price": line.product_cost})
+            for bom in line.product_id.bom_line_ids.mapped("bom_id"):
+                bom.product_id.button_bom_cost()
         self.write({"state": "posted", "date": fields.Datetime.now()})
         return True
 
