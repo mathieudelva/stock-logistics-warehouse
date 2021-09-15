@@ -58,11 +58,10 @@ class CostAdjustmentDetail(models.Model):
         "mrp.bom.line",
         string="BoM Line",
     )
-    quantity = fields.Float(related="bom_line_id.product_qty", string="Quantity")
+    quantity = fields.Float("Quantity")
     bom_id = fields.Many2one(
-        related="bom_line_id.bom_id",
+        "mrp.bom",
         string="BoM",
-        store=True,
     )
     current_bom_cost = fields.Float(
         compute="_compute_current_bom_cost", string="Current BoM Cost", store=True
@@ -81,7 +80,7 @@ class CostAdjustmentDetail(models.Model):
         for line in self:
             line.future_bom_cost = line.quantity * line.product_cost
 
-    @api.depends("product_cost", "product_original_cost")
+    @api.depends("current_bom_cost", "future_bom_cost")
     def _compute_difference(self):
         for line in self:
-            line.difference_cost = line.product_cost - line.product_original_cost
+            line.difference_cost = line.future_bom_cost - line.current_bom_cost
