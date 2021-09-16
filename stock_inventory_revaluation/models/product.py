@@ -151,3 +151,20 @@ class ProductProduct(models.Model):
         if account_moves:
             account_moves._post()
         return super()._change_standard_price(new_price)
+
+
+class ProductTemplate(models.Model):
+    _inherit = "product.template"
+
+    def get_product_accounts(self, fiscal_pos=None):
+        accounts = super(ProductTemplate, self).get_product_accounts(
+            fiscal_pos=fiscal_pos
+        )
+        if self._context.get("cost_adjustment_account_id"):
+            accounts.update(
+                {
+                    "stock_valuation": self._context.get("cost_adjustment_account_id")
+                    or False
+                }
+            )
+        return accounts

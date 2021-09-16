@@ -156,7 +156,9 @@ class CostAdjustment(models.Model):
         self._check_negative()
         self._remove_unchanged_lines()
         for line in self.line_ids:
-            line.product_id.write({"standard_price": line.product_cost})
+            line.product_id.with_context(
+                cost_adjustment_account_id=self.account_id
+            ).write({"standard_price": line.product_cost})
             for bom in line.product_id.bom_line_ids.mapped("bom_id"):
                 bom.product_id.button_bom_cost()
         self.write({"state": "posted", "date": fields.Datetime.now()})
