@@ -3,9 +3,9 @@
 
 from odoo import _, fields, models
 from odoo.exceptions import UserError
+from odoo.tools.float_utils import float_compare
 
 from odoo.addons.base.models.ir_model import MODULE_UNINSTALL_FLAG
-from odoo.tools.float_utils import float_compare
 
 
 class CostAdjustment(models.Model):

@@ -1,20 +1,25 @@
-odoo.define('product_cost_adjustment.CostAdjustmentValidationController', function (require) {
+odoo.define("product_cost_adjustment.CostAdjustmentValidationController", function (
+    require
+) {
     "use strict";
 
-    var core = require('web.core');
-    var ListController = require('web.ListController');
+    var core = require("web.core");
+    var ListController = require("web.ListController");
 
     var _t = core._t;
     var qweb = core.qweb;
 
     var CostAdjustmentValidationController = ListController.extend({
-        events: _.extend({
-            'click .o_button_validate_cost_adjustment': '_onValidateCostAdjustment'
-        }, ListController.prototype.events),
+        events: _.extend(
+            {
+                "click .o_button_validate_cost_adjustment": "_onValidateCostAdjustment",
+            },
+            ListController.prototype.events
+        ),
         /**
          * @override
          */
-        init: function (parent, model, renderer, params) {
+        init: function (parent, model, renderer) {
             var context = renderer.state.getContext();
             this.cost_adjustment_id = context.active_id;
             return this._super.apply(this, arguments);
@@ -29,7 +34,7 @@ odoo.define('product_cost_adjustment.CostAdjustmentValidationController', functi
          */
         renderButtons: function () {
             this._super.apply(this, arguments);
-            var $validationButton = $(qweb.render('CostAdjustmentLines.Buttons'));
+            var $validationButton = $(qweb.render("CostAdjustmentLines.Buttons"));
             this.$buttons.prepend($validationButton);
         },
 
@@ -57,9 +62,9 @@ odoo.define('product_cost_adjustment.CostAdjustmentValidationController', functi
 
             prom.then(function () {
                 self._rpc({
-                    model: 'cost.adjustment',
-                    method: 'action_validate',
-                    args: [self.cost_adjustment_id]
+                    model: "cost.adjustment",
+                    method: "action_validate",
+                    args: [self.cost_adjustment_id],
                 }).then(function (res) {
                     var exitCallback = function (infos) {
                         // In case we discarded a wizard, we do nothing to stay on
@@ -70,12 +75,13 @@ odoo.define('product_cost_adjustment.CostAdjustmentValidationController', functi
                         // ... but in any other cases, we go back on the cost adjustment form.
                         self.do_notify(
                             false,
-                            _t("The cost adjustment has been validated"));
-                        self.trigger_up('history_back');
+                            _t("The cost adjustment has been validated")
+                        );
+                        self.trigger_up("history_back");
                     };
 
                     if (_.isObject(res)) {
-                        self.do_action(res, { on_close: exitCallback });
+                        self.do_action(res, {on_close: exitCallback});
                     } else {
                         return exitCallback();
                     }
@@ -85,5 +91,4 @@ odoo.define('product_cost_adjustment.CostAdjustmentValidationController', functi
     });
 
     return CostAdjustmentValidationController;
-
 });
