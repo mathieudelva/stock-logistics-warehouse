@@ -106,7 +106,11 @@ class CostAdjustmentLine(models.Model):
     def _set_costs(self):
         for line in self:
             if line.state not in ("posted"):
-                self.product_cost = self.product_id.standard_price
+                self.product_cost = (
+                    self.product_id.proposed_cost
+                    if self.product_id.proposed_cost > 0.0
+                    else self.product_id.standard_price
+                )
                 self.product_original_cost = self.product_id.standard_price
                 self.qty_on_hand = line.product_id.qty_available
 

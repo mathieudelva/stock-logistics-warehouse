@@ -1,7 +1,7 @@
 # Copyright 2021 - Open Source Integrators
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, api, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools import float_is_zero
 
@@ -168,3 +168,10 @@ class ProductTemplate(models.Model):
                 }
             )
         return accounts
+
+    proposed_cost = fields.Float(
+        "Proposed Cost",
+        company_dependent=True,
+        digits="Product Price",
+        groups="base.group_user",
+    )

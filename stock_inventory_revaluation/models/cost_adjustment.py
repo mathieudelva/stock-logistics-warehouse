@@ -158,9 +158,7 @@ class CostAdjustment(models.Model):
         for line in self.line_ids:
             line.product_id.with_context(
                 cost_adjustment_account_id=self.account_id
-            ).write({"standard_price": line.product_cost})
-            for bom in line.product_id.bom_line_ids.mapped("bom_id"):
-                bom.product_id.button_bom_cost()
+            ).write({"standard_price": line.product_cost, "proposed_cost": 0.0})
         self.write({"state": "posted", "date": fields.Datetime.now()})
         return True
 
@@ -200,7 +198,9 @@ class CostAdjustment(models.Model):
                 "cost_adjustment_id": self.id,
                 "product_id": product.id,
                 "product_original_cost": product.standard_price,
-                "product_cost": product.standard_price,
+                "product_cost": product.proposed_cost
+                if product.proposed_cost > 0.0
+                else product.standard_price,
                 "qty_on_hand": product.sudo().quantity_svl,
             }
             vals.append(line_values)
