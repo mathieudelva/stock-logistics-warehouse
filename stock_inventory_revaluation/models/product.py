@@ -162,10 +162,7 @@ class ProductTemplate(models.Model):
         )
         if self._context.get("cost_adjustment_account_id"):
             accounts.update(
-                {
-                    "stock_valuation": self._context.get("cost_adjustment_account_id")
-                    or False
-                }
+                {"expense": self._context.get("cost_adjustment_account_id") or False}
             )
         return accounts
 

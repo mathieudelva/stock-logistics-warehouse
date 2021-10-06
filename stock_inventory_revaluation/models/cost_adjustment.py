@@ -208,16 +208,20 @@ class CostAdjustment(models.Model):
 
     def action_open_cost_adjustment_lines(self):
         self.ensure_one()
+        ctx = dict(self._context) or {}
+        ctx.update(
+            {
+                "default_is_editable": True,
+                "default_cost_adjustment_id": self.id,
+                "default_company_id": self.company_id.id,
+            }
+        )
         action = {
             "type": "ir.actions.act_window",
             "view_mode": "tree",
             "name": _("Cost Adjustment Lines"),
             "res_model": "cost.adjustment.line",
-            "context": {
-                "default_is_editable": True,
-                "default_cost_adjustment_id": self.id,
-                "default_company_id": self.company_id.id,
-            },
+            "context": ctx,
             "domain": [("cost_adjustment_id", "=", self.id)],
             "view_id": self.env.ref(
                 "stock_inventory_revaluation.cost_adjustment_line_view_tree"

@@ -18,6 +18,11 @@
         "views/cost_adjustment_type.xml",
         "views/cost_adjustment.xml",
         "views/product_template_view.xml",
+        "views/assets_backend.xml",
+        "wizard/add_multi_products.xml",
+    ],
+    "qweb": [
+        "static/src/xml/cost_inventory_products.xml",
     ],
     "application": False,
     "installable": True,
