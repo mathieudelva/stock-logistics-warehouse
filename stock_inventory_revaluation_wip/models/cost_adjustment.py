@@ -68,14 +68,15 @@ class CostAdjustment(models.Model):
             ]
         )
         for cost_drive in cost_driver_product_ids:
-            workcenter_id = self.env["mrp.workcenter"].search(
+            workcenter_ids = self.env["mrp.workcenter"].search(
                 [("analytic_product_id", "=", cost_drive.id)]
             )
-            operation_ids = self.env["mrp.routing.workcenter"].search(
-                [("workcenter_id", "=", workcenter_id.id), ("bom_id", "!=", None)]
-            )
-            for operation in operation_ids:
-                self._create_cost_details_workcenter(cost_drive, operation)
+            for workcenter in workcenter_ids:
+                operation_ids = self.env["mrp.routing.workcenter"].search(
+                    [("workcenter_id", "=", workcenter.id), ("bom_id", "!=", None)]
+                )
+                for operation in operation_ids:
+                    self._create_cost_details_workcenter(cost_drive, operation)
 
     def _get_all_boms_details(self):
         for bom in (
