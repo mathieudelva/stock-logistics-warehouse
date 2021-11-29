@@ -9,7 +9,7 @@
         <xpath expr="." position="inside">
             <script
                 type="text/javascript"
-                src="/stock_inventory_revaluation/static/src/js/cost_inventory_products.js"
+                src="/stock_inventory_revaluation_adjustment/static/src/js/cost_inventory_products.js"
             />
         </xpath>
     </template>

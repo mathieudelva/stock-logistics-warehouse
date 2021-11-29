@@ -176,7 +176,13 @@ class ProductTemplate(models.Model):
             type_id = self.env["cost.adjustment.type"].browse(
                 self._context.get("cost_adjustment_type_id")
             )
-            accounts.update({"expense": type_id.account_id or False})
+            accounts.update(
+                {
+                    "expense": type_id.account_id
+                    or self.categ_id.property_account_expense_categ_id
+                    or False
+                }
+            )
         return accounts
 
     proposed_cost = fields.Float(

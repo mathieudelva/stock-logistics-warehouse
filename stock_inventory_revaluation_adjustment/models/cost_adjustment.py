@@ -224,7 +224,7 @@ class CostAdjustment(models.Model):
             "context": ctx,
             "domain": [("cost_adjustment_id", "=", self.id)],
             "view_id": self.env.ref(
-                "stock_inventory_revaluation.cost_adjustment_line_view_tree"
+                "stock_inventory_revaluation_adjustment.cost_adjustment_line_view_tree"
             ).id,
         }
         return action

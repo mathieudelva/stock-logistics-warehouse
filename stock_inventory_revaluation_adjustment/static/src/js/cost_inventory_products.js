@@ -1,4 +1,4 @@
-odoo.define("stock_inventory_revaluation.ListView", function (require) {
+odoo.define("stock_inventory_revaluation_adjustment.ListView", function (require) {
     "use strict";
     var ListController = require("web.ListController");
     ListController.include({
