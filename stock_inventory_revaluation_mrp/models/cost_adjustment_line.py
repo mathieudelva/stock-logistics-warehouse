@@ -13,7 +13,7 @@ class CostAdjustmentLine(models.Model):
         compute="_compute_set_productions_boms",
     )
     production_count = fields.Integer(
-        string="MO's", compute="_compute_set_productions_boms", readonly=False
+        string="Open MO's", compute="_compute_set_productions_boms", readonly=False
     )
     bom_ids = fields.Many2many(
         "mrp.bom", string="BOMs", compute="_compute_set_productions_boms"
@@ -32,11 +32,21 @@ class CostAdjustmentLine(models.Model):
                 productions = self.env["mrp.production"].search(
                     [("state", "in", ["draft", "confirmed", "progress"])]
                 )
+                activity_rule = self.env["product.product"].search(
+                    [("activity_cost_ids.product_id", "=", line.product_id.id)]
+                )
                 for production in productions:
                     components = production.move_raw_ids.mapped("product_id")
                     for product in components:
                         if line.product_id.id == product.id:
                             line.mrp_production_ids = [(4, production.id)]
+                    workcenters = production.workorder_ids.mapped("workcenter_id")
+                    for work_product in workcenters:
+                        if (
+                            line.product_id.id == work_product.analytic_product_id.id
+                        ) or (activity_rule.id == work_product.analytic_product_id.id):
+                            line.mrp_production_ids = [(4, production.id)]
+
                 # Set BOMs
                 if line.bom_ids:
                     line.bom_ids = [(5,)]
@@ -45,6 +55,26 @@ class CostAdjustmentLine(models.Model):
                 )
                 for bom_line in bom_lines:
                     line.bom_ids = [(4, bom_line.bom_id.id)]
+
+                work_center_ids = (
+                    self.env["mrp.workcenter"]
+                    .search(
+                        [
+                            "|",
+                            ("analytic_product_id", "=", line.product_id.id),
+                            ("analytic_product_id", "=", activity_rule.id),
+                        ]
+                    )
+                    .ids
+                )
+
+                mrp_bom_ids = self.env["mrp.bom"].search(
+                    [("operation_ids.workcenter_id", "in", work_center_ids)]
+                )
+
+                for bom in mrp_bom_ids:
+                    line.bom_ids = [(4, bom.id)]
+
                 line.production_count = len(line.mrp_production_ids)
                 line.bom_count = len(line.bom_ids)
 
