@@ -35,6 +35,7 @@ class CostAdjustmentLine(models.Model):
                 activity_rule = self.env["product.product"].search(
                     [("activity_cost_ids.product_id", "=", line.product_id.id)]
                 )
+
                 for production in productions:
                     components = production.move_raw_ids.mapped("product_id")
                     for product in components:
@@ -55,14 +56,15 @@ class CostAdjustmentLine(models.Model):
                 )
                 for bom_line in bom_lines:
                     line.bom_ids = [(4, bom_line.bom_id.id)]
-
+                work_center_product_ids = []
+                work_center_product_ids.append(line.product_id.id)
+                if activity_rule:
+                    work_center_product_ids.append(activity_rule.id)
                 work_center_ids = (
                     self.env["mrp.workcenter"]
                     .search(
                         [
-                            "|",
-                            ("analytic_product_id", "=", line.product_id.id),
-                            ("analytic_product_id", "=", activity_rule.id),
+                            ("analytic_product_id", "in", work_center_product_ids),
                         ]
                     )
                     .ids
@@ -74,7 +76,6 @@ class CostAdjustmentLine(models.Model):
 
                 for bom in mrp_bom_ids:
                     line.bom_ids = [(4, bom.id)]
-
                 line.production_count = len(line.mrp_production_ids)
                 line.bom_count = len(line.bom_ids)
 

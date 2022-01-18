@@ -1,19 +1,31 @@
-# Copyright 2021 - Open Source Integrators
+# Copyright 2021-2022 Open Source Integrators
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, models
+from odoo import _, api, fields, models
 
 
 class CostAdjustment(models.Model):
     _inherit = "cost.adjustment"
 
+    bom_impact_ids = fields.One2many(
+        "cost.adjustment.detail",
+        "cost_adjustment_id",
+        string="BoM Impact",
+        copy=False,
+        states={"done": [("readonly", True)]},
+    )
+    qty_impact_ids = fields.One2many(
+        "cost.adjustment.qty.impact.line",
+        "cost_adjustment_id",
+        string="Stock Qty. Impact",
+        copy=False,
+        states={"done": [("readonly", True)]},
+    )
+
     def action_open_cost_adjustment_details(self):
-        details = self.env["cost.adjustment.detail"].search(
-            [("cost_adjustment_id", "=", self.id)]
-        )
-        details.unlink()
-        for line in self.line_ids:
-            self.get_product_bom_component(line.product_id)
+        self.bom_impact_ids.unlink()
+        self.qty_impact_ids.unlink()
+        self._populate_bom_impact_details(self.line_ids.product_id)
         action = {
             "type": "ir.actions.act_window",
             "view_mode": "tree",
@@ -33,15 +45,9 @@ class CostAdjustment(models.Model):
         return action
 
     def action_open_cost_adjustment_details_qty(self):
+        self.action_open_cost_adjustment_details()
         cost_detail_obj = self.env["cost.adjustment.detail"]
         qty_impact_obj = self.env["cost.adjustment.qty.impact.line"]
-        details = cost_detail_obj.search([("cost_adjustment_id", "=", self.id)])
-        details.unlink()
-        qty_details = qty_impact_obj.search([("cost_adjustment_id", "=", self.id)])
-        qty_details.unlink()
-        for line in self.line_ids:
-            self.get_product_bom_component(line.product_id)
-
         prod_detail_lines_bom = cost_detail_obj.search(
             [
                 ("cost_adjustment_id", "=", self.id),
@@ -107,22 +113,54 @@ class CostAdjustment(models.Model):
         }
         return action
 
-    def get_product_bom_component(self, product=None):
-        bom_obj = self.env["mrp.bom"]
-        if product:
-            boms = bom_obj.search([("bom_line_ids.product_id", "in", product.ids)])
-            if boms:
-                self._create_cost_details(boms, product)
-            for bom in boms:
-                if bom.product_id:
-                    self.get_product_bom_component(bom.product_id)
-                else:
-                    product = self.env["product.product"].search(
-                        [("product_tmpl_id", "=", bom.product_tmpl_id.id)], limit=1
-                    )
-                    self.get_product_bom_component(product)
+    def _populate_bom_impact_details(self, products):
+        """
+        Populates BOM Impact lines (cost.adjustment.detail)
+        """
+        if products:
+            done_boms = self.bom_impact_ids.bom_id
+            # BoMs impacted by component Products, not added yet
+            boms = self._get_boms_impacted_products(products)
+            self._create_cost_details(boms - done_boms)
+            # Iterate on the next layer of Products impacted by the BOMs added
+            impacted_products = self._get_products_for_boms(boms)
+            self._populate_bom_impact_details(impacted_products - products)
 
-    def _create_cost_details(self, boms, product):
+    @api.model
+    def _get_boms_impacted_products(self, products):
+        """
+        Return BOMs impacted by the give Products (components)
+
+        BoMs for a Product Variant are only impacted by that Variant.
+        BoMs for a Product Templates are impacted by any Variant.
+        """
+        BoM = self.env["mrp.bom"]
+        Product = self.env["product.product"]
+        product_ids = Product.search(
+            [
+                ("is_cost_type", "=", True),
+                ("activity_cost_ids.product_id", "in", products.ids),
+            ]
+        )
+        bom_ids = BoM.search([("bom_line_ids.product_id", "in", products.ids)])
+        bom_ids += BoM.search(
+            [("operation_ids.workcenter_id.analytic_product_id", "in", product_ids.ids)]
+        )
+        return bom_ids
+
+    @api.model
+    def _get_products_for_boms(self, boms):
+        """
+        Return Products with BOM impact by given Products
+        """
+        variants = boms.product_id
+
+        template_boms = boms.filtered(lambda x: not x.product_id)
+        templates = template_boms.product_tmpl_id
+        template_variants = templates.product_variant_ids
+        return variants | template_variants
+
+    def _create_cost_details(self, boms):
         cost_detail_obj = self.env["cost.adjustment.detail"]
         cost_line_obj = self.env["cost.adjustment.line"]
         for bom in boms.bom_line_ids:
