@@ -18,7 +18,6 @@ class ProductProduct(models.Model):
         # Check Access Rights for Journal Entry creation.
 
         new_price_round = round(new_price, self.env.company.currency_id.decimal_places)
-
         if not self.env["stock.valuation.layer"].check_access_rights(
             "read", raise_exception=False
         ):
