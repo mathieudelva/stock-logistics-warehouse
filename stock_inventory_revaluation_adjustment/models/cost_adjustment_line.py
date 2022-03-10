@@ -1,8 +1,6 @@
 # Copyright 2021 - Open Source Integrators
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo import api, fields, models
 
 
 class CostAdjustmentLine(models.Model):
@@ -122,43 +120,31 @@ class CostAdjustmentLine(models.Model):
                 self.qty_on_hand = line.product_id.qty_available
 
     def action_refresh_quantity(self):
-        filtered_lines = self.filtered(lambda l: l.state != "posted")
+        filtered_lines = self.filtered(
+            lambda l: l.state != "posted"
+            and l.qty_on_hand != l.product_id.qty_available
+        )
         for line in filtered_lines:
-            if line.qty_on_hand != line.product_id.qty_available:
-                line.qty_on_hand = line.product_id.qty_available
+            line.qty_on_hand = line.product_id.qty_available
 
     def action_get_origin_cost(self):
-        filtered_lines = self.filtered(lambda l: l.state != "posted")
+        filtered_lines = self.filtered(
+            lambda l: l.state != "posted"
+            and l.product_original_cost != l.product_id.standard_price
+        )
         for line in filtered_lines:
-            origin_cost = line.product_id.standard_price
-            if line.product_original_cost != origin_cost:
-                line.product_original_cost = origin_cost
+            line.product_original_cost = line.product_id.standard_price
 
     @api.model
     def create(self, vals):
         res = super().create(vals)
-        res._check_no_duplicate_line()
         res.action_refresh_quantity()
         return res
 
-    def write(self, vals):
-        res = super().write(vals)
-        self._check_no_duplicate_line()
-        return res
-
-    def _check_no_duplicate_line(self):
-        for line in self:
-            domain = [
-                ("id", "!=", line.id),
-                ("product_id", "=", line.product_id.id),
-                ("cost_adjustment_id", "=", line.cost_adjustment_id.id),
-            ]
-            existings = self.search_count(domain)
-            if existings:
-                raise UserError(
-                    _(
-                        "There is already one cost adjustment line for this product, "
-                        "you should rather modify this one instead of creating a "
-                        "new one."
-                    )
-                )
+    _sql_constraints = [
+        (
+            "product_cost_adjustment",
+            "unique (product_id, cost_adjustment_id)",
+            "You cannot have the same product twice in a cost adjustment!",
+        )
+    ]
