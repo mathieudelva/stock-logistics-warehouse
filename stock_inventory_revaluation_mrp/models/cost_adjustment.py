@@ -163,33 +163,32 @@ class CostAdjustment(models.Model):
     def _create_cost_details(self, boms):
         cost_detail_obj = self.env["stock.cost.adjustment.detail"]
         cost_line_obj = self.env["stock.cost.adjustment.line"]
-        for bom in boms.bom_line_ids:
-
+        for line in boms.bom_line_ids:
             if not cost_detail_obj.search(
                 [
-                    ("bom_line_id", "=", bom.id),
+                    ("bom_line_id", "=", line.id),
                     ("cost_adjustment_id", "=", self.id),
-                    ("bom_id", "=", bom.bom_id.id),
-                    ("product_id", "=", bom.product_id.id),
+                    ("bom_id", "=", line.bom_id.id),
+                    ("product_id", "=", line.product_id.id),
                 ]
             ):
                 prod_line = cost_line_obj.search(
                     [
                         ("cost_adjustment_id", "=", self.id),
-                        ("product_id", "=", bom.product_id.id),
+                        ("product_id", "=", line.product_id.id),
                     ]
                 )
 
                 parent_bom = cost_detail_obj.search(
                     [
+                        ("cost_adjustment_id", "=", self.id),
                         "|",
-                        ("bom_id.product_id", "=", bom.product_id.id),
+                        ("bom_id.product_id", "=", line.product_id.id),
                         (
                             "bom_id.product_tmpl_id",
                             "=",
-                            bom.product_id.product_tmpl_id.id,
+                            line.product_id.product_tmpl_id.id,
                         ),
-                        ("cost_adjustment_id", "=", self.id),
                     ]
                 )
                 if parent_bom:
@@ -197,20 +196,20 @@ class CostAdjustment(models.Model):
                 else:
                     future_cost = (
                         prod_line.product_cost
-                        if prod_line.product_id.id == bom.product_id.id
-                        else bom.product_id.standard_price
+                        if prod_line.product_id.id == line.product_id.id
+                        else line.product_id.standard_price
                     )
 
                 cost_detail_obj.create(
                     {
-                        "product_id": bom.product_id.id,
+                        "product_id": line.product_id.id,
                         "cost_adjustment_id": self.id,
-                        "bom_line_id": bom.id,
-                        "bom_id": bom.bom_id.id,
-                        "quantity": bom.product_qty,
+                        "bom_line_id": line.id,
+                        "bom_id": line.bom_id.id,
+                        "quantity": line.product_qty,
                         "product_original_cost": prod_line.product_original_cost
-                        if prod_line.product_id.id == bom.product_id.id
-                        else bom.product_id.standard_price,
+                        if prod_line.product_id.id == line.product_id.id
+                        else line.product_id.standard_price,
                         "product_cost": future_cost,
                     }
                 )
