@@ -15,9 +15,10 @@ class ProcurementGroup(models.Model):
         Forecast = self.env["report.stock.report_product_product_replenishment"]
         new_procurements = []
         for procurement in procurements:
+            warehouse = procurement.values["warehouse_id"]
+            ForecastWH = Forecast.with_context(warehouse=warehouse.id)
             product = procurement.product_id
-            # TODO: set warehouse_id in context?
-            data = Forecast._get_report_data(product_variant_ids=[product.id])
+            data = ForecastWH._get_report_data(product_variant_ids=[product.id])
             source_docs = set()  # Avoid duplicate sources
             for line in data["lines"]:
                 if not line["document_in"] and line["document_out"]:
