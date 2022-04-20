@@ -18,6 +18,6 @@
         "views/stock_location_content_check_line.xml",
         "views/stock_location_content_check.xml",
         "views/stock_location.xml",
-        "views/stock_location_content_report.xml",
+        "report/stock_location_content_report.xml",
     ],
 }

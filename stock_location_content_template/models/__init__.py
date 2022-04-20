@@ -6,4 +6,3 @@ from . import stock_location
 from . import stock_location_content_check_line
 from . import stock_location_content_check
 from . import stock_picking
-from . import stock_location_content_report

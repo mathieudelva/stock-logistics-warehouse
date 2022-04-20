@@ -69,15 +69,11 @@ class LocationContentReport(models.TransientModel):
             location_id = self.location_id.location_id.id
             location_dest_id = self.location_id.id
             product_qty = self.difference
-            if product_qty > self.parent_location_stock:
-                raise UserError(_("Not enough stock available in parent location."))
         if self.difference < 0.0:
             location_id = self.location_id.id
             location_dest_id = self.location_id.location_id.id
             product_qty = abs(self.difference)
-            if product_qty > self.current_qty:
-                raise UserError(_("Not enough stock available in current location."))
-        picking_id = picking_obj.create(
+        picking_obj.create(
             {
                 "picking_type_id": pick_type_id.id,
                 "location_id": location_id,
@@ -99,9 +95,3 @@ class LocationContentReport(models.TransientModel):
                 ],
             }
         )
-        picking_id.action_confirm()
-        picking_id.action_assign()
-        for movel in picking_id.move_lines:
-            movel.quantity_done = movel.product_uom_qty
-        picking_id.button_validate()
-        self.done_transfer = True
