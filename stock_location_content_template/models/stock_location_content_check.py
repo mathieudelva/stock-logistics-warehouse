@@ -56,22 +56,16 @@ class StocklocationContentCheck(models.Model):
 
     def _create_out_pick(self):
         picking_obj = self.env["stock.picking"]
-        pick_type_id = self.env["stock.picking.type"].search(
-            [
-                ("code", "=", "outgoing"),
-                ("company_id", "=", self.company_id.id),
-                ("warehouse_id.company_id", "=", self.company_id.id),
-            ],
-            limit=1,
-        )
         location_id = self.location_id
         location_dest_id = self.env["stock.location"].search(
             [("usage", "=", "customer")], limit=1
         )
+        wh_id = location_id.get_warehouse()
+        pick_type_id = wh_id.out_type_id
         for rec in self:
             move_lines = []
             for line in rec.line_ids:
-                if line.current_qty > (line.current_qty - line.counted_qty) > 0:
+                if line.current_qty >= (line.current_qty - line.counted_qty) > 0:
                     move_lines.append(
                         (
                             0,
@@ -100,50 +94,71 @@ class StocklocationContentCheck(models.Model):
 
     def _create_internal_pick(self):
         picking_obj = self.env["stock.picking"]
-        pick_type_id = self.env["stock.picking.type"].search(
-            [
-                ("code", "=", "internal"),
-                ("company_id", "=", self.company_id.id),
-                ("warehouse_id.company_id", "=", self.company_id.id),
-            ],
-            limit=1,
-        )
         for rec in self:
-            move_lines = []
+            move_lines_self_parent = []
+            move_lines_parent_self = []
             if rec.location_id.location_id.usage == "view":
                 raise UserError(_("You can't use view type location in transfer."))
+            wh_id = rec.location_id.get_warehouse()
+            pick_type_id = wh_id.int_type_id
             for line in rec.line_ids:
                 if not line.replenished_qty == 0.0:
                     if line.replenished_qty > 0.0:
-                        location_id = rec.location_id.location_id.id
-                        location_dest_id = rec.location_id.id
-                        product_qty = line.replenished_qty
-                    if line.replenished_qty < 0.0:
-                        location_id = rec.location_id.id
-                        location_dest_id = rec.location_id.location_id.id
-                        product_qty = abs(line.replenished_qty)
-                    move_lines.append(
-                        (
-                            0,
-                            0,
-                            {
-                                "name": line.product_id.name,
-                                "product_id": line.product_id.id,
-                                "product_uom": line.product_id.uom_id.id,
-                                "product_uom_qty": product_qty,
-                                "picking_type_id": pick_type_id.id,
-                                "location_id": location_id,
-                                "location_dest_id": location_dest_id,
-                            },
+                        location_id_ps = rec.location_id.location_id.id
+                        location_dest_id_ps = rec.location_id.id
+                        product_qty_ps = line.replenished_qty
+                        move_lines_parent_self.append(
+                            (
+                                0,
+                                0,
+                                {
+                                    "name": line.product_id.name,
+                                    "product_id": line.product_id.id,
+                                    "product_uom": line.product_id.uom_id.id,
+                                    "product_uom_qty": product_qty_ps,
+                                    "picking_type_id": pick_type_id.id,
+                                    "location_id": location_id_ps,
+                                    "location_dest_id": location_dest_id_ps,
+                                },
+                            )
                         )
-                    )
-            if move_lines:
+                    if line.replenished_qty < 0.0:
+                        location_id_sp = rec.location_id.id
+                        location_dest_id_sp = rec.location_id.location_id.id
+                        product_qty_sp = abs(line.replenished_qty)
+                        move_lines_self_parent.append(
+                            (
+                                0,
+                                0,
+                                {
+                                    "name": line.product_id.name,
+                                    "product_id": line.product_id.id,
+                                    "product_uom": line.product_id.uom_id.id,
+                                    "product_uom_qty": product_qty_sp,
+                                    "picking_type_id": pick_type_id.id,
+                                    "location_id": location_id_sp,
+                                    "location_dest_id": location_dest_id_sp,
+                                },
+                            )
+                        )
+
+            if move_lines_parent_self:
                 picking_obj.create(
                     {
                         "picking_type_id": pick_type_id.id,
-                        "location_id": location_id,
-                        "location_dest_id": location_dest_id,
-                        "move_lines": move_lines,
+                        "location_id": location_id_ps,
+                        "location_dest_id": location_dest_id_ps,
+                        "move_lines": move_lines_parent_self,
+                        "check_id": rec.id,
+                    }
+                )
+            if move_lines_self_parent:
+                picking_obj.create(
+                    {
+                        "picking_type_id": pick_type_id.id,
+                        "location_id": location_id_sp,
+                        "location_dest_id": location_dest_id_sp,
+                        "move_lines": move_lines_self_parent,
                         "check_id": rec.id,
                     }
                 )
@@ -198,6 +213,7 @@ class StocklocationContentCheck(models.Model):
                 )
             rec.write({"line_ids": [(6, 0, [])]})
             rec.write({"line_ids": check_lines})
+            rec.line_ids._onchange_replenished_qty()
 
     def action_view_delivery_order(self):
         self.ensure_one()

@@ -14,6 +14,7 @@ class LocationContentReport(models.TransientModel):
     difference = fields.Float(string="Difference")
     done_transfer = fields.Boolean(default=False)
     parent_location_stock = fields.Float(string="Parent Stock")
+    picking_id = fields.Many2one("stock.picking", string="Transfer Reference")
 
     def _get_stock_location_content_reprot_data(self):
         existing_data = self.search([])
@@ -57,13 +58,8 @@ class LocationContentReport(models.TransientModel):
             raise UserError(_("You can't use view type location in transfer."))
 
         picking_obj = self.env["stock.picking"]
-        pick_type_id = self.env["stock.picking.type"].search(
-            [
-                ("code", "=", "internal"),
-                ("warehouse_id.company_id", "=", self.env.user.company_id.id),
-            ],
-            limit=1,
-        )
+        wh_id = self.location_id.get_warehouse()
+        pick_type_id = wh_id.int_type_id
 
         if self.difference > 0.0:
             location_id = self.location_id.location_id.id
@@ -73,25 +69,51 @@ class LocationContentReport(models.TransientModel):
             location_id = self.location_id.id
             location_dest_id = self.location_id.location_id.id
             product_qty = abs(self.difference)
-        picking_obj.create(
-            {
-                "picking_type_id": pick_type_id.id,
-                "location_id": location_id,
-                "location_dest_id": location_dest_id,
-                "move_lines": [
-                    (
-                        0,
-                        0,
-                        {
-                            "name": self.product_id.name,
-                            "product_id": self.product_id.id,
-                            "product_uom": self.product_id.uom_id.id,
-                            "product_uom_qty": product_qty,
-                            "picking_type_id": pick_type_id.id,
-                            "location_id": location_id,
-                            "location_dest_id": location_dest_id,
-                        },
-                    )
-                ],
-            }
+        picking_id = picking_obj.search(
+            [
+                ("picking_type_id", "=", pick_type_id.id),
+                ("location_id", "=", location_id),
+                ("location_dest_id", "=", location_dest_id),
+                ("state", "=", "draft"),
+            ],
+            limit=1,
         )
+        move_lines = [
+            (
+                0,
+                0,
+                {
+                    "name": self.product_id.name,
+                    "product_id": self.product_id.id,
+                    "product_uom": self.product_id.uom_id.id,
+                    "product_uom_qty": product_qty,
+                    "picking_type_id": pick_type_id.id,
+                    "location_id": location_id,
+                    "location_dest_id": location_dest_id,
+                },
+            )
+        ]
+        if not picking_id:
+            picking_id = picking_obj.create(
+                {
+                    "picking_type_id": pick_type_id.id,
+                    "location_id": location_id,
+                    "location_dest_id": location_dest_id,
+                    "move_lines": move_lines,
+                }
+            )
+        else:
+            picking_id.write({"move_lines": move_lines})
+        self.done_transfer = True
+        self.picking_id = picking_id.id
+
+    def open_internal_transfer(self):
+        return {
+            "name": _("Internal Transfer"),
+            "res_model": "stock.picking",
+            "type": "ir.actions.act_window",
+            "view_mode": "tree,form",
+            "domain": [
+                ("id", "=", self.picking_id.id),
+            ],
+        }

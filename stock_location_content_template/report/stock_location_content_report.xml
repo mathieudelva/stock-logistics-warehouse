@@ -17,6 +17,18 @@
                     icon="fa-refresh"
                     type="object"
                 />
+                <field
+                    name="picking_id"
+                    attrs="{'invisible': ['|',('difference','=',0.0),('done_transfer','!=',True)]}"
+                />
+                <button
+                    name="open_internal_transfer"
+                    type="object"
+                    class="oe_highlight"
+                    string="Open Picking"
+                    attrs="{'invisible': [('done_transfer','!=',True)]}"
+                />
+
             </tree>
         </field>
     </record>
