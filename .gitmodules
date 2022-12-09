@@ -1,0 +1,6 @@
+[submodule "base/odoo"]
+	path = base/odoo
+	url = git@github.com:burroaktoolinc/odoo.git
+[submodule "base/enterprise"]
+	path = base/enterprise
+	url = git@github.com:burroaktoolinc/enterprise.git
