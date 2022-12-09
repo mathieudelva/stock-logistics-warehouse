@@ -7,3 +7,6 @@
 [submodule "oca/web"]
 	path = oca/web
 	url = git@github.com:burroaktoolinc/web.git
+[submodule "oca/queue"]
+	path = oca/queue
+	url = git@github.com:burroaktoolinc/queue.git
