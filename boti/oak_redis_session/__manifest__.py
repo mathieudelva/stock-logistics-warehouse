@@ -16,7 +16,8 @@
     'version': '0.1',
     'depends': ['base'],
     'data': [],
-    'license': 'MIT',
+    'license': 'OPL-1',
+    'installable': 'false',
     
     'external_dependencies': {
        'python': ['redis'],
