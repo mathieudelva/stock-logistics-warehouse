@@ -142,9 +142,9 @@ class CostAdjustment(models.Model):
                     self.name,
                 )
             )
-        self._check_negative()
-        self._remove_unchanged_lines()
-        for line in self.line_ids:
+        self.with_company(self.company_id)._check_negative()
+        self.with_company(self.company_id)._remove_unchanged_lines()
+        for line in self.with_company(self.company_id).line_ids:
             line.product_id.standard_price = line.product_cost
             line.product_id.proposed_cost = 0.0
         self.write({"state": "posted", "date": fields.Datetime.now()})
@@ -171,7 +171,7 @@ class CostAdjustment(models.Model):
 
     def _action_start(self):
         # To use Job Queue, post this method to the Queue
-        todo = self.filtered(
+        todo = self.with_company(self.company_id).filtered(
             lambda x: x.product_ids and x.state in ["draft", "computing", "confirm"]
         )
         for adjustment in todo:
