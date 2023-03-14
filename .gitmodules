@@ -25,3 +25,6 @@
 [submodule "oca/server-backend"]
 	path = oca/server-backend
 	url = git@github.com:burroaktoolinc/server-backend.git
+[submodule "oca/purchase-workflow"]
+	path = oca/purchase-workflow
+	url = git@github.com:burroaktoolinc/purchase-workflow.git
