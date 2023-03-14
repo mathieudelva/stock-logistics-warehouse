@@ -13,3 +13,6 @@
 [submodule "oca/website"]
 	path = oca/website
 	url = git@github.com:burroaktoolinc/website.git
+[submodule "oca/account-analytic"]
+	path = oca/account-analytic
+	url = git@github.com:burroaktoolinc/account-analytic.git
