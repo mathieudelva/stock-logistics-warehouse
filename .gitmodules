@@ -16,3 +16,6 @@
 [submodule "oca/account-analytic"]
 	path = oca/account-analytic
 	url = git@github.com:burroaktoolinc/account-analytic.git
+[submodule "oca/server-tools"]
+	path = oca/server-tools
+	url = git@github.com:burroaktoolinc/server-tools.git

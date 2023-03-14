@@ -4,8 +4,8 @@ Module Name | Repo Name | Type | Usage
 --- | --- | --- | ---
 oak_boti_ui | local | BOTI | UI Alterations for BOTI
 oak_redis_session | local | BOTI | Redis for session storage
-base_revision| server-ux | OCA | Dependency for revision modules
-base_tier_validation| server-ux | OCA |
+base_revision| server-ux | OCA | Dependency for sale_order_revision
+base_tier_validation| server-ux | OCA | Dependency for all tier validation modules
 date_range| server-ux | OCA |
 queue_job | queue | OCA | A worker queue for long running tasks that are NOT cron jobs
 web_environment_ribbon | web | OCA | marker for dev/test/qa environments, not used in production
@@ -20,6 +20,7 @@ analytic_activity_based_cost| account-analytic | OCA | https://github.com/OCA/ac
 mrp_analytic | account-analytic | OCA | https://github.com/OCA/account-analytic/pull/494
 mrp_analytic_child_mo | account-analytic | OCA | NOT STARTED
 mrp_analytic_sale_project| account-analytic | OCA | NOT STARTED
+fetchmail_notify_error_to_sender | server-tools | OCA | NOT STARTED
 base_import_security_group | server-ux | OCA | NOT STARTED
 web_company_color | web | OCA | https://github.com/OCA/web/pull/2449
 
