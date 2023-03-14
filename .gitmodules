@@ -19,3 +19,6 @@
 [submodule "oca/server-tools"]
 	path = oca/server-tools
 	url = git@github.com:burroaktoolinc/server-tools.git
+[submodule "oca/server-ux"]
+	path = oca/server-ux
+	url = git@github.com:burroaktoolinc/server-ux.git
