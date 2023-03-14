@@ -4,9 +4,12 @@
 [submodule "base/enterprise"]
 	path = base/enterprise
 	url = git@github.com:burroaktoolinc/enterprise.git
-[submodule "oca/web"]
-	path = oca/web
-	url = git@github.com:burroaktoolinc/web.git
 [submodule "oca/queue"]
 	path = oca/queue
 	url = git@github.com:burroaktoolinc/queue.git
+[submodule "oca/web"]
+	path = oca/web
+	url = git@github.com:burroaktoolinc/web.git
+[submodule "oca/website"]
+	path = oca/website
+	url = git@github.com:burroaktoolinc/website.git
