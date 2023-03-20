@@ -1,0 +1,30 @@
+[submodule "base/odoo"]
+	path = base/odoo
+	url = git@github.com:ursais/odoo.git
+[submodule "base/enterprise"]
+	path = base/enterprise
+	url = git@github.com:ursais/enterprise.git
+[submodule "oca/queue"]
+	path = oca/queue
+	url = git@github.com:ursais/queue.git
+[submodule "oca/web"]
+	path = oca/web
+	url = git@github.com:ursais/web.git
+[submodule "oca/website"]
+	path = oca/website
+	url = git@github.com:ursais/website.git
+[submodule "oca/account-analytic"]
+	path = oca/account-analytic
+	url = git@github.com:ursais/account-analytic.git
+[submodule "oca/server-tools"]
+	path = oca/server-tools
+	url = git@github.com:ursais/server-tools.git
+[submodule "oca/server-ux"]
+	path = oca/server-ux
+	url = git@github.com:ursais/server-ux.git
+[submodule "oca/server-backend"]
+	path = oca/server-backend
+	url = git@github.com:ursais/server-backend.git
+[submodule "oca/purchase-workflow"]
+	path = oca/purchase-workflow
+	url = git@github.com:ursais/purchase-workflow.git

@@ -1,0 +1,87 @@
+# To install: pip3 install git-aggregator
+# To rebuild submodules: gitaggregate -c repos.yml -p
+# Branches used:
+#   oca:    the upstream community code
+#   osi:    the code proposed by OSI to the OCA, in review process
+#   bot:    the release candidate ready code, consolidating the several open PRs
+
+./src/account-analytic:
+    remotes:
+        oca: https://github.com/OCA/account-analytic.git
+        bot: git+ssh://git@github.com/burroaktoolinc/account-analytic.git
+        osi: git+ssh://git@github.com/ursais/account-analytic.git
+    merges:
+        - oca 16.0
+    target: &default_target osi bot/16.0
+
+# ./src/manufacture:
+#     remotes:
+#         oca: https://github.com/OCA/manufacture.git
+#         bot: git+ssh://git@github.com/burroaktoolinc/manufacture.git
+#         osi: git+ssh://git@github.com/ursais/manufacture.git
+#     merges:
+#         - oca 16.0
+#     target: *default_target
+
+./src/purchase-workflow:
+    remotes:
+        oca: https://github.com/OCA/purchase-workflow.git
+        bot: git+ssh://git@github.com/burroaktoolinc/purchase-workflow.git
+        osi: git+ssh://git@github.com/ursais/purchase-workflow.git
+    merges:
+        - oca 16.0
+    target: *default_target
+
+./src/queue:
+    remotes:
+        oca: https://github.com/OCA/queue.git
+        bot: git+ssh://git@github.com/burroaktoolinc/queue.git
+        osi: git+ssh://git@github.com/ursais/queue.git
+    merges:
+        - oca 16.0
+    target: *default_target
+
+./src/server-backend:
+    remotes:
+        oca: https://github.com/OCA/server-backend.git
+        bot: git+ssh://git@github.com/burroaktoolinc/server-backend.git
+        osi: git+ssh://git@github.com/ursais/server-backend.git
+    merges:
+        - oca 16.0
+    target: *default_target
+
+./src/server-tools:
+    remotes:
+        oca: https://github.com/OCA/server-tools.git
+        bot: git+ssh://git@github.com/burroaktoolinc/server-tools.git
+        osi: git+ssh://git@github.com/ursais/server-tools.git
+    merges:
+        - oca 16.0
+    target: *default_target
+
+./src/server-ux:
+    remotes:
+        oca: https://github.com/OCA/server-ux.git
+        bot: git+ssh://git@github.com/burroaktoolinc/server-ux.git
+        osi: git+ssh://git@github.com/ursais/server-ux.git
+    merges:
+        - oca 16.0
+    target: *default_target
+
+./src/web:
+    remotes:
+        oca: https://github.com/OCA/web.git
+        bot: git+ssh://git@github.com/burroaktoolinc/web.git
+        osi: git+ssh://git@github.com/ursais/web.git
+    merges:
+        - oca 16.0
+    target: *default_target
+
+./src/website:
+    remotes:
+        oca: https://github.com/OCA/website.git
+        bot: git+ssh://git@github.com/burroaktoolinc/website.git
+        osi: git+ssh://git@github.com/ursais/website.git
+    merges:
+        - oca 16.0
+    target: *default_target
