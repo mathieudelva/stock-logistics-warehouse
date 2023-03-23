@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- product family view -->
+    <record id="product_family_category_form_view" model="ir.ui.view">
+        <field name="name">product.family.category.form</field>
+        <field name="model">product.family.category</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form string="Sales Machine Type Category">
+                <sheet>
+                    <group name="group_general">
+                        <field name="name" />
+                        <field name="description" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_family_category_tree_view" model="ir.ui.view">
+        <field name="name">product.family_category.tree.view</field>
+        <field name="model">product.family.category</field>
+        <field name="arch" type="xml">
+            <tree name="Sales Machine Type Categories">
+                <field name="name" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_family_category_search_view" model="ir.ui.view">
+        <field name="name">product.family.category.search</field>
+        <field name="model">product.family.category</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <search string="Machine Type Category">
+                <field
+                    name="name"
+                    string="Category"
+                    filter_domain="[('name', 'ilike', self)]"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record id="action_product_family_category" model="ir.actions.act_window">
+        <field name="name">Machine Type Categories</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.family.category</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="product_family_category_tree_view" />
+        <field name="search_view_id" ref="product_family_category_search_view" />
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="product_family_category_menu"
+        name="Machine Type Categories"
+        parent="crm.crm_menu_config"
+        action="action_product_family_category"
+        sequence="12"
+        groups="sales_team.group_sale_manager"
+        active="True"
+    />
+
+</odoo>

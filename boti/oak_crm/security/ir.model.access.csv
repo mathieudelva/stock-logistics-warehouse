@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_family,product.family,model_product_family,oak_sale.group_sale_read_only,1,0,0,0
+access_product_family_admin,product.family,model_product_family,sales_team.group_sale_manager,1,1,1,1
+access_product_family_category,product_family_category,model_product_family_category,oak_sale.group_sale_read_only,1,0,0,0
+access_product_family_category_admin,product_family_category_admin,model_product_family_category,sales_team.group_sale_manager,1,1,1,1
