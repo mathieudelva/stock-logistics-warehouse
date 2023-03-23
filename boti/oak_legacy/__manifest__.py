@@ -1,10 +1,10 @@
 {
     "name": "OAK Legacy Data",
-    "version": "17.0.1.0.0",
-    "category": "BOTI",
+    "version": "16.0.1.0.0",
+    "category": "Manufacturing",
     "author": "Burr Oak Tool Inc.",
     "website": "https://www.burroak.com",
-    "license": "AGPL-3",
+    "license": "Other proprietary",
     "summary": "Product OAK Legacy Data",
     "maintainers": ["emsmith", "leichorn", "rlopez", "BOTI"],
     "depends": ["oak_product"],

@@ -5,10 +5,11 @@
     "description": """
         Use redis instead of files for sessions
     """,
-    "author": "Elizabeth M Smith",
+    "author": "Burr Oak Tool Inc.",
+    "maintainers": ["emsmith"],
     "website": "http://burroak.com",
     "category": "Technical",
-    "version": "0.1",
+    "version": "16.0.1.0.0",
     "depends": ["base"],
     "data": [],
     "license": "OPL-1",

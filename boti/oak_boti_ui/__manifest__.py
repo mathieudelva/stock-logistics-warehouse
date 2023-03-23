@@ -8,13 +8,13 @@
         1. Removed Documention, Support, and My Odoo.com account links from the user menu
         2.
     """,
-    "author": "Elizabeth M Smith",
+    "author": "Burr Oak Tool Inc.",
     "website": "http://burroak.com",
     "category": "Technical",
-    "version": "0.1",
+    "version": "16.0.1.0.0",
     "depends": ["base"],
     "data": [],
-    "license": "OPL-1",
+    "license": "Other proprietary",
     "assets": {
         "web.assets_backend": ["oak_boti_ui/static/src/js/user_menu_items.esm.js"],
     },

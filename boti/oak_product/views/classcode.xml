@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- material form view -->
+    <record id="product_class_form_view" model="ir.ui.view">
+        <field name="name">product.class.form</field>
+        <field name="model">product.class</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form string="Engineer Class">
+                <sheet>
+                    <group name="group_general">
+                        <field name="name" />
+                    </group>
+                    <group string="Enginneer Class Code Description">
+                        <field
+                            name="description"
+                            nolabel="1"
+                            placeholder="Class Code Grouping Notes."
+                        />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_class_tree_view" model="ir.ui.view">
+        <field name="name">product.class.tree.view</field>
+        <field name="model">product.class</field>
+        <field name="arch" type="xml">
+            <tree name="Engineer Class Codes">
+                <field name="name" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_class_search_view" model="ir.ui.view">
+        <field name="name">product.class.search</field>
+        <field name="model">product.class</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <search string="Class">
+                <field
+                    name="name"
+                    string="Name"
+                    filter_domain="[('name', 'ilike', self)]"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record id="action_product_class" model="ir.actions.act_window">
+        <field name="name">Classes</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.class</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="product_class_tree_view" />
+        <field name="search_view_id" ref="product_class_search_view" />
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="product_class_menu"
+        name="Class Codes"
+        parent="sale.prod_config_main"
+        action="action_product_class"
+        sequence="9"
+        groups="product_boti_group_admin"
+        active="True"
+    />
+
+</odoo>

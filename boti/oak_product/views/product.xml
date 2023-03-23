@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Draft product create form-->
+   <!-- base common with product.template and product.product -->
+    <record id="product_template_form_oak_view" model="ir.ui.view">
+        <field name="name">product.template.oak.form</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <form string="Create Draft Product">
+                <header>
+                    <field
+                        name="product_state_id"
+                        widget="statusbar"
+                        options="{'clickable': '1'}"
+                    />
+                    <field name="state" invisible="1" />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label
+                            class="oe_edit_only"
+                            for="name"
+                            string="Product Description"
+                        />
+                        <h2><field name="name" placeholder="Product Name" /></h2>
+                    </div>
+                    <notebook>
+                        <page string="Engineer" name="engineer">
+                            <group>
+                                <group name="group_general">
+                                    <field name="id" invisible="True" />
+                                    <field name="type" />
+                                    <field
+                                        name="default_code"
+                                        string="Product Number"
+                                    />
+                                    <field name="detail_number_id" />
+                                    <field name="generic_name_id" />
+                                </group>
+                                <group name="settings">
+                                    <field
+                                        name="uom_id"
+                                        groups="uom.group_uom"
+                                        options="{'no_create': True}"
+                                    />
+                                    <field
+                                        name="uom_po_id"
+                                        groups="uom.group_uom"
+                                        options="{'no_create': True}"
+                                    />
+                                    <field
+                                        name="material_id"
+                                        options="{'no_create': True}"
+                                    />
+                                    <field
+                                        name="class_id"
+                                        options="{'no_create': True}"
+                                    />
+                                </group>
+                                <group>
+                                    <separator string="Candidate Options" />
+                                    <field name="can_edit_candidate" invisible="True" />
+                                    <field name="candidate_sale" />
+                                    <field name="candidate_bom" />
+                                </group>
+                                <group name="sys_info">
+                                    <field
+                                        name="create_date"
+                                        string="Create Date"
+                                        readonly="1"
+                                    />
+                                    <field
+                                        name="write_date"
+                                        string="Modified Date"
+                                        readonly="1"
+                                    />
+                                </group>
+                            </group>
+                            <group string="Engineer Notes">
+                                <field
+                                    name="eng_note"
+                                    nolabel="1"
+                                    placeholder="This note is only for internal purposes."
+                                />
+                            </group>
+                            <group string="Internal Notes">
+                                <field
+                                    name="description"
+                                    nolabel="1"
+                                    placeholder="This note is only for internal purposes."
+                                />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!--inherit and add fields to product-->
+
+    <!-- Product (product.template) and variant (product.product) common-->
+    <record id="product_template_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.template.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/notebook/page[2]" position="before">
+                <page string="Engineer" name="engineer">
+                    <group>
+                        <group name="group_general">
+                            <field name="detail_number_id" />
+                            <field name="generic_name_id" />
+                        </group>
+                        <group name="settings">
+                            <field name="material_id" options="{'no_create': True}" />
+                            <field name="class_id" options="{'no_create': True}" />
+                        </group>
+                        <group name="sys_info">
+                            <field
+                                name="create_date"
+                                string="Create Date"
+                                readonly="1"
+                            />
+                            <field name="create_uid" string="Created By" readonly="1" />
+                            <field
+                                name="write_date"
+                                string="Modified Date"
+                                readonly="1"
+                            />
+                            <field name="write_uid" string="Modified By" readonly="1" />
+                        </group>
+                    </group>
+                    <group string="Engineer Notes">
+                        <field
+                            name="eng_note"
+                            nolabel="1"
+                            placeholder="This note is only for internal purposes."
+                        />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Product template only for "Internal Reference" label override -->
+    <record id="product_template_only_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.template.oak.inherit</field>
+        <field name="model">product.template</field>
+        <field name="priority">100</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+            <field name="default_code" position="attributes">
+                <attribute name="string">Product Number</attribute>
+            </field>
+        </field>
+    </record>
+
+    <!-- Product variant only for "Internal Reference" label override -->
+    <record id="product_normal_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.product.oak.inherit</field>
+        <field name="model">product.product</field>
+        <field name="priority">100</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <field name="default_code" position="attributes">
+                <attribute name="string">Product Number</attribute>
+            </field>
+        </field>
+    </record>
+
+    <!-- Product template "Variants" button easy edit "Internal Reference" label override -->
+    <record id="product_variant_easy_edit_view_inh" model="ir.ui.view">
+        <field name="name">product.product.view.form.easy.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view" />
+        <field name="arch" type="xml">
+            <field name="default_code" position="attributes">
+                <attribute name="string">Product Number</attribute>
+                <attribute name="readonly">1</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="product_product_tree_view_inherit" model="ir.ui.view">
+        <field name="name">product.product.tree.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view" />
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="default_order">id desc</attribute>
+            </tree>
+            <field name="default_code" position="attributes">
+                <attribute name="string">Product Number</attribute>
+            </field>
+            <field name="default_code" position="after">
+                <field name="detail_number_id" />
+                <field name="generic_name_id" />
+            </field>
+            <field name="name" position="after">
+                <field name="class_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="product_template_tree_view" model="ir.ui.view">
+        <field name="name">product.template.product.tree.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view" />
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="default_order">id desc</attribute>
+            </tree>
+            <field name="default_code" position="attributes">
+                <attribute name="string">Product Number</attribute>
+            </field>
+            <field name="default_code" position="after">
+                <field name="detail_number_id" />
+                <field name="generic_name_id" />
+            </field>
+            <field name="name" position="after">
+                <field name="class_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="product_template_tree_state_view" model="ir.ui.view">
+        <field name="name">product.template.product.tree.state.inherit</field>
+        <field name="model">product.template</field>
+        <field name="priority">100</field>
+        <field
+            name="inherit_id"
+            ref="product_state.product_template_view_tree_inherit_product_state_id"
+        />
+        <field name="arch" type="xml">
+            <field name="state" position="replace">
+                <field name="product_state_id" />
+            </field>
+        </field>
+    </record>
+
+    <!-- Product variant search list selection -->
+    <record id="oak_product_product_search_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.product.search.inherit</field>
+        <field name="model">product.product</field>
+        <field name="priority">100</field>
+        <field name="inherit_id" ref="product.product_search_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="default_code" string="Product Number" />
+            </xpath>
+             <xpath expr="//field[@name='product_tmpl_id']" position="replace">
+                <field
+                    name="product_tmpl_id"
+                    string="Product Template"
+                    filter_domain="[('product_tmpl_id.name', 'ilike', self)]"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mrp.template_open_bom" model="ir.actions.act_window">
+            <field name="context">{'default_product_tmpl_id': active_id}</field>
+            <field name="name">Bill of Materials</field>
+            <field name="res_model">mrp.bom</field>
+            <field name="domain">[('product_tmpl_id', '=', active_id)]</field>
+    </record>
+
+</odoo>

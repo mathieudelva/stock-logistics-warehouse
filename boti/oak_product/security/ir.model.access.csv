@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_class,product.class,model_product_class,product_boti_group_user,1,1,1,0
+access_product_class_admin,product.class,model_product_class,product_boti_group_admin,1,1,1,1
+access_product_material,product.material,model_product_material,product_boti_group_user,1,1,1,0
+access_product_material_admin,product.material,model_product_material,product_boti_group_admin,1,1,1,1
+access_product_detail_number,product.detail.number,model_product_detail_number,product_boti_group_user,1,1,1,0
+access_product_detail_number_admin,product.detail.number.admin,model_product_detail_number,product_boti_group_admin,1,1,1,1
+access_product_generic_name,product.generic.name,model_product_generic_name,product_boti_group_user,1,1,1,0
+access_product_generic_name_admin,product.generic.name.admin,model_product_generic_name,product_boti_group_admin,1,1,1,1
