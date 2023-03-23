@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_mrp_planning_engine_single_run_wizard" model="ir.ui.view">
+        <field name="name">MRP Planning Engine Single Run</field>
+        <field name="model">mrp.planning.engine.single.run</field>
+        <field name="arch" type="xml">
+            <form string="MRP Planning Engine Single Run">
+                <group>
+                    <group>
+                        <field
+                            name="mrp_parameter_id"
+                            options="{'no_open':True,'no_create':True}"
+                            required="1"
+                        />
+                    </group>
+                </group>
+                <footer>
+                    <button
+                        name="action_planning_engine_single_run"
+                        string="MRP Planning Engine Single Run"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button string="CLOSE" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mrp_planning_engine_single_run" model="ir.actions.act_window">
+        <field name="name">MRP Planning Engine Single Run</field>
+        <field name="res_model">mrp.planning.engine.single.run</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_mrp_planning_engine_single_run_wizard" />
+        <field name="target">new</field>
+    </record>
+</odoo>

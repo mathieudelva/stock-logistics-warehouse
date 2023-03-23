@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mrp_production_workorder_tree_editable_view" model="ir.ui.view">
+        <field name="name">mrp.production.workorder.tree</field>
+        <field name="model">mrp.workorder</field>
+        <field
+            name="inherit_id"
+            ref="mrp_shop_floor_control.mrp_production_workorder_tree_editable_view"
+        />
+        <field name="arch" type="xml">
+            <field name="duration_expected" position="before">
+                <field name="queue_time_before" optional="show" />
+            </field>
+            <field name="date_planned_start_wo" position="after">
+                <field name="qtb_date_planned_start_wo" optional="show" />
+            </field>
+            <field name="date_planned_start_wo" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="mrp_production_workorder_form_view_inherit" model="ir.ui.view">
+        <field name="name">mrp.production.workorder.form.view</field>
+        <field name="model">mrp.workorder</field>
+        <field
+            name="inherit_id"
+            ref="mrp_shop_floor_control.mrp_production_workorder_form_view_inherit"
+        />
+        <field name="arch" type="xml">
+            <page name="dates" position="replace">
+                <page string="Dates">
+                    <group>
+                        <group>
+                            <label
+                                for="qtb_date_planned_start_wo"
+                                string="Scheduled Dates"
+                            />
+                            <div class="o_row">
+                                <field name="qtb_date_planned_start_wo" readonly="1" />
+                                <field name="date_planned_finished_wo" readonly="1" />
+                            </div>
+                            <label
+                                for="date_start"
+                                string="Actual Dates"
+                                groups="mrp_shop_floor_control.group_mrp_confirmation"
+                            />
+                            <div class="o_row">
+                                <field
+                                    name="date_start"
+                                    readonly="1"
+                                    groups="mrp_shop_floor_control.group_mrp_confirmation"
+                                />
+                                <field
+                                    name="date_finished"
+                                    readonly="1"
+                                    groups="mrp_shop_floor_control.group_mrp_confirmation"
+                                />
+                            </div>
+                            <label
+                                for="date_actual_start_wo"
+                                string="Actual Scheduled Dates"
+                            />
+                            <div class="o_row">
+                                <field name="date_actual_start_wo" readonly="1" />
+                                <field name="date_actual_finished_wo" readonly="1" />
+                            </div>
+                        </group>
+                        <group>
+                            <label for="duration_expected" />
+                            <div class="o_row">
+                                <field
+                                    name="duration_expected"
+                                    widget="float_time"
+                                    readonly="1"
+                                />
+                                <span>minutes</span>
+                            </div>
+                            <label for="queue_time_before" />
+                            <div class="o_row">
+                                <field name="queue_time_before" widget="float_time" />
+                                <span>minutes</span>
+                            </div>
+                            <label for="overall_duration" />
+                            <div class="o_row">
+                                <field
+                                    name="overall_duration"
+                                    widget="float_time"
+                                    readonly="1"
+                                />
+                                <span>minutes</span>
+                            </div>
+                        </group>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>

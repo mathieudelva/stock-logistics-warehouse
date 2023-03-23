@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mrp_availability_check_view_form" model="ir.ui.view">
+        <field name="name">mrp.availability.check.form</field>
+        <field name="model">mrp.planning.engine.availability.check</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field
+                            name="product_id"
+                            domain="[('bom_ids','!=',False),('bom_ids.type','!=','phantom')]"
+                        />
+                        <field name="product_tmpl_id" invisible="1" />
+                        <field
+                            name="bom_id"
+                            domain="['|',
+                                        ('product_id','=', product_id),
+                                        '&amp;', ('product_tmpl_id.product_variant_ids','=', product_id), ('product_id','=', False),
+                                    ('type', 'in', ('normal', 'subcontract')),
+                                    '|',
+                                        ('picking_type_id','=', False),
+                                        ('picking_type_id.warehouse_id','=', warehouse_id)]"
+                        />
+                        <field name="warehouse_id" />
+                    </group>
+                    <group>
+                        <!-- <label for="requested_qty" string="Quantity"/>
+                        <div class="o_row">
+                            <field name="requested_qty"/><field name="product_uom_id"/>
+                        </div> -->
+                    </group>
+                </group>
+                <footer>
+                    <button
+                        name="do_bom_explosion"
+                        type="object"
+                        string="SCM Visibility"
+                        class="oe_highlight"
+                    />
+                    <button special="cancel" string="Cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="mrp_availability_check_view_form2" model="ir.ui.view">
+        <field name="name">mrp.availability.check.form2</field>
+        <field name="model">mrp.planning.engine.availability.check</field>
+        <field name="arch" type="xml">
+            <form
+                string="MRP Planning Engine Availability Check"
+                create="false"
+                edit="false"
+            >
+                <header>
+                    <button
+                        name="%(action_report_bom_explosion_pdf)d"
+                        type="action"
+                        string="Print SCM Visibility"
+                        class="oe_highlight"
+                    />
+                </header>
+                <group col='3'>
+                    <group>
+                        <field name="product_id" readonly="1" />
+                        <field name="bom_id" readonly="1" />
+                        <field name="bom_type" />
+                    </group>
+                    <group>
+                        <label for="requested_qty" string="Quantity" />
+                        <div class="o_row">
+                            <field name="requested_qty" readonly="1" /><field
+                                name="product_uom_id"
+                            />
+                        </div>
+                        <field name="warehouse_id" readonly="1" />
+                        <field name="mrp_parameter_id" />
+                    </group>
+                    <group>
+                        <field name="leadtime" />
+                        <field name="dleadtime" />
+                        <field name="cleadtime" />
+                    </group>
+                </group>
+                <group>
+                    <field name="line_ids" nolabel="1" colspan="4">
+                        <tree
+                            decoration-danger="critical_path == True"
+                            create="0"
+                            delete="0"
+                            editable="0"
+                        >
+                            <field name="bom_level" width="80px" />
+                            <field name="product_id" />
+                            <field name="product_qty" string="Qty" width="80px" />
+                            <field name="product_uom_id" />
+                            <field name="product_type" width="80px" />
+                            <field name="mrp_parameter_id" width="80px" />
+                            <field name="make" width="80px" />
+                            <field name="sub" width="80px" />
+                            <field name="buy" width="80px" />
+                            <field name="is_stock" string="RP" width="80px" />
+                            <field name="bom_id" />
+                            <field name="leadtime" width="80px" />
+                            <field name="dleadtime" width="80px" />
+                            <field name="cleadtime" width="80px" />
+                            <field name="critical_path" />
+                        </tree>
+                    </field>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="mrp_availability_check_action" model="ir.actions.act_window">
+        <field name="name">Planning Engine SCM</field>
+        <field name="res_model">mrp.planning.engine.availability.check</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="mrp_availability_check_menu"
+        action="mrp_availability_check_action"
+        parent="mrp_planning_engine.menu_mrp_reporting_root"
+        sequence="40"
+    />
+</odoo>
