@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="oak_new_product" model="ir.actions.act_window">
+        <field name="name">New In Development Product</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="domain">[]</field> <!-- force empty -->
+        <field name="view_mode">form,tree</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="oak_product.product_template_form_oak_view" />
+        <field
+            name="search_view_id"
+            ref="oak_legacy.product_legacy_template_search_view"
+        />
+        <field name="context">{'default_company_id': allowed_company_ids[0]}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            No product found. Let's create one!
+            </p><p>
+            You will find here all the products templates.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_legacy_root"
+        name="Engineering"
+        groups="product_legacy_group_user,product_legacy_group_admin"
+        web_icon="oak_legacy,static/description/icon.png"
+        sequence="31"
+    >
+
+        <menuitem id="top_oak_product_menu" name="Products" sequence="10" />
+
+        <menuitem id="top_legacy_product_menu" name="Legacy Product" sequence="15" />
+
+        <menuitem id="top_legacy_mrp_menu" name="Legacy MRP" sequence="20" />
+
+        <menuitem
+            id="new_product_menu"
+            name="New In Development Product"
+            action="oak_new_product"
+            sequence="30"
+        />
+
+    </menuitem>
+</odoo>

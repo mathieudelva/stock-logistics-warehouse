@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_legacy_user,product.legacy,model_product_legacy,product_legacy_group_user,1,1,1,0
+access_product_legacy_admin,product.legacy,model_product_legacy,product_legacy_group_admin,1,1,1,1
+access_product_combine_user,product.combine,model_product_combine,product_legacy_group_user,1,1,1,0
+access_product_conbine_admin,product.combine,model_product_combine,product_legacy_group_admin,1,1,1,1
+access_mrp_bom_legacy,mrp.bom.legacy,model_mrp_bom_legacy,product_legacy_group_user,1,1,1,1
+access_mrp_bom_line_legacy,mrp.bom.line.legacy,model_mrp_bom_line_legacy,product_legacy_group_user,1,1,1,1
+access_mrp_routing_legacy,mrp.routing.legacy,model_mrp_routing_legacy,product_legacy_group_user,1,1,1,1
+access_mrp_routing_line_legacy,mrp.routing.line.legacy,model_mrp_routing_line_legacy,product_legacy_group_user,1,1,1,1
+access_message_box_all,message.box,model_message_box,,1,0,0,0

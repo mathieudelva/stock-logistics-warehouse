@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="product_legacy_template_search_view" model="ir.ui.view">
+        <field name="name">product.legacy.product.template.search</field>
+        <field name="model">product.template</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="product.product_template_search_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='consumable']" position="after">
+                <separator />
+                <filter
+                    string="Manufactured Products"
+                    name="manufactured_products"
+                    domain="[('bom_ids', '!=', False)]"
+                />
+                <filter
+                    string="BoM Components"
+                    name="components"
+                    domain="[('bom_line_ids', '!=', False)]"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_legacy_product_template_action" model="ir.actions.act_window">
+        <field name="name">Products</field>
+        <field name="res_model">product.template</field>
+        <field name="search_view_id" ref="product_legacy_template_search_view" />
+        <field name="view_mode">tree,kanban,form</field>
+        <field
+            name="context"
+        >{"search_default_consumable": 1, 'default_type': 'product'}</field>
+    </record>
+
+    <record id="product_legacy_product_search_view" model="ir.ui.view">
+        <field name="name">product.legacy.product.product.search</field>
+        <field name="model">product.product</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="product.product_search_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='consumable']" position="after">
+                <separator />
+                <filter
+                    string="Manufactured Products"
+                    name="manufactured_products"
+                    domain="[('bom_ids', '!=', False)]"
+                />
+                <filter
+                    string="BoM Components"
+                    name="components"
+                    domain="[('bom_line_ids', '!=', False)]"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_legacy_product_variant_action" model="ir.actions.act_window">
+        <field name="name">Product Variants</field>
+        <field name="res_model">product.product</field>
+        <field name="search_view_id" ref="product_legacy_product_search_view" />
+        <field name="view_mode">tree,kanban,form</field>
+    </record>
+
+    <record id="view_oak_mrp_bom_filter" model="ir.ui.view">
+        <field name="name">mrp.bom.select</field>
+        <field name="model">mrp.bom</field>
+        <field name="arch" type="xml">
+            <search string="Search Bill Of Material">
+                <field name="product_tmpl_id" invisible="1" />
+                <field
+                    name="code"
+                    string="Bill of Materials"
+                    filter_domain="['|','|', ('code', 'ilike', self), ('product_tmpl_id.default_code', 'ilike', self), ('product_tmpl_id.name', 'ilike', self)]"
+                />
+                <field
+                    name="detail_id"
+                    string="Detail Number"
+                    filter_domain="[('detail_id.name', 'ilike', self)]"
+                />
+                <field
+                    name="product_tmpl_id"
+                    string="Product"
+                    filter_domain="['|', ('product_tmpl_id.default_code', 'ilike', self), ('product_tmpl_id.name', 'ilike', self)]"
+                />
+                <field name="bom_line_ids" string="Component" />
+                <filter
+                    string="Manufacturing"
+                    name="normal"
+                    domain="[('type', '=', 'normal')]"
+                />
+                <filter
+                    string="Kit"
+                    name="phantom"
+                    domain="[('type', '=', 'phantom')]"
+                />
+                <separator />
+                <filter
+                    string="Archived"
+                    name="inactive"
+                    domain="[('active', '=', False)]"
+                />
+                <group expand="0" string="Group By...">
+                    <filter
+                        string="Product"
+                        name="product"
+                        domain="[]"
+                        context="{'group_by': 'product_tmpl_id'}"
+                    />
+                    <filter
+                        string='BoM Type'
+                        name="group_by_type"
+                        domain="[]"
+                        context="{'group_by' : 'type'}"
+                    />
+                    <filter
+                        string='Unit of Measure'
+                        name="default_unit_of_measure"
+                        domain="[]"
+                        context="{'group_by' : 'product_uom_id'}"
+                    />
+                    <filter
+                        name="detail_id"
+                        string="Detail"
+                        context="{'group_by':'detail_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="mrp_oak_bom_form_action" model="ir.actions.act_window">
+        <field name="name">Bills of Materials</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.bom</field>
+        <field name="domain">[]</field> <!-- force empty -->
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_oak_mrp_bom_filter" />
+        <field name="context">{'default_company_id': allowed_company_ids[0]}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            No bill of materials found. Let's create one!
+            </p><p>
+            Bills of materials allow you to define the list of required raw
+            materials used to make a finished product; through a manufacturing
+            order or a pack of products.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="oak_product_template_menu"
+        parent="top_oak_product_menu"
+        name="Products"
+        action="product_legacy_product_template_action"
+        sequence="1"
+    />
+    <menuitem
+        id="oak_product_product_menu"
+        parent="top_oak_product_menu"
+        name="Product Variants"
+        action="product_legacy_product_variant_action"
+        sequence="2"
+    />
+    <menuitem
+        id="oak_mrp_bom_menu"
+        parent="top_oak_product_menu"
+        name="Bill of Materials"
+        action="mrp_oak_bom_form_action"
+        sequence="3"
+    />
+
+</odoo>

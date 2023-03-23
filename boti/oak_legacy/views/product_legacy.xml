@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="mrp_bom_legacy_form_view" model="ir.ui.view">
+        <field name="name">mrp.bom.legacy.form</field>
+        <field name="model">mrp.bom.legacy</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <form string="View Legacy Bill of Material">
+                <sheet>
+
+                    <group>
+                        <group>
+                            <field name="name" string="Legacy BoM Version" />
+                            <field name="description" />
+                        </group>
+                        <group>
+                            <field name="bomtype" />
+                            <field name="is_active" invisible="1" />
+                        </group>
+                        <group>
+                            <!-- <label for="product_qty" string="Quantity"/> -->
+                            <div class="o_row">
+                                <!-- <field name="product_qty"/> -->
+                                <!-- <field name="product_uom_id" options="{'no_open':True,'no_create':True}" groups="uom.group_uom"/> -->
+                            </div>
+                            <!-- <field name="routing_id" attrs="{'invisible': [('type','not in',('normal','phantom'))]}" groups="mrp.group_mrp_routings" context="{'default_company_id': company_id}"/> -->
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Components">
+                            <field
+                                name="bom_legacy_line_ids"
+                                widget="one2many_list"
+                                context="{}"
+                            >
+                                <tree
+                                    name="Components"
+                                    editable="bottom"
+                                    default_order="position"
+                                    decoration-danger="not is_active"
+                                    decoration-info="is_active"
+                                >
+                                    <field name="is_active" invisible="1" />
+                                    <field name="linenum" invisible="1" />
+                                    <field name="position" />
+                                    <field name="itemid" />
+                                    <field name="itemdesc" />
+                                    <field name="unitid" />
+                                    <field name="bomqty" />
+                                    <field name="bomtype" />
+                                    <field name="vendid" />
+                                    <field name="oprnum" optional="show" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- base structure of product.legacy(combine) common with product.template and product.product -->
+    <record id="product_legacy_form_view" model="ir.ui.view">
+        <field name="name">product.legacy.common.form</field>
+        <field name="model">product.legacy</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form string="Legacy Product" delete="false" edit="false" create="false">
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <field name="id" invisible="True" />
+                    <div class="oe_title">
+                        <label
+                            class="oe_edit_only"
+                            for="name"
+                            string="Product Description"
+                        />
+                        <h2><field name="name" placeholder="Product Name" /></h2>
+                    </div>
+                    <notebook>
+                        <page string="Engineer" name="engineer">
+                            <group>
+                                <group name="group_general">
+                                    <field name="product_status" readonly="1" />
+                                    <field name="type" />
+                                    <field
+                                        name="default_code"
+                                        string="Product Number"
+                                    />
+                                    <field name="detail_number_id" />
+                                    <field name="generic_name_id" />
+                                </group>
+                                <group name="settings">
+                                    <field
+                                        name="uom_id"
+                                        groups="uom.group_uom"
+                                        options="{'no_create': True}"
+                                    />
+                                    <field
+                                        name="uom_po_id"
+                                        groups="uom.group_uom"
+                                        options="{'no_create': True}"
+                                    />
+                                    <field name="finish_size" />
+                                    <field
+                                        name="material_id"
+                                        options="{'no_create': True}"
+                                    />
+                                    <field
+                                        name="class_id"
+                                        options="{'no_create': True}"
+                                    />
+                                </group>
+                                <group name="sys_info">
+                                    <field
+                                        name="create_date"
+                                        string="Create Date"
+                                        readonly="1"
+                                    />
+                                    <field
+                                        name="write_date"
+                                        string="Modified Date"
+                                        readonly="1"
+                                    />
+                                </group>
+                            </group>
+                            <group string="Engineer Notes">
+                                <field
+                                    name="eng_note"
+                                    nolabel="1"
+                                    placeholder="This note is only for internal purposes."
+                                />
+                            </group>
+                            <group string="Internal Notes">
+                                <field
+                                    name="description"
+                                    nolabel="1"
+                                    placeholder="This note is only for internal purposes."
+                                />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_legacy_search_view" model="ir.ui.view">
+        <field name="name">product.legacy.search</field>
+        <field name="model">product.legacy</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <search string="Legacy Product">
+                <field
+                    name="name"
+                    string="Product"
+                    filter_domain="['|', ('default_code', 'ilike', self),('name', 'ilike', self)]"
+                />
+                <field
+                    name="detail_number_id"
+                    string="Detail number"
+                    filter_domain="[('detail_number_id', 'ilike', self)]"
+                />
+                <field
+                    name="generic_name_id"
+                    string="Generic Name"
+                    filter_domain="[('generic_name_id', 'ilike', self)]"
+                />
+                <group expand="1" string="Group By">
+                    <filter
+                        string="Detail Number"
+                        name="detail_number_id"
+                        context="{'group_by':'detail_number_id'}"
+                    />
+                    <filter
+                        string="Generic Name"
+                        name="generic_name_id"
+                        context="{'group_by':'generic_name_id'}"
+                    />
+                    <filter
+                        string="Class Code"
+                        name="class_id"
+                        context="{'group_by':'class_id'}"
+                    />
+                    <filter string="Type" name="type" context="{'group_by':'type'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="product_legacy_tree_view" model="ir.ui.view">
+        <field name="name">product.legacy.product.tree</field>
+        <field name="model">product.legacy</field>
+        <field name="arch" type="xml">
+            <tree
+                name="Legacy Product (Readonly)"
+                default_order='default_code'
+                multi_edit="0"
+                create="false"
+                edit="false"
+                delete="false"
+                decoration-danger="product_status in ('Legacy')"
+            >
+                <field name="default_code" string="Product Number" readonly="1" />
+                <field name="detail_number_id" string="Detail Number" />
+                <field name="generic_name_id" string="Generic Name" />
+                <field name="name" />
+                <field name="type" />
+                <field name="material_id" />
+                <field name="class_id" />
+                <field name="product_status" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_product_legacy" model="ir.actions.act_window">
+        <field name="name">Legacy Product (Readonly)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.legacy</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="product_legacy_tree_view" />
+        <field name="search_view_id" ref="product_legacy_search_view" />
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="menu_product_legacy_menu"
+        name="Legacy Product (Readonly)"
+        action="action_product_legacy"
+        parent="top_legacy_product_menu"
+        sequence="2"
+    />
+
+</odoo>

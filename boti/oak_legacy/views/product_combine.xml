@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- base structure of product.legacy(combine) common with product.template and product.product -->
+    <record id="product_combine_form_view" model="ir.ui.view">
+        <field name="name">product.combine.common.form</field>
+        <field name="model">product.combine</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form string="Draft Product" create="false" delete="false">
+                <header>
+                    <button
+                        class="oe_highlight"
+                        type="object"
+                        name="button_convert_to_draft"
+                        string="Convert to Active Draft Product"
+                        attrs="{'invisible':[('product_status','in',['Active'])]}"
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            class="oe_stat_button"
+                            type="object"
+                            name="open_new_product_form"
+                            icon="fa-tag"
+                            string="Create New Draft Product"
+                        >
+                        </button>
+                        <button
+                            class="oe_stat_button"
+                            type="object"
+                            name="open_product_form"
+                            attrs="{'invisible':[('product_status', 'in', ['Legacy'])]}"
+                            icon="fa-tag"
+                            string="View Product"
+                        >
+                        </button>
+                        <button
+                            class="oe_stat_button"
+                            name="view_bom"
+                            type="object"
+                            attrs="{'invisible':['|',('type', 'not in', ['product', 'consu']), ('product_status', 'in', ['Legacy'])]}"
+                            icon="fa-flask"
+                        >
+                            <field
+                                string="Bill of Materials"
+                                name="bom_count"
+                                widget="statinfo"
+                            />
+                        </button>
+                        <button
+                            class="oe_stat_button"
+                            type="object"
+                            name="import_bom"
+                            attrs="{'invisible':['|','|','|',('type', 'not in', ['product', 'consu']), ('product_status', 'in', ['Legacy']), ('bom_count_legacy','=',0), ('bom_count','&gt;',0)]}"
+                            icon="fa-arrow-circle-o-left"
+                            string="CNVT (R) Legacy BoM"
+                        >
+                        </button>
+                        <button
+                            class="oe_stat_button"
+                            type="object"
+                            name="import_bom_single"
+                            attrs="{'invisible':['|','|','|',('type', 'not in', ['product', 'consu']), ('product_status', 'in', ['Legacy']), ('bom_count_legacy','=',0), ('bom_count','&gt;',0)]}"
+                            icon="fa-arrow-circle-o-left"
+                            string="CNVT (SGL) Legacy BoM"
+                        >
+                        </button>
+                        <button
+                            class="oe_stat_button"
+                            type="object"
+                            name="view_legacy_bom"
+                            attrs="{'invisible':[('type', 'not in', ['product', 'consu'])]}"
+                            icon="fa-flask"
+                        >
+                            <field
+                                string="Legacy BoM"
+                                name="bom_count_legacy"
+                                widget="statinfo"
+                            />
+                        </button>
+                        <button
+                            class="oe_stat_button"
+                            type="object"
+                            name="view_legacy_routing"
+                            attrs="{'invisible':[('type', 'not in', ['product'])]}"
+                            icon="fa-flask"
+                        >
+                            <field
+                                string="Legacy Routings"
+                                name="routing_count"
+                                widget="statinfo"
+                            />
+                        </button>
+                    </div>
+                    <field name="id" invisible="True" />
+                    <div class="oe_title">
+                        <label
+                            class="oe_edit_only"
+                            for="name"
+                            string="Product Description"
+                        />
+                        <h2><field name="name" placeholder="Product Name" /></h2>
+                    </div>
+                    <notebook>
+                        <page string="Engineer" name="engineer">
+                            <group>
+                                <group name="group_general">
+                                    <field name="product_status" readonly="1" />
+                                    <field name="type" />
+                                    <field
+                                        name="default_code"
+                                        string="Product Number"
+                                        readonly="1"
+                                    />
+                                    <field name="detail_number_id" />
+                                    <field name="generic_name_id" />
+                                </group>
+                                <group name="settings">
+                                    <field
+                                        name="uom_id"
+                                        groups="uom.group_uom"
+                                        options="{'no_create': True}"
+                                    />
+                                    <field
+                                        name="uom_po_id"
+                                        groups="uom.group_uom"
+                                        options="{'no_create': True}"
+                                    />
+                                    <field name="finish_size" />
+                                    <field
+                                        name="material_id"
+                                        options="{'no_create': True}"
+                                    />
+                                    <field
+                                        name="class_id"
+                                        options="{'no_create': True}"
+                                    />
+                                </group>
+                                <group name="sys_info">
+                                    <field
+                                        name="create_date"
+                                        string="Create Date"
+                                        readonly="1"
+                                    />
+                                    <field
+                                        name="write_date"
+                                        string="Modified Date"
+                                        readonly="1"
+                                    />
+                                </group>
+                            </group>
+                            <group string="Engineer Notes">
+                                <field
+                                    name="eng_note"
+                                    nolabel="1"
+                                    placeholder="This note is only for internal purposes."
+                                />
+                            </group>
+                            <group string="Internal Notes">
+                                <field
+                                    name="description"
+                                    nolabel="1"
+                                    placeholder="This note is only for internal purposes."
+                                />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_combine_search_view" model="ir.ui.view">
+        <field name="name">product.combine.search</field>
+        <field name="model">product.combine</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <search string="Odoo + Legacy Product">
+                <field
+                    name="name"
+                    string="Product"
+                    filter_domain="['|', ('default_code', 'ilike', self),('name', 'ilike', self)]"
+                />
+                <field
+                    name="detail_number_id"
+                    string="Detail number"
+                    filter_domain="[('detail_number_id', 'ilike', self)]"
+                />
+                <field
+                    name="generic_name_id"
+                    string="Generic Name"
+                    filter_domain="[('generic_name_id', 'ilike', self)]"
+                />
+                <separator />
+                <filter
+                    string="Odoo Product"
+                    name="active_products"
+                    domain="[('product_status', '=', 'Active')]"
+                />
+                <filter
+                    string="Legacy Product"
+                    name="active_products"
+                    domain="[('product_status', '=', 'Legacy')]"
+                />
+                <group expand="1" string="Group By">
+                    <filter
+                        string="Status"
+                        name="product_status"
+                        context="{'group_by':'product_status'}"
+                    />
+                    <filter
+                        string="Detail Number"
+                        name="detail_number_id"
+                        context="{'group_by':'detail_number_id'}"
+                    />
+                    <filter
+                        string="Generic Name"
+                        name="generic_name_id"
+                        context="{'group_by':'generic_name_id'}"
+                    />
+                    <filter
+                        string="Class Code"
+                        name="class_id"
+                        context="{'group_by':'class_id'}"
+                    />
+                    <filter string="Type" name="type" context="{'group_by':'type'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="product_combine_tree_view" model="ir.ui.view">
+        <field name="name">product.combine.product.tree</field>
+        <field name="model">product.combine</field>
+        <field name="arch" type="xml">
+            <tree
+                name="Odoo + Legacy Product"
+                default_order='default_code'
+                multi_edit="0"
+                create="false"
+                edit="false"
+                delete="false"
+                decoration-danger="product_status in ('Legacy')"
+                decoration-info="product_status in ('Active')"
+            >
+                <field name="default_code" string="Product Number" readonly="1" />
+                <field name="detail_number_id" string="Detail Number" />
+                <field name="generic_name_id" string="Generic Name" />
+                <field name="name" />
+                <field name="type" />
+                <field name="material_id" />
+                <field name="class_id" />
+                <field name="product_status" />
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_product_combine" model="ir.actions.act_window">
+        <field name="name">Odoo + Legacy Product</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.combine</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="product_combine_tree_view" />
+        <field name="search_view_id" ref="product_combine_search_view" />
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="product_combine_menu"
+        parent="top_legacy_product_menu"
+        name="Odoo + Legacy Product"
+        action="action_product_combine"
+        sequence="1"
+    />
+
+</odoo>
