@@ -7,7 +7,7 @@
     "license": "AGPL-3",
     "summary": "Product OAK Legacy Data",
     "maintainers": ["emsmith", "leichorn", "rlopez", "BOTI"],
-    "depends": ["oak_product", "oak_mrp_bom_detail"],
+    "depends": ["oak_product"],
     "data": [
         "security/security.xml",
         "security/ir.model.access.csv",
