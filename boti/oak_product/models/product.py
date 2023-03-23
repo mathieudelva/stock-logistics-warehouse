@@ -26,6 +26,13 @@ class ProductTemplate(models.Model):
         "product.material", "Material", help="Product material"
     )
 
+    cnc_info_line = fields.One2many(
+        comodel_name="product.cnc.info.line",
+        inverse_name="product_tmpl_id",
+        string="CNC Program Info",
+        copy=False,
+    )
+
     categ_id = fields.Many2one(tracking=True)
     allow_negative_stock = fields.Boolean(tracking=True)
     company_id = fields.Many2one(tracking=True)
