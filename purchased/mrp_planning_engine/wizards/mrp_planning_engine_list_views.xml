@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_mrp_planning_engine_list_wizard" model="ir.ui.view">
+        <field name="name">mrp.planning.engine.list.wizard.form</field>
+        <field name="model">mrp.planning.engine.list</field>
+        <field name="arch" type="xml">
+            <form string="Planning Engine List">
+                <group>
+                    <group>
+                        <field
+                            name="mrp_parameter_id"
+                            options="{'no_open':True,'no_create':True}"
+                        />
+                    </group>
+                </group>
+                <footer>
+                    <button
+                        name="action_planning_engine_list"
+                        string="Planning Engine List"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_mrp_planning_engine_list_form" model="ir.ui.view">
+        <field name="name">mrp.planning.engine.list.form</field>
+        <field name="model">mrp.planning.engine.list</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" delete="false">
+                <header>
+                    <button
+                        name="update_planning_engine_list"
+                        string="Update"
+                        icon="fa-refresh"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="single_planning_engine_run"
+                        string="Single Planning Run"
+                        type="object"
+                    />
+                </header>
+                <div
+                    attrs="{'invisible': [('message', '=', False)]}"
+                    class="alert alert-warning mb0"
+                    role="alert"
+                >
+                    <p class="text-center mb0">
+                        <field name="message" readonly="1" />
+                    </p>
+                </div>
+                <group>
+                    <group>
+                        <field name="mrp_parameter_id" readonly="1" />
+                        <field name="user_id" readonly="1" />
+                        <field name="forward_planning" invisible="1" />
+                    </group>
+                    <group>
+                        <field name="supply_method" readonly="1" />
+                        <field name="trigger" readonly="1" />
+                    </group>
+                    <group>
+                        <field name="mrp_type" readonly="1" />
+                        <field name="lot_qty_method" readonly="1" />
+                    </group>
+                    <group>
+                        <label
+                            for="mrp_safety_time"
+                            attrs="{'invisible':[('mrp_type','!=', 'M')]}"
+                        />
+                        <div class="o_row">
+                            <field
+                                name="mrp_safety_time"
+                                attrs="{'invisible':[('mrp_type','!=', 'M')]}"
+                            />
+                            <field
+                                name="days_uom"
+                                attrs="{'invisible':[('mrp_type','!=', 'M')]}"
+                            />
+                        </div>
+                        <label
+                            for="mrp_minimum_stock"
+                            attrs="{'invisible':[('mrp_type','!=', 'M')]}"
+                        />
+                        <div class="o_row">
+                            <field
+                                name="mrp_minimum_stock"
+                                attrs="{'invisible':[('mrp_type','!=', 'M')]}"
+                            />
+                            <field
+                                name="product_uom"
+                                attrs="{'invisible':[('mrp_type','!=', 'M')]}"
+                            />
+                        </div>
+                    </group>
+                </group>
+                <group>
+                    <field name="item_ids" nolabel="1" colspan="2">
+                        <tree
+                            create="0"
+                            delete="0"
+                            editable="0"
+                            decoration-bf="mrp_type in ('b', 'e')"
+                            decoration-danger="mrp_type == 'd'"
+                            decoration-success="mrp_type == 's'"
+                            decoration-muted="mrp_type == 'f'"
+                        >
+                            <field name="mrp_date" />
+                            <button
+                                name="mrp_convert_planned_order"
+                                type="object"
+                                icon="fa-cogs"
+                                string="conversion"
+                                attrs="{'invisible':[('mrp_origin','!=', 'op')]}"
+                            />
+                            <field name="mrp_origin" />
+                            <field name="mrp_order_number" string="Document Number" />
+                            <button
+                                name="mrp_display_document"
+                                type="object"
+                                icon="fa-edit"
+                                string="edit"
+                                attrs="{'invisible':['|', ('mrp_type','!=', 's'),('mto_origin', '=', 'mv')]}"
+                            />
+                            <field name="note" />
+                            <field
+                                name="fixed"
+                                attrs="{'invisible':[('mrp_origin','!=', 'op')]}"
+                            />
+                            <field
+                                name="forward_mode_indicator"
+                                attrs="{'invisible':[('mrp_origin','!=', 'op')]}"
+                            />
+                            <field
+                                name="rescheduled_due_date"
+                                attrs="{'invisible':[('mrp_origin','!=', 'op')], 'column_invisible':[('parent.forward_planning','=', False)]}"
+                            />
+                            <field name="doc_qty" optional="hide" />
+                            <field name="mrp_qty" />
+                            <field name="mrp_qty_cum" />
+                            <field name="product_uom" groups="uom.group_uom" />
+                            <field name="delay" />
+                            <field name="mto_origin" />
+                            <field name="mrp_type" />
+                        </tree>
+                    </field>
+                </group>
+                <group string="Planning Note">
+                    <field name="note" colspan="4" nolabel="1" />
+                </group>
+                <!-- <footer>
+                    <button special="cancel" string="Close"/>
+                </footer> -->
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mrp_planning_engine_list" model="ir.actions.act_window">
+        <field name="name">Planning Engine List</field>
+        <field name="res_model">mrp.planning.engine.list</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_mrp_planning_engine_list_wizard" />
+        <field name="target">new</field>
+    </record>
+</odoo>

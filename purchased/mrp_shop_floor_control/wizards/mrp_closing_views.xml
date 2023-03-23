@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mrp_closing_view" model="ir.ui.view">
+        <field name="name">mrp.closing.view</field>
+        <field name="model">mrp.closing</field>
+        <field name="arch" type="xml">
+            <form>
+                <group string="WO Closing">
+                    <group>
+                        <field name="production_id" required="1" widget="selection" />
+                        <field name="workorder_id" required="1" widget="selection" />
+                    </group>
+                    <group>
+                        <field
+                            name="company_id"
+                            groups="base.group_multi_company"
+                            options="{'no_create': True}"
+                        />
+                    </group>
+                </group>
+                <footer>
+                    <button
+                        name="do_closing"
+                        type="object"
+                        string="WO Close"
+                        class="oe_highlight"
+                    />
+                    <button string="Cancel" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mrp_closing" model="ir.actions.act_window">
+        <field name="name">Work Order Closing</field>
+        <field name="res_model">mrp.closing</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="mrp_closing_view" />
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="mrp.model_mrp_production" />
+        <field name="binding_view_types">form</field>
+    </record>
+
+    <menuitem
+        name="WO Closing"
+        id="menu_mrp_closing"
+        action="action_mrp_closing"
+        parent="mrp.menu_mrp_manufacturing"
+        sequence="110"
+    />
+</odoo>

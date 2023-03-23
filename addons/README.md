@@ -1,22 +1,26 @@
 # Active Module List
 
-| Module Name                      | Repo Name         | Type | Usage                                                               |
-| -------------------------------- | ----------------- | ---- | ------------------------------------------------------------------- |
-| oak_boti_ui                      | local             | BOTI | UI Alterations for BOTI                                             |
-| oak_redis_session                | local             | BOTI | Redis for session storage                                           |
-| purchase_request                 | purchase-workflow | OCA  | Allows requests for purchased items from users                      |
-| purchase_request_tier_validation | purchase-workflow | OCA  | Allows purchase requests to have workflows for validation           |
-| base_user_role                   | server-backend    | OCA  | Allows for grouping permissions into user roles that can be applied |
-| auditlog                         | server-tools      | OCA  | Allows deep tracing of data alterations                             |
-| base_cron_exclusion              | server-tools      | OCA  | Limit cron jobs running at the same time for the same thing         |
-| base_exception                   | server-tools      | OCA  | Dependency for all exception modules                                |
-| base_revision                    | server-ux         | OCA  | Dependency for sale_order_revision                                  |
-| base_tier_validation             | server-ux         | OCA  | Dependency for all tier validation modules                          |
-| date_range                       | server-ux         | OCA  | Dependency for ?                                                    |
-| queue_job                        | queue             | OCA  | A worker queue for long running tasks that are NOT cron jobs        |
-| web_environment_ribbon           | web               | OCA  | marker for dev/test/qa environments, not used in production         |
-| web_refresher                    | web               | OCA  | refresh button for views                                            |
-| website_odoo_debranding          | website           | OCA  | Remove odoo link on websites                                        |
+| Module Name                      | Repo Name         | Type      | Usage                                                                                                                          |
+| -------------------------------- | ----------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| oak_boti_ui                      | local             | BOTI      | UI Alterations for BOTI                                                                                                        |
+| oak_redis_session                | local             | BOTI      | Redis for session                                                                                                              |
+| purchase_request                 | purchase-workflow | OCA       | Allows requests for purchased items from users                                                                                 |
+| purchase_request_tier_validation | purchase-workflow | OCA       | Allows purchase requests to have workflows for validation                                                                      |
+| base_user_role                   | server-backend    | OCA       | Allows for grouping permissions into user roles that can be applied                                                            |
+| auditlog                         | server-tools      | OCA       | Allows deep tracing of data alterations                                                                                        |
+| base_cron_exclusion              | server-tools      | OCA       | Limit cron jobs running at the same time for the same thing                                                                    |
+| base_exception                   | server-tools      | OCA       | Dependency for all exception modules                                                                                           |
+| base_revision                    | server-ux         | OCA       | Dependency for sale_order_revision                                                                                             |
+| base_tier_validation             | server-ux         | OCA       | Dependency for all tier validation modules                                                                                     |
+| date_range                       | server-ux         | OCA       | Dependency for ?                                                                                                               |
+| queue_job                        | queue             | OCA       | A worker queue for long running tasks that are NOT cron jobs                                                                   |
+| web_environment_ribbon           | web               | OCA       | marker for dev/test/qa environments, not used in production                                                                    |
+| web_refresher                    | web               | OCA       | refresh button for views                                                                                                       |
+| mrp_availability_check           | purchased         | Openvalue | Promise delivery date determination by the projected stockquantity compared to customer requested quantity at all BoM’s level. |
+| mrp_planning_engine              | purchased         | Openvalue | Provides a full comprehensive tool for managing material requirements planning.                                                |
+| mrp_planning_engine_scm          | purchased         | Openvalue | Supports the analysis of the overall supply chain in a warehouse.                                                              |
+| mrp_sfc_queue_time_before        | purchased         | Openvalue | Allows queue time before for planning                                                                                          |
+| mrp_shop_floor_control           | purchased         | Openvalue | Supports the E2E process starting from the Manufacturing Order Creation to its Closure.                                        |
 
 # Pending Module List
 

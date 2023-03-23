@@ -1,0 +1,134 @@
+<?xml version="1.0" ?>
+<odoo>
+    <!-- Top menu item -->
+    <menuitem
+        id="mrp_planning_engine_menu_main_root"
+        name="MRP Planning Engine"
+        groups="mrp_planning_engine.group_planning_user"
+        web_icon="mrp_planning_engine,static/description/icon.png"
+        sequence="90"
+    />
+
+    <menuitem
+        name="Master Data"
+        id="menu_mrp_master_data_root"
+        parent="mrp_planning_engine_menu_main_root"
+        groups="mrp_planning_engine.group_planning_administrator"
+        sequence="10"
+    />
+
+    <menuitem
+        name="Demand"
+        id="menu_mrp_demand_main_root"
+        parent="mrp_planning_engine_menu_main_root"
+        sequence="20"
+    />
+
+    <menuitem
+        name="MRP-ROP"
+        id="menu_mrp_mrp_rop_root"
+        parent="mrp_planning_engine_menu_main_root"
+        sequence="30"
+    />
+
+    <menuitem
+        name="Reporting"
+        id="menu_mrp_reporting_root"
+        parent="mrp_planning_engine_menu_main_root"
+        sequence="40"
+    />
+
+    <menuitem
+        name="Configuration"
+        id="menu_mrp_settings_root"
+        parent="mrp_planning_engine_menu_main_root"
+        groups="mrp_planning_engine.group_planning_administrator"
+        sequence="50"
+    />
+
+    <!-- Master Data -->
+    <menuitem
+        id="menu_mrp_planning_parameters"
+        action="mrp_parameter_action"
+        parent="menu_mrp_master_data_root"
+        sequence="10"
+    />
+
+    <!-- Demand -->
+    <menuitem
+        id="menu_mrp_demand"
+        action="mrp_demand_action"
+        parent="menu_mrp_demand_main_root"
+        sequence="10"
+    />
+
+    <menuitem
+        id="menu_mrp_demand_adjustment_run"
+        action="action_mrp_demand_adjustment"
+        parent="menu_mrp_demand_main_root"
+        sequence="20"
+    />
+
+    <!-- MRP-ROP -->
+    <menuitem
+        id="menu_mrp_elements"
+        action="mrp_element_action"
+        groups="base.group_no_one"
+        parent="menu_mrp_mrp_rop_root"
+        sequence="5"
+    />
+
+    <menuitem
+        id="menu_mrp_planned_order"
+        action="mrp_planned_order_action"
+        parent="menu_mrp_mrp_rop_root"
+        sequence="10"
+    />
+
+    <menuitem
+        id="menu_mrp_planning_engine_run"
+        action="action_mrp_planning_engine_run"
+        parent="menu_mrp_mrp_rop_root"
+        groups="mrp_planning_engine.group_planning_administrator"
+        sequence="20"
+    />
+
+    <menuitem
+        id="menu_mrp_planning_volume_run"
+        action="action_mrp_planning_volume_run"
+        parent="menu_mrp_mrp_rop_root"
+        groups="mrp_planning_engine.group_planning_administrator"
+        sequence="30"
+    />
+
+    <menuitem
+        id="menu_mrp_planning_engine_single_run"
+        action="action_mrp_planning_engine_single_run"
+        parent="menu_mrp_mrp_rop_root"
+        sequence="40"
+    />
+
+    <!-- Reporting -->
+    <menuitem
+        id="menu_mrp_planning_engine_list"
+        action="action_mrp_planning_engine_list"
+        parent="menu_mrp_reporting_root"
+        sequence="10"
+    />
+
+    <menuitem
+        id="menu_mrp_planning_engine_message"
+        action="action_mrp_planning_engine_message"
+        parent="menu_mrp_reporting_root"
+        sequence="20"
+    />
+
+    <!-- Settings -->
+    <menuitem
+        id="menu_mrp_planning_volume"
+        name="MRP Planning Volume"
+        action="mrp_planning_volume_action"
+        parent="menu_mrp_settings_root"
+        sequence="10"
+    />
+</odoo>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="action_report_bom_explosion_pdf" model="ir.actions.report">
+        <field name="name">BoM Explosion PDF</field>
+        <field name="model">mrp.planning.engine.availability.check</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+            name="paperformat_id"
+            ref="mrp_planning_engine_scm.paperformat_A4_landscape"
+        />
+        <field
+            name="report_name"
+        >mrp_planning_engine_scm.report_mrp_bom_explosion_pdf</field>
+        <field
+            name="report_file"
+        >mrp_planning_engine_scm.report_mrp_bom_explosion_pdf</field>
+        <field name="print_report_name">'SCM Visibility'</field>
+    </record>
+
+    <template id="report_mrp_bom_explosion_pdf">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <h2>SCM Visibility Report</h2>
+                     <t t-foreach="docs" t-as="o">
+                        <div class="row mt32 mb32" style="margin-top:12px;">
+                            <div class="col-4">
+                                <strong>BoM Product: </strong>
+                                <span t-esc="o.product_id.display_name" />
+                            </div>
+                            <div class="col-4">
+                                <strong>Warehouse: </strong>
+                                <span t-esc="o.warehouse_id.display_name" />
+                            </div>
+                            <div class="col-4">
+                                <strong>BoM: </strong>
+                                <span t-esc="o.bom_id.display_name" />
+                            </div>
+                        </div>
+                        <div class="row mt32 mb32" style="margin-top:12px;">
+                            <div class="col-4">
+                                <strong>Lead Time (Days): </strong>
+                                <span t-field="o.leadtime" />
+                            </div>
+                            <div class="col-4">
+                                <strong>Cumulative LT (Days): </strong>
+                                <span t-esc="o.cleadtime" />
+                            </div>
+                            <div class="col-4">
+                                <strong>Decoupled LT (Days): </strong>
+                                <span t-esc="o.dleadtime" />
+                            </div>
+                        </div>
+                        <div class="row mt32 mb32" style="margin-top:12px;">
+                            <div class="col-4">
+                                <strong>Quantity: </strong>
+                                <span t-field="o.requested_qty" />
+                                <span
+                                    groups="uom.group_uom"
+                                    t-field="o.product_uom_id.name"
+                                />
+                            </div>
+                            <div class="col-4">
+                            </div>
+                            <div class="col-4">
+                            </div>
+                        </div>
+                         <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Level</th>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Product Type</th>
+                                    <th>MRP PP</th>
+                                    <th>Make</th>
+                                    <th>Sub</th>
+                                    <th>Buy</th>
+                                    <th>RP</th>
+                                    <th>Critical Path</th>
+                                    <th>Parent BoM</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="font-weight: bold;">
+                                    <td>0</td>
+                                    <td>
+                                        <span t-field="o.product_id.display_name" />
+                                    </td>
+                                    <td>
+                                        <span t-field="o.requested_qty" />
+                                        <span
+                                            groups="uom.group_uom"
+                                            t-field="o.product_uom_id.name"
+                                        />
+                                    </td>
+                                    <td>
+                                        <span />
+                                    </td>
+                                </tr>
+                                <tr t-foreach="o.line_ids" t-as="l">
+                                    <td>
+                                        <span t-field="l.bom_level" />
+                                    </td>
+                                    <td>
+                                        <span
+                                            style="color: white;"
+                                            t-esc="'... '*(l.bom_level)"
+                                        />
+                                        <span t-esc="l.product_id.display_name" />
+                                    </td>
+                                    <td>
+                                        <span t-esc="l.product_qty" />
+                                        <span
+                                            t-esc="l.product_uom_id.name"
+                                            groups="uom.group_uom"
+                                        />
+                                    </td>
+                                    <td>
+                                        <span t-field="l.product_type" />
+                                    </td>
+
+                                    <td>
+                                        <t t-if="l.mrp_parameter_id">
+                                            <input
+                                                type="checkbox"
+                                                id="checkbox104_mrp_parameter_id"
+                                                checked="checked"
+                                            />
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <t t-if="l.make">
+                                            <input
+                                                type="checkbox"
+                                                id="checkbox104_make"
+                                                checked="checked"
+                                            />
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <t t-if="l.sub">
+                                            <input
+                                                type="checkbox"
+                                                id="checkbox104_sub"
+                                                checked="checked"
+                                            />
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <t t-if="l.buy">
+                                            <input
+                                                type="checkbox"
+                                                id="checkbox104_buy"
+                                                checked="checked"
+                                            />
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <t t-if="l.is_stock">
+                                            <input
+                                                type="checkbox"
+                                                id="checkbox104_is_stock"
+                                                checked="checked"
+                                            />
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <t t-if="l.critical_path">
+                                            <input
+                                                type="checkbox"
+                                                id="checkbox104_critical_path"
+                                                checked="checked"
+                                            />
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <span t-field="l.bom_id.display_name" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                         </table>
+                     </t>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

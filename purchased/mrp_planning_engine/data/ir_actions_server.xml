@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.actions.server" id="action_massive_warehouse_planning_run">
+        <field name="name">Massive Warehouse Planning</field>
+        <field
+            name="groups_id"
+            eval="[(4, ref('mrp_planning_engine.group_planning_administrator'))]"
+        />
+        <field name="model_id" ref="stock.model_stock_warehouse" />
+        <field name="state">code</field>
+        <field name="code">
+action = records.action_planning_engine_run()
+        </field>
+    </record>
+
+    <record model="ir.actions.server" id="action_massive_volume_planning_run">
+        <field name="name">Massive Volume Planning</field>
+        <field
+            name="groups_id"
+            eval="[(4, ref('mrp_planning_engine.group_planning_administrator'))]"
+        />
+        <field
+            name="model_id"
+            ref="mrp_planning_engine.model_mrp_planning_engine_run"
+        />
+        <field name="state">code</field>
+        <field name="code">
+action = model.background_massive_planning_engine_run()
+        </field>
+    </record>
+</odoo>

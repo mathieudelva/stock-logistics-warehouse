@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mrp_production_workorder_tree_editable_view" model="ir.ui.view">
+        <field name="name">mrp.production.work.order.tree</field>
+        <field name="model">mrp.workorder</field>
+        <field
+            name="inherit_id"
+            ref="mrp.mrp_production_workorder_tree_editable_view"
+        />
+        <field name="arch" type="xml">
+            <field name="workcenter_id" position="after">
+                <field name="date_planned_start_wo" optional="show" />
+                <field name="date_planned_finished_wo" optional="show" />
+                <field name="date_actual_start_wo" optional="hide" />
+                <field name="date_actual_finished_wo" optional="hide" />
+                <field name="qty_production" optional="hide" />
+                <field name="milestone" optional="show" />
+                <field name="final_confirmation" optional="show" />
+            </field>
+            <field name="duration" position="after">
+                <field name="overall_duration" optional="show" />
+                <field name="qty_output_wo" readonly="1" optional="show" />
+            </field>
+            <field name="name" position="before">
+                <field name="sequence" />
+            </field>
+            <field name="json_popover" position="attributes">
+                <attribute
+                    name="groups"
+                >mrp_shop_floor_control.group_mrp_confirmation</attribute>
+            </field>
+            <field name="date_planned_start" position="attributes">
+                <attribute
+                    name="groups"
+                >mrp_shop_floor_control.group_mrp_confirmation</attribute>
+            </field>
+            <field name="date_planned_finished" position="attributes">
+                <attribute
+                    name="groups"
+                >mrp_shop_floor_control.group_mrp_confirmation</attribute>
+            </field>
+            <field name="date_start" position="attributes">
+                <attribute
+                    name="groups"
+                >mrp_shop_floor_control.group_mrp_confirmation</attribute>
+            </field>
+            <field name="date_finished" position="attributes">
+                <attribute
+                    name="groups"
+                >mrp_shop_floor_control.group_mrp_confirmation</attribute>
+            </field>
+            <field name="duration_expected" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'readonly':[('state','in', ('done', 'cancel'))]}</attribute>
+            </field>
+            <field name="duration" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'readonly':[('state','in', ('done', 'cancel'))]}</attribute>
+                <attribute name="string">Elapsed</attribute>
+            </field>
+            <button name="button_start" position="attributes">
+                <attribute
+                    name="groups"
+                >mrp_shop_floor_control.group_mrp_confirmation</attribute>
+            </button>
+            <button name="button_pending" position="attributes">
+                <attribute
+                    name="groups"
+                >mrp_shop_floor_control.group_mrp_confirmation</attribute>
+            </button>
+            <button name="button_finish" position="attributes">
+                <attribute
+                    name="groups"
+                >mrp_shop_floor_control.group_mrp_confirmation</attribute>
+            </button>
+        </field>
+    </record>
+
+    <record
+        id="mrp_production_workorder_tree_editable_view_inherit_workorder"
+        model="ir.ui.view"
+    >
+        <field name="name">mrp.production.work.order.tree</field>
+        <field name="model">mrp.workorder</field>
+        <field
+            name="inherit_id"
+            ref="mrp_workorder.mrp_production_workorder_tree_editable_view_inherit_workorder"
+        />
+        <field name="arch" type="xml">
+            <button name="open_tablet_view" position="attributes">
+                <attribute
+                    name="groups"
+                >mrp_shop_floor_control.group_mrp_confirmation</attribute>
+            </button>
+        </field>
+    </record>
+
+    <record id="mrp_production_workorder_form_view_inherit" model="ir.ui.view">
+        <field name="name">mrp.production.workorder.form.view</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit" />
+        <field name="arch" type="xml">
+            <field name="date_end" position="after">
+                <field name="setup_duration" optional="hide" />
+                <field name="working_duration" optional="hide" />
+                <field name="teardown_duration" optional="hide" />
+                <field name="overall_duration" optional="show" />
+                <field name="qty_output_confirmation" readonly="1" optional="show" />
+                <field name="final_confirmation" optional="hide" />
+            </field>
+            <field name="production_id" position="after">
+                <field name="mrp_workcenter_team_id" string="MRP Team" />
+            </field>
+            <field name="duration" position="attributes">
+                <attribute name="string">Elapsed</attribute>
+            </field>
+            <!-- <label for="date_planned_start" position="attributes">
+                <attribute name="groups">mrp_shop_floor_control.group_mrp_confirmation</attribute>
+            </label>
+            <field name="date_planned_start" position="attributes">
+                <attribute name="groups">mrp_shop_floor_control.group_mrp_confirmation</attribute>
+            </field>
+            <field name="date_planned_finished" position="attributes">
+                <attribute name="groups">mrp_shop_floor_control.group_mrp_confirmation</attribute>
+            </field>
+            <field name="json_popover" position="attributes">
+                <attribute name="groups">mrp_shop_floor_control.group_mrp_confirmation</attribute>
+            </field> -->
+            <field name="date_planned_start" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </field>
+            <field name="date_planned_finished" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </field>
+            <field name="duration_expected" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'readonly':[('state','not in', ('pending', 'ready'))]}</attribute>
+            </field>
+            <notebook>
+                <page name="quantities" string="Quantities">
+                    <group>
+                        <group>
+                            <field name="product_id" />
+                            <label for="qty_production" string="MO Qty" />
+                            <div class="o_row">
+                                <field name="qty_production" />
+                                <field name="product_uom_id" />
+                            </div>
+                            <label for="qty_output_wo" />
+                            <div class="o_row">
+                                <field
+                                    name="qty_output_wo"
+                                    attrs="{'readonly':[('state','in', ('done', 'cancel'))]}"
+                                />
+                                <field name="product_uom_id" />
+                            </div>
+                        </group>
+                        <group>
+                            <field name="prev_work_order_id" />
+                            <label for="qty_output_prev_wo" />
+                            <div class="o_row">
+                                <field name="qty_output_prev_wo" />
+                                <field name="product_uom_id" />
+                            </div>
+                        </group>
+                    </group>
+                </page>
+                <page name="dates" string="Dates">
+                    <group>
+                        <group>
+                            <label
+                                for="date_planned_start_wo"
+                                string="Scheduled Dates"
+                            />
+                            <div class="o_row">
+                                <field name="date_planned_start_wo" readonly="1" />
+                                <field name="date_planned_finished_wo" readonly="1" />
+                            </div>
+                            <label
+                                for="date_actual_start_wo"
+                                string="Actual Confirmed Dates"
+                            />
+                            <div class="o_row">
+                                <field name="date_actual_start_wo" readonly="1" />
+                                <field name="date_actual_finished_wo" readonly="1" />
+                            </div>
+                        </group>
+                        <group>
+                            <label for="duration_expected" />
+                            <div class="o_row">
+                                <field
+                                    name="duration_expected"
+                                    widget="float_time"
+                                    readonly="1"
+                                />
+                                <span>minutes</span>
+                            </div>
+                            <!-- <label for="duration" string="Elapsed"/>
+                            <div class="o_row">
+                                <field name="duration" widget="float_time" readonly="1"/>
+                                <span>minutes</span>
+                            </div> -->
+                            <label for="overall_duration" />
+                            <div class="o_row">
+                                <field
+                                    name="overall_duration"
+                                    widget="float_time"
+                                    readonly="1"
+                                />
+                                <span>minutes</span>
+                            </div>
+                        </group>
+                    </group>
+                </page>
+                <page string="Capacity">
+                    <group>
+                        <group>
+                            <field name="workcenter_id" readonly="1" />
+                            <field name="milestone" />
+                            <field name="sequence" />
+                        </group>
+                        <group>
+                            <label for="wo_capacity_requirements" />
+                            <div class="o_row">
+                                <field
+                                    name="wo_capacity_requirements"
+                                    widget="float_time"
+                                />
+                                <span>hours</span>
+                            </div>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <record
+        id="view_mrp_production_workorder_form_view_filter_enhanced"
+        model="ir.ui.view"
+    >
+        <field name="name">mrp.production.work.order.select</field>
+        <field name="model">mrp.workorder</field>
+        <field
+            name="inherit_id"
+            ref="mrp.view_mrp_production_workorder_form_view_filter"
+        />
+        <field name="arch" type="xml">
+            <filter name="late" position="replace">
+                <filter
+                    string="Late"
+                    name="late"
+                    domain="[('date_planned_start_wo','&lt;=',time.strftime('%%Y-%%m-%%d'))]"
+                />
+            </filter>
+            <filter name="status" position="after">
+                <filter
+                    string="MRP Team"
+                    name="team"
+                    domain="[]"
+                    context="{'group_by': 'mrp_workcenter_team_id'}"
+                />
+            </filter>
+            <filter name="late" position="after">
+                <searchpanel>
+                    <field name="state" />
+                    <field name="mrp_workcenter_team_id" />
+                </searchpanel>
+            </filter>
+        </field>
+    </record>
+</odoo>

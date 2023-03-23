@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_mrp_planning_engine_background_run" model="ir.ui.view">
+        <field name="name">mrp.planning.engine.background.run.tree</field>
+        <field name="model">stock.warehouse</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <tree string="MRP Planning Engine Background Run" edit="0" create="0">
+                <field name="name" />
+                <field name="planning_run" />
+                <button
+                    name="%(action_massive_warehouse_planning_run)d"
+                    type="action"
+                    groups="mrp_planning_engine.group_planning_administrator"
+                    string="Planning Run"
+                    class="oe_highlight"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <record id="mrp_planning_engine_run_action" model="ir.actions.act_window">
+        <field name="name">MRP Planning Engine Run Background</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.warehouse</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_mrp_planning_engine_background_run" />
+    </record>
+
+    <menuitem
+        id="menu_mrp_planning_engine_background_run"
+        action="mrp_planning_engine_run_action"
+        sequence="25"
+        parent="mrp_planning_engine.menu_mrp_rop_root"
+        groups="mrp_planning_engine.group_planning_administrator"
+    />
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mrp_planning_engine_availability_check,mrp.planning.engine.availability.check,model_mrp_planning_engine_availability_check,mrp_planning_engine.group_planning_user,1,1,1,0
+access_mrp_planning_engine_availability_check_line,mrp.planning.engine.availability.check.line,model_mrp_planning_engine_availability_check_line,mrp_planning_engine.group_planning_user,1,1,1,0
