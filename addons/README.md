@@ -4,6 +4,7 @@
 | -------------------------------- | ----------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | oak_boti_ui                      | local             | BOTI      | UI Alterations for BOTI                                                                                                        |
 | oak_crm                          | local             | BOTI      | CRM lead field additions                                                                                                       |
+| oak_maintenance                  | local             | BOTI      | Sage info for equipment                                                                                                        |
 | oak_redis_session                | local             | BOTI      | Redis for session                                                                                                              |
 | purchase_request                 | purchase-workflow | OCA       | Allows requests for purchased items from users                                                                                 |
 | purchase_request_tier_validation | purchase-workflow | OCA       | Allows purchase requests to have workflows for validation                                                                      |
