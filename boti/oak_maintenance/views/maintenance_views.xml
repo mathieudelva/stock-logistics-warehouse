@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!--inherit and add fields to maintenance views-->
+
+
+    <!-- Equipments base form-->
+    <record id="oak_maintenance_hr_equipment_view_form_inherit" model="ir.ui.view">
+        <field name="name">equipment.form.inherit</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_view_form" />
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <xpath
+                expr="//form/sheet/group/group/field[@name='category_id']"
+                position="before"
+            >
+               <field name="sage_id" string="Sage Reference ID" />
+               <field name="sage_name" string="Sage Name" />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Equipment tree view -->
+    <record id="oak_maintenance_hr_equipment_view_tree_inherit" model="ir.ui.view">
+        <field name="name">equipment.tree.inherit</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_view_tree" />
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='name']" position="after">
+                <field name="sage_id" string="Sage Reference ID" />
+                <field name="sage_name" string="Sage Name" />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Equipment list / search selection -->
+    <record id="oak_maintenance_hr_equipment_view_search_inherit" model="ir.ui.view">
+        <field name="name">equipment.search.inherit</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_view_search" />
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="sage_id" string="Sage Reference ID" />
+                <field name="sage_name" string="Sage Name" />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Equipment kanban view inherit -->
+    <record id="oak_maintenance_hr_equipment_view_kanban_inherit" model="ir.ui.view">
+        <field name="name">equipment.kanban.inherit</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_view_kanban" />
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="sage_id" />
+            </field>
+            <xpath
+                expr="//div[hasclass('o_kanban_record_body')]/div"
+                position="replace"
+            >
+                <li t-if="record.serial_no.raw_value"><b>Serial Number:</b> <t
+                        t-esc="record.serial_no.value"
+                    /></li>
+                <li t-if="record.sage_id.raw_value"><b>Sage Reference ID:</b> <t
+                        t-esc="record.sage_id.value"
+                    /></li>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
