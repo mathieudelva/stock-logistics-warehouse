@@ -271,4 +271,37 @@
             <field name="domain">[('product_tmpl_id', '=', active_id)]</field>
     </record>
 
+    <!-- Product (product.template) and variant (product.product) common-->
+    <record id="product_template_form_view_inherit_mrp" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.mrp</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field eval="110" name="priority" />
+        <field name="arch" type="xml">
+            <page name="inventory" position="before">
+                <page
+                    string="Manufacturing"
+                    name="manufacturing"
+                    attrs="{'invisible':[('candidate_manufacture','=',False)]}"
+                    invisible="0"
+                    modifiers="{'invisible':[['candidate_manufacture','=',false]]}"
+                >
+                    <separator
+                        colspan="4"
+                        string="CNC Information"
+                        name="cnc_info_lines"
+                    />
+                    <field name="cnc_info_line" widget="one2many">
+                        <tree name="CNC Programs" editable="bottom">
+                            <field name="name" />
+                            <field name="cnc_length" />
+                            <field name="cnc_diameter" />
+                            <field name="workcenter_id" />
+                            <field name="department_id" />
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
 </odoo>
