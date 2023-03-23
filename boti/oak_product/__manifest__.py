@@ -6,9 +6,16 @@
         Product App and Adjustments
 
         1. Sequence seq_product_product for products
+        2. Add classcode, detail number, generic name, and material as tables
+        3. Add classcode, detail number, generic name, and material linked to product.template
+        4. Add engineering note as an additional text field
 
+        Add tracking for:
+        categ_id, allow_negative_stock, company_id, uom_id, uom_po_id,
+        proposed_cost on product.template
 
-        1. New Fields:
+        Add tracking for:
+        standard_price, default_code, proposed_cost on product.product
 
     """,
     "version": "16.0.1.0.0",
@@ -19,13 +26,7 @@
     "maintainers": ["emsmith"],
     "depends": [
         "base",
-        # "sale",
-        # "product",
-        # "product_sequence",
-        # "product_state",
-        # "product_tier_validation",
-        # "sale_product_approval",
-        # "sale_product_approval_mrp",
+        "product",
     ],
     "data": [
         "security/security.xml",
