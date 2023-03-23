@@ -18,6 +18,7 @@
                 <button
                     name="open_bom"
                     icon="fa-flask"
+                    string="BoM"
                     type="object"
                     attrs="{'invisible':[('child_bom_id','=',False)]}"
                 />
