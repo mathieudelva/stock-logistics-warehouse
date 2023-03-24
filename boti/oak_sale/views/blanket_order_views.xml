@@ -1,0 +1,40 @@
+<odoo>
+    <record id="sale_blanket_order_line_tree_inherit" model="ir.ui.view">
+        <field name="name">sale.blanket.order.line.inherit</field>
+        <field name="model">sale.blanket.order.line</field>
+        <field
+            name="inherit_id"
+            ref="sale_blanket_order.sale_blanket_order_line_tree"
+        />
+        <field name="arch" type="xml">
+            <field name="date_schedule" position="after">
+                <field name="partner_id" optional="show" />
+                <field name="validity_date" optional="show" />
+            </field>
+        </field>
+    </record>
+    <record id="sale_blanket_order_line_search_inherit" model="ir.ui.view">
+        <field name="name">sale.blanket.order.line.search</field>
+        <field name="model">sale.blanket.order.line</field>
+        <field
+            name="inherit_id"
+            ref="sale_blanket_order.sale_blanket_order_line_search"
+        />
+        <field name="arch" type="xml">
+                <field name="date_schedule" position="after">
+                    <field name="partner_id" />
+                    <field name="validity_date" />
+                    <filter
+                    name="validity_date"
+                    string="Validity Date"
+                    context="{'group_by': 'validity_date'}"
+                />
+                <filter
+                    name="partner_id"
+                    string="Customer"
+                    context="{'group_by': 'partner_id'}"
+                />
+                </field>
+        </field>
+    </record>
+</odoo>

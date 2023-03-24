@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- Customer res.partner.form-->
+    <record id="res_partner_form_view_inherit" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="priority">100</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <!-- move ref field-->
+            <field name="ref" position="replace">
+                <field
+                    name="ref"
+                    string="Account Number"
+                    attrs="{'invisible':[('type', '=', 'contact')]}"
+                />
+            </field>
+            <field name="type" position="before">
+                <field name="ref" position="move" />
+            </field>
+
+            <!-- parent_ref addition-->
+            <field name="ref" position="before">
+                <field
+                    name="parent_ref"
+                    attrs="{'invisible':[('type', '=', 'contact')]}"
+                />
+            </field>
+
+            <!-- prefix partner name with ref if exists -->
+            <xpath
+                expr="//form/sheet/div[hasclass('oe_title')]/h1/field[@name='name']"
+                position="before"
+            >
+                <a
+                    attrs="{'invisible': [('ref', '=', False)]}"
+                    class="oe_read_only"
+                >[</a>
+                <field
+                    name="ref"
+                    attrs="{'invisible': [('ref', '=', False)]}"
+                    class="oe_read_only"
+                />
+                <a
+                    attrs="{'invisible': [('ref', '=', False)]}"
+                    class="oe_read_only"
+                >] </a>
+            </xpath>
+
+            <!-- add street3 and 4-->
+            <xpath
+                expr="//form/sheet/group/group/div/field[@name='street2']"
+                position="after"
+            >
+                <field
+                    name="street3"
+                    placeholder="Street 3..."
+                    class="o_address_street"
+                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                />
+                <field
+                    name="street4"
+                    placeholder="Street 4..."
+                    class="o_address_street"
+                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                />
+            </xpath>
+
+
+            <xpath
+                expr="//form/sheet/div/div/field[@name='parent_id']"
+                position="replace"
+            >
+                <field
+                    name="parent_id"
+                    widget="res_partner_many2one"
+                    placeholder="Company"
+                    domain="[('is_company', '=', True)]"
+                    context="{'default_is_company': True, 'show_vat': True}"
+                    attrs="{'invisible': [('parent_id', '=', False),('company_name', '!=', False),('company_name', '!=', '')]}"
+                />
+            </xpath>
+
+            <!-- modifiy the kanban cards in the notebook-->
+            <!-- prefix account name with ref in kanban cards when set -->
+            <xpath
+                expr="//form/sheet/notebook/page/field/kanban/templates/t/div/div[hasclass('oe_kanban_details')]/field[@name='name']"
+                position="before"
+            >
+                <a attrs="{'invisible': [('ref', '=', False)]}">[</a>
+                <field name="ref" />
+                <a attrs="{'invisible': [('ref', '=', False)]}">]</a>
+            </xpath>
+
+            <xpath
+                expr="//form/sheet/notebook/page/field/kanban/field[@name='name']"
+                position="before"
+            >
+                <field name="ref" string="Account" />
+                <field name="parent_ref" />
+            </xpath>
+            <xpath
+                expr="//form/sheet/notebook/page/field/kanban/field[@name='street2']"
+                position="after"
+            >
+                <field name="street3" />
+                <field name="street4" />
+            </xpath>
+            <xpath
+                expr="//form/sheet/notebook/page/field[@name='child_ids']"
+                position="attributes"
+            >
+                <attribute name="context">{'default_parent_id': active_id,
+                        'default_street': street, 'default_street2': street2, 'default_street3': street3, 'default_street4': street4,
+                        'default_city': city, 'default_state_id': state_id, 'default_zip': zip,
+                        'default_country_id': country_id, 'default_lang': lang, 'default_user_id': user_id,
+                        'default_type': 'delivery'}
+                </attribute>
+            </xpath>
+            <xpath
+                expr="//form/sheet/notebook/page/field/form/sheet/group/group/field[@name='name']"
+                position="before"
+            >
+                <field name="parent_ref" />
+                <field
+                    name="ref"
+                    string="Account"
+                    attrs="{'invisible': ['|', '|', ('type', '=', 'other'), ('type', '=', 'contact'), ('type', '=', 'private')]}"
+                />
+            </xpath>
+            <xpath
+                expr="//form/sheet/notebook/page/field/form/sheet/group/group/div/div/field[@name='street2']"
+                position="after"
+            >
+                <field
+                    name="street3"
+                    placeholder="Street 3..."
+                    class="o_address_street"
+                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                />
+                <field
+                    name="street4"
+                    placeholder="Street 4..."
+                    class="o_address_street"
+                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                />
+            </xpath>
+            <!-- add external sales rep field -->
+            <xpath
+                expr="//form/sheet/notebook/page[@name='sales_purchases']/group/group[@name='sale']/field[@name='user_id']"
+                position="after"
+            >
+                <field name="extrep_id" domain="[('is_sales_rep','=',True)]" />
+            </xpath>
+            <!-- add is_sales_ref boolean -->
+            <xpath
+                expr="//form/sheet/notebook/page[@name='sales_purchases']/group/group[@name='misc']/field[@name='company_id']"
+                position="before"
+            >
+                <field name="is_sales_rep" />
+            </xpath>
+        </field>
+    </record>
+
+    <!--inherit and add group to res.partner.view.buttons
+         button box group modification for read only-->
+    <record id="res_partner_view_buttons_oak" model="ir.ui.view">
+        <field name="name">res.partner.view.buttons.oak</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="sale.res_partner_view_buttons" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@icon='fa-usd']" position="attributes">
+                <attribute
+                    name="groups"
+                >sales_team.group_sale_salesman, oak_sale.group_sale_read_only</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!--inherit and add group to res.partner.view.buttons-->
+    <record id="view_res_partner_form_crm_inherited1_oak" model="ir.ui.view">
+        <field name="name">view.res.partner.form.crm.inherited1.oak</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="crm.view_partners_form_crm1" />
+        <field name="arch" type="xml">
+            <!-- button box group modification for read only-->
+            <xpath
+                expr="//button[@name='action_view_opportunity']"
+                position="attributes"
+            >
+                <attribute
+                    name="groups"
+                >sales_team.group_sale_salesman, oak_sale.group_sale_read_only</attribute>
+            </xpath>
+            <xpath expr="//button[@name='schedule_meeting']" position="attributes">
+                <attribute
+                    name="groups"
+                >sales_team.group_sale_salesman, oak_sale.group_sale_read_only</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Partner kanban view inherte -->
+    <record id="oak_partner_kanban_view_inherit" model="ir.ui.view">
+        <field name="name">res.partner.kanban.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.res_partner_kanban_view" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//strong[hasclass('oe_partner_heading')]/field[@name='display_name']"
+                position="before"
+            >
+                <a attrs="{'invisible': [('ref', '=', False)]}">[</a>
+                <field name="ref" />
+                <a attrs="{'invisible': [('ref', '=', False)]}">]</a>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- res.partner tree view -->
+    <record id="oak_res_partner_tree_inherit" model="ir.ui.view">
+        <field name="name">res.partner.tree.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='city']" position="before">
+                <field name="street" optional="show" />
+                <field name="street2" optional="show" />
+            </xpath>
+            <xpath expr="//tree/field[@name='display_name']" position="before">
+                <field name="property_product_pricelist" readonly="1" optional="show" />
+                <field name="ref" string="Account" readonly="1" optional="show" />
+                <field name="parent_ref" readonly="1" optional="show" />
+            </xpath>
+            <xpath expr="//tree/field[@name='active']" position="before">
+                <field name="is_sales_rep" readonly="1" optional="hide" />
+                <field
+                    string="Customer Payment Term"
+                    name="property_payment_term_id"
+                    readonly="1"
+                    optional="hide"
+                />
+                <field
+                    string="Vendor Payment Term"
+                    name="property_supplier_payment_term_id"
+                    readonly="1"
+                    optional="hide"
+                />
+                <field
+                    string="Incoterm"
+                    name="sale_incoterm_id"
+                    readonly="1"
+                    optional="hide"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_partner_view_search_street" model="ir.ui.view">
+        <field name="name">res.partner.search.inherit.street</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field
+                    name="street"
+                    filter_domain="['|', ('street', 'ilike', self), ('street2', 'ilike', self)]"
+                />
+            </field>
+        </field>
+    </record>
+
+</odoo>
