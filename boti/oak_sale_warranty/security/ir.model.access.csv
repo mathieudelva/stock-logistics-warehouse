@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_warranty_policy_user,warranty.policy,model_warranty_policy,base.group_user,1,0,0,0
+access_warranty_policy_admin,warranty.policy.admin,model_warranty_policy,sales_team.group_sale_manager,1,1,1,1
+access_warranty_policy_line_user,warranty.policy.line,model_warranty_policy_line,base.group_user,1,0,0,0
+access_warranty_policy_line_admin,warranty.policy.line.admin,model_warranty_policy_line,sales_team.group_sale_manager,1,1,1,1

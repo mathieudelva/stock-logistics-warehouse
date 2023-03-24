@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- sale warranty policy form view -->
+    <record id="warranty_policy_form_view" model="ir.ui.view">
+        <field name="name">warranty.policy.form</field>
+        <field name="model">warranty.policy</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form string="Warranty Disclaimer Policy">
+                <sheet>
+                    <group name="group_general">
+                        <field name="name" string="Disclaimer ID" />
+                        <field name="company_id" />
+                    </group>
+                    <group string="Warranty Text">
+                        <field
+                            name="description"
+                            nolabel="1"
+                            placeholder="Warranty Policy Disclaimer Text."
+                            wizard="html"
+                        />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="warranty_policy_tree_view" model="ir.ui.view">
+        <field name="name">warranty.policy.tree.view</field>
+        <field name="model">warranty.policy</field>
+        <field name="arch" type="xml">
+            <tree name="Warranty Policy Disclaimer Texts">
+                <field name="sequence" widget="handle" />
+                <field name="name" string="Warranty Disclaimer ID" />
+                <field name="company_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="warranty_policy_search_view" model="ir.ui.view">
+        <field name="name">warranty_policy.search</field>
+        <field name="model">warranty.policy</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <search string="Warranty Disclaimer ID">
+                <field name="name" filter_domain="[('name', 'ilike', self)]" />
+            </search>
+        </field>
+    </record>
+
+    <record id="action_warranty_policy" model="ir.actions.act_window">
+        <field name="name">Warranty Policy</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">warranty.policy</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="warranty_policy_tree_view" />
+        <field name="search_view_id" ref="warranty_policy_search_view" />
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="warranty_policy_menu"
+        name="Warranty Disclaimer Texts"
+        parent="sale.menu_sales_config"
+        action="action_warranty_policy"
+        sequence="3"
+        groups="sales_team.group_sale_manager"
+        active="True"
+    />
+
+</odoo>
