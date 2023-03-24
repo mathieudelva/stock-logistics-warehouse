@@ -1,6 +1,3 @@
-# Copyright (C) 2021 Open Source Integrators
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
 {
     "name": "Oak Partner Additions",
     "summary": """
@@ -29,10 +26,7 @@
     "author": "Burr Oak Tool Inc",
     "website": "https://www.burroak.com",
     "maintainers": ["emsmith"],
-    "depends": [
-        "base",
-        "contacts",
-    ],
+    "depends": ["base", "contacts", "sale_partner_incoterm"],
     "data": [
         "views/partner.xml",
     ],
