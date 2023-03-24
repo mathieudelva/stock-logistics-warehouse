@@ -13,4 +13,3 @@ from . import mrp_production
 from . import mrp_demand
 from . import stock_move
 from . import sale_order
-from . import purchase
