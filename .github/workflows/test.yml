@@ -48,7 +48,7 @@ jobs:
           - 5432:5432
     steps:
       - name: Install ssh
-        run: apt-get install ssh
+        run: apt-get -y install ssh
       - uses: actions/checkout@v2
         with:
           submodules: true
