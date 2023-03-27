@@ -12,16 +12,97 @@
     osi: git+ssh://git@github.com/ursais/account-analytic.git
   merges:
     - oca 16.0
-  target: &default_target osi bot/16.0
+  target: &default_target bot bot/16.0
 
-# ./oca/manufacture:
-#     remotes:
-#         oca: https://github.com/OCA/manufacture.git
-#         bot: git+ssh://git@github.com/burroaktoolinc/manufacture.git
-#         osi: git+ssh://git@github.com/ursais/manufacture.git
-#     merges:
-#         - oca 16.0
-#     target: *default_target
+./oca/account-financial-tools:
+  remotes:
+    oca: https://github.com/OCA/account-financial-tools.git
+    bot: git+ssh://git@github.com/burroaktoolinc/account-financial-tools.git
+    osi: git+ssh://git@github.com/ursais/account-financial-tools.git
+  merges:
+    - oca 16.0
+  target: *default_target
+
+./oca/account-invoicing:
+  remotes:
+    oca: https://github.com/OCA/account-invoicing.git
+    bot: git+ssh://git@github.com/burroaktoolinc/account-invoicing.git
+    osi: git+ssh://git@github.com/ursais/account-invoicing.git
+  merges:
+    - oca 16.0
+  target: *default_target
+
+./oca/account-payment:
+  remotes:
+    oca: https://github.com/OCA/account-payment.git
+    bot: git+ssh://git@github.com/burroaktoolinc/account-payment.git
+    osi: git+ssh://git@github.com/ursais/account-payment.git
+  merges:
+    - oca 16.0
+  target: *default_target
+
+./oca/bank-payment:
+  remotes:
+    oca: https://github.com/OCA/bank-payment.git
+    bot: git+ssh://git@github.com/burroaktoolinc/bank-payment.git
+    osi: git+ssh://git@github.com/ursais/bank-payment.git
+  merges:
+    - oca 16.0
+  target: *default_target
+
+./oca/credit-control:
+  remotes:
+    oca: https://github.com/OCA/credit-control.git
+    bot: git+ssh://git@github.com/burroaktoolinc/credit-control.git
+    osi: git+ssh://git@github.com/ursais/credit-control.git
+  merges:
+    - oca 16.0
+  target: *default_target
+
+./oca/l10n-usa:
+  remotes:
+    oca: https://github.com/OCA/l10n-usa.git
+    bot: git+ssh://git@github.com/burroaktoolinc/l10n-usa.git
+    osi: git+ssh://git@github.com/ursais/l10n-usa.git
+  merges:
+    - oca 16.0
+  target: *default_target
+
+./oca/manufacture:
+  remotes:
+    oca: https://github.com/OCA/manufacture.git
+    bot: git+ssh://git@github.com/burroaktoolinc/manufacture.git
+    osi: git+ssh://git@github.com/ursais/manufacture.git
+  merges:
+    - oca 16.0
+  target: *default_target
+
+./oca/partner-contact:
+  remotes:
+    oca: https://github.com/OCA/partner-contact.git
+    bot: git+ssh://git@github.com/burroaktoolinc/partner-contact.git
+    osi: git+ssh://git@github.com/ursais/partner-contact.git
+  merges:
+    - oca 16.0
+  target: *default_target
+
+./oca/product-attribute:
+  remotes:
+    oca: https://github.com/OCA/product-attribute.git
+    bot: git+ssh://git@github.com/burroaktoolinc/product-attribute.git
+    osi: git+ssh://git@github.com/ursais/product-attribute.git
+  merges:
+    - oca 16.0
+  target: *default_target
+
+./oca/project:
+  remotes:
+    oca: https://github.com/OCA/project.git
+    bot: git+ssh://git@github.com/burroaktoolinc/project.git
+    osi: git+ssh://git@github.com/ursais/project.git
+  merges:
+    - oca 16.0
+  target: *default_target
 
 ./oca/purchase-workflow:
   remotes:
@@ -37,6 +118,24 @@
     oca: https://github.com/OCA/queue.git
     bot: git+ssh://git@github.com/burroaktoolinc/queue.git
     osi: git+ssh://git@github.com/ursais/queue.git
+  merges:
+    - oca 16.0
+  target: *default_target
+
+./oca/sale-workflow:
+  remotes:
+    oca: https://github.com/OCA/sale-workflow.git
+    bot: git+ssh://git@github.com/burroaktoolinc/sale-workflow.git
+    osi: git+ssh://git@github.com/ursais/sale-workflow.git
+  merges:
+    - oca 16.0
+  target: *default_target
+
+./oca/server-auth:
+  remotes:
+    oca: https://github.com/OCA/server-auth.git
+    bot: git+ssh://git@github.com/burroaktoolinc/server-auth.git
+    osi: git+ssh://git@github.com/ursais/server-auth.git
   merges:
     - oca 16.0
   target: *default_target
@@ -64,6 +163,33 @@
     oca: https://github.com/OCA/server-ux.git
     bot: git+ssh://git@github.com/burroaktoolinc/server-ux.git
     osi: git+ssh://git@github.com/ursais/server-ux.git
+  merges:
+    - oca 16.0
+  target: *default_target
+
+./oca/social:
+  remotes:
+    oca: https://github.com/OCA/social.git
+    bot: git+ssh://git@github.com/burroaktoolinc/social.git
+    osi: git+ssh://git@github.com/ursais/social.git
+  merges:
+    - oca 16.0
+  target: *default_target
+
+./oca/stock-logistics-warehouse:
+  remotes:
+    oca: https://github.com/OCA/stock-logistics-warehouse.git
+    bot: git+ssh://git@github.com/burroaktoolinc/stock-logistics-warehouse.git
+    osi: git+ssh://git@github.com/ursais/stock-logistics-warehouse.git
+  merges:
+    - oca 16.0
+  target: *default_target
+
+./oca/stock-logistics-workflow:
+  remotes:
+    oca: https://github.com/OCA/stock-logistics-workflow.git
+    bot: git+ssh://git@github.com/burroaktoolinc/stock-logistics-workflow.git
+    osi: git+ssh://git@github.com/ursais/stock-logistics-workflow.git
   merges:
     - oca 16.0
   target: *default_target
