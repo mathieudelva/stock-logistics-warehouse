@@ -3,11 +3,10 @@ name: tests
 on:
   pull_request:
     branches:
-      - "16.0*"
+      - "main"
   push:
     branches:
-      - "16.0"
-      - "16.0-ocabot-*"
+      - "main"
 
 jobs:
   unreleased-deps:
@@ -48,9 +47,12 @@ jobs:
         ports:
           - 5432:5432
     steps:
+      - name: Install ssh
+        run: apt-get -y install ssh
       - uses: actions/checkout@v2
         with:
-          persist-credentials: false
+          submodules: true
+          ssh-key: ${{secrets.SSH_KEY}}
       - name: Install addons and dependencies
         run: oca_install_addons
       - name: Check licenses
@@ -64,6 +66,3 @@ jobs:
       - name: Run tests
         run: oca_run_tests
       - uses: codecov/codecov-action@v1
-      - name: Update .pot files
-        run: oca_export_and_push_pot https://x-access-token:${{ secrets.GIT_PUSH_TOKEN }}@github.com/${{ github.repository }}
-        if: ${{ matrix.makepot == 'true' && github.event_name == 'push' && github.repository_owner == 'burroaktoolinc' }}
