@@ -242,47 +242,8 @@ class ProductCombine(models.Model):
         lunit = legacybomline.unitid
 
         # default uomrec if not found in unit_conversion_dict]
-        uomrec = self.env["uom.uom"].search(
-            [("name", "=", "Units"), ("active", "=", "true")]
-        )
-
-        unit_conversion_dict = {
-            "10 Pack": "10 unit",
-            "EACH": "Units",
-            "Each": "Units",
-            "Piece": "Units",
-            "Inch": "Inch",
-            "Sq In": "Sq In",
-            "Sq Inch": "Sq In",
-            "Sq Feet": "Sq Ft",
-            "Sq Ft": "Sq Ft",
-            "Sq. Ft.": "Sq Ft",
-            "Feet": "Foot",
-            "Foot": "Foot",
-            "CM": "cm",
-            "Meter": "meters",
-            "pound": "lb",
-            "sq ft": "Sq Ft",
-            "Gallon": "gals",
-            "Quart": "quarts",
-            "meter": "meters",
-            "25 Pk": "25 unit",
-            "50 Pk": "50 unit",
-            "PAIR": "2 unit",
-            "Case": "Units",
-            "500 Ft.": "500 unit",
-            "15 Pk": "15 unit",
-            "2500'Spl": "Foot",
-            "Pair": "2 unit",
-        }
-
-        for serkey, value in unit_conversion_dict.items():
-            if lunit == serkey:
-                uomrec = self.env["uom.uom"].search(
-                    [("name", "=", value), ("active", "=", "true")]
-                )
-
-        return uomrec.id
+        uomrec = self.env["product.legacy.uom"].search([("legacy_uom", "=", lunit)])
+        return uomrec.odoo_uom.id
 
     def _convert_legacy_bom_recurse(self, default_code, recurse=True):
         """This routine is now a conversion from legacy tables to standard bom tables"""

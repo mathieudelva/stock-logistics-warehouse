@@ -87,6 +87,13 @@ class ProductLegacy(models.Model):
     list_price_legacy = fields.Float(string="Legacy List Price")
     std_cost_legacy = fields.Float(string="Legacy Std Cost")
 
+    cnc_info_line = fields.One2many(
+        comodel_name="product.legacy.cnc.line",
+        inverse_name="product_legacy_id",
+        string="Legacy CNC Program Info",
+        copy=False,
+    )
+
     def init(self):
         tools.create_index(
             self._cr, "product_legacy_active_index", self._table, ["default_code"]

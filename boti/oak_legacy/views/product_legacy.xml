@@ -143,6 +143,21 @@
                                 />
                             </group>
                         </page>
+                        <page string="Manufacturing" name="manufacturing">
+                            <separator
+                                colspan="4"
+                                string="CNC Information"
+                                name="product_legacy_cnc_line"
+                            />
+                            <field name="cnc_info_line" widget="one2many">
+                                <tree string="CNC Programs" editable="bottom">
+                                    <field name="name" />
+                                    <field name="cnc_length" />
+                                    <field name="cnc_diameter" />
+                                    <field name="workcenter_id" />
+                                </tree>
+                            </field>
+                        </page>
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">

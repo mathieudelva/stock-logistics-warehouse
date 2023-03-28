@@ -8,3 +8,5 @@ access_mrp_bom_line_legacy,mrp.bom.line.legacy,model_mrp_bom_line_legacy,product
 access_mrp_routing_legacy,mrp.routing.legacy,model_mrp_routing_legacy,product_legacy_group_user,1,1,1,1
 access_mrp_routing_line_legacy,mrp.routing.line.legacy,model_mrp_routing_line_legacy,product_legacy_group_user,1,1,1,1
 access_message_box_all,message.box,model_message_box,,1,0,0,0
+access_product_legacy_uom,access_product_legacy_uom,model_product_legacy_uom,base.group_user,1,1,1,1
+access_product_legacy_cnc_line,access_product_legacy_cnc_line,model_product_legacy_cnc_line,base.group_user,1,1,1,1

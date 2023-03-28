@@ -44,5 +44,7 @@
             sequence="30"
         />
 
+        <menuitem id="legacy_configuration_menu" name="Configuration" sequence="40" />
+
     </menuitem>
 </odoo>

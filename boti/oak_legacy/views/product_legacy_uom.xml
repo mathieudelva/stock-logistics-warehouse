@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="product_legacy_uom_view" model="ir.ui.view">
+        <field name="name">product.legacy.uom.tree</field>
+        <field name="model">product.legacy.uom</field>
+        <field name="arch" type="xml">
+            <tree string="Legacy UOM Mapping" default_order='legacy_uom'>
+                <field name="legacy_uom" />
+                <field name="odoo_uom" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="legacy_uom_mapping_action" model="ir.actions.act_window">
+        <field name="name">UOM Mapping</field>
+        <field name="res_model">product.legacy.uom</field>
+        <field name="view_id" ref="product_legacy_uom_view" />
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_legacy_configuration_uom"
+        name="UOM Mapping"
+        action="legacy_uom_mapping_action"
+        parent="legacy_configuration_menu"
+        sequence="2"
+    />
+
+</odoo>

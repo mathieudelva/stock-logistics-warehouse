@@ -16,6 +16,7 @@
         "views/mrp_legacy.xml",
         "views/product_legacy.xml",
         "views/product_combine.xml",
+        "views/product_legacy_uom.xml",
         "wizard/message.xml",
     ],
     "installable": True,

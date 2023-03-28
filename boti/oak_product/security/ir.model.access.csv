@@ -7,5 +7,5 @@ access_product_detail_number,product.detail.number,model_product_detail_number,p
 access_product_detail_number_admin,product.detail.number.admin,model_product_detail_number,product_boti_group_admin,1,1,1,1
 access_product_generic_name,product.generic.name,model_product_generic_name,product_boti_group_user,1,1,1,0
 access_product_generic_name_admin,product.generic.name.admin,model_product_generic_name,product_boti_group_admin,1,1,1,1
-access_product_cnc_info_user,product.cnc.info.line Product CNC Info User,oak_mrp.model_product_cnc_info_line,mrp.group_mrp_user,1,1,1,0
-access_product_cnc_info_manager,product.cnc.info.line Product CNC Info Manager,oak_mrp.model_product_cnc_info_line,mrp.group_mrp_manager,1,1,1,1
+access_product_cnc_info_user,product.cnc.info.line,model_product_cnc_info_line,product_boti_group_user,1,1,1,0
+access_product_cnc_info_manager,product.cnc.info.line,model_product_cnc_info_line,product_boti_group_admin,1,1,1,1

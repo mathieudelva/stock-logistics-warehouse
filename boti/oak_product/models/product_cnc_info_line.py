@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class ProductCNCInfoLine(models.Model):
@@ -22,6 +22,12 @@ class ProductCNCInfoLine(models.Model):
     cnc_length = fields.Float(string="CNC - Length")
     cnc_diameter = fields.Float(string="CNC - Diameter")
     workcenter_id = fields.Many2one("mrp.workcenter", "Work Center")
-    department_id = fields.Many2one(
-        related="workcenter_id.department_id", readonly=True
-    )
+    department_id = fields.Many2one(readonly=True, compute="_compute_department_id")
+
+    # Related field on department id caused circular dependency
+    # The purpose of this is to prevent that
+    @api.depends("workcenter_id")
+    def _compute_department_id(self):
+        for record in self:
+            if "department_id" in self.env["mrp.workcenter"]._fields:
+                record.department_id = record.workcenter_id.department_id
