@@ -7,6 +7,13 @@ Odoo 16 repository
 /opt/odoo/.local/bin/pre-commit run --all-files
 ```
 
+## Git Aggregator
+```pip install git-aggregator
+/opt/odoo/.local/bin/pre-commit gitaggregate -c repos.yml
+/opt/odoo/.local/bin/pre-commit gitaggregate -c repos.yml -p
+/opt/odoo/.local/bin/pre-commit gitaggregate -c repos.yml -d ./oca/manufacture
+```
+
 ## Missing requirements so far
 
 1. pdfminer (core apparently)

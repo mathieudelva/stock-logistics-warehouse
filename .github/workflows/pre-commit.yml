@@ -3,17 +3,21 @@ name: pre-commit
 on:
   pull_request:
     branches:
-      - "16.0*"
+      - "main"
   push:
     branches:
-      - "16.0"
-      - "16.0-ocabot-*"
+      - "main"
+      - "osi"
+      - "test"
 
 jobs:
   pre-commit:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: true
+          ssh-key: ${{secrets.SSH_KEY}}
       - uses: actions/setup-python@v2
       - name: Get python version
         run: echo "PY=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV

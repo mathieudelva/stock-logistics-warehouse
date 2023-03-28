@@ -4,27 +4,72 @@
 [submodule "base/enterprise"]
 	path = base/enterprise
 	url = git@github.com:burroaktoolinc/enterprise.git
-[submodule "oca/queue"]
-	path = oca/queue
-	url = git@github.com:burroaktoolinc/queue.git
-[submodule "oca/web"]
-	path = oca/web
-	url = git@github.com:burroaktoolinc/web.git
-[submodule "oca/website"]
-	path = oca/website
-	url = git@github.com:burroaktoolinc/website.git
 [submodule "oca/account-analytic"]
 	path = oca/account-analytic
 	url = git@github.com:burroaktoolinc/account-analytic.git
+[submodule "oca/account-financial-tools"]
+	path = oca/account-financial-tools
+	url = git@github.com:burroaktoolinc/account-financial-tools.git
+[submodule "oca/account-invoicing"]
+	path = oca/account-invoicing
+	url = git@github.com:burroaktoolinc/account-invoicing.git
+[submodule "oca/account-payment"]
+	path = oca/account-payment
+	url = git@github.com:burroaktoolinc/account-payment.git
+[submodule "oca/bank-payment"]
+	path = oca/bank-payment
+	url = git@github.com:burroaktoolinc/bank-payment.git
+[submodule "oca/credit-control"]
+	path = oca/credit-control
+	url = git@github.com:burroaktoolinc/credit-control.git
+[submodule "oca/l10n-usa"]
+	path = oca/l10n-usa
+	url = git@github.com:burroaktoolinc/l10n-usa.git
+[submodule "oca/manufacture"]
+	path = oca/manufacture
+	url = git@github.com:burroaktoolinc/manufacture.git
+[submodule "oca/partner-contact"]
+	path = oca/partner-contact
+	url = git@github.com:burroaktoolinc/partner-contact.git
+[submodule "oca/product-attribute"]
+	path = oca/product-attribute
+	url = git@github.com:burroaktoolinc/product-attribute.git
+[submodule "oca/project"]
+	path = oca/project
+	url = git@github.com:burroaktoolinc/project.git
+[submodule "oca/purchase-workflow"]
+	path = oca/purchase-workflow
+	url = git@github.com:burroaktoolinc/purchase-workflow.git
+[submodule "oca/queue"]
+	path = oca/queue
+	url = git@github.com:burroaktoolinc/queue.git
+[submodule "oca/sale-workflow"]
+	path = oca/sale-workflow
+	url = git@github.com:burroaktoolinc/sale-workflow.git
+[submodule "oca/server-auth"]
+	path = oca/server-auth
+	url = git@github.com:burroaktoolinc/server-auth.git
+[submodule "oca/server-backend"]
+	path = oca/server-backend
+	url = git@github.com:burroaktoolinc/server-backend.git
 [submodule "oca/server-tools"]
 	path = oca/server-tools
 	url = git@github.com:burroaktoolinc/server-tools.git
 [submodule "oca/server-ux"]
 	path = oca/server-ux
 	url = git@github.com:burroaktoolinc/server-ux.git
-[submodule "oca/server-backend"]
-	path = oca/server-backend
-	url = git@github.com:burroaktoolinc/server-backend.git
-[submodule "oca/purchase-workflow"]
-	path = oca/purchase-workflow
-	url = git@github.com:burroaktoolinc/purchase-workflow.git
+[submodule "oca/social"]
+	path = oca/social
+	url = git@github.com:burroaktoolinc/social.git
+[submodule "oca/stock-logistics-warehouse"]
+	path = oca/stock-logistics-warehouse
+	url = git@github.com:burroaktoolinc/stock-logistics-warehouse.git
+[submodule "oca/stock-logistics-workflow"]
+	path = oca/stock-logistics-workflow
+	url = git@github.com:burroaktoolinc/stock-logistics-workflow.git
+[submodule "oca/web"]
+	path = oca/web
+	url = git@github.com:burroaktoolinc/web.git
+[submodule "oca/website"]
+	path = oca/website
+	url = git@github.com:burroaktoolinc/website.git
