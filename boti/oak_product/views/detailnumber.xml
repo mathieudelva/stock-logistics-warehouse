@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- detail number form view -->
+    <record id="product_detail_number_form_view" model="ir.ui.view">
+        <field name="name">product.detail.number.form</field>
+        <field name="model">product.detail.number</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form string="Product Detail Numbers">
+                <sheet>
+                    <group name="group_general">
+                        <field name="name" />
+                    </group>
+                    <group string="Detail Number Description">
+                        <field
+                            name="description"
+                            nolabel="1"
+                            placeholder="Detail Number Product Family Notes."
+                        />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_detail_number_tree_view" model="ir.ui.view">
+        <field name="name">product.detail.number.tree.view</field>
+        <field name="model">product.detail.number</field>
+        <field name="arch" type="xml">
+            <tree name="Product Detail Numbers">
+                <field name="name" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_detail_number_search_view" model="ir.ui.view">
+        <field name="name">product.detail.number.search</field>
+        <field name="model">product.detail.number</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <search string="Detail Number">
+                <field
+                    name="name"
+                    string="Name"
+                    filter_domain="[('name', 'ilike', self)]"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record id="action_product_detail_number" model="ir.actions.act_window">
+        <field name="name">Detail Numbers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.detail.number</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="product_detail_number_tree_view" />
+        <field name="search_view_id" ref="product_detail_number_search_view" />
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="product_detail_number_menu"
+        name="Detail Numbers"
+        parent="sale.prod_config_main"
+        action="action_product_detail_number"
+        sequence="11"
+        groups="product_boti_group_admin"
+        active="True"
+    />
+
+</odoo>

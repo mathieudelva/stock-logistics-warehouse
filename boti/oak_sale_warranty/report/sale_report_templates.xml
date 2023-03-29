@@ -1,0 +1,420 @@
+<odoo>
+
+    <template id="sale.report_saleorder">
+        <t t-call="web.html_container">
+            <t t-as="doc" t-foreach="docs">
+                <t
+                    t-call="oak_sale_warranty.report_saleorder_document_bot"
+                    t-lang="doc.partner_id.lang"
+                /></t>
+        </t>
+    </template>
+
+    <template id="sale.report_saleorder_pro_forma">
+        <t t-call="web.html_container">
+            <t t-set="is_pro_forma" t-value="True" />
+            <t t-foreach="docs" t-as="doc">
+                <t
+                    t-call="oak_sale_warranty.report_saleorder_document_bot"
+                    t-lang="doc.partner_id.lang"
+                />
+            </t>
+        </t>
+    </template>
+
+    <template id="report_saleorder_document_bot">
+        <t t-call="web.external_layout">
+            <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
+            <div class="page">
+                <div class="oe_structure" />
+                <table class="table borderless">
+                    <tr>
+                        <t t-if="not is_pro_forma">
+                            <t t-if="doc.state in ['draft','sent']">
+                                <td
+                                    style="border:none;text-align:center;vertical-align: middle;padding: 0px;margin: 0px;"
+                                >
+                                    <strong style="font-size:20px;">Quotation
+                                    </strong>
+                                </td>
+                            </t>
+                            <t t-if="doc.state in ['sale','done', 'approved']">
+                                <td
+                                    style="border:none;text-align:center;vertical-align:middle;padding: 0px;margin: 0px;"
+                                >
+                                    <strong
+                                        style="font-size:20px;"
+                                    >Order Acknowledgement
+                                    </strong>
+                                </td>
+                            </t>
+                        </t>
+                        <t t-if="is_pro_forma">
+                            <td
+                                style="border:none;text-align:center;vertical-align: middle;padding: 0px;margin: 0px;"
+                            >
+                                <strong style="font-size:20px;">Pro-Forma Invoice
+                                </strong>
+                            </td>
+                        </t>
+                    </tr>
+                </table>
+                <div class="container" style="font-size:14px;">
+                    <div class="row col-12">
+                        <div class="col-4">
+                            <strong>Invoicing Address:</strong>
+                            <t t-if="doc.partner_invoice_id.name">
+                                <div t-field="doc.partner_invoice_id.name" />
+                            </t>
+                            <t t-if="not doc.partner_invoice_id.name">
+                                <div
+                                    t-field="doc.partner_invoice_id.commercial_partner_id.name"
+                                />
+                            </t>
+                            <div
+                                t-field="doc.partner_invoice_id"
+                                t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;], &quot;no_marker&quot;: True,}"
+                            /></div>
+                        <div class="col-3" />
+                        <div class="col-5">
+                            <strong>Delivery Address:</strong>
+                            <t t-if="doc.partner_shipping_id.name">
+                                <div t-field="doc.partner_shipping_id.name" />
+                            </t>
+                            <t t-if="not doc.partner_shipping_id.name">
+                                <div
+                                    t-field="doc.partner_shipping_id.commercial_partner_id.name"
+                                />
+                            </t>
+                            <div
+                                t-field="doc.partner_shipping_id"
+                                t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"
+                            />
+                            <br />
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-sm o_main_table">
+                    <thead style="display: table-row-group;font-size:14px;">
+                        <tr>
+                            <t>
+                                <th
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                >Number</th>
+                            </t>
+                            <t>
+                                <th
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                >Date</th>
+                            </t>
+                            <t>
+                                <th
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                >Payment Terms</th>
+                            </t>
+                            <t>
+                                <th
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                >Incoterms</th>
+                            </t>
+                            <t>
+                                <th
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                >Customer PO</th>
+                            </t>
+                            <t>
+                                <th
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                >Shipping Terms</th>
+                            </t>
+                            <t>
+                                <th
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                >Shipping Method</th>
+                            </t>
+                            <t t-if="doc.state in ['draft','sent']">
+                                <th
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                >Order By</th>
+                            </t>
+                            <t t-if="doc.state in ['sale','done', 'approved']">
+                                <th class="text-center">Order By</th>
+                            </t>
+                            <t t-if="doc.state in ['draft','sent']">
+                                <th class="text-center">Expiration</th>
+                            </t>
+                        </tr>
+                    </thead>
+                    <tbody class="sale_tbody" style="font-size:14px;">
+                        <tr style="border-bottom: 1px solid #dee2e6;">
+                            <td
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >
+                                <t t-if="doc.name">
+                                    <span t-esc="doc.name" />
+                                </t>
+                            </td>
+                            <td
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >
+                                <t t-if="doc.date_order">
+                                    <span
+                                        t-esc="doc.date_order"
+                                        t-options="{'widget': 'date'}"
+                                    />
+                                </t>
+                            </td>
+                            <td
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >
+                                <t t-if="doc.payment_term_id">
+                                    <span t-esc="doc.payment_term_id.name" />
+                                </t>
+                            </td>
+                            <td
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >
+                                <t t-if="doc.incoterm">
+                                    <span t-esc="doc.incoterm.name" />
+                                </t>
+                            </td>
+                            <td
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >
+                                <t t-if="doc.client_order_ref">
+                                    <span t-esc="doc.client_order_ref" />
+                                </t>
+                            </td>
+                            <td
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >
+                                <t t-if="doc.picking_customer_note">
+                                    <span t-esc="doc.picking_customer_note" />
+                                </t>
+                            </td>
+                            <td
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >
+                                <t t-if="doc.carrier_id">
+                                    <span t-esc="doc.carrier_id.name" />
+                                </t>
+                            </td>
+                            <t t-if="doc.state in ['draft','sent']">
+                                <td
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                >
+                                    <t t-if="doc.sale_ordered_by_id">
+                                        <span t-esc="doc.sale_ordered_by_id.name" />
+                                    </t>
+                                </td>
+                            </t>
+                            <t t-if="doc.state in ['sale','done', 'approved']">
+                                <td class="text-center">
+                                    <t t-if="doc.sale_ordered_by_id">
+                                        <span t-esc="doc.sale_ordered_by_id.name" />
+                                    </t>
+                                </td>
+                            </t>
+                            <t
+                                t-if="doc.validity_date and doc.state in ['draft','sent']"
+                            >
+                                <td class="text-center">
+                                    <span
+                                        t-esc="doc.validity_date"
+                                        t-options="{'widget': 'date'}"
+                                    />
+                                </td>
+                            </t>
+                            <t
+                                t-if="not doc.validity_date and doc.state in ['draft','sent']"
+                            >
+                                <td class="text-center">
+                                    <span> </span>
+                                </td>
+                            </t>
+                        </tr>
+                    </tbody>
+                </table>
+                <br />
+                <table
+                    border="0"
+                    class="table table-borderless"
+                    style="font-size:14px;"
+                >
+                    <tr style="height:0px;padding: 0px;margin: 0px;">
+                        <td
+                            style="border:none;padding: 0px;margin: 0px;width:40%;"
+                        >Notes:&amp;nbsp;
+                            <span t-esc="doc.order_note" />
+                        </td>
+                        <t t-if="doc.state in ['draft','sent']">
+                            <td
+                                style="border:none;padding: 0px;margin: 0px;width:30%;"
+                                width="41%"
+                            >Lead Time:&amp;nbsp;
+                                <span t-esc="doc.sale_leadtime_message_id.name" />
+                            </td>
+                        </t>
+                        <t t-if="doc.state in ['sale','done', 'approved']">
+                            <td
+                                style="border:none;padding: 0px;margin: 0px;width:30%;"
+                                width="41%"
+                            >Ship Date:&amp;nbsp;
+                                <span
+                                    t-field="doc.commitment_date"
+                                    t-options='{"format": "MM/dd/yyyy"}'
+                                />
+                            </td>
+                        </t>
+                        <td
+                            style="border:none;text-align:center;padding: 0px;margin: 0px;width:30%;"
+                            width="59%"
+                        >ATTN:&amp;nbsp;
+                            <span t-esc="doc.sale_attention_to_note" />
+                        </td>
+                    </tr>
+                </table>
+                <br />
+                <t
+                    t-set="display_discount"
+                    t-value="any(l.discount for l in doc.order_line)"
+                />
+                <table class="table table-sm o_main_table" style="font-size:14px;">
+                    <thead style="display: table-row-group">
+                        <tr>
+                            <th class="text-left" name="th_itemno">Product Number</th>
+                            <th class="text-left" name="th_description">Description</th>
+                            <th class="text-right" name="th_quantity">Quantity</th>
+                            <th class="text-right" name="th_priceunit">Unit Price</th>
+                            <th class="text-right" name="th_subtotal">
+                                <span
+                                    groups="account.group_show_line_subtotals_tax_excluded"
+                                >Subtotal</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="sale_tbody">
+                        <t t-set="current_subtotal" t-value="0" />
+                        <t t-as="line" t-foreach="doc.order_line">
+                            <t
+                                groups="account.group_show_line_subtotals_tax_excluded"
+                                t-set="current_subtotal"
+                                t-value="current_subtotal + line.price_subtotal"
+                            />
+                            <t
+                                groups="account.group_show_line_subtotals_tax_included"
+                                t-set="current_subtotal"
+                                t-value="current_subtotal + line.price_total"
+                            />
+                            <tr
+                                t-if="not line.hide_from_customer"
+                                t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''"
+                            >
+                                <t t-if="not line.display_type">
+                                    <td name="td_itemno">
+                                        <span t-field="line.product_id.default_code" />
+                                    </td>
+                                    <td name="td_name">
+                                        <span t-field="line.name" />
+                                    </td>
+                                    <td class="text-right" name="td_quantity">
+                                        <span
+                                            t-field="line.product_uom_qty"
+                                            t-options='{"widget": "float", "precision": 2}'
+                                        />
+                                        <span t-field="line.product_uom" />
+                                    </td>
+                                    <td class="text-right" name="td_priceunit">
+                                        <span
+                                            t-options='{"widget": "float", "precision": 2}'
+                                            t-esc="line.display_unit_price"
+                                        />
+                                    </td>
+                                    <td
+                                        class="text-right o_price_total"
+                                        name="td_subtotal"
+                                    >
+                                        <span
+                                            groups="account.group_show_line_subtotals_tax_excluded"
+                                            t-field="line.display_subtotal_price"
+                                        />
+                                        <span
+                                            groups="account.group_show_line_subtotals_tax_included"
+                                            t-field="line.price_total"
+                                        />
+                                    </td>
+                                </t>
+                                <t t-if="line.display_type == 'line_section'">
+                                <td name="td_section_line" colspan="99">
+                                    <span t-field="line.name" />
+                                </td>
+                                <t t-set="current_section" t-value="line" />
+                                    <t t-set="current_subtotal" t-value="0" />
+                                </t>
+                                <t t-if="line.display_type == 'line_note'">
+                                    <td name="td_note_line" colspan="99">
+                                        <span t-field="line.name" />
+                                    </td>
+                                </t>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+                <br />
+                <div class="clearfix" name="so_total_summary" style="font-size:14px;">
+                    <div class="row" id="total" name="total">
+                        <div
+                            t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto"
+                        >
+                            <table class="table table-sm">
+                                <tr class="border-black o_subtotal" style="">
+                                    <td name="td_amount_untaxed_label">
+                                        <strong>Subtotal</strong>
+                                    </td>
+                                    <td class="text-right" name="td_amount_untaxed">
+                                        <span t-field="doc.amount_untaxed" />
+                                    </td>
+                                </tr>
+                                <tr class="border-black o_total">
+                                    <td name="td_amount_total_label">
+                                        <strong>Total</strong>
+                                    </td>
+                                    <td class="text-right" name="td_amount_total">
+                                        <span t-field="doc.amount_total" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <p t-field="doc.note" />
+                <br>
+                    <p style="page-break-before:always;" />
+                    <td class="text-wrap" name="td_warranty_disclaimer">
+                        <t t-foreach="doc.warranty_text_ids" t-as="text_id">
+                            <span t-field="text_id.warranty_text_id.description" />
+                            <br />
+                        </t>
+                    </td>
+                </br>
+            </div>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- product family view -->
+    <record id="product_family_form_view" model="ir.ui.view">
+        <field name="name">product.family.form</field>
+        <field name="model">product.family</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form string="Sales Machine Type">
+                <sheet>
+                    <group name="group_general">
+                        <field name="name" />
+                        <field name="description" />
+                        <field
+                            name="product_type_category_id"
+                            string="Parent Category"
+                        />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_family_tree_view" model="ir.ui.view">
+        <field name="name">product.family.tree.view</field>
+        <field name="model">product.family</field>
+        <field name="arch" type="xml">
+            <tree name="Sales Machine Type">
+                <field name="name" />
+                <field name="description" />
+                <field name="product_type_category_id" string="Parent Category" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_family_search_view" model="ir.ui.view">
+        <field name="name">product.family.search</field>
+        <field name="model">product.family</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <search string="Machine Type">
+                <field
+                    name="name"
+                    string="Name"
+                    filter_domain="[('name', 'ilike', self)]"
+                />
+                <field
+                    name="product_type_category_id"
+                    string="Category"
+                    filter_domain="[('product_type_category_id', 'ilike', self)]"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record id="action_product_family" model="ir.actions.act_window">
+        <field name="name">Machine Types</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.family</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="product_family_tree_view" />
+        <field name="search_view_id" ref="product_family_search_view" />
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="product_family_menu"
+        name="Machine Types"
+        parent="crm.crm_menu_config"
+        action="action_product_family"
+        sequence="13"
+        groups="sales_team.group_sale_manager"
+        active="True"
+    />
+
+</odoo>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- material form view -->
+    <record id="product_material_form_view" model="ir.ui.view">
+        <field name="name">product.material.form</field>
+        <field name="model">product.material</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form string="Material">
+                <sheet>
+                    <group name="group_general">
+                        <field name="name" />
+                    </group>
+                    <group string="Material Description">
+                        <field
+                            name="description"
+                            nolabel="1"
+                            placeholder="Material use notes."
+                        />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_material_tree_view" model="ir.ui.view">
+        <field name="name">product.material.tree.view</field>
+        <field name="model">product.material</field>
+        <field name="arch" type="xml">
+            <tree name="Materials">
+                <field name="name" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_material_search_view" model="ir.ui.view">
+        <field name="name">product.material.search</field>
+        <field name="model">product.material</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <search string="Materials">
+                <field
+                    name="name"
+                    string="Material ID"
+                    filter_domain="[('material_code', 'ilike', self)]"
+                />
+                <field
+                    name="description"
+                    string="Name"
+                    filter_domain="[('name', 'ilike', self)]"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record id="action_product_material" model="ir.actions.act_window">
+        <field name="name">Materials</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.material</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="product_material_tree_view" />
+        <field name="search_view_id" ref="product_material_search_view" />
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="product_material_menu"
+        name="Materials"
+        parent="sale.prod_config_main"
+        action="action_product_material"
+        sequence="10"
+        groups="product_boti_group_admin"
+        active="True"
+    />
+
+</odoo>

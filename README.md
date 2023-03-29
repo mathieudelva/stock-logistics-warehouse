@@ -13,3 +13,10 @@ Odoo 16 repository
 /opt/odoo/.local/bin/pre-commit gitaggregate -c repos.yml -p
 /opt/odoo/.local/bin/pre-commit gitaggregate -c repos.yml -d ./oca/manufacture
 ```
+
+## Missing requirements so far
+
+1. pdfminer (core apparently)
+2. redis (oak_redis_session)
+3. hiredis (oak_redis_session)
+4. plotly (mrp_shop_floor_control)

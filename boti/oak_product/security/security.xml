@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- This group is for class and material user -->
+    <record id="product_boti_group_user" model="res.groups">
+        <field name="name">Product User - Class, Materials, Detail Numbers</field>
+        <field name="category_id" ref="base.module_category_hidden" />
+        <field name="comment">Product Permission Group.</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+    </record>
+
+    <!-- This group is for class and material management -->
+    <record id="product_boti_group_admin" model="res.groups">
+        <field name="name">Product Designer - Class, Materials, Detail Numbers</field>
+        <field name="category_id" ref="base.module_category_hidden" />
+        <field name="comment">Product Permission Group.</field>
+        <field name="implied_ids" eval="[(4, ref('product_boti_group_user'))]" />
+    </record>
+
+</odoo>

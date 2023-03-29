@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Sales order base form-->
+    <record id="sale_form_view_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="priority">111</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='other_information']/group" position="after">
+                <group>
+                    <group name="warranty_info" string="Report Additions">
+                        <field name="warranty_text_ids" nolabel="1">
+                            <tree editable="bottom" nolabel="1">
+                                <field name="sequence" widget="handle" />
+                                <field name="warranty_text_id" widget="Many2one" />
+                                <field name="sale_order_id" invisible="1" />
+                            </tree>
+                        </field>
+                    </group>
+                </group>
+            </xpath>
+            <field name="note" position="after">
+                <field name="order_note" nolabel="1" placeholder="Order Notes..." />
+            </field>
+        </field>
+    </record>
+</odoo>

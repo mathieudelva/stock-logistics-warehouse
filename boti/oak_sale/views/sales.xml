@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Sales order base form-->
+    <record id="sale_form_view_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="priority">100</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <field name='partner_id' position="before">
+               <field name="partner_ref" />
+            </field>
+            <field name='payment_term_id' position="after">
+               <field
+                    name="sale_leadtime_message_id"
+                    attrs="{'invisible': [('state', 'in', ['sold','done'])]}"
+                />
+               <field name="expedite" />
+            </field>
+            <field name='user_id' position="after">
+               <field name="create_uid" string="Created by" readonly="1" />
+               <field name="write_uid" string="Modified by" readonly="1" />
+            </field>
+            <field name="expedite" position="before">
+                <field name="client_order_ref" position="move" />
+                <field name="sale_ordered_by_id" />
+                <field name="sale_attention_to_note" />
+            </field>
+            <field name="client_order_ref" position="attributes">
+                 <attribute name="string">Customer PO</attribute>
+            </field>
+            <field name="tag_ids" position="before">
+               <field name="sales_rep_id" domain="[('is_sales_rep','=',True)]" />
+               <field name="sales_rep_second_id" domain="[('is_sales_rep','=',True)]" />
+            </field>
+            <field name="analytic_account_id" position="after">
+                <field name="analytic_group_id" />
+            </field>
+            <field name="picking_policy" position="after">
+                <field name="carrier_id" />
+                <field name="delivery_message" />
+            </field>
+            <xpath expr="//tree/field[@name='commitment_date']" position="after">
+                <field name="promise_date" optional="show" />
+            </xpath>
+            <field name="picking_customer_note" position="attributes">
+                <attribute name="string">Shipping Terms</attribute>
+            </field>
+            <xpath
+                expr="//field[@name='order_line']/tree//field[@name='config_session_id']"
+                position="attributes"
+            >
+                <attribute name="optional">hide</attribute>
+            </xpath>
+            <xpath
+                expr="//field[@name='order_line']/tree//field[@name='blanket_order_line']"
+                position="attributes"
+            >
+                <attribute name="optional">hide</attribute>
+            </xpath>
+            <xpath
+                expr="//field[@name='order_line']/tree//field[@name='dest_address_id']"
+                position="attributes"
+            >
+                <attribute name="optional">hide</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Quotation tree view -->
+    <record id="oak_view_quotation_tree_inherit" model="ir.ui.view">
+        <field name="name">sale.order.tree</field>
+        <field name="model">sale.order</field>
+        <field name="priority">100</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="before">
+                <field name="partner_ref" optional="hide" />
+            </field>
+            <field name="commitment_date" position="replace">
+                <field name="commitment_date" string="Delivery Date" widget="date" />
+            </field>
+            <field name="expected_date" position="replace">
+                <field
+                    name="expected_date"
+                    string="Expected Date"
+                    optional="show"
+                    widget="date"
+                />
+            </field>
+            <field name="create_date" position="replace">
+                <field
+                    name="create_date"
+                    string="Create Date"
+                    optional="show"
+                    widget="date"
+                />
+            </field>
+            <field name="user_id" position="before">
+                <field name="create_uid" string="Created by" optional="hide" />
+            </field>
+            <field name="state" position="before">
+                <field name="expedite" string="Expedite" optional="hide" readonly="1" />
+            </field>
+            <field name="partner_ref" position="after">
+                <field
+                    name="client_order_ref"
+                    string="Customer PO"
+                    optional="hide"
+                    readonly="1"
+                />
+            </field>
+        </field>
+    </record>
+
+    <!-- Sales tree view -->
+    <record id="oak_view_order_tree_inherit" model="ir.ui.view">
+        <field name="name">sale.order.tree.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="priority">100</field>
+        <field name="inherit_id" ref="sale.view_order_tree" />
+        <field name="arch" type="xml">
+            <field name="date_order" position="replace">
+                <field name="date_order" string="Order Date" widget="date" />
+            </field>
+            <field name="commitment_date" position="replace">
+                <field name="commitment_date" string="Delivery Date" widget="date" />
+            </field>
+            <field name="expected_date" position="replace">
+                <field
+                    name="expected_date"
+                    string="Expected Date"
+                    optional="show"
+                    widget="date"
+                />
+            </field>
+            <field name="partner_id" position="before">
+                <field name="partner_ref" optional="hide" />
+            </field>
+            <field name="state" position="after">
+                <field name="create_uid" string="Created By" optional="show" />
+            </field>
+            <field name="state" position="before">
+                <field name="expedite" string="Expedite" optional="hide" readonly="1" />
+            </field>
+            <field name="partner_ref" position="after">
+                <field
+                    name="client_order_ref"
+                    string="Customer PO"
+                    optional="hide"
+                    readonly="1"
+                />
+            </field>
+        </field>
+    </record>
+
+    <!-- Sales order list selection -->
+    <record id="oak_view_sales_order_filter_inherit" model="ir.ui.view">
+        <field name="name">sale.order.filter.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="before">
+                <field name="partner_ref" />
+            </field>
+        </field>
+    </record>
+
+    <!-- Quote group selection -->
+    <record id="oak_sale_order_view_search_inherit_quotation" model="ir.ui.view">
+        <field name="name">sale.order.search.inherit.quotation.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="priority">100</field>
+        <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation" />
+        <field name="arch" type="xml">
+            <filter name="my_quotation" position="replace">
+                <filter
+                    string="My Quotations"
+                    name="my_quotation"
+                    domain="[('create_uid', '=', uid), ('state','in',('draft', 'sent'))]"
+                />
+            </filter>
+        </field>
+    </record>
+
+    <!-- Sale Order Lines View-->
+    <record id="oak_sale_order_line_tree_inherit" model="ir.ui.view">
+        <field name="name">sale.order.line.tree.inherit</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.view_order_line_tree" />
+        <field name="arch" type="xml">
+            <field name="commitment_date" position="after">
+                <field name="promise_date" />
+            </field>
+            <field name="price_subtotal" position="before">
+                <field name="price_unit" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_sales_order_line_filter_unit_price" model="ir.ui.view">
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.view_sales_order_line_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='salesman_id']" position="after">
+                <field name="price_unit" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_form_view_inherit_css" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.css</field>
+        <field name="model">sale.order</field>
+        <field name="priority">100</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="class" add="custom_class" separator=" " />
+            </xpath>
+            <field name="ignore_exception" position="after">
+                <field name="tag_ids" position="move" />
+            </field>
+        </field>
+    </record>
+
+    <record id="partner_risk_exceeded_wizard_inherit" model="ir.ui.view">
+        <field name="name">Partner risk exceeded.inherit</field>
+        <field name="model">partner.risk.exceeded.wiz</field>
+        <field name="priority">100</field>
+        <field
+            name="inherit_id"
+            ref="account_financial_risk.partner_risk_exceeded_wizard"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//form/p" position="replace">
+                <p>Notify credit department prior to proceeding.</p>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Sale Stock Picking Note Views -->
+    <record id="sale_stock_picking_note_order_form_inherit_boti" model="ir.ui.view">
+        <field name="name">sale.stock.picking.note.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="priority">100</field>
+        <field
+            name="inherit_id"
+            ref="sale_stock_picking_note.view_order_form_inherit_sale_stock"
+        />
+        <field name="arch" type="xml">
+            <field name="picking_note" position="attributes">
+                <attribute name="attrs">{}</attribute>
+            </field>
+            <field name="picking_customer_note" position="attributes">
+                <attribute name="attrs">{}</attribute>
+            </field>
+        </field>
+    </record>
+
+</odoo>

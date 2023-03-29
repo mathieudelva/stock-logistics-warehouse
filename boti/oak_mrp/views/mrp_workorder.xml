@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- workorder tree view -->
+    <record id="oak_mrp_production_workorder_tree_inherit" model="ir.ui.view">
+        <field name="name">mrp.production.workorder.tree.inherit</field>
+        <field name="model">mrp.workorder</field>
+        <field name="priority">110</field>
+        <field
+            name="inherit_id"
+            ref="mrp.mrp_production_workorder_tree_editable_view"
+        />
+        <field name="arch" type="xml">
+            <field name="operation_note" position="before">
+                <field name="mto_origin" optional="hide" />
+                <field name="analytic_account_id" optional="show" />
+                <field name="machine_id" optional="show" />
+                <field name="employee_id" optional="show" />
+                <field name="detail_number" optional="hide" />
+                <field name="note" optional="show" />
+            </field>
+            <field name="state" position="replace">
+            </field>
+            <field name="sequence" position="before">
+                <field
+                    name='state'
+                    widget="badge"
+                    decoration-success="state == 'done'"
+                    decoration-info="state not in ('done', 'cancel')"
+                    attrs="{'invisible': [('production_state', 'in', ('draft', 'done'))]}"
+                />
+            </field>
+            <field name="qty_output_wo" position="after">
+                <field name="mo_hold" optional="hide" />
+                <field name="mo_hold_reason" optional="hide" />
+            </field>
+            <field name="workcenter_id" position="after">
+                <field name="department" optional="hide" />
+                <field name="cnc_program" optional="hide" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_mrp_production_workorder_form_view_filter_oak" model="ir.ui.view">
+        <field name="name">mrp.production.work.order.select</field>
+        <field name="model">mrp.workorder</field>
+        <field
+            name="inherit_id"
+            ref="mrp.view_mrp_production_workorder_form_view_filter"
+        />
+        <field name="arch" type="xml">
+            <filter name="work_center" position="before">
+                <filter
+                    name="analytic_account_groupby"
+                    string="Analytic Account"
+                    context="{'group_by': 'analytic_account_id'}"
+                />
+                <filter
+                    name="mto_origin_groupby"
+                    string="MTO Origin"
+                    context="{'group_by': 'mto_origin'}"
+                />
+                <filter
+                    name="department_groupby"
+                    string="Department"
+                    context="{'group_by': 'department_id'}"
+                />
+            </filter>
+        </field>
+    </record>
+
+    <record id="mrp_workorder_capacity_leveling_tree_inherit" model="ir.ui.view">
+        <field name="name">mrp.workorder.capacity.leveling.tree.inherit</field>
+        <field
+            name="inherit_id"
+            ref="mrp_shop_floor_control.mrp_workorder_capacity_leveling_tree"
+        />
+        <field name="model">mrp.workorder</field>
+        <field name="priority">25</field>
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="mto_origin" optional="hide" />
+                <field name="analytic_account_id" optional="hide" />
+            </field>
+      </field>
+    </record>
+</odoo>

@@ -1,0 +1,43 @@
+<odoo>
+    <record id="mrp_production_form_view_ext" model="ir.ui.view">
+        <field name="name">Manufacturing Order customizations</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+        <field name="arch" type="xml">
+
+            <field name="company_id" position="after">
+                <field name="analytic_account_id" />
+            </field>
+            <field name="analytic_account_id" position="attributes">
+                <attribute name="required">True</attribute>
+            </field>
+            <field name="bom_id" position="after">
+                <field name="mo_hold" />
+            </field>
+            <field name="mo_hold" position="after">
+                <field
+                    name="mo_hold_reason"
+                    attrs="{'required':[('mo_hold','!=',False)]}"
+                />
+            </field>
+
+        </field>
+    </record>
+
+    <record id="mrp_production_tree_view_ext" model="ir.ui.view">
+        <field name="name">Oak Manufacturing Order Tree</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_tree_view" />
+        <field name="arch" type="xml">
+
+            <field name="state" position="before">
+                <field name="mo_hold" />
+            </field>
+
+            <field name="mo_hold" position="after">
+                <field name="mo_hold_reason" readonly="True" />
+            </field>
+
+        </field>
+    </record>
+</odoo>

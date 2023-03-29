@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- sale leadtime message form view -->
+    <record id="sale_leadtime_message_form_view" model="ir.ui.view">
+        <field name="name">sale.leadtime.message.form</field>
+        <field name="model">sale.leadtime.message</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form string="Lead Time Messages">
+                <sheet>
+                    <group name="group_general">
+                        <field name="name" string="Lead Time ID" />
+                    </group>
+                    <group string="Line Note">
+                        <field
+                            name="description"
+                            nolabel="1"
+                            placeholder="Quote lead time note."
+                        />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sale_leadtime_message_tree_view" model="ir.ui.view">
+        <field name="name">sale.leadtime.message.tree.view</field>
+        <field name="model">sale.leadtime.message</field>
+        <field name="arch" type="xml">
+            <tree name="Quote Lead Time Messages">
+                <field name="name" string="Lead Time ID" />
+                <field name="description" string="Line Note" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="sale_leadtime_message_search_view" model="ir.ui.view">
+        <field name="name">sale.leadtime.message.search</field>
+        <field name="model">sale.leadtime.message</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <search string="Lead Time Messages">
+                <field
+                    name="name"
+                    string="Lead Time ID"
+                    filter_domain="[('name', 'ilike', self)]"
+                />
+                <field
+                    name="description"
+                    string="Line Note"
+                    filter_domain="[('description', 'ilike', self)]"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sale_leadtime_message" model="ir.actions.act_window">
+        <field name="name">Lead Time Messages</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.leadtime.message</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="sale_leadtime_message_tree_view" />
+        <field name="search_view_id" ref="sale_leadtime_message_search_view" />
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="sale_leadtime_message_menu"
+        name="Quote Lead Time Messages"
+        parent="sale.menu_sales_config"
+        action="action_sale_leadtime_message"
+        sequence="2"
+        groups="sales_team.group_sale_manager"
+        active="True"
+    />
+
+</odoo>

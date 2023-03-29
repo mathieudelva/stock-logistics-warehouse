@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="mrp_routing_legacy_form_view" model="ir.ui.view">
+        <field name="name">mrp.routing.legacy.form</field>
+        <field name="model">mrp.routing.legacy</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <form
+                string="View Legacy Routing"
+                edit="false"
+                create="false"
+                delete="false"
+            >
+                <sheet>
+
+                    <group>
+                        <group>
+                            <field name="name" string="Legacy Route ID" readonly="1" />
+                            <field name="itemid" string="Product Number" />
+                            <field name="description" readonly="1" />
+                        </group>
+                        <group>
+                            <field
+                                name="stdorderqty"
+                                string="Std Order Qty"
+                                readonly="1"
+                            />
+                            <field name="active_routing" readonly="1" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Operations (Work Orders)">
+                            <field
+                                name="routing_legacy_line_ids"
+                                widget="one2many_list"
+                                context="{}"
+                            >
+                                <tree
+                                    name="Operations"
+                                    editable="bottom"
+                                    decoration-danger="routingtype in ('1')"
+                                    decoration-info="routingtype in ('0')"
+                                >
+                                    <field name="oprnum" readonly="1" />
+                                    <field name="work_center" readonly="1" />
+                                    <field name="wc_description" readonly="1" />
+                                    <field name="oprdesc" readonly="1" />
+                                    <field name="setuptime" readonly="1" />
+                                    <field name="processtime" readonly="1" />
+                                    <field name="combinedtime" readonly="1" />
+                                    <field
+                                        name="plan_time_review_status"
+                                        readonly="1"
+                                    />
+                                    <field
+                                        name="routingtype"
+                                        readonly="1"
+                                        optional="hide"
+                                    />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_mrp_bom_legacy_tree" model="ir.ui.view">
+        <field name="name">mrp.bom.legacy.tree</field>
+        <field name="model">mrp.bom.legacy</field>
+        <field name="priority">16</field>
+        <field name="arch" type="xml">
+            <tree default_order="name">
+                <field name="id" invisible="1" />
+                <field name="name" readonly="1" />
+                <field name="description" readonly="1" />
+                <field name="bomtype" readonly="1" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_mrp_bom_line_legacy_tree" model="ir.ui.view">
+        <field name="name">mrp.bom.line.legacy.tree</field>
+        <field name="model">mrp.bom.line.legacy</field>
+        <field name="priority">16</field>
+        <field name="arch" type="xml">
+            <tree
+                default_order="bom_id"
+                decoration-danger="not is_active"
+                decoration-info="is_active"
+            >
+                <field name="is_active" />
+                <field name="bom_id" readonly="1" />
+                <field name="linenum" invisible="1" />
+                <field name="position" readonly="1" />
+                <field name="itemid" readonly="1" />
+                <field name="itemdesc" readonly="1" />
+                <field name="bomqty" readonly="1" />
+                <field name="unitid" readonly="1" />
+                <field name="bomtype" readonly="1" />
+                <field name="oprnum" readonly="1" optional="hide" />
+                <field name="vendid" readonly="1" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_mrp_routing_line_legacy_tree" model="ir.ui.view">
+        <field name="name">mrp.routing.line.legacy.tree</field>
+        <field name="model">mrp.routing.line.legacy</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <tree delete="0" default_order="routing_id, oprnum">
+                <field name="routing_id" readonly="1" />
+                <field name="oprnum" readonly="1" />
+                <field name="work_center" readonly="1" />
+                <field name="wc_description" readonly="1" />
+                <field name="oprdesc" readonly="1" />
+                <field name="setuptime" readonly="1" />
+                <field name="processtime" readonly="1" />
+                <field name="combinedtime" readonly="1" />
+                <field name="plan_time_review_status" readonly="1" />
+                <field name="routingtype" readonly="1" optional="hide" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_mrp_routing_line_legacy_raw_tree" model="ir.ui.view">
+        <field name="name">mrp.routing.line.legacy.raw.tree</field>
+        <field name="model">mrp.routing.line.legacy</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <tree delete="0" default_order="oprnum">
+                <field name="oprnum" readonly="1" />
+                <field name="work_center" readonly="1" />
+                <field name="wc_description" readonly="1" />
+                <field name="oprdesc" readonly="1" />
+                <field name="setuptime" readonly="1" />
+                <field name="processtime" readonly="1" />
+                <field name="combinedtime" readonly="1" />
+                <field name="plan_time_review_status" readonly="1" />
+                <field name="routingtype" readonly="1" optional="hide" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_mrp_bom_legacy_raw_tree" model="ir.ui.view">
+        <field name="name">mrp.bom.legacy.raw.tree</field>
+        <field name="model">mrp.bom.line.legacy</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <tree delete="0" default_order="linenum">
+                <field name="linenum" invisible="1" />
+                <field name="position" readonly="1" />
+                <field name="itemid" readonly="1" />
+                <field name="itemdesc" readonly="1" />
+                <field name="bomqty" readonly="1" />
+                <field name="unitid" readonly="1" />
+                <field name="bomtype" readonly="1" />
+                <field name="oprnum" readonly="1" optional="hide" />
+                <field name="vendid" readonly="1" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="mrp_routing_legacy_view" model="ir.ui.view">
+        <field name="name">mrp.routing.legacy.tree</field>
+        <field name="model">mrp.routing.legacy</field>
+        <field name="arch" type="xml">
+            <tree
+                name="Legacy Routings"
+                default_order='name'
+                multi_edit="0"
+                edit="false"
+            >
+                <field name="name" string="Route ID" readonly="1" />
+                <field name="itemid" />
+                <field name="description" />
+                <field name="stdorderqty" />
+                <field name="active_routing" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="mrp_bom_line_legecy_search_view" model="ir.ui.view">
+        <field name="name">mrp.bom.line.legacy.search</field>
+        <field name="model">mrp.bom.line.legacy</field>
+        <field name="arch" type="xml">
+            <search string="Legacy BoM Lines">
+                <field
+                    name="bom_id"
+                    string="Parent BoM"
+                    filter_domain="[('bom_id', 'ilike', self)]"
+                />
+                <field
+                    name="itemdesc"
+                    string="Description"
+                    filter_domain="[('itemdesc', 'ilike', self)]"
+                />
+                <field
+                    name="itemid"
+                    string="Item"
+                    filter_domain="[('itemid', 'ilike', self)]"
+                />
+                <group expand="1" string="Group By">
+                    <filter
+                        string="BoM Type"
+                        name="bomtype"
+                        context="{'group_by':'bomtype'}"
+                    />
+                    <filter
+                        string="Parent BoM"
+                        name="bom_id"
+                        context="{'group_by':'bom_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="mrp_bom_legecy_search_view" model="ir.ui.view">
+        <field name="name">mrp.bom.legacy.search</field>
+        <field name="model">mrp.bom.legacy</field>
+        <field name="arch" type="xml">
+            <search string="Legacy BoM Versions">
+                <field
+                    name="name"
+                    string="BoM ID"
+                    filter_domain="[('name', 'ilike', self)]"
+                />
+                <field
+                    name="description"
+                    string="Description"
+                    filter_domain="[('description', 'ilike', self)]"
+                />
+                <group expand="1" string="Group By">
+                    <filter
+                        string="BoM Type"
+                        name="bomtype"
+                        context="{'group_by':'bomtype'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="mrp_bom_legacy_action" model="ir.actions.act_window">
+        <field name="name">Legacy BoM Versions</field>
+        <field name="res_model">mrp.bom.legacy</field>
+        <field name="view_id" ref="view_mrp_bom_legacy_tree" />
+        <field name="search_view_id" ref="mrp_bom_legecy_search_view" />
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="mrp_bom_line_legacy_action" model="ir.actions.act_window">
+        <field name="name">Legacy BoM Lines</field>
+        <field name="res_model">mrp.bom.line.legacy</field>
+        <field name="view_id" ref="view_mrp_bom_line_legacy_tree" />
+        <field name="search_view_id" ref="mrp_bom_line_legecy_search_view" />
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_mrp_legacy_menu"
+        name="Legacy BoM Versions"
+        action="mrp_bom_legacy_action"
+        parent="top_legacy_mrp_menu"
+        sequence="2"
+    />
+    <menuitem
+        id="menu_mrp_line_legacy_menu"
+        name="Legacy BoM Lines"
+        action="mrp_bom_line_legacy_action"
+        parent="top_legacy_mrp_menu"
+        sequence="4"
+    />
+
+    <record id="mrp_routing_line_legacy_action" model="ir.actions.act_window">
+        <field name="name">Legacy Routing Lines</field>
+        <field name="res_model">mrp.routing.line.legacy</field>
+        <field name="view_id" ref="view_mrp_routing_line_legacy_tree" />
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="mrp_routing_legacy_action" model="ir.actions.act_window">
+        <field name="name">Legacy Routing Versions</field>
+        <field name="res_model">mrp.routing.legacy</field>
+        <field name="view_id" ref="mrp_routing_legacy_view" />
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_mrp_routing_legacy_menu"
+        name="Legacy Routing Versions"
+        action="mrp_routing_legacy_action"
+        parent="top_legacy_mrp_menu"
+        sequence="2"
+    />
+    <menuitem
+        id="menu_mrp_routing_line_legacy_menu"
+        name="Legacy Routing Lines"
+        action="mrp_routing_line_legacy_action"
+        parent="top_legacy_mrp_menu"
+        sequence="5"
+    />
+
+</odoo>

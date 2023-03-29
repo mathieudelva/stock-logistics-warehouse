@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_mrporder_oak_inherit" inherit_id="mrp.report_mrporder">
+        <xpath expr="//t[@t-call='web.internal_layout']/div/div" position="inside">
+            <div class="row">
+                <div class="col-12">
+                    <h2>
+                        Analytic Account: <span t-field="o.analytic_account_id" />
+                    </h2>
+                    <br />
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

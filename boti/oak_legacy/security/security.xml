@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- module category -->
+    <record model="ir.module.category" id="base.module_category_burr_oak">
+        <field name="name">Burr Oak Tool</field>
+        <field name="sequence">105</field>
+        <field name="visible" eval="1" />
+    </record>
+
+    <!-- This group is for Product Legacy user -->
+    <record id="product_legacy_group_user" model="res.groups">
+        <field name="name">Legacy Product User</field>
+        <field name="category_id" ref="base.module_category_burr_oak" />
+        <field name="comment">Legacy Product User Permission Group.</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+    </record>
+
+    <!-- This group is for Product Legacy management -->
+    <record id="product_legacy_group_admin" model="res.groups">
+        <field name="name">Legacy Product Administrator</field>
+        <field name="category_id" ref="base.module_category_burr_oak" />
+        <field name="comment">Legacy Product Admin Permission Group.</field>
+        <field
+            name="implied_ids"
+            eval="[(4, ref('oak_legacy.product_legacy_group_user'))]"
+        />
+    </record>
+
+</odoo>
