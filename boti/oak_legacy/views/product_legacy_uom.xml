@@ -5,7 +5,7 @@
         <field name="name">product.legacy.uom.tree</field>
         <field name="model">product.legacy.uom</field>
         <field name="arch" type="xml">
-            <tree string="Legacy UOM Mapping" default_order='legacy_uom'>
+            <tree name="Legacy UOM Mapping" default_order='legacy_uom'>
                 <field name="legacy_uom" />
                 <field name="odoo_uom" />
             </tree>
