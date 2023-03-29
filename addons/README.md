@@ -19,6 +19,12 @@
 | queue_job                        | queue             | OCA       | A worker queue for long running tasks that are NOT cron jobs                                                                   |
 | web_environment_ribbon           | web               | OCA       | marker for dev/test/qa environments, not used in production                                                                    |
 | web_refresher                    | web               | OCA       | refresh button for views                                                                                                       |
+| product_code_unique              | product-attribute | OCA       | Set Product Internal Reference as Unique                                                                                       |
+| product_state                    | product-attribute | OCA       | Module introducing a state field on product template                                                                           |
+| project_list                     | project           | OCA       | Projects List View                                                                                                             |
+| project_role                     | project           | OCA       | Project role-based roster                                                                                                      |
+| project_template                 | project           | OCA       | Project Templates                                                                                                              |
+| bryntum_gantt_enterprise         | purchased         | Bryntum   | Manage and visualise your projects with the fastest Gantt chart on the web                                                     |
 | mrp_availability_check           | purchased         | Openvalue | Promise delivery date determination by the projected stockquantity compared to customer requested quantity at all BoM’s level. |
 | mrp_planning_engine              | purchased         | Openvalue | Provides a full comprehensive tool for managing material requirements planning.                                                |
 | mrp_planning_engine_scm          | purchased         | Openvalue | Supports the analysis of the overall supply chain in a warehouse.                                                              |
