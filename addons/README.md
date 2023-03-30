@@ -7,10 +7,12 @@
 | oak_partner                      | local             | BOTI      | Partner additional fields and tracking                                                          |
 | oak_maintenance                  | local             | BOTI      | Sage info for equipment                                                                         |
 | oak_redis_session                | local             | BOTI      | Redis for session                                                                               |
+| oak_visits                       | local             | BOTI      | BOTI Customizations for acs_visits                                                              |
 | purchase_request                 | purchase-workflow | OCA       | Allows requests for purchased items from users                                                  |
 | purchase_request_tier_validation | purchase-workflow | OCA       | Allows purchase requests to have workflows for validation                                       |
 | base_user_role                   | server-backend    | OCA       | Allows for grouping permissions into user roles that can be applied                             |
 | auditlog                         | server-tools      | OCA       | Allows deep tracing of data alterations                                                         |
+| acs_visits                       | purchased         | ACS       | Site Visit Management for Projects or sales                                                     |
 | base_cron_exclusion              | server-tools      | OCA       | Limit cron jobs running at the same time for the same thing                                     |
 | base_exception                   | server-tools      | OCA       | Dependency for all exception modules                                                            |
 | base_revision                    | server-ux         | OCA       | Dependency for sale_order_revision                                                              |
@@ -28,7 +30,7 @@
 | mrp_planning_engine_scm          | purchased         | Openvalue | Supports the analysis of the overall supply chain in a warehouse.                               |
 | mrp_sfc_queue_time_before        | purchased         | Openvalue | Allows queue time before for planning                                                           |
 | mrp_shop_floor_control           | purchased         | Openvalue | Supports the E2E process starting from the Manufacturing Order Creation to its Closure.         |
-| web_company_color                | web               | OCA       |                                                                                                 |
+| web_company_color                | web               | OCA       | Per company navbar colors                                                                       |
 | web_environment_ribbon           | web               | OCA       | marker for dev/test/qa environments, not used in production                                     |
 | web_search_with_and              | web               | OCA       | press Shift key before searching for and                                                        |
 | web_refresher                    | web               | OCA       | refresh button for views                                                                        |
@@ -61,7 +63,6 @@
 | fetchmail_notify_error_to_sender  | server-tools      | OCA  | NOT STARTED                                                                                                            |
 | bus_alt_connection                | server-tools      | OCA  | Elizabeth has a ported version of this, maybe to OCa, maybe as oak module instead - not needed until pooler is up (QA) |
 | base_import_security_group        | server-ux         | OCA  | NOT STARTED                                                                                                            |
-| web_company_color                 | web               | OCA  | https://github.com/OCA/web/pull/2449                                                                                   |
 
 Note there's some ugliness with the mrp_analytic migration as the analytic_account_id
 was added to the MO in 16

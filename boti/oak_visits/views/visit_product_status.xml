@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- visit product_status form view -->
+    <record id="visit_product_status_form_view" model="ir.ui.view">
+        <field name="name">visit.product.status.form</field>
+        <field name="model">visit.product.status</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form string="Visit Equipment Use Status">
+                <sheet>
+                    <group name="group_general">
+                        <field name="name" />
+                    </group>
+                    <group string="Visit Equipment Status Description">
+                        <field
+                            name="description"
+                            nolabel="1"
+                            placeholder="Visit Equipment Status Description."
+                        />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="visit_product_status_tree_view" model="ir.ui.view">
+        <field name="name">visit.product.status.tree.view</field>
+        <field name="model">visit.product.status</field>
+        <field name="arch" type="xml">
+            <tree name="Equipment Use Status">
+                <field name="name" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="visit_product_status_search_view" model="ir.ui.view">
+        <field name="name">visit.product.status.search</field>
+        <field name="model">visit.product.status</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <search string="Equipment Use">
+                <field
+                    name="name"
+                    string="Our Equipment"
+                    filter_domain="[('name', 'ilike', self)]"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record id="action_visit_product_status" model="ir.actions.act_window">
+        <field name="name">Our Machine Use</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">visit.product.status</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="visit_product_status_tree_view" />
+        <field name="search_view_id" ref="visit_product_status_search_view" />
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="visit_product_status_menu"
+        name="Visit Equipment Use Status"
+        parent="oak_visits.action_menu_visit_config"
+        action="action_visit_product_status"
+        sequence="2"
+        groups="acs_visits.group_visit_manager"
+        active="True"
+    />
+
+</odoo>
