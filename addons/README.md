@@ -17,8 +17,6 @@
 | base_tier_validation             | server-ux         | OCA       | Dependency for all tier validation modules                                                                                     |
 | date_range                       | server-ux         | OCA       | Dependency for ?                                                                                                               |
 | queue_job                        | queue             | OCA       | A worker queue for long running tasks that are NOT cron jobs                                                                   |
-| web_environment_ribbon           | web               | OCA       | marker for dev/test/qa environments, not used in production                                                                    |
-| web_refresher                    | web               | OCA       | refresh button for views                                                                                                       |
 | product_code_unique              | product-attribute | OCA       | Set Product Internal Reference as Unique                                                                                       |
 | product_state                    | product-attribute | OCA       | Module introducing a state field on product template                                                                           |
 | project_list                     | project           | OCA       | Projects List View                                                                                                             |
@@ -30,6 +28,9 @@
 | mrp_planning_engine_scm          | purchased         | Openvalue | Supports the analysis of the overall supply chain in a warehouse.                                                              |
 | mrp_sfc_queue_time_before        | purchased         | Openvalue | Allows queue time before for planning                                                                                          |
 | mrp_shop_floor_control           | purchased         | Openvalue | Supports the E2E process starting from the Manufacturing Order Creation to its Closure.                                        |
+| web_environment_ribbon           | web               | OCA       | marker for dev/test/qa environments, not used in production                                                                    |
+| web_search_with_and              | web               | OCA       | press Shift key before searching for and                                                                                       |
+| web_refresher                    | web               | OCA       | refresh button for views                                                                                                       |
 
 # Pending Module List
 
