@@ -201,6 +201,7 @@
     osi: git+ssh://git@github.com/ursais/web.git
   merges:
     - oca 16.0
+    - oca refs/pull/2404/head # [16.0][MIG] web_company_color
   target: *default_target
 
 ./oca/website:
