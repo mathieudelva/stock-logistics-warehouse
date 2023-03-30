@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- Visit Views -->
+    <record id="oak_visit_search_inherit" model="ir.ui.view">
+        <field name="name">visit.visit.search.inherit</field>
+        <field name="priority">100</field>
+        <field name="model">visit.visit</field>
+        <field name="inherit_id" ref="acs_visits.visit_search" />
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <filter
+                    string="Purpose"
+                    name="groupby_reason"
+                    domain="[]"
+                    context="{'group_by':'visit_reason_id'}"
+                />
+            </field>
+        </field>
+    </record>
+
+    <record id="oak_visit_visit_form_view_inherit" model="ir.ui.view">
+        <field name="name">visit.visit.form.inherit</field>
+        <field name="model">visit.visit</field>
+        <field name="priority">100</field>
+        <field name="inherit_id" ref="acs_visits.visit_visit_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet//group//group" position="after">
+                <group>
+                    <field name="ref_product_id" />
+                    <field name="assessment_id" />
+                    <field name="product_status_id" />
+                    <field name="visit_reason_id" />
+                </group>
+            </xpath>
+            <xpath expr="//sheet//group" position="after">
+                <group string="Competitor Machines">
+                    <field name="competitor_equipment" nolabel="1" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="oak_visit_visit_list_view" model="ir.ui.view">
+        <field name="name">visit.visit.list.inherit</field>
+        <field name="model">visit.visit</field>
+        <field name="priority">100</field>
+        <field name="inherit_id" ref="acs_visits.visit_visit_list_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='partner_id']" position="after">
+                <field name="assessment_id" />
+                <field name="product_status_id" />
+                <field name="visit_reason_id" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

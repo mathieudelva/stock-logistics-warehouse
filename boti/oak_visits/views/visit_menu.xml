@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem
+        id="action_menu_visit_config"
+        name="Configuration"
+        groups="acs_visits.group_visit_manager"
+        sequence="20"
+        parent="acs_visits.main_menu_visit_visit"
+    />
+
+</odoo>
