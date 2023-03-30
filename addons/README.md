@@ -7,6 +7,7 @@
 | oak_partner                      | local             | BOTI      | Partner additional fields and tracking                                                                                         |
 | oak_maintenance                  | local             | BOTI      | Sage info for equipment                                                                                                        |
 | oak_redis_session                | local             | BOTI      | Redis for session                                                                                                              |
+| oak_visits                       | local             | BOTI      | BOTI Customizations for acs_visits                                                                                             |
 | purchase_request                 | purchase-workflow | OCA       | Allows requests for purchased items from users                                                                                 |
 | purchase_request_tier_validation | purchase-workflow | OCA       | Allows purchase requests to have workflows for validation                                                                      |
 | base_user_role                   | server-backend    | OCA       | Allows for grouping permissions into user roles that can be applied                                                            |
@@ -23,6 +24,7 @@
 | project_role                     | project           | OCA       | Project role-based roster                                                                                                      |
 | project_template                 | project           | OCA       | Project Templates                                                                                                              |
 | bryntum_gantt_enterprise         | purchased         | Bryntum   | Manage and visualise your projects with the fastest Gantt chart on the web                                                     |
+| acs_visits                       | purchased         | ACS       | Site Visit Management for Projects or sales                                                                                    |
 | mrp_availability_check           | purchased         | Openvalue | Promise delivery date determination by the projected stockquantity compared to customer requested quantity at all BoM’s level. |
 | mrp_planning_engine              | purchased         | Openvalue | Provides a full comprehensive tool for managing material requirements planning.                                                |
 | mrp_planning_engine_scm          | purchased         | Openvalue | Supports the analysis of the overall supply chain in a warehouse.                                                              |
