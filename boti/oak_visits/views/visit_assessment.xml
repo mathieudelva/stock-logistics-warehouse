@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- visit assessment form view -->
+    <record id="visit_assesment_form_view" model="ir.ui.view">
+        <field name="name">visit.assessment.form</field>
+        <field name="model">visit.assessment</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form name="Visit Assessments">
+                <sheet>
+                    <group name="group_general">
+                        <field name="name" />
+                    </group>
+                    <group name="Visit Assessment Description">
+                        <field
+                            name="description"
+                            nolabel="1"
+                            placeholder="Visit Assessment Description."
+                        />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="visit_assessment_tree_view" model="ir.ui.view">
+        <field name="name">visit.assessment.tree.view</field>
+        <field name="model">visit.assessment</field>
+        <field name="arch" type="xml">
+            <tree name="Visit Assessments">
+                <field name="name" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="visit_assessment_search_view" model="ir.ui.view">
+        <field name="name">visit.assessment.search</field>
+        <field name="model">visit.assessment</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <search string="Assessment">
+                <field
+                    name="name"
+                    string="Assessment"
+                    filter_domain="[('name', 'ilike', self)]"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record id="action_visit_assessment" model="ir.actions.act_window">
+        <field name="name">Assessments</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">visit.assessment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="visit_assessment_tree_view" />
+        <field name="search_view_id" ref="visit_assessment_search_view" />
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="visit_assessment_menu"
+        name="Visit Assessment"
+        parent="oak_visits.action_menu_visit_config"
+        action="action_visit_assessment"
+        sequence="1"
+        groups="acs_visits.group_visit_manager"
+        active="True"
+    />
+
+</odoo>
