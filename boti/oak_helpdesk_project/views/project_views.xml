@@ -1,0 +1,22 @@
+<odoo>
+    <record id="edit_project" model="ir.ui.view">
+        <field name="name">project.project.form.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <field string="Tickets" name="helpdesk_ticket_id" invisible="1" />
+                <button
+                    string="Helpdesk"
+                    class="oe_stat_button"
+                    name="action_view_ticket"
+                    type="object"
+                    icon="fa-life-ring"
+                    attrs="{'invisible': [('helpdesk_ticket_id', '=', False)]}"
+                    groups="helpdesk.group_helpdesk_user"
+                    help="Ticket from this Project"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
