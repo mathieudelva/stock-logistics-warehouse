@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="action_report_customer_service_external" model="ir.actions.report">
+        <field name="name">Customer Service Report External</field>
+        <field
+            name="model"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.model"
+        />
+        <field name="report_type">qweb-pdf</field>
+        <field
+            name="report_name"
+        >oak_field_service.report_customer_service_external</field>
+        <field
+            name="report_file"
+        >oak_field_service.report_customer_service_external</field>
+        <field name="print_report_name">'Customer Service Report (External)'</field>
+        <field
+            name="binding_model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_customer_service_external">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t
+                    t-call="oak_field_service.report_customer_service_external_document"
+                />
+            </t>
+        </t>
+    </template>
+
+    <template id="report_customer_service_external_document">
+        <t t-call="web.external_layout">
+            <div class="page" style="font-size: 25px !important;" />
+        </t>
+    </template>
+
+    <template
+        id="report_customer_service_external_document_data"
+        inherit_id="oak_field_service.report_customer_service_external_document"
+    >
+        <data>
+            <xpath expr="/t/t/div" position="inside">
+                <div class="row">
+                    <div class="col h1">
+                        <span>New Title</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div/div/span" position="replace">
+                <span>Customer Service Report</span>
+            </xpath>
+            <xpath expr="/t/t/div/div/div" position="attributes">
+                <attribute name="class" separator=" " add="text-center" />
+            </xpath>
+            <xpath expr="/t/t/div/div" position="after">
+                <div class="row">
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[2]/div[1]/span" position="replace">
+                <span>
+                    <b>Customer: </b>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[2]/div[2]/span" position="replace">
+                <span>
+                    <b>BOTI Service Rep</b>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[2]/div[2]/span/b" position="replace">
+                <b>BOTI Service Rep: </b>
+            </xpath>
+            <xpath expr="/t/t/div/div[2]" position="after">
+                <div class="row">
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[3]/div[1]/span" position="replace">
+                <span>
+                    <b>Customer Contact: </b>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[3]/div[2]/span" position="replace">
+                <span>
+                    <b>BOTI Sales Rep: </b>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[3]" position="after">
+                <div class="row">
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[4]/div[1]/span" position="replace">
+                <span>
+                    <b>Customer PO#: </b>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[4]/div[2]/span" position="replace">
+                <span>
+                    <b>Sales Order: </b>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[4]" position="after">
+                <div class="row">
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/div[5]" position="replace" />
+            <xpath expr="/t/t/div/div[4]" position="after">
+                <div class="row">
+                    <div class="col">
+                        <span>New Text Block</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[5]/div/span" position="replace">
+                <span> </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[5]" position="after">
+                <table class="table o_report_block_table">
+                    <thead>
+                        <tr>
+                            <th>
+                                <span>Name</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="doc.x_product" t-as="table_line">
+                            <td>
+                                <span t-field="table_line.display_name" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </xpath>
+            <xpath expr="/t/t/div/table/thead/tr/th/span" position="replace">
+                <span>Machine(s)</span>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/thead[1]/tr[1]"
+                position="attributes"
+            >
+                <attribute name="class">border-none</attribute>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/thead[1]/tr[1]"
+                position="attributes"
+            >
+                <attribute name="class">border-style: none</attribute>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/thead[1]/tr[1]/th[1]"
+                position="attributes"
+            >
+                <attribute name="class">border-none</attribute>
+            </xpath>
+            <xpath expr="/t/t/div/table/thead/tr" position="attributes">
+                <attribute name="style" separator=";" add="width:0px" />
+            </xpath>
+            <xpath expr="/t/t/div/table/thead/tr" position="attributes">
+                <attribute name="style" separator=";" />
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/table[1]/thead[1]" position="attributes">
+                <attribute name="class">border-0</attribute>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/thead[1]/tr[1]/th[1]"
+                position="attributes"
+            >
+                <attribute name="class">border-0</attribute>
+            </xpath>
+            <xpath expr="/t/t/div/table/thead/tr/th" position="attributes">
+                <attribute name="style" separator=";" add="margin-left:-5px" />
+            </xpath>
+            <xpath expr="/t/t/div/table/thead/tr/th" position="attributes">
+                <attribute name="style" separator=";" remove="margin-left:-5px" />
+            </xpath>
+            <xpath expr="/t/t/div/table" position="after">
+                <div class="row">
+                    <div class="col-3">
+                        <span>
+                            <strong>Nature of Problem:</strong>
+                            <br />
+                        </span>
+                        <span t-field="doc.x_problem" />
+                    </div>
+                    <div class="col-3" />
+                    <div class="col-3" />
+                    <div class="col-3" />
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[6]" position="after">
+                <div class="row">
+                    <div class="col-3">
+                        <span>
+                            <strong>Services Rendered:</strong>
+                            <br />
+                        </span>
+                        <span t-field="doc.x_service_render" />
+                    </div>
+                    <div class="col-3" />
+                    <div class="col-3" />
+                    <div class="col-3" />
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[7]/div[1]" position="attributes">
+                <attribute name="class" separator=" " add="col-12" remove="col-3" />
+            </xpath>
+            <xpath expr="/t/t/div/div[6]/div[1]" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:10px" />
+            </xpath>
+            <xpath expr="/t/t/div/div[7]/div[2]" position="inside">
+                <span>
+                    <strong>Suggested Follow-Up:</strong>
+                    <br />
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[7]/div[2]" position="inside">
+                <span t-field="doc.x_follow_up" />
+            </xpath>
+            <xpath expr="/t/t/div/div[7]/div[2]" position="attributes">
+                <attribute name="class" separator=" " add="col-12" remove="col-3" />
+            </xpath>
+            <xpath expr="/t/t/div/div[6]" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:10px" />
+            </xpath>
+            <xpath expr="/t/t/div/div[6]/div[1]" position="attributes">
+                <attribute name="style" separator=";" remove="margin-bottom:10px" />
+            </xpath>
+            <xpath expr="/t/t/div/div[6]" position="attributes">
+                <attribute
+                    name="style"
+                    separator=";"
+                    add="margin-bottom:20px"
+                    remove="margin-bottom:10px"
+                />
+            </xpath>
+            <xpath expr="/t/t/div/div[7]/div[1]" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:20px" />
+            </xpath>
+            <xpath expr="/t/t/div/div[7]/div[2]" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:20px" />
+            </xpath>
+            <xpath expr="/t/t/div/div[7]" position="after">
+                <div class="row">
+                    <div class="col-3">
+                        <span>
+                            <strong>Observations and Comments:</strong>
+                            <br />
+                        </span>
+                        <span t-field="doc.x_notes" />
+                        <p style="page-break-after:always;" />
+                    </div>
+                    <div class="col-3" />
+                    <div class="col-3" />
+                    <div class="col-3" />
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[8]/div[1]" position="attributes">
+                <attribute name="class" separator=" " add="col-12" remove="col-3" />
+            </xpath>
+            <xpath expr="/t/t/div/div[8]/div[1]" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:20px" />
+            </xpath>
+            <xpath expr="/t/t/div/div[8]" position="after">
+                <div class="row">
+                    <div class="col-3">
+                        <span>
+                            <strong />
+                            <br />
+                        </span>
+                        <span />
+                    </div>
+                    <div class="col-3" />
+                    <div class="col-3" />
+                    <div class="col-3" />
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[9]/div[1]" position="attributes">
+                <attribute name="class" separator=" " add="col-12" remove="col-3" />
+            </xpath>
+            <xpath expr="/t/t/div/div[2]/div[1]/span/b" position="after">
+                <span t-field="doc.x_customer.display_name" />
+            </xpath>
+            <xpath expr="/t/t/div/div[3]/div[1]/span/b" position="after">
+                <span t-field="doc.x_customer_contact" />
+            </xpath>
+            <xpath expr="/t/t/div/div[4]/div[1]/span/b" position="after">
+                <span t-field="doc.x_customer_po" />
+            </xpath>
+            <xpath expr="/t/t/div/div[2]/div[2]/span/b" position="after">
+                <span t-field="doc.x_service_rep.display_name" />
+            </xpath>
+            <xpath expr="/t/t/div/div[3]/div[2]/span/b" position="after">
+                <span t-field="doc.x_sales_user.display_name" />
+            </xpath>
+            <xpath expr="/t/t/div/div[4]/div[2]/span/b" position="after">
+                <span t-field="doc.x_sale_order.display_name" />
+            </xpath>
+            <xpath expr="/t/t/div/div[1]/div" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:20px" />
+            </xpath>
+            <xpath expr="/t/t/div/div[9]" position="after">
+                <div class="row">
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[9]/div[1]" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:20px" />
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/div[10]" position="replace" />
+            <xpath expr="/t/t/div/div[9]" position="after">
+                <div class="row">
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[10]" position="after">
+                <div class="row">
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[11]" position="after">
+                <div class="row">
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[10]/div[1]/span" position="replace">
+                <span>
+                    <span style="color: rgb(102, 102, 102); font-weight: 700;">1.
+                        Machine has adequate guarding (no upgrade required).</span>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[10]/div[2]/span" position="after">
+                <span t-field="doc.x_safety_check_1" />
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/div[10]/div[2]/span[1]" position="replace" />
+            <xpath expr="/t/t/div/div[11]/div[1]/span" position="replace">
+                <span>
+                    <font color="#666666">
+                        <b>2. Guard/light curtains/safety mats properly installed.</b>
+                    </font>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[11]/div[2]/span" position="after">
+                <span t-field="doc.x_safety_check_2" />
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/div[11]/div[2]/span[1]" position="replace" />
+            <xpath expr="/t/t/div/div[9]" position="after">
+                <div class="row">
+                    <div class="col">
+                        <span>New Text Block</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[10]/div/span" position="replace">
+                <span>
+                    <b>Safety Checks</b>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[13]/div[1]/span" position="replace">
+                <span>
+                    <span style="color: rgb(102, 102, 102); font-weight: 700;">3.
+                        Guard switches installed and functioning properly.</span>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[13]/div[2]/span" position="after">
+                <span t-field="doc.x_safety_check_3" />
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/div[13]/div[2]/span[1]" position="replace" />
+            <xpath expr="/t/t/div/div[13]" position="after">
+                <div class="row">
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[14]" position="after">
+                <div class="row">
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[15]" position="after">
+                <div class="row">
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[16]" position="after">
+                <div class="row">
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[14]/div[1]/span" position="replace">
+                <span>
+                    <span style="color: rgb(102, 102, 102); font-weight: 700;">4.
+                        Warning tags and warning devices installed and visible.</span>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[15]/div[1]/span" position="replace">
+                <span>
+                    <span style="color: rgb(102, 102, 102); font-weight: 700;">5.
+                        Operators use safe practices during operation/setup.</span>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[16]/div[1]/span" position="replace">
+                <span>
+                    <span style="color: rgb(102, 102, 102); font-weight: 700;">6.
+                        Workers shut down machine for set-up/adjustment.</span>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[17]/div[1]/span" position="replace">
+                <span>
+                    <span style="color: rgb(102, 102, 102); font-weight: 700;">7.
+                        Electrical enclosure in safe working condition.</span>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[14]/div[2]/span" position="after">
+                <span t-field="doc.x_safety_check_4" />
+            </xpath>
+            <xpath expr="/t/t/div/div[15]/div[2]/span" position="after">
+                <span t-field="doc.x_safety_check_5" />
+            </xpath>
+            <xpath expr="/t/t/div/div[16]/div[2]/span" position="after">
+                <span t-field="doc.x_safety_check_6" />
+            </xpath>
+            <xpath expr="/t/t/div/div[17]/div[2]/span" position="after">
+                <span t-field="doc.x_safety_check_7" />
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/div[14]/div[2]/span[1]" position="replace" />
+            <xpath expr="/t[1]/t[1]/div[1]/div[15]/div[2]/span[1]" position="replace" />
+            <xpath expr="/t[1]/t[1]/div[1]/div[16]/div[2]/span[1]" position="replace" />
+            <xpath expr="/t[1]/t[1]/div[1]/div[17]/div[2]/span[1]" position="replace" />
+            <xpath expr="/t/t/div/div[17]" position="after">
+                <div class="row">
+                    <div class="col-3">
+                        <span>
+                            <strong>Safety Detail:</strong>
+                            <br />
+                        </span>
+                        <span t-field="doc.x_safety_detail" />
+                    </div>
+                    <div class="col-3" />
+                    <div class="col-3" />
+                    <div class="col-3" />
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[17]" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:20px" />
+            </xpath>
+            <xpath expr="/t/t/div/div[18]/div[1]" position="attributes">
+                <attribute name="class" separator=" " add="col-12" remove="col-3" />
+            </xpath>
+            <xpath expr="/t/t/div/div[18]/div[1]" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:20px" />
+            </xpath>
+            <xpath expr="/t/t/div/div[18]" position="after">
+                <div class="row">
+                    <div class="col">
+                        <span>New Text Block</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[19]/div/span" position="replace">
+                <span>
+                    <b>Fin Die Info Checklist</b>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[19]" position="after">
+                <div class="row">
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[20]" position="after">
+                <div class="row">
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[21]" position="after">
+                <div class="row">
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[22]" position="after">
+                <div class="row">
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[23]" position="after">
+                <div class="row">
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[24]" position="after">
+                <div class="row">
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[25]" position="after">
+                <div class="row">
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[20]/div[1]/span" position="replace">
+                <span>
+                    <span style="color: rgb(102, 102, 102); font-weight: 700;">1.
+                        Fin Die Serial Number</span>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[21]/div[1]/span" position="replace">
+                <span>
+                    <span style="color: rgb(102, 102, 102); font-weight: 700;">2.
+                        Fin Stock Manufacturer</span>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[22]/div[1]/span" position="replace">
+                <span>
+                    <span style="color: rgb(102, 102, 102); font-weight: 700;">3.
+                        Fin Stock Material, Alloy, and Temper</span>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[23]/div[1]/span" position="replace">
+                <span>
+                    <span style="color: rgb(102, 102, 102); font-weight: 700;">4.
+                        Fin Stock Thickness</span>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[24]/div[1]/span" position="replace">
+                <span>
+                    <span style="color: rgb(102, 102, 102); font-weight: 700;">5.
+                        Lubrication Manufacturer</span>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[25]/div[1]/span" position="replace">
+                <span>
+                    <span style="color: rgb(102, 102, 102); font-weight: 700;">6.
+                        Lubrication Number or Designation</span>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[26]/div[1]/span" position="replace">
+                <span>
+                    <span style="color: rgb(102, 102, 102); font-weight: 700;">7.
+                        Collar Height Attempted</span>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[20]/div[2]/span" position="after">
+                <span t-field="doc.x_findie_info_1" />
+            </xpath>
+            <xpath expr="/t/t/div/div[21]/div[2]/span" position="after">
+                <span t-field="doc.x_findie_info_2" />
+            </xpath>
+            <xpath expr="/t/t/div/div[22]/div[2]/span" position="after">
+                <span t-field="doc.x_findie_info_3" />
+            </xpath>
+            <xpath expr="/t/t/div/div[23]/div[2]/span" position="after">
+                <span t-field="doc.x_findie_info_4" />
+            </xpath>
+            <xpath expr="/t/t/div/div[24]/div[2]/span" position="after">
+                <span t-field="doc.x_findie_info_5" />
+            </xpath>
+            <xpath expr="/t/t/div/div[25]/div[2]/span" position="after">
+                <span t-field="doc.x_findie_info_6" />
+            </xpath>
+            <xpath expr="/t/t/div/div[26]/div[2]/span" position="after">
+                <span t-field="doc.x_findie_info_7" />
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/div[20]/div[2]/span[1]" position="replace" />
+            <xpath expr="/t[1]/t[1]/div[1]/div[21]/div[2]/span[1]" position="replace" />
+            <xpath expr="/t[1]/t[1]/div[1]/div[22]/div[2]/span[1]" position="replace" />
+            <xpath expr="/t[1]/t[1]/div[1]/div[23]/div[2]/span[1]" position="replace" />
+            <xpath expr="/t[1]/t[1]/div[1]/div[24]/div[2]/span[1]" position="replace" />
+            <xpath expr="/t[1]/t[1]/div[1]/div[25]/div[2]/span[1]" position="replace" />
+            <xpath expr="/t[1]/t[1]/div[1]/div[26]/div[2]/span[1]" position="replace" />
+            <xpath expr="/t/t/div/div[26]" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:20px" />
+            </xpath>
+            <xpath expr="/t/t/div/div[26]" position="after">
+                <div class="row">
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[27]/div[1]/span" position="replace">
+                <span>
+                    <p>
+                        <b>Service Date(s)</b>
+                            
+                        <b />
+                    </p>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[27]/div[1]/span" position="replace">
+                <span>
+                    <p>
+                        <b>Service Date(s)</b>
+                            
+                        <b />
+                    </p>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[27]/div[1]/span/p/b[2]" position="after">
+                <span t-field="doc.x_date_service" />
+            </xpath>
+            <xpath expr="/t/t/div/div[27]/div[1]/span/p/span" position="after">
+                <span>New Text Block</span>
+            </xpath>
+            <xpath expr="/t/t/div/div[27]/div[1]/span/p/span[2]" position="replace">
+                <span> - </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[27]/div[1]/span/p/span[2]" position="replace">
+                <span> - </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[27]/div[1]/span/p/span[2]" position="after">
+                <span t-field="doc.x_date_service_end" />
+            </xpath>
+            <xpath expr="/t/t/div/div[27]/div[1]/span/p/span[2]" position="after">
+                <span />
+            </xpath>
+            <xpath expr="/t/t/div/div[27]/div[2]/span" position="replace">
+                <span>
+                    <b>Report Date</b>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[27]/div[2]/span" position="replace">
+                <span>
+                    <b>Report Date</b>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[27]/div[2]/span/b" position="replace">
+                <b />
+            </xpath>
+            <xpath expr="/t/t/div/div[27]/div[2]/span/b" position="replace">
+                <p>Report Date    </p>
+            </xpath>
+            <xpath expr="/t/t/div/div[27]/div[2]/span/p" position="replace">
+                <p>
+                    <b>Report Date    </b>
+                </p>
+            </xpath>
+            <xpath expr="/t/t/div/div[27]/div[2]/span/p" position="replace">
+                <p>
+                    <b>Report Date    </b>
+                </p>
+            </xpath>
+            <xpath expr="/t/t/div/div[27]/div[2]/span/p/b" position="after">
+                <span t-field="doc.x_date_report" />
+            </xpath>
+            <xpath expr="/t/t/div/div[27]" position="after">
+                <div class="row">
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[28]" position="after">
+                <div class="row">
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                    <div class="col-6">
+                        <span>New Column</span>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[28]/div[1]/span" position="replace">
+                <span>
+                    <b>Service Rep Print Name</b>
+                </span>
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/div[29]" position="replace" />
+            <xpath expr="/t/t/div/div[28]/div[2]/span" position="replace">
+                <span>
+                    <b>Customer Print Name</b>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[28]/div[1]/span/b" position="replace">
+                <b />
+            </xpath>
+            <xpath expr="/t/t/div/div[28]/div[1]/span/b" position="replace">
+                <p>Service Rep Print Name    </p>
+            </xpath>
+            <xpath expr="/t/t/div/div[28]/div[2]/span/b" position="replace">
+                <b />
+            </xpath>
+            <xpath expr="/t/t/div/div[28]/div[2]/span/b" position="replace">
+                <p>Customer Print Name    </p>
+            </xpath>
+            <xpath expr="/t/t/div/div[28]/div[1]/span/p" position="replace">
+                <p>
+                    <b>Service Rep Print Name    </b>
+                </p>
+            </xpath>
+            <xpath expr="/t/t/div/div[28]/div[2]/span/p" position="replace">
+                <p>
+                    <b>Customer Print Name    </b>
+                </p>
+            </xpath>
+            <xpath expr="/t/t/div/div[28]/div[1]/span/p/b" position="after">
+                <span t-field="doc.x_service_rep_print_name" />
+            </xpath>
+            <xpath expr="/t/t/div/div[28]/div[2]/span/p/b" position="after">
+                <span t-field="doc.x_customer_print_name" />
+            </xpath>
+            <xpath expr="/t/t/div/div[28]" position="after">
+                <div class="row">
+                    <div class="col-3">
+                        <span>
+                            <strong>Service Rep Signature:</strong>
+                            <br />
+                        </span>
+                        <span
+                            t-field="doc.x_service_signature"
+                            t-options-widget="&quot;image&quot;"
+                        />
+                    </div>
+                    <div class="col-3" />
+                    <div class="col-3" />
+                    <div class="col-3" />
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[29]/div[3]" position="inside">
+                <span>
+                    <strong>Customer Signature:</strong>
+                    <br />
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[29]/div[3]" position="inside">
+                <span
+                    t-field="doc.x_customer_signature"
+                    t-options-widget="&quot;image&quot;"
+                />
+            </xpath>
+            <xpath expr="/t/t/div/div[29]/div[1]" position="attributes">
+                <attribute name="class" separator=" " add="col-6" remove="col-3" />
+            </xpath>
+            <xpath expr="/t/t/div/div[29]/div[3]" position="attributes">
+                <attribute name="class" separator=" " add="col-6" remove="col-3" />
+            </xpath>
+            <xpath expr="/t/t/div/div[29]/div[1]" position="attributes">
+                <attribute name="class" separator=" " add="col-4" remove="col-6" />
+            </xpath>
+            <xpath expr="/t/t/div/div[29]/div[3]" position="attributes">
+                <attribute name="class" separator=" " add="col-4" remove="col-6" />
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/div[29]/div[2]" position="replace" />
+            <xpath expr="/t/t/div/div[29]/div[1]" position="attributes">
+                <attribute name="class" separator=" " add="col-6" remove="col-4" />
+            </xpath>
+            <xpath expr="/t/t/div/div[29]/div[2]" position="attributes">
+                <attribute name="class" separator=" " add="col-6" remove="col-4" />
+            </xpath>
+            <xpath expr="/t/t/div/table/thead/tr/th/span" position="after">
+                <span t-field="doc.x_legacy_product" />
+            </xpath>
+            <xpath expr="/t/t/div/table/thead/tr/th/span[2]" position="attributes">
+                <attribute name="class" separator=" " add="" />
+            </xpath>
+            <xpath expr="/t/t/div/table/thead/tr/th/span[2]" position="attributes">
+                <attribute name="class" separator=" " add="" />
+            </xpath>
+            <xpath expr="/t/t/div/table/thead/tr/th/span[1]" position="replace">
+                <span>
+                    <p>Machine(s)    </p>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/table/thead/tr/th/span[2]" position="attributes">
+                <attribute name="class" separator=" " remove="o_bold" />
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/thead[1]/tr[1]/th[1]/span[2]"
+                position="attributes"
+            >
+                <attribute name="class" />
+            </xpath>
+            <xpath expr="/t/t/div/table/thead/tr/th/span[2]" position="attributes">
+                <attribute name="class" separator=" " add="o_italic" />
+            </xpath>
+            <xpath expr="/t/t/div/table/thead/tr/th/span[2]" position="attributes">
+                <attribute name="class" separator=" " remove="o_italic" />
+            </xpath>
+            <xpath expr="/t/t/div/table/thead/tr/th/span[2]" position="attributes">
+                <attribute name="class" separator=" " add="o_italic" />
+            </xpath>
+            <xpath expr="/t/t/div/div[4]/div[2]/span/b" position="after">
+                <span t-field="doc.x_legacy_Sales_Order" />
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/div[4]/div[2]/span[1]/span[1]"
+                position="attributes"
+            >
+                <attribute
+                    name="t-if"
+                >doc.x_sale_order.partner_id.commercial_partner_id.ref
+                    is False</attribute>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/thead[1]/tr[1]/th[1]/span[2]"
+                position="attributes"
+            >
+                <attribute name="t-if">doc.x_product is False</attribute>
+            </xpath>
+            <xpath expr="/t/t/div/table/thead/tr/th/span[1]" position="after">
+                <span t-field="doc.x_legacy_product" />
+            </xpath>
+            <xpath expr="/t/t/div/table/thead/tr/th/span[2]" position="attributes">
+                <attribute name="class" separator=" " add="o_italic" />
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/thead[1]/tr[1]/th[1]/span[2]"
+                position="attributes"
+            >
+                <attribute name="t-if">doc.x_legacy_product</attribute>
+            </xpath>
+            <xpath expr="/t/t/div/div[26]" position="attributes">
+                <attribute
+                    name="style"
+                    separator=";"
+                    add="margin-bottom:40px"
+                    remove="margin-bottom:20px"
+                />
+            </xpath>
+            <xpath expr="/t/t/div/div[7]" position="after">
+                <div class="row">
+                    <div class="col-3">
+                        <span>
+                            <strong>Suggested Follow-Up:</strong>
+                            <br />
+                        </span>
+                        <span t-field="doc.x_follow_up" />
+                    </div>
+                    <div class="col-3" />
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[8]/div[1]" position="attributes">
+                <attribute name="class" separator=" " add="col-12" remove="col-3" />
+            </xpath>
+            <xpath expr="/t/t/div/div[8]" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:20px" />
+            </xpath>
+        </data>
+    </template>
+
+</odoo>

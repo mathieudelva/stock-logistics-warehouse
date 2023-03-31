@@ -1,0 +1,724 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+
+  <record id="action_service_req" model="ir.actions.report">
+      <field name="name">Service Request Report</field>
+      <field
+            name="model"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.service_req_worksheet_template').model_id.model"
+        />
+      <field name="report_type">qweb-pdf</field>
+      <field name="report_name">oak_field_service.report_service_req</field>
+      <field name="report_file">oak_field_service.report_service_req</field>
+      <field name="print_report_name">'Service Request Report'</field>
+      <field
+            name="binding_model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.service_req_worksheet_template').model_id.id"
+        />
+      <field name="binding_type">report</field>
+  </record>
+
+<template id="report_service_req">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="doc">
+        <t t-call="oak_field_service.report_service_req_document" />
+      </t>
+    </t>
+  </template>
+
+  <template id="report_service_req_document">
+      <t t-call="web.external_layout">
+        <div class="page" style="font-size: 20px !important;" />
+    </t>
+  </template>
+
+  <template
+        id="report_service_req_document_data"
+        inherit_id="oak_field_service.report_service_req_document"
+    >
+    <data>
+        <xpath expr="/t/t/div" position="inside">
+            <div class="row">
+            <div class="col h2">
+                <span>New Title</span>
+            </div>
+            </div>
+        </xpath>
+        <xpath expr="/t/t/div/div/div/span" position="replace">
+            <span>Service Requisition Form</span>
+        </xpath>
+        <xpath expr="/t[1]/t[1]/div[1]/div[1]/div[1]" position="attributes">
+            <attribute name="class">col h1</attribute>
+        </xpath>
+        <xpath expr="/t/t/div/div/div" position="attributes">
+            <attribute name="class" separator=" " add="text-center" />
+        </xpath>
+        <xpath expr="/t/t/div/div" position="after">
+            <div class="row">
+            <div class="col-6">
+                <span>New Column</span>
+            </div>
+            <div class="col-6">
+                <span>New Column</span>
+            </div>
+            </div>
+        </xpath>
+        <xpath expr="/t/t/div/div[2]/div[1]/span" position="replace">
+            <span>
+            <b>Customer:</b>
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[2]/div[2]/span" position="replace">
+            <span>
+            <b>Service Rep: </b>
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[2]" position="after">
+            <div class="row">
+            <div class="col-6">
+                <span>New Column</span>
+            </div>
+            <div class="col-6">
+                <span>New Column</span>
+            </div>
+            </div>
+        </xpath>
+        <xpath expr="/t/t/div/div[3]" position="after">
+            <div class="row">
+            <div class="col-6">
+                <span>New Column</span>
+            </div>
+            <div class="col-6">
+                <span>New Column</span>
+            </div>
+            </div>
+        </xpath>
+        <xpath expr="/t/t/div/div[3]/div[1]/span" position="replace">
+            <span>
+            <b>Customer Location: </b>
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[3]/div[2]/span" position="replace">
+            <span>
+            <b>Sales Person:</b>
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[4]/div[1]/span" position="replace">
+            <span>
+            <b>Customer Main Phone:</b>
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[4]/div[2]/span" position="replace">
+            <span>
+            <b>Sales Order: </b>
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[4]" position="after">
+            <div class="row">
+            <div class="col-6">
+                <span>New Column</span>
+            </div>
+            <div class="col-6">
+                <span>New Column</span>
+            </div>
+            </div>
+        </xpath>
+        <xpath expr="/t/t/div/div[5]/div[1]/span" position="replace">
+            <span>
+            <b>Customer Contact Name: </b>
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[5]/div[2]/span" position="replace">
+            <span>
+            <b>Legacy Sales Order:</b>
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[5]" position="after">
+            <div class="row">
+            <div class="col-6">
+                <span>New Column</span>
+            </div>
+            <div class="col-6">
+                <span>New Column</span>
+            </div>
+            </div>
+        </xpath>
+        <xpath expr="/t/t/div/div[6]/div[1]/span" position="replace">
+            <span>
+            <b>Customer Contact Phone #: </b>
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[6]/div[2]/span" position="replace">
+            <span> </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[6]" position="after">
+            <div class="row">
+            <div class="col-6">
+                <span>New Column</span>
+            </div>
+            <div class="col-6">
+                <span>New Column</span>
+            </div>
+            </div>
+        </xpath>
+        <xpath expr="/t/t/div/div[7]/div[1]/span" position="replace">
+            <span>
+            <b>Customer PO #:</b>
+            </span>
+        </xpath>
+        <xpath expr="/t[1]/t[1]/div[1]/div[7]/div[2]" position="replace" />
+        <xpath expr="/t/t/div/div[1]/div" position="attributes">
+            <attribute name="style" separator=";" add="margin-bottom:20px" />
+        </xpath>
+        <xpath expr="/t/t/div/div[7]" position="after">
+            <div class="row">
+            <div class="col-6">
+                <span>New Column</span>
+            </div>
+            <div class="col-6">
+                <span>New Column</span>
+            </div>
+            </div>
+        </xpath>
+        <xpath expr="/t/t/div/div[7]" position="attributes">
+            <attribute name="style" separator=";" add="margin-bottom:25px" />
+        </xpath>
+        <xpath expr="/t/t/div/div[8]/div[1]/span" position="replace">
+            <span>
+            <b>Expediting Surcharge: </b>
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[8]/div[2]/span" position="replace">
+            <span>
+            <b>Traveling Via: </b>
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[8]" position="after">
+            <div class="row">
+            <div class="col-3">
+                <span>
+                <strong>Remarks:</strong>
+                <br />
+                </span>
+                <span t-field="doc.x_remarks" />
+            </div>
+            <div class="col-3" />
+            <div class="col-3" />
+            <div class="col-3" />
+            </div>
+        </xpath>
+        <xpath expr="/t/t/div/div[8]" position="attributes">
+            <attribute name="style" separator=";" add="margin-bottom:25px" />
+        </xpath>
+        <xpath expr="/t/t/div/div[9]/div[1]" position="attributes">
+            <attribute name="class" separator=" " add="col-12" remove="col-3" />
+        </xpath>
+        <xpath expr="/t/t/div/div[9]" position="after">
+            <div class="row">
+            <div class="col-6">
+                <span>New Column</span>
+            </div>
+            <div class="col-6">
+                <span>New Column</span>
+            </div>
+            </div>
+        </xpath>
+        <xpath expr="/t/t/div/div[9]" position="attributes">
+            <attribute name="style" separator=";" add="margin-bottom:25px" />
+        </xpath>
+        <xpath expr="/t[1]/t[1]/div[1]/div[10]" position="replace" />
+        <xpath expr="/t/t/div/div[9]" position="after">
+            <div class="row">
+            <div class="col-3">
+                <span>
+                <strong>Approved By:</strong>
+                <br />
+                </span>
+                <span
+                            t-field="doc.x_approved_by"
+                            t-options-widget="&quot;image&quot;"
+                        />
+            </div>
+            <div class="col-3" />
+            <div class="col-3" />
+            <div class="col-3" />
+            </div>
+        </xpath>
+        <xpath expr="/t/t/div/div[10]/div[1]" position="attributes">
+            <attribute name="class" separator=" " add="col-6" remove="col-3" />
+        </xpath>
+        <xpath expr="/t/t/div/div[10]/div[2]" position="inside">
+            <span>
+            <strong>Date:</strong>
+            <br />
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[10]/div[2]" position="inside">
+            <span t-field="doc.x_date_signature" />
+        </xpath>
+        <xpath expr="/t/t/div/div[10]/div[2]" position="attributes">
+            <attribute name="class" separator=" " add="col-6" remove="col-3" />
+        </xpath>
+        <xpath expr="/t/t/div/div[8]" position="after">
+            <div class="row">
+            <div class="col-4">
+                <span>New Column</span>
+            </div>
+            <div class="col-4">
+                <span>New Column</span>
+            </div>
+            <div class="col-4">
+                <span>New Column</span>
+            </div>
+            </div>
+        </xpath>
+        <xpath expr="/t/t/div/div[9]" position="attributes">
+            <attribute name="style" separator=";" add="margin-bottom:25px" />
+        </xpath>
+        <xpath expr="/t[1]/t[1]/div[1]/div[9]" position="replace" />
+        <xpath expr="/t/t/div/div[8]" position="after">
+            <div class="row">
+            <div class="col-3">
+                <span>
+                <strong>Date/Time of Departure:</strong>
+                <br />
+                </span>
+                <span t-field="doc.x_date_departure" />
+            </div>
+            <div class="col-3" />
+            <div class="col-3" />
+            <div class="col-3" />
+            </div>
+        </xpath>
+        <xpath expr="/t/t/div/div[9]/div[2]" position="inside">
+            <span>
+            <strong>Date/Time Service is to Begin:</strong>
+            <br />
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[9]/div[2]" position="inside">
+            <span t-field="doc.x_date_service_start" />
+        </xpath>
+        <xpath expr="/t/t/div/div[9]/div[3]" position="inside">
+            <span>
+            <strong>Date/Time of Return Trip:</strong>
+            <br />
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[9]/div[3]" position="inside">
+            <span t-field="doc.x_date_service_end" />
+        </xpath>
+        <xpath expr="/t/t/div/div[9]/div[1]" position="attributes">
+            <attribute name="class" separator=" " add="col-4" remove="col-3" />
+        </xpath>
+        <xpath expr="/t/t/div/div[9]/div[2]" position="attributes">
+            <attribute name="class" separator=" " add="col-4" remove="col-3" />
+        </xpath>
+        <xpath expr="/t/t/div/div[9]/div[3]" position="attributes">
+            <attribute name="class" separator=" " add="col-4" remove="col-3" />
+        </xpath>
+        <xpath expr="/t/t/div/div[9]" position="attributes">
+            <attribute name="style" separator=";" add="margin-bottom:25px" />
+        </xpath>
+        <xpath expr="/t/t/div/div[7]" position="after">
+            <table class="table o_report_block_table">
+            <thead>
+                <tr>
+                <th>
+                    <span>Name</span>
+                </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr t-foreach="doc.x_product" t-as="table_line">
+                <td>
+                    <span t-field="table_line.display_name" />
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </xpath>
+        <xpath expr="/t/t/div/table" position="attributes">
+            <attribute name="style" separator=";" add="margin-bottom:25px" />
+        </xpath>
+        <xpath expr="/t/t/div/table/thead/tr/th" position="replace">
+            <th>
+            <span>
+                <b>Machine(s) to be Serviced:</b>
+            </span>
+            </th>
+        </xpath>
+        <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/thead[1]/tr[1]/th[1]/span[1]/b[1]"
+                position="attributes"
+            >
+            <attribute name="class">border-0</attribute>
+        </xpath>
+        <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/thead[1]/tr[1]/th[1]/span[1]/b[1]"
+                position="attributes"
+            >
+            <attribute name="class" />
+        </xpath>
+        <xpath expr="/t[1]/t[1]/div[1]/table[1]/thead[1]" position="attributes">
+            <attribute name="class">border-0</attribute>
+        </xpath>
+        <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/thead[1]/tr[1]/th[1]"
+                position="attributes"
+            >
+            <attribute name="class">border-0</attribute>
+        </xpath>
+        <xpath expr="/t/t/div/table/thead/tr/th/span" position="after">
+            <span t-field="doc.x_legacy_product" />
+        </xpath>
+        <xpath expr="/t/t/div/table/thead/tr/th/span[1]/b" position="replace">
+            <b />
+        </xpath>
+        <xpath expr="/t/t/div/table/thead/tr/th/span[1]/b" position="replace">
+            <p>Machine(s) to be Serviced:    </p>
+        </xpath>
+        <xpath expr="/t/t/div/table/thead/tr/th/span[2]" position="attributes">
+            <attribute name="class" separator=" " add="o_italic" />
+        </xpath>
+        <xpath expr="/t/t/div/div[2]/div[1]/span/b" position="after">
+            <span t-field="doc.x_customer.display_name" />
+        </xpath>
+        <xpath expr="/t/t/div/div[3]/div[1]/span/b" position="after">
+            <span t-field="doc.x_customer_location" />
+        </xpath>
+        <xpath expr="/t/t/div/div[4]/div[1]/span/b" position="after">
+            <span t-field="doc.x_customer_phone" />
+        </xpath>
+        <xpath expr="/t/t/div/div[5]/div[1]/span/b" position="after">
+            <span t-field="doc.x_customer_contact" />
+        </xpath>
+        <xpath expr="/t/t/div/div[6]/div[1]/span/b" position="after">
+            <span t-field="doc.x_customer_contact_phone" />
+        </xpath>
+        <xpath expr="/t/t/div/div[7]/div/span/b" position="after">
+            <span t-field="doc.x_customer_po" />
+        </xpath>
+        <xpath expr="/t/t/div/div[2]/div[2]/span/b" position="after">
+            <span t-field="doc.x_service_rep.display_name" />
+        </xpath>
+        <xpath expr="/t/t/div/div[3]/div[2]/span/b" position="after">
+            <span t-field="doc.x_sales_user.display_name" />
+        </xpath>
+        <xpath expr="/t/t/div/div[4]/div[2]/span/b" position="after">
+            <span>New Text Block</span>
+        </xpath>
+        <xpath
+                expr="/t[1]/t[1]/div[1]/div[4]/div[2]/span[1]/span[1]"
+                position="replace"
+            />
+        <xpath expr="/t/t/div/div[4]/div[2]/span/b" position="after">
+            <span t-field="doc.x_sale_order.display_name" />
+        </xpath>
+        <xpath expr="/t/t/div/div[5]/div[2]/span/b" position="after">
+            <span t-field="doc.x_legacy_Sales_Order" />
+        </xpath>
+        <xpath expr="/t/t/div/div[8]/div[1]/span/b" position="after">
+            <span t-field="doc.x_surcharge" />
+        </xpath>
+        <xpath expr="/t/t/div/div[8]/div[2]/span/b" position="after">
+            <span t-field="doc.x_traveling_via" />
+        </xpath>
+        <xpath
+                expr="/t[1]/t[1]/div[1]/div[5]/div[2]/span[1]/b[1]"
+                position="attributes"
+            >
+            <attribute name="t-if">doc.x_legacy_Sales_Order</attribute>
+        </xpath>
+        <xpath
+                expr="/t[1]/t[1]/div[1]/div[5]/div[2]/span[1]/span[1]"
+                position="attributes"
+            >
+            <attribute name="t-if">doc.x_legacy_Sales_Order</attribute>
+        </xpath>
+        <xpath expr="/t/t/div/div[11]/div[1]" position="attributes">
+            <attribute name="class" separator=" " add="col-4" remove="col-6" />
+        </xpath>
+        <xpath expr="/t/t/div/div[11]" position="after">
+            <div class="row">
+            <div class="col">
+                <span>New Text Block</span>
+            </div>
+            </div>
+        </xpath>
+        <xpath expr="/t/t/div/div[11]" position="attributes">
+            <attribute name="style" separator=";" add="margin-bottom:25px" />
+        </xpath>
+        <xpath expr="/t/t/div/div[12]/div/span" position="replace">
+            <span>
+            <b>CAR INSURANCE INFORMATION<br /></b>
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[12]/div/span/b" position="replace">
+            <b>CAR INSURANCE INFORMATION<br /></b>
+        </xpath>
+        <xpath expr="/t/t/div/div[12]/div/span/b" position="replace">
+            <b>CAR INSURANCE INFORMATION<br /></b>
+        </xpath>
+        <xpath expr="/t/t/div/div[12]/div/span/b" position="replace">
+            <b>CAR INSURANCE INFORMATION<br /></b>
+        </xpath>
+        <xpath expr="/t/t/div/div[12]/div/span/b" position="replace">
+            <b>CAR INSURANCE INFORMATION<br /></b>
+        </xpath>
+        <xpath expr="/t/t/div/div[12]/div/span/b" position="replace">
+            <b>CAR INSURANCE INFORMATION<br /></b>
+        </xpath>
+        <xpath expr="/t/t/div/div[12]/div/span/b" position="replace">
+            <b>CAR INSURANCE INFORMATION<br /></b>
+        </xpath>
+        <xpath expr="/t/t/div/div[12]/div/span" position="replace">
+            <span>
+            <b>CAR INSURANCE INFORMATION<br /></b>
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[12]/div/span" position="replace">
+            <span>
+            <b>
+                <font style="font-size: 15px;">CAR INSURANCE INFORMATION</font>
+                <br />
+            </b>
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[12]" position="after">
+            <div class="row">
+            <div class="col-6">
+                <span>New Column</span>
+            </div>
+            <div class="col-6">
+                <span>New Column</span>
+            </div>
+            </div>
+        </xpath>
+        <xpath expr="/t/t/div/div[13]/div[1]/span" position="replace">
+            <span>CARRIER IS:<br /></span>
+        </xpath>
+        <xpath expr="/t/t/div/div[13]/div[1]" position="attributes">
+            <attribute name="class" separator=" " add="col-3" remove="col-6" />
+        </xpath>
+        <xpath expr="/t/t/div/div[13]/div[2]" position="attributes">
+            <attribute name="class" separator=" " add="col-3" remove="col-6" />
+        </xpath>
+        <xpath expr="/t/t/div/div[13]/div[1]" position="attributes">
+            <attribute name="class" separator=" " add="col-2" remove="col-3" />
+        </xpath>
+        <xpath expr="/t/t/div/div[13]/div[1]/span" position="replace">
+            <span>CARRIER IS:<br /></span>
+        </xpath>
+        <xpath expr="/t/t/div/div[13]/div[1]/span" position="replace">
+            <span>
+            <font style="font-size: 15px;">CARRIER IS:</font>
+            <br />
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[13]/div[2]/span" position="replace">
+            <span>
+            <p>GIBSON INSURANCE<br />130 S. MAIN ST., SUITE 400, SOUTH BEND, IN</p>
+            <p>PHONE:<br /></p>
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[13]/div[2]/span" position="replace">
+            <span>
+            <p>GIBSON INSURANCE<br />130 S. MAIN ST., SUITE 400, SOUTH BEND, IN</p>
+            <p>PHONE:<br /></p>
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[13]/div[2]/span" position="replace">
+            <span>
+            <p>
+                <font style="font-size: 15px;">GIBSON INSURANCE</font>
+                <br />
+                <font
+                            style="font-size: 15px;"
+                        >130 S. MAIN ST., SUITE 400, SOUTH BEND, IN</font>
+            </p>
+            <p>
+                <font style="font-size: 15px;">PHONE:</font>
+                <br />
+            </p>
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[13]/div[1]" position="attributes">
+            <attribute name="class" separator=" " add="col-1" remove="col-2" />
+        </xpath>
+        <xpath expr="/t/t/div/div[13]/div[2]" position="attributes">
+            <attribute name="class" separator=" " add="col-4" remove="col-3" />
+        </xpath>
+        <xpath expr="/t/t/div/div[13]/div[1]" position="attributes">
+            <attribute name="class" separator=" " add="col-2" remove="col-1" />
+        </xpath>
+        <xpath expr="/t/t/div/div[13]/div[2]/span" position="replace">
+            <span>
+            <p>
+                <font style="font-size: 15px;">GIBSON INSURANCE</font>
+                <br />
+                <font
+                            style="font-size: 15px;"
+                        >130 S. MAIN ST., SUITE 400, SOUTH BEND, IN</font>
+            </p>
+            <p>
+                <font style="font-size: 15px;">PHONE:</font>
+                <br />
+            </p>
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[13]/div[2]/span" position="replace">
+            <span>
+            <p>
+                <font style="font-size: 15px;">GIBSON INSURANCE</font>
+                <br />
+                <font
+                            style="font-size: 15px;"
+                        >130 S. MAIN ST., SUITE 400, SOUTH BEND, IN <br />PHONE:</font>
+                <br />
+            </p>
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[13]/div[2]/span" position="replace">
+            <span>
+            <p>
+                <font style="font-size: 15px;">GIBSON INSURANCE</font>
+                <br />
+                <font
+                            style="font-size: 15px;"
+                        >130 S. MAIN ST., SUITE 400, SOUTH BEND, IN <br
+                            />PHONE: 574 245 3500</font>
+                <br />
+            </p>
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[13]" position="after">
+            <div class="row">
+            <div class="col-6">
+                <span>New Column</span>
+            </div>
+            <div class="col-6">
+                <span>New Column</span>
+            </div>
+            </div>
+        </xpath>
+        <xpath expr="/t/t/div/div[14]/div[1]" position="attributes">
+            <attribute name="class" separator=" " add="col-2" remove="col-6" />
+        </xpath>
+        <xpath expr="/t/t/div/div[14]/div[1]/span" position="replace">
+            <span>INSURANCE CO:<br /></span>
+        </xpath>
+        <xpath expr="/t/t/div/div[14]/div[1]/span" position="replace">
+            <span>INSURANCE CO:<br /></span>
+        </xpath>
+        <xpath expr="/t/t/div/div[14]/div[1]/span" position="replace">
+            <span>
+            <font style="font-size: 15px;">INSURANCE CO:</font>
+            <br />
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[14]/div[2]/span" position="replace">
+            <span>CINCINNATI INS. - CINCINNATI, OH<br /></span>
+        </xpath>
+        <xpath expr="/t/t/div/div[14]/div[2]/span" position="replace">
+            <span>CINCINNATI INS. - CINCINNATI, OH<br /></span>
+        </xpath>
+        <xpath expr="/t/t/div/div[14]/div[2]/span" position="replace">
+            <span>
+            <font style="font-size: 15px;">CINCINNATI INS. - CINCINNATI, OH</font>
+            <br />
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[14]" position="after">
+            <div class="row">
+            <div class="col-6">
+                <span>New Column</span>
+            </div>
+            <div class="col-6">
+                <span>New Column</span>
+            </div>
+            </div>
+        </xpath>
+        <xpath expr="/t/t/div/div[15]/div[1]/span" position="replace">
+            <span>POLICY NUMBER:<br /></span>
+        </xpath>
+        <xpath expr="/t/t/div/div[15]/div[1]/span" position="replace">
+            <span>
+            <font style="font-size: 15px;">POLICY NUMBER:</font>
+            <br />
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[15]/div[1]" position="attributes">
+            <attribute name="class" separator=" " add="col-2" remove="col-6" />
+        </xpath>
+        <xpath expr="/t/t/div/div[15]/div[2]/span" position="replace">
+            <span>COP 2321944<br /></span>
+        </xpath>
+        <xpath expr="/t/t/div/div[15]/div[2]/span" position="replace">
+            <span>COP 2321944<br /></span>
+        </xpath>
+        <xpath expr="/t/t/div/div[15]/div[2]/span" position="replace">
+            <span>COP 2321944<br /></span>
+        </xpath>
+        <xpath expr="/t/t/div/div[15]/div[2]/span" position="replace">
+            <span>
+            <font style="font-size: 15px;">COP 2321944</font>
+            <br />
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[15]" position="after">
+            <div class="row">
+            <div class="col">
+                <span>New Text Block</span>
+            </div>
+            </div>
+        </xpath>
+        <xpath expr="/t/t/div/div[16]/div/span" position="replace">
+            <span>
+            <font style="font-size: 15px;">New Text Block</font>
+            </span>
+        </xpath>
+        <xpath expr="/t/t/div/div[16]/div/span/font" position="replace">
+            <font
+                    style="font-size: 15px;"
+                >DO NOT PURCHASE ADDITIONAL AUTO INSURANCE WHEN RENTING A CAR IN THE U.S., CANADA OR PUERTO RICO. IN ALL OTHER COUNTRIES YOU MUST PURCHASE "LIABILITY &amp; PHYSICAL DAMAGE COVERAGE". THE RENTAL AGREEMENT SHOULD INDICATE YOU ARE REPRESENTING BURR OAK TOOL INC.<br
+                    /></font>
+        </xpath>
+        <xpath expr="/t/t/div/div[15]" position="attributes">
+            <attribute name="style" separator=";" add="margin-bottom:10px" />
+        </xpath>
+        <xpath expr="/t/t/div/div[16]" position="after">
+            <div class="row">
+            <div class="col">
+                <span>New Text Block</span>
+            </div>
+            </div>
+        </xpath>
+        <xpath expr="/t/t/div/div[16]" position="attributes">
+            <attribute name="style" separator=";" add="margin-bottom:10px" />
+        </xpath>
+        <xpath expr="/t/t/div/div[17]/div/span" position="replace">
+            <span
+                >This report and the contents within, is for the exclusive use of "OAK" Companies and will be submitted by the serviceman to the service supervisor<br
+                    /></span>
+        </xpath>
+        <xpath expr="/t/t/div/div[17]/div/span" position="replace">
+            <span
+                >This report and the contents within, is for the exclusive use of "OAK" Companies and will be submitted by the serviceman to the service supervisor<br
+                    /></span>
+        </xpath>
+        <xpath expr="/t/t/div/div[17]/div/span" position="replace">
+            <span>
+            <font
+                        style="font-size: 15px;"
+                    >This report and the contents within, is for the exclusive use of "OAK" Companies and will be submitted by the serviceman to the service supervisor</font>
+            <br />
+            </span>
+        </xpath>
+    </data>
+</template>
+
+</odoo>

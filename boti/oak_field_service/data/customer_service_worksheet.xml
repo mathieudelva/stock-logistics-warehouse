@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!--Declare main worksheet template-->
+    <record id="customer_service_worksheet_template" model="worksheet.template">
+        <field name="name">Service Tech Report Worksheet</field>
+        <field name="res_model">project.task</field>
+        <field name="color">2</field>
+    </record>
+
+    <!--Declare fields used in form-->
+    <record id="oak_service_worksheet_field1" model="ir.model.fields">
+        <field name="name">x_customer</field>
+        <field name="ttype">many2one</field>
+        <field name="field_description">Customer</field>
+        <field name="relation">res.partner</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field2" model="ir.model.fields">
+        <field name="name">x_customer_contact</field>
+        <field name="ttype">char</field>
+        <field name="field_description">Customer Contact</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field3" model="ir.model.fields">
+        <field name="name">x_service_rep</field>
+        <field name="ttype">many2one</field>
+        <field name="field_description">BOTI Service Rep</field>
+        <field name="relation">res.users</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field4" model="ir.model.fields">
+        <field name="name">x_customer_po</field>
+        <field name="ttype">char</field>
+        <field name="field_description">Customer PO#</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field5" model="ir.model.fields">
+        <field name="name">x_product</field>
+        <field name="ttype">many2many</field>
+        <field name="field_description">Machine #</field>
+        <field name="relation">product.product</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field6" model="ir.model.fields">
+        <field name="name">x_legacy_product</field>
+        <field name="ttype">char</field>
+        <field name="field_description">Legacy Machine #</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field7" model="ir.model.fields">
+        <field name="name">x_sales_user</field>
+        <field name="ttype">many2one</field>
+        <field name="field_description">BOTI Sales Rep</field>
+        <field name="relation">res.users</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field8" model="ir.model.fields">
+        <field name="name">x_sale_order</field>
+        <field name="ttype">many2many</field>
+        <field name="field_description">Sales Order</field>
+        <field name="relation">sale.order</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field9" model="ir.model.fields">
+        <field name="name">x_legacy_Sales_Order</field>
+        <field name="ttype">char</field>
+        <field name="field_description">Legacy Sales Order</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field10" model="ir.model.fields">
+        <field name="name">x_problem</field>
+        <field name="ttype">char</field>
+        <field name="field_description">Nature of Problem</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field11" model="ir.model.fields">
+        <field name="name">x_service_render</field>
+        <field name="ttype">text</field>
+        <field name="field_description">Services Rendered</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field12" model="ir.model.fields">
+        <field name="name">x_follow_up</field>
+        <field name="ttype">text</field>
+        <field name="field_description">Suggested Follow-Up</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field13" model="ir.model.fields">
+        <field name="name">x_notes</field>
+        <field name="ttype">text</field>
+        <field name="field_description">Observations and Comments</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field14" model="ir.model.fields">
+        <field name="name">x_safety_check_1</field>
+        <field name="ttype">selection</field>
+        <field name="selection">[('yes','YES'),('no','NO')]</field>
+        <field
+            name="field_description"
+        >1. Machine has adequate guarding (no upgrade required).</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field15" model="ir.model.fields">
+        <field name="name">x_safety_check_2</field>
+        <field name="ttype">selection</field>
+        <field name="selection">[('yes','YES'),('no','NO')]</field>
+        <field
+            name="field_description"
+        >2. Guard/light curtains/safety mats properly installed.</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field16" model="ir.model.fields">
+        <field name="name">x_safety_check_3</field>
+        <field name="ttype">selection</field>
+        <field name="selection">[('yes','YES'),('no','NO')]</field>
+        <field
+            name="field_description"
+        >3. Guard switches installed and functioning properly.</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field17" model="ir.model.fields">
+        <field name="name">x_safety_check_4</field>
+        <field name="ttype">selection</field>
+        <field name="selection">[('yes','YES'),('no','NO')]</field>
+        <field
+            name="field_description"
+        >4. Warning tags and warning devices installed and visible.</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field18" model="ir.model.fields">
+        <field name="name">x_safety_check_5</field>
+        <field name="ttype">selection</field>
+        <field name="selection">[('yes','YES'),('no','NO')]</field>
+        <field
+            name="field_description"
+        >5. Operators use safe practices during operation/setup.</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field19" model="ir.model.fields">
+        <field name="name">x_safety_check_6</field>
+        <field name="ttype">selection</field>
+        <field name="selection">[('yes','YES'),('no','NO')]</field>
+        <field
+            name="field_description"
+        >6. Workers shut down machine for set-up/adjustment.</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field20" model="ir.model.fields">
+        <field name="name">x_safety_check_7</field>
+        <field name="ttype">selection</field>
+        <field name="selection">[('yes','YES'),('no','NO')]</field>
+        <field
+            name="field_description"
+        >7. Electrical enclosure in safe working condition.</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field21" model="ir.model.fields">
+        <field name="name">x_findie_info_1</field>
+        <field name="ttype">char</field>
+        <field name="field_description">1. Fin Die Serial Number</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field22" model="ir.model.fields">
+        <field name="name">x_findie_info_2</field>
+        <field name="ttype">char</field>
+        <field name="field_description">2. Fin Stock Manufacturer</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field23" model="ir.model.fields">
+        <field name="name">x_findie_info_3</field>
+        <field name="ttype">char</field>
+        <field name="field_description">3. Fin Stock Material, Alloy, and Temper</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field24" model="ir.model.fields">
+        <field name="name">x_findie_info_4</field>
+        <field name="ttype">char</field>
+        <field name="field_description">4. Fin Stock Thickness</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field25" model="ir.model.fields">
+        <field name="name">x_findie_info_5</field>
+        <field name="ttype">char</field>
+        <field name="field_description">5. Lubrication Manufacturer</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field26" model="ir.model.fields">
+        <field name="name">x_findie_info_6</field>
+        <field name="ttype">char</field>
+        <field name="field_description">6. Lubrication Number or Designation</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field27" model="ir.model.fields">
+        <field name="name">x_findie_info_7</field>
+        <field name="ttype">char</field>
+        <field name="field_description">7. Collar Height Attempted</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field28" model="ir.model.fields">
+        <field name="name">x_service_signature</field>
+        <field name="ttype">binary</field>
+        <field name="field_description">Service Rep Signature</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field29" model="ir.model.fields">
+        <field name="name">x_customer_signature</field>
+        <field name="ttype">binary</field>
+        <field name="field_description">Customer Signature</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field30" model="ir.model.fields">
+        <field name="name">x_safety_detail</field>
+        <field name="ttype">text</field>
+        <field name="field_description">Safety Detail</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field31" model="ir.model.fields">
+        <field name="name">x_service_rep_print_name</field>
+        <field name="ttype">char</field>
+        <field name="field_description">Service Rep Print Name</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field32" model="ir.model.fields">
+        <field name="name">x_customer_print_name</field>
+        <field name="ttype">char</field>
+        <field name="field_description">Customer Print Name</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field33" model="ir.model.fields">
+        <field name="name">x_date_service</field>
+        <field name="ttype">datetime</field>
+        <field name="field_description">Service Date Start</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field34" model="ir.model.fields">
+        <field name="name">x_date_service_end</field>
+        <field name="ttype">datetime</field>
+        <field name="field_description">Service Date End</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field35" model="ir.model.fields">
+        <field name="name">x_date_report</field>
+        <field name="ttype">date</field>
+        <field name="field_description">Report Date</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <record id="oak_service_worksheet_field36" model="ir.model.fields">
+        <field name="name">x_improvement</field>
+        <field name="ttype">text</field>
+        <field name="field_description">Opportunity for Improvement</field>
+        <field
+            name="model_id"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.id"
+        />
+    </record>
+
+    <!--Declare and build form-->
+    <record id="fsm_worksheet_template2_form_inherit" model="ir.ui.view">
+        <field name="name">fsm.worksheet.template2.form.inherit</field>
+        <field name="type">form</field>
+        <field
+            name="model"
+            model="ir.model"
+            eval="obj().env.ref('oak_field_service.customer_service_worksheet_template').model_id.model"
+        />
+        <field name="priority" eval="99" />
+        <field
+            name="inherit_id"
+            model="ir.ui.view"
+            search="[('name','ilike', 'template_view_Customer_Service_Worksheet'),('type', '=', 'form')]"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet" position="replace">
+                <sheet>
+                    <group
+                        invisible="context.get('studio') or context.get('default_x_project_task_id')"
+                    >
+                        <group>
+                            <field
+                                name="x_project_task_id"
+                                domain="[('is_fsm', '=', True)]"
+                            />
+                        </group>
+                    </group>
+                    <group class="o_fsm_worksheet_form">
+                        <group>
+                            <field name="x_customer" required="1" />
+                            <field name="x_customer_contact" />
+                            <field name="x_customer_po" />
+                        </group>
+                        <group>
+                            <field name="x_service_rep" />
+                            <field name="x_sales_user" />
+                            <field name="x_sale_order" widget="many2many_tags" />
+                            <field name="x_legacy_Sales_Order" />
+                        </group>
+                    </group>
+                    <group>
+                        <field name="x_legacy_product" />
+                        <field
+                            name="x_product"
+                            mode="tree"
+                            widget="many2many_tags"
+                            required="1"
+                        />
+                    </group>
+                    <group>
+                        <field name="x_problem" required="1" />
+                        <field name="x_service_render" required="1" />
+                        <field name="x_follow_up" required="1" />
+                        <field name="x_notes" />
+                        <field name="x_improvement" />
+                    </group>
+                    <group>
+                        <group string="Safety Checks">
+                            <field name="x_safety_check_1" style="width:90%%" />
+                            <field name="x_safety_check_2" style="width:90%%" />
+                            <field name="x_safety_check_3" style="width:90%%" />
+                            <field name="x_safety_check_4" style="width:90%%" />
+                            <field name="x_safety_check_5" style="width:90%%" />
+                            <field name="x_safety_check_6" style="width:90%%" />
+                            <field name="x_safety_check_7" style="width:90%%" />
+                        </group>
+                        <group string="Fin Die Info Checklist">
+                            <field name="x_findie_info_1" style="width:90%%" />
+                            <field name="x_findie_info_2" style="width:90%%" />
+                            <field name="x_findie_info_3" style="width:90%%" />
+                            <field name="x_findie_info_4" style="width:90%%" />
+                            <field name="x_findie_info_5" style="width:90%%" />
+                            <field name="x_findie_info_6" style="width:90%%" />
+                            <field name="x_findie_info_7" style="width:90%%" />
+                        </group>
+                    </group>
+                    <group>
+                        <field name="x_safety_detail" />
+                    </group>
+                    <group>
+                        <group>
+                            <label for="x_date_service" string="Service Date(s)" />
+                            <div class="w-100">
+                                <div class="o_row">
+                                    <field
+                                        name="x_date_service"
+                                        widget="daterange"
+                                        options='{"related_end_date": "x_date_service_end"}'
+                                        required="1"
+                                    />
+                                    <i
+                                        class="fa fa-long-arrow-right mx-2 oe_edit_only"
+                                        aria-label="Arrow icon"
+                                        title="Arrow"
+                                    />
+                                    <i
+                                        class="fa fa-long-arrow-right mx-2 oe_read_only"
+                                        aria-label="Arrow icon"
+                                        title="Arrow"
+                                        attrs="{'invisible': [('x_date_service', '=', False), ('x_date_service_end', '=', False)]}"
+                                    />
+                                    <field
+                                        name="x_date_service_end"
+                                        widget="daterange"
+                                        options='{"related_start_date": "x_date_service"}'
+                                        required="1"
+                                    />
+                                </div>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="x_date_report" required="1" />
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="x_service_rep_print_name" required="1" />
+                        </group>
+                        <group>
+                            <field name="x_customer_print_name" />
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="x_service_signature" widget="signature" />
+                        </group>
+                        <group>
+                            <field name="x_customer_signature" widget="signature" />
+                        </group>
+                    </group>
+                </sheet>
+            </xpath>
+        </field>
+    </record>
+
+    <function
+        model="worksheet.template"
+        name="_generate_qweb_report_template"
+        eval="[[ref('customer_service_worksheet_template')]]"
+    />
+
+</odoo>
