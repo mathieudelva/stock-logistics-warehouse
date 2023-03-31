@@ -148,7 +148,6 @@
     osi: git+ssh://git@github.com/ursais/sale-workflow.git
   merges:
     - oca 16.0
-    - oca refs/pull/2407/head # [16.0][MIG] sale_blanket_order: Migration to 16.0
     - oca refs/pull/2432/head # 16.0 mig sale order line date
     - oca refs/pull/2434/head # 16.0 mig sale delivery split date
     - oca refs/pull/2382/head # [16.0][MIG] sale_order_revision
