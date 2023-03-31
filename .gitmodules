@@ -73,3 +73,6 @@
 [submodule "oca/website"]
 	path = oca/website
 	url = git@github.com:burroaktoolinc/website.git
+[submodule "osi/osi-addons"]
+	path = osi/osi-addons
+	url = https://github.com/ursais/osi-addons.git
