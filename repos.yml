@@ -5,6 +5,7 @@
 #   osi:    the code proposed by OSI to the OCA, in review process
 #   bot:    the release candidate ready code, consolidating the several open PRs
 
+# OCA Modules
 ./oca/account-analytic:
   remotes:
     oca: https://github.com/OCA/account-analytic.git
@@ -12,6 +13,11 @@
     osi: git+ssh://git@github.com/ursais/account-analytic.git
   merges:
     - oca 16.0
+    - oca refs/pull/540/head # [16.0][MIG] account_analytic_wip
+    - oca refs/pull/538/head # [16.0][MIG] analytic_activity_based_cost
+    - oca refs/pull/494/head # 16.0 mig mrp analytic
+    - oca refs/pull/550/head # [16.0][MIG] mrp_analytic_child_mo: migration to 16.0
+    - oca refs/pull/548/head # [WIP][16.0][MIG] mrp_analytic_sale_project
   target: &default_target bot bot/16.0
 
 ./oca/account-financial-tools:
@@ -21,6 +27,7 @@
     osi: git+ssh://git@github.com/ursais/account-financial-tools.git
   merges:
     - oca 16.0
+    - oca refs/pull/1509/head # [16.0][MIG] account_journal_lock_date: Migration to 16.0
   target: *default_target
 
 ./oca/account-invoicing:
@@ -39,6 +46,7 @@
     osi: git+ssh://git@github.com/ursais/account-payment.git
   merges:
     - oca 16.0
+    - oca refs/pull/571/head # [16.0][MIG] account_payment_batch_process_discount
   target: *default_target
 
 ./oca/bank-payment:
@@ -57,6 +65,7 @@
     osi: git+ssh://git@github.com/ursais/credit-control.git
   merges:
     - oca 16.0
+    - oca refs/pull/272/head # [MIG][16.0]account_financial_risk
   target: *default_target
 
 ./oca/l10n-usa:
@@ -75,6 +84,8 @@
     osi: git+ssh://git@github.com/ursais/manufacture.git
   merges:
     - oca 16.0
+    - oca refs/pull/979/head # [16.0][MIG] mrp_account_analytic
+    - oca refs/pull/980/head # [16.0][MIG] mrp_account_analytic_wip: Migration to 16.0
   target: *default_target
 
 ./oca/partner-contact:
@@ -84,6 +95,8 @@
     osi: git+ssh://git@github.com/ursais/partner-contact.git
   merges:
     - oca 16.0
+    - oca refs/pull/1487/head # [16.0][MIG] partner_stage
+    - oca refs/pull/1488/head # [16.0][MIG] partner_tier_validation
   target: *default_target
 
 ./oca/product-attribute:
@@ -93,6 +106,7 @@
     osi: git+ssh://git@github.com/ursais/product-attribute.git
   merges:
     - oca 16.0
+    - oca refs/pull/1304/head # [16.0][MIG] product_tier_validation
   target: *default_target
 
 ./oca/project:
@@ -111,6 +125,11 @@
     osi: git+ssh://git@github.com/ursais/purchase-workflow.git
   merges:
     - oca 16.0
+    - oca refs/pull/1751/head # [16.0][MIG] - purchase_deposit
+    - oca refs/pull/1674/head # [16.0][MIG] purchase_order_line_price_history: Migration to 16.0
+    - oca refs/pull/1820/head # [16.0][MIG] purchase_order_type
+    - oca refs/pull/1815/head # [MIG][16.0]purchase_request_department
+    - oca refs/pull/1818/head # [MIG][16.0]purchase_request_type
   target: *default_target
 
 ./oca/queue:
@@ -129,6 +148,12 @@
     osi: git+ssh://git@github.com/ursais/sale-workflow.git
   merges:
     - oca 16.0
+    - oca refs/pull/2407/head # [16.0][MIG] sale_blanket_order: Migration to 16.0
+    - oca refs/pull/2432/head # 16.0 mig sale order line date
+    - oca refs/pull/2434/head # 16.0 mig sale delivery split date
+    - oca refs/pull/2382/head # [16.0][MIG] sale_order_revision
+    - oca refs/pull/2427/head # [16.0][MIG] sale_product_approval_mrp
+    # - oca refs/pull/2433/head # 16.0 mig sale procurement group by line
   target: *default_target
 
 ./oca/server-auth:
@@ -138,6 +163,7 @@
     osi: git+ssh://git@github.com/ursais/server-auth.git
   merges:
     - oca 16.0
+    - oca refs/pull/479/head # [16.0][MIG] auth_user_case_insensitive
   target: *default_target
 
 ./oca/server-backend:
@@ -156,6 +182,7 @@
     osi: git+ssh://git@github.com/ursais/server-tools.git
   merges:
     - oca 16.0
+    - oca refs/pull/2574/head # [16.0][MIG] fetchmail_notify_error_to_sender: Migration to 16.0
   target: *default_target
 
 ./oca/server-ux:
@@ -174,6 +201,7 @@
     osi: git+ssh://git@github.com/ursais/social.git
   merges:
     - oca 16.0
+    - oca refs/pull/1115/head # [MIG][16.0]mail_autosubscribe
   target: *default_target
 
 ./oca/stock-logistics-warehouse:
@@ -183,6 +211,9 @@
     osi: git+ssh://git@github.com/ursais/stock-logistics-warehouse.git
   merges:
     - oca 16.0
+    - oca refs/pull/1663/head # [16.0][MIG] stock_inventory_revaluation_wip
+    - oca refs/pull/1662/head # [16.0][MIG] stock_inventory_revaluation_mrp
+    - oca refs/pull/1661/head # [16.0][MIG] stock_inventory_revaluation_adjustment
   target: *default_target
 
 ./oca/stock-logistics-workflow:
@@ -202,6 +233,8 @@
   merges:
     - oca 16.0
     - oca refs/pull/2404/head # [16.0][MIG] web_company_color
+    - oca refs/pull/2446/head # [16.0][MIG] web_m2x_options: Migration to 16.0
+    - oca refs/pull/2448/head # [16.0][MIG] web_m2x_options_manager : Migrated to 16.0.
   target: *default_target
 
 ./oca/website:
@@ -211,4 +244,14 @@
     osi: git+ssh://git@github.com/ursais/website.git
   merges:
     - oca 16.0
+  target: *default_target
+
+# OSI Modules
+./osi/osi-addons:
+  remotes:
+    osi: git+ssh://git@github.com/ursais/osi-addons.git
+    bot: git+ssh://git@github.com/burroaktoolinc/osi-addons.git
+  merges:
+    - osi 16.0
+    - osi refs/pull/531/head # [16.0][MIG] l10n_us_check_printing_micr
   target: *default_target
