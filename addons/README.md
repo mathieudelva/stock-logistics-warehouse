@@ -37,6 +37,7 @@
 | stock_no_negative                | stock-logistics-workflow  | OCA       | Blocks negative stock                                                                           |
 | stock_picking_back2draft         | stock-logistics-workflow  | OCA       | Cancelled pickings back to draft                                                                |
 | stock_picking_sale_order_link    | stock-logistics-workflow  | OCA       | smart button to Stock Transfers, to open the related Sales Order                                |
+| support_helpdesk_ticket_merge_enterprise | purchased         | Probuse   | merge helpdesk tickets                                                                          |
 | web_company_color                | web                       | OCA       | Per company navbar colors                                                                       |
 | web_environment_ribbon           | web                       | OCA       | marker for dev/test/qa environments, not used in production                                     |
 | web_search_with_and              | web                       | OCA       | press Shift key before searching for and                                                        |

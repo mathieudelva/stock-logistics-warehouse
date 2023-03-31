@@ -59,7 +59,6 @@ class TicketMergeWizard(models.TransientModel):
         string="Are You Sure ?",
     )
     merge_reason = fields.Char(
-        string="Merge Reason",
         required=True,
     )
     partner_id = fields.Many2one("res.partner", string="Customer")  # ent_13
@@ -68,9 +67,7 @@ class TicketMergeWizard(models.TransientModel):
     ticket_type_id = fields.Many2one(
         "helpdesk.ticket.type", string="Ticket Type"
     )  # ent_13
-    priority = fields.Selection(
-        TICKET_PRIORITY, string="Priority", default="0"
-    )  # ent_13
+    priority = fields.Selection(TICKET_PRIORITY, default="0")  # ent_13
     tag_ids = fields.Many2many("helpdesk.tag", string="Tags")  # ent_13
 
     @api.model
@@ -79,14 +76,7 @@ class TicketMergeWizard(models.TransientModel):
         tecket_obj = self.env["helpdesk.ticket"]
         ticket_ids = tecket_obj.search([("id", "in", self._context.get("active_ids"))])
         ticket_line = self.env["merge.ticket.line"]
-        # if all([x.partner_id == ticket_ids[0].partner_id
-        #         for x in ticket_ids]) or\
-        #    all([x.email == ticket_ids[0].email for x in ticket_ids]) or\
-        #    all([x.phone == ticket_ids[0].phone for x in ticket_ids]):
-        # if all([x.partner_id == ticket_ids[0].partner_id
-        #         for x in ticket_ids]) or\
-        #    all([x.partner_id.commercial_partner_id == ticket_ids[0].partner_id.commercial_partner_id for x in ticket_ids]) or\
-        #    all([x.partner_id.child_ids == ticket_ids[0].partner_id.child_ids for x in ticket_ids]): #ent_13
+
         if all(
             [
                 x.partner_id.commercial_partner_id
@@ -136,7 +126,7 @@ class TicketMergeWizard(models.TransientModel):
         primary_ticket = self.primary_id
         if self.primary_id:
             if self.is_sure:
-                primary_ticket.write({"is_secondry": True})
+                primary_ticket.write({"has_secondary": True})
                 for line in self.merge_ids:
                     if line == self.primary_id:
                         pass
@@ -147,7 +137,7 @@ class TicketMergeWizard(models.TransientModel):
                         merge_ticket.write(
                             {
                                 "primary_ticket_id": primary_ticket.id,
-                                "is_secondry": True,
+                                "merge_reason": self.merge_reason,
                                 "active": False,
                             }
                         )
@@ -209,9 +199,7 @@ class MergeTicketLine(models.TransientModel):
     #     string='Subject',
     #     related='primary_ticket_merge_id.subject', #ent_13
     # )
-    subject = fields.Text(
-        string="Subject",
-    )
+    subject = fields.Text()
 
     # ticket_merge_id = fields.Many2one(
     #     'ticket.merge.wizard',
@@ -251,9 +239,7 @@ class MergeTicketLine(models.TransientModel):
         related="ticket_id.ticket_type_id",
     )  # ent_13
     priority = fields.Selection(
-        TICKET_PRIORITY,
         string="Priority",
-        default="0",
         related="ticket_id.priority",
     )  # ent_13
     tag_ids = fields.Many2many(
@@ -261,6 +247,3 @@ class MergeTicketLine(models.TransientModel):
         string="Tags",
         related="ticket_id.tag_ids",
     )  # ent_13
-
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
