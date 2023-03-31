@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mrp_bom_form_view" model="ir.ui.view">
+        <field name="name">mrp.bom.form.mrp.bom.detail</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view" />
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="detail_id" />
+            </field>
+            <xpath
+                expr="//field[@name='bom_line_ids']/tree/field[@name='product_id']"
+                position="after"
+            >
+                <field name="detail_id" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mrp_bom_tree_view" model="ir.ui.view">
+        <field name="name">mrp.bom.tree.mrp.bom.detail</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_tree_view" />
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="detail_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_mrp_bom_filter" model="ir.ui.view">
+        <field name="name">mrp.bom.select.mrp.bom.detail</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.view_mrp_bom_filter" />
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <field name="product_tmpl_id" position="replace">
+                <field
+                    name="product_tmpl_id"
+                    string="Product"
+                    filter_domain="['|', ('product_tmpl_id.default_code', 'ilike', self), ('product_tmpl_id.name', 'ilike', self)]"
+                />
+            </field>
+            <field name="code" position="replace">
+                <field
+                    name="code"
+                    string="Bill of Materials"
+                    filter_domain="['|','|', ('code', 'ilike', self), ('product_tmpl_id.default_code', 'ilike', self), ('product_tmpl_id.name', 'ilike', self)]"
+                />
+            </field>
+            <field name="product_tmpl_id" position="after">
+                <field
+                    name="detail_id"
+                    string="Detail Number"
+                    filter_domain="[('detail_id.name', 'ilike', self)]"
+                />
+            </field>
+            <group expand="0" position="inside">
+                <filter
+                    name="detail_id"
+                    string="Detail"
+                    context="{'group_by':'detail_id'}"
+                />
+            </group>
+        </field>
+    </record>
+
+    <record id="mrp_bom_line_view_form" model="ir.ui.view">
+        <field name="name">mrp.bom.line.view.form.bom.detail</field>
+        <field name="model">mrp.bom.line</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_line_view_form" />
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="detail_id" />
+            </field>
+        </field>
+    </record>
+</odoo>

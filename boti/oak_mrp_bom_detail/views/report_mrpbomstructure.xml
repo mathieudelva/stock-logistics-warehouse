@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_mrpbomstructure_detail" inherit_id="mrp.report_mrp_bom">
+        <xpath expr="//th[@name='th_mrp_bom_h']" position="after">
+            <th
+                class="o_mrp_bom_cost text-center"
+                title="Detail number of the product"
+            >Detail</th>
+        </xpath>
+        <xpath expr="//tbody/tr/td[@name='td_mrp_bom']" position="after">
+            <td t-if="data['detail_id']" class="text-left">
+                <span>
+                    <t t-esc="data['detail_id']" />
+                </span>
+
+            </td>
+            <td t-else="">
+                <span>&#160;&#160;&#160;&#160;&#160;&#160;</span>
+            </td>
+        </xpath>
+        <xpath expr="//tbody/tr[2]/td[@name='td_mrp_bom_f']" position="before">
+            <td />
+        </xpath>
+    </template>
+    <template id="report_mrp_bom_line" inherit_id="mrp.report_mrp_bom_pdf_line">
+        <xpath expr="//tr/td[@name='td_mrp_code']" position="after">
+            <td t-if="l.get('detail_id', False)">
+                <span>
+                    <a
+                        href="#"
+                        t-att-data-res-id="l['detail_id'].id"
+                        t-att-data-model="'oak.mrp.bom.detail'"
+                        class="o_mrp_bom_action"
+                    >
+                        <t t-esc="l['detail_id'].name" />
+                    </a>
+                </span>
+            </td>
+            <!-- <td t-else="">
+                <span>&#160;&#160;&#160;&#160;&#160;&#160;</span>
+            </td> -->
+            <td t-if="l.get('detail_name', False)" class="text-left">
+                <span t-esc="l['detail_name']" />
+            </td>
+            <td t-else="">
+                <!-- <span>&#160;&#160;&#160;&#160;&#160;&#160;</span> -->
+            </td>
+        </xpath>
+    </template>
+
+</odoo>

@@ -1,0 +1,41 @@
+<templates xml:space="preserve">
+
+    <t
+        t-name="oak_mrp_bom_detail.BomOverviewTable"
+        t-inherit="mrp.BomOverviewTable"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//th[@name='th_mrp_bom_h']" position="after">
+            <th>Detail</th>
+        </xpath>
+        <xpath expr="//td[@name='td_mrp_bom_f']" position="after">
+            <td />
+        </xpath>
+    </t>
+
+    <t
+        t-name="oak_mrp_bom_detail.BomOverviewLine"
+        t-inherit="mrp.BomOverviewLine"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//td[@name='td_mrp_bom']" position="after">
+            <td>
+                <t t-esc="data.detail_id" />
+            </td>
+        </xpath>
+    </t>
+
+    <t
+        t-name="oak_mrp_bom_detail.BomOverviewSpecialLine"
+        t-inherit="mrp.BomOverviewSpecialLine"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//td[@name='td_mrp_bom']" position="after">
+            <td />
+        </xpath>
+    </t>
+
+</templates>
