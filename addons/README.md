@@ -36,6 +36,8 @@
 | oak_maintenance                          | local                     | BOTI                      | Sage info for equipment                                                                                |
 | oak_redis_session                        | local                     | BOTI                      | Redis for session                                                                                      |
 | oak_visits                               | local                     | BOTI                      | BOTI Customizations for acs_visits                                                                     |
+| partner_affiliate                        | partner-contact           | OCA                       | moves companies to affiliates tab out of contacts tab                                                  |
+| partner_identification                   | partner-contact           | OCA                       | manage all sort of identification numbers and certificates which are assigned to a partner             |
 | partner_stage                            | partner-contact           | OCA                       | stages for contacts for a lifecycle workflow                                                           |
 | partner_tier_validation                  | partner-contact           | OCA                       | Adds an approval workflow to Partners                                                                  |
 | product_code_unique                      | product-attribute         | OCA                       | Set Product Internal Reference as Unique                                                               |
