@@ -1,0 +1,58 @@
+<odoo>
+    <record id="helpdesk_ticket_view_form" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.form.inherit</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="header" position="inside">
+                <field name="use_sale_order" invisible="1" />
+                <button
+                    class="btn btn-secondary"
+                    name="action_generate_sale_order"
+                    type="object"
+                    string="Create Sales Quote"
+                    attrs="{'invisible': [('use_sale_order', '=', False)]}"
+                />
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    class="oe_stat_button"
+                    name="action_view_sale_order"
+                    type="object"
+                    icon="fa-sitemap"
+                    attrs="{'invisible': [('sale_helpdesk_order_count', '=', 0)]}"
+                >
+                    <field
+                        string="Sales Orders"
+                        name="sale_helpdesk_order_count"
+                        widget="statinfo"
+                    />
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="helpdesk_team_view_form" model="ir.ui.view">
+        <field name="name">helpdesk.team.form</field>
+        <field name="model">helpdesk.team</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_team_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='after-sales']" position="after">
+                <h2>Sales Orders</h2>
+                <div class="row mt32 o_settings_container" id="use_sale_order">
+                    <div class="col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="use_sale_order" />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="use_sale_order" />
+                            <div class="text-muted">
+                                Create Sales Orders from tickets
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
