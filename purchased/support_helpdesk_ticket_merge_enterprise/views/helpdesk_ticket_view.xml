@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <data>
-
         <record
-            id="helpdesk_ticekt_custom_inherit_form_view_new_merge"
-            model="ir.ui.view"
-        >
+        id="helpdesk_ticekt_custom_inherit_form_view_new_merge"
+        model="ir.ui.view"
+    >
             <field name="name">Helpdesk Ticket Inherit form</field>
             <field name="model">helpdesk.ticket</field>
             <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form" />
@@ -14,41 +12,40 @@
                 <xpath expr="//sheet" position="inside">
                     <notebook invisible="True">
                         <page
-                            name="merge_tickets"
-                            string="Secondary Tickets"
-                            attrs="{'invisible' : [('is_secondry','!=',True)]}"
-                        >
+                        name="merge_tickets"
+                        string="Secondary Tickets"
+                        attrs="{'invisible' : [('has_secondary','!=',True)]}"
+                    >
                             <field
-                                name="merge_ticket_ids"
-                                domain="[('active','=', False)]"
-                                invisible="True"
-                            />
-                            <field name="is_secondry" invisible="True" />
+                            name="merge_ticket_ids"
+                            domain="[('active','=', False)]"
+                            invisible="True"
+                        />
+                            <field name="has_secondary" invisible="True" />
                         </page>
                     </notebook>
                 </xpath>
                 <xpath expr="//field[@name='email_cc']" position="after">
                     <field
-                        name="primary_ticket_id"
-                        attrs="{'invisible' : [('is_secondry','!=',True)]}"
-                    />
+                    name="primary_ticket_id"
+                    attrs="{'invisible' : [('primary_ticket_id','=',False)]}"
+                />
+
                     <field
-                        name="merge_reason"
-                        attrs="{'invisible' : [('is_secondry','!=',True)]}"
-                    />
+                    name="merge_reason"
+                    attrs="{'invisible' : [('primary_ticket_id','=',False)]}"
+                />
                 </xpath>
                 <xpath expr="//div[@name='button_box']" position="inside">
                     <button
-                        name="show_secondry_ticket"
-                        type="object"
-                        string="Secondry Tickets"
-                        icon="fa-pencil-square-o"
-                        class="oe_stat_button"
-                        attrs="{'invisible' : [('is_secondry','!=',True)]}"
-                    />
+                    name="show_secondary_ticket"
+                    type="object"
+                    string="Secondary Tickets"
+                    icon="fa-pencil-square-o"
+                    class="oe_stat_button"
+                    attrs="{'invisible' : [('has_secondary','!=',True)]}"
+                />
                 </xpath>
             </field>
         </record>
-
-    </data>
 </odoo>
