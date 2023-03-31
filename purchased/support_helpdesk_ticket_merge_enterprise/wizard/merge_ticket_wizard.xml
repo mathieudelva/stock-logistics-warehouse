@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <data>
-
         <record id="merge_ticket_wiz_view" model="ir.ui.view">
             <field name="name">ticket.merge.wizard.form</field>
             <field name="model">ticket.merge.wizard</field>
                 <field name="arch" type="xml">
                     <form string="Merge Ticket">
                         <separator
-                        color="grey"
-                        string="This wizard will allow you to merge tickets into primary ticket. It can also allow you to create new ticket from the selected ticket as a part of merge process."
-                    />
+                    color="grey"
+                    string="This wizard will allow you to merge tickets into primary ticket. It can also allow you to create new ticket from the selected ticket as a part of merge process."
+                />
                         <group>
                             <group>
                                 <field name="responsible_user_id" />
@@ -19,9 +17,9 @@
                                 <field name="partner_email" />
                                 <field name="ticket_type_id" />
                                 <field
-                                name="ticket_subject"
-                                attrs="{'invisible' : [('create_new_ticket','!=',True)],'required': [('create_new_ticket','=',True)]}"
-                            />
+                            name="ticket_subject"
+                            attrs="{'invisible' : [('create_new_ticket','!=',True)],'required': [('create_new_ticket','=',True)]}"
+                        />
                                 <field name="priority" />
                                 <field name="team_id" />
                             </group>
@@ -30,16 +28,16 @@
                                 <field name="merge_reason" />
                                 <field name="is_sure" />
                                 <field
-                                name="primary_id"
-                                domain="[('id','in', merge_ids)]"
-                                attrs="{'invisible': [('create_new_ticket','==',True)], 'required' : [('create_new_ticket','!=',True)]}"
-                            />
+                            name="primary_id"
+                            domain="[('id','in', merge_ids)]"
+                            attrs="{'invisible': [('create_new_ticket','==',True)], 'required' : [('create_new_ticket','!=',True)]}"
+                        />
                                 <field name="tag_ids" widget="many2many_tags" />
                                 <field
-                                name='merge_ids'
-                                widget="many2many_tags"
-                                invisible='True'
-                            />
+                            name='merge_ids'
+                            widget="many2many_tags"
+                            invisible='True'
+                        />
                             </group>
                         </group>
                         <notebook>
@@ -62,17 +60,18 @@
                         </notebook>
                         <footer>
                             <button
-                            name="action_merge_ticket"
-                            type="object"
-                            string="Merge Now"
-                            class="btn-primary"
-                        />
+                        name="action_merge_ticket"
+                        type="object"
+                        string="Merge Now"
+                        class="btn-primary"
+                    />
                             or
                             <button
-                            string="_Cancel"
-                            class="btn-default"
-                            special="cancel"
-                        />
+                        name="_Cancel"
+                        string="Cancel"
+                        class="btn-secondary"
+                        special="cancel"
+                    />
                         </footer>
                     </form>
                 </field>
@@ -100,5 +99,4 @@
             <field name="view_mode">form</field>
             <field name="target">new</field>
         </record>
-   </data>
 </odoo>

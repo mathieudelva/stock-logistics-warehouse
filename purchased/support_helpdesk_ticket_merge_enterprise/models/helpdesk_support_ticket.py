@@ -16,25 +16,20 @@ class HelpdeskTicket(models.Model):
         "primary_ticket_id",
         string="Secondary Merge Tickets",
     )
-    is_secondry = fields.Boolean(
-        string="Is Secondry ?",
+    has_secondary = fields.Boolean(
+        string="Has Child Tickets",
         default=False,
     )
-    merge_reason = fields.Char(
-        string="Merge Reason",
-    )
+    merge_reason = fields.Char()
 
     # @api.multi
-    def show_secondry_ticket(self):
+    def show_secondary_ticket(self):
         self.ensure_one()
-        secondry = self.search(
+        secondary = self.search(
             [("primary_ticket_id", "=", self.id), ("active", "!=", True)]
         )
         # res = self.env.ref('website_helpdesk_support_ticket.action_helpdesk_support')
         res = self.env.ref("helpdesk.helpdesk_ticket_action_main_tree")
         res = res.sudo().read()[0]
-        res["domain"] = str([("id", "in", secondry.ids), ("active", "!=", True)])
+        res["domain"] = str([("id", "in", secondary.ids), ("active", "!=", True)])
         return res
-
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
