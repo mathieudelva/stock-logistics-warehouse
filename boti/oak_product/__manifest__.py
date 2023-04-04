@@ -27,6 +27,7 @@
     "depends": [
         "base",
         "product",
+        "product_state",
     ],
     "data": [
         "security/security.xml",

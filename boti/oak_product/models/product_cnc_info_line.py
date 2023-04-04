@@ -22,7 +22,9 @@ class ProductCNCInfoLine(models.Model):
     cnc_length = fields.Float(string="CNC - Length")
     cnc_diameter = fields.Float(string="CNC - Diameter")
     workcenter_id = fields.Many2one("mrp.workcenter", "Work Center")
-    department_id = fields.Many2one(readonly=True, compute="_compute_department_id")
+    department_id = fields.Char(
+        readonly=True, string="Department", compute="_compute_department_id"
+    )
 
     # Related field on department id caused circular dependency
     # The purpose of this is to prevent that
@@ -30,4 +32,6 @@ class ProductCNCInfoLine(models.Model):
     def _compute_department_id(self):
         for record in self:
             if "department_id" in self.env["mrp.workcenter"]._fields:
-                record.department_id = record.workcenter_id.department_id
+                record.department_id = record.workcenter_id.department_id.name
+            else:
+                record.department_id = "None"
