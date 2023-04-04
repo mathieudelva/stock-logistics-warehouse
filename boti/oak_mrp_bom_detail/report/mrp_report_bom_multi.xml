@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_mrp_bom_multi">
+        <div class="container">
+            <t t-if="data.get('lines')">
+                <div class="header" width="100%">
+                    <img
+                        t-if="data.get('company')"
+                        t-att-src="image_data_uri(data['company'].logo)"
+                        style="max-height: 30px; display: block; margin-left: auto; margin-right: auto;"
+                        alt="Logo"
+                    />
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div>
+                            <style>
+                                table, th, td {
+                                border: 1px solid black;
+                                border-collapse: collapse;
+                                padding: 2px;
+                                }
+                            </style>
+                            <table width="100%">
+                                <thead>
+                                    <tr style="background-color:Cornsilk;">
+                                        <th
+                                            class="text-center"
+                                            style="font-style: bold;"
+                                        ><t t-esc="data['default_code']" /></th>
+                                        <th
+                                            class="text-left"
+                                            style="padding-left:10px;"
+                                        ><t t-esc="data['product_name']" /></th>
+                                        <th
+                                            class="text-center"
+                                            style="font-style: bold;"
+                                        ><t t-esc="data['qty']" /></th>
+                                        <th
+                                            colspan="2"
+                                            class="text-center"
+                                            style="font-style: italic;"
+                                        ><t t-esc="data['parent_code']" /></th>
+                                    </tr>
+                                    <tr style="background-color:LightGray;">
+                                        <td class="text-center">Detail</td>
+                                        <td class="text-center">Description</td>
+                                        <td class="text-center">Quantity</td>
+                                        <td
+                                            class="text-center"
+                                            groups="uom.group_uom"
+                                        >UoM</td>
+                                        <td class="text-center">Product No</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t
+                                        t-call="oak_mrp_bom_detail.report_mrp_bom_pdf_line_flat"
+                                    />
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="footer"
+                    width="90%"
+                    style="height:30px; margin:0px; padding:0px;"
+                >
+                    <small>
+                        <table width="100%">
+                            <tbody>
+                                <tr>
+                                    <td class="text-left">Page <span
+                                            class="page"
+                                        /> of <span class="topage" /></td>
+                                    <td class="text-center"><span class="text-center"><a
+                                                style="display:inline;"
+                                            >Bill of Material Multi Level</a></span></td>
+                                    <td class="text-right"><span
+                                            t-esc="datetime.datetime.now().strftime('%Y-%m-%d')"
+                                        /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </small>
+                </div>
+            </t>
+            <t t-else="" />
+        </div>
+    </template>
+
+    <template id="report_mrp_bom_pdf_line_flat">
+      <t t-foreach="data['lines']" t-as="l">
+          <tr>
+            <t t-if="l['level'] &gt; 2" style="font-style: italic;" />
+            <t t-else="" style="font-style: normal;" />
+              <td class="text-center"><span><t
+                            t-if="l.get('det_name')"
+                            t-esc="l['det_name']"
+                        /></span></td>
+              <td class="text-left" style="padding-left:10px;"><span><t
+                            t-if="l.get('name')"
+                            t-esc="l['name']"
+                        /></span></td>
+              <td class="text-right" style="padding-right:5px;">
+                  <span>
+                      <t t-if="l['quantity'].is_integer()" t-esc="int(l['quantity'])" />
+                      <t
+                            t-else=""
+                            t-esc="l['quantity']"
+                            t-options='{"widget": "float", "decimal_precision": "Product Unit of Measure"}'
+                        />
+                  </span>
+              </td>
+              <td class="text-center" groups="uom.group_uom"><span><t
+                            t-esc="l['uom']"
+                        /></span></td>
+              <td class="text-center">
+              <span>
+                <t t-if="l.get('default_code')" t-esc="l['default_code']" />
+              </span>
+              </td>
+          </tr>
+      </t>
+    </template>
+
+    <template id="report_bom_multi">
+        <t t-set="data_report_portrait" t-value="True" />
+        <t t-call="web.basic_layout">
+            <t t-call-assets="mrp.assets_common" t-js="False" />
+            <t t-foreach="docs" t-as="data">
+                <t t-if="data.get('lines')">
+                    <div class="page">
+                        <t t-call="oak_mrp_bom_detail.report_mrp_bom_multi" />
+                    </div>
+                    <p style="page-break-before:always;"> </p>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>
