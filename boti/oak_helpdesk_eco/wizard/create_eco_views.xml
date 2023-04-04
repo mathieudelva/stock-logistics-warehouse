@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="create_plm_eco_view_form" model="ir.ui.view">
+        <field name="name">Create a new PLM eco from this ticket</field>
+        <field name="model">helpdesk.create.eco</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="2">
+                        <group>
+                            <field name="helpdesk_ticket_id" invisible="1" />
+                            <field name="name" />
+                            <field name="company_id" invisible="1" />
+                            <field
+                                name="eco_type_id"
+                                widget="Many2one"
+                                options="{'no_create': 1, 'no_edit': 1, 'no_open': 1}"
+                            />
+                            <field
+                                name="product_tmpl_id"
+                                widget="Many2one"
+                                options="{'no_create': 1, 'no_edit': 1}"
+                            />
+                            <field name="note" invisible="1" />
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button
+                        string="Create &amp; View ECO"
+                        class="btn btn-primary"
+                        name="action_generate_and_view_eco"
+                        type="object"
+                    />
+                    <button
+                        string="Create ECO"
+                        class="btn btn-primary"
+                        name="action_generate_eco"
+                        type="object"
+                    />
+                    <button
+                        string="Discard"
+                        class="btn btn-secondary"
+                        special="cancel"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
