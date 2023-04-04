@@ -33,6 +33,7 @@
 | oak_boti_ui                              | local                     | BOTI                      | UI Alterations for BOTI                                                                                |
 | oak_crm                                  | local                     | BOTI                      | CRM lead field additions                                                                               |
 | oak_partner                              | local                     | BOTI                      | Partner additional fields and tracking                                                                 |
+| oak_product                              | local                     | BOTI                      | Adds a Product App with links to product listing, adds additional product fields                       |
 | oak_maintenance                          | local                     | BOTI                      | Sage info for equipment                                                                                |
 | oak_redis_session                        | local                     | BOTI                      | Redis for session                                                                                      |
 | oak_visits                               | local                     | BOTI                      | BOTI Customizations for acs_visits                                                                     |
@@ -62,7 +63,7 @@
 | sale_order_revision                      | OCA                       | sale-workflow             | sales order revisions via cancel/new from cancelled                                                    |
 | sale_parnter_incoterm                    | OCA                       | sale-workflow             | incoterms for sales orders and contacts                                                                |
 | sale_procurement_group_by_line           | OCA                       | sale-workflow             | dep for delivery_split_date                                                                            |
-| sale_product_approval                    | OCA                       | sale-workflow             | dep for sale_product_approval_mrp                                                                      |
+| sale_partner_approval                    | OCA                       | sale-workflow             | Control Partners that can be used in Sales Orders                                                      |
 | sale_product_approval_mrp                | OCA                       | sale-workflow             | product can be manufactured, a component of a manufacturing order or on a bom in the particular state  |
 | scrap_reason_code                        | stock-logistics-warehouse | OCA                       | Adds a reason code for scrapping operations                                                            |
 | stock_delivery_note                      | stock-logistics-workflow  | OCA                       | Adds a delivery note in stock pickings. Displayed on delivery reports.                                 |
