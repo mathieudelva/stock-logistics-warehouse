@@ -89,7 +89,7 @@ class MrpConfirmation(models.TransientModel):
 
     @api.constrains("date_start")
     def check_date_end(self):
-        if self.date_end > datetime.datetime.now():
+        if self.date_end and self.date_end > datetime.datetime.now():
             raise UserError(_("End Date in the future"))
 
     @api.onchange("production_id")
