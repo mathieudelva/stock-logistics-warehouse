@@ -1,0 +1,21 @@
+{
+    "name": "OAK Helpdesk to Task",
+    "version": "16.0.1.0.0",
+    "category": "Burr Oak",
+    "author": "Burr Oak Tool, Open Source Integrators",
+    "website": "https://www.burroak.com",
+    "license": "AGPL-3",
+    "summary": "Create Tasks from Helpdesk Ticket",
+    "maintainers": ["Burr Oak Tool"],
+    "depends": ["helpdesk", "project", "project_template"],
+    "data": [
+        "security/ir.model.access.csv",
+        "views/helpdesk_views.xml",
+        "views/project_task_views.xml",
+        "wizard/create_task_views.xml",
+    ],
+    "demo": [],
+    "qweb": [],
+    "installable": True,
+    "auto_install": False,
+}
