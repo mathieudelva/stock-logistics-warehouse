@@ -33,11 +33,14 @@
                     <field name="visit_reason_id" />
                 </group>
             </xpath>
-            <xpath expr="//sheet//group" position="after">
-                <group string="Competitor Machines">
-                    <field name="competitor_equipment" nolabel="1" />
-                </group>
-            </xpath>
+            <field name="note" position="before">
+                    <label for="competitor_equipment" string="Competitor Equipment" />
+                    <field name="competitor_equipment" nolabel="0" />
+            </field>
+            <field name="note" position="replace">
+                    <label for="note" string="Notes" />
+                    <field name="note" nolabel="0" />
+            </field>
         </field>
     </record>
 
