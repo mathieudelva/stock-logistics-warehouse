@@ -152,7 +152,9 @@
     - oca refs/pull/2434/head # 16.0 mig sale delivery split date
     - oca refs/pull/2382/head # [16.0][MIG] sale_order_revision
     - oca refs/pull/2427/head # [16.0][MIG] sale_product_approval_mrp
-    # - oca refs/pull/2433/head # 16.0 mig sale procurement group by line
+    - oca refs/pull/2403/head # 16.0][MIG] sale_procurement_group_by_line: Migration to 16.0
+    - oca refs/pull/2435/head # [16.0] [MIG] sale_partner_approval
+    - oca refs/pull/2399/head # [16.0][MIG] sale_partner_incoterm
   target: *default_target
 
 ./oca/server-auth:
