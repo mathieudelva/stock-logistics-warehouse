@@ -57,7 +57,8 @@ class CreateSaleOrder(models.TransientModel):
 
         self.sale_order_helpdesk_ticket_id.message_post(
             body=_(
-                "Sales Quote Created <a href=# data-oe-model=sale.order data-oe-id=%(res_id)d>%(res_name)s</a>",
+                """Sales Quote Created <a href=# data-oe-model=sale.order data-oe-id
+                =%(res_id)d>%(res_name)s</a>""",
                 res_id=res.id,
                 res_name=res.name,
             )
@@ -65,7 +66,8 @@ class CreateSaleOrder(models.TransientModel):
         res.message_post(
             body=_(
                 "Created from Helpdesk Ticket "
-                "<a href=# data-oe-model=helpdesk.ticket data-oe-id=%(helpdesk_ticket_id)d>%(helpdesk_ticket_name)s</a>",
+                """<a href=# data-oe-model=helpdesk.ticket data-oe-id
+                =%(helpdesk_ticket_id)d>%(helpdesk_ticket_name)s</a>""",
                 helpdesk_ticket_id=self.sale_order_helpdesk_ticket_id.id,
                 helpdesk_ticket_name=self.sale_order_helpdesk_ticket_id.name,
             )
