@@ -57,19 +57,17 @@ class CreateSaleOrder(models.TransientModel):
 
         self.sale_order_helpdesk_ticket_id.message_post(
             body=_(
-                "Sales Quote Created <a href=# data-oe-model=sale.order data-oe-id=%d>%s</a>"
+                "Sales Quote Created <a href=# data-oe-model=sale.order data-oe-id=%(res_id)d>%(res_name)s</a>",
+                res_id=res.id,
+                res_name=res.name,
             )
-            % (res.id, res.name)
         )
-
         res.message_post(
             body=_(
                 "Created from Helpdesk Ticket "
-                "<a href=# data-oe-model=helpdesk.ticket data-oe-id=%d>%s</a>"
-            )
-            % (
-                self.sale_order_helpdesk_ticket_id.id,
-                self.sale_order_helpdesk_ticket_id.name,
+                "<a href=# data-oe-model=helpdesk.ticket data-oe-id=%(helpdesk_ticket_id)d>%(helpdesk_ticket_name)s</a>",
+                helpdesk_ticket_id=self.sale_order_helpdesk_ticket_id.id,
+                helpdesk_ticket_name=self.sale_order_helpdesk_ticket_id.name,
             )
         )
 
@@ -88,7 +86,7 @@ class CreateSaleOrder(models.TransientModel):
                 "force_email": True,
                 "sale_order_ref": res.name,
             }
-            template.with_context(ctx).send_mail(
+            template.with_context(**ctx).send_mail(
                 self.sale_order_helpdesk_ticket_id.id,
                 force_send=True,
                 email_layout_xmlid="mail.mail_notification_light",
