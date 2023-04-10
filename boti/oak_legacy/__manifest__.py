@@ -7,7 +7,7 @@
     "license": "Other proprietary",
     "summary": "Product OAK Legacy Data",
     "maintainers": ["emsmith", "leichorn", "rlopez", "BOTI"],
-    "depends": ["oak_product", "oak_mrp_bom_report"],
+    "depends": ["oak_product", "oak_mrp"],
     "data": [
         "security/security.xml",
         "security/ir.model.access.csv",

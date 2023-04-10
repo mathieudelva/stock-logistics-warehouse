@@ -464,6 +464,7 @@ class ProductCombine(models.Model):
             )
 
     def _get_sql_query(self):
+        # arrow notation is because column is now a json field
         return """
 CREATE VIEW public.product_combine
  AS
@@ -611,7 +612,7 @@ UNION ALL
                 "legacy_write_date",
                 "legacy_create_date",
             ]
-            val = {}
+            legacy_vals = {}
 
             legacy_record = self.env["product.legacy"].search(
                 [("default_code", "=", self.default_code)]
@@ -619,10 +620,10 @@ UNION ALL
 
             for key, value in vals.items():
                 if key in write_legacy_fields:
-                    val[key] = value
+                    legacy_vals[key] = value
 
-            if len(val) > 0:
-                legacy_record.write(val)  # update legacy record
+            if len(legacy_vals) > 0:
+                legacy_record.write(legacy_vals)  # update legacy record
 
         # if Active product write it
         if self.product_status == "Active":
@@ -640,7 +641,7 @@ UNION ALL
                 "uom_id",
                 "uom_po_id",
             ]
-            val2 = {}
+            product_vals = {}
 
             active_record = self.env["product.template"].search(
                 [("default_code", "=", self.default_code)]
@@ -648,10 +649,10 @@ UNION ALL
 
             for key, value in vals.items():
                 if key in write_active_fields:
-                    val2[key] = value
+                    product_vals[key] = value
 
-            if len(val2) > 0:
-                active_record.write(val2)  # update active record
+            if len(product_vals) > 0:
+                active_record.write(product_vals)  # update active record
 
         return super().write({})
 

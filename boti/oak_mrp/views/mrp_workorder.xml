@@ -15,7 +15,7 @@
                 <field name="mto_origin" optional="hide" />
                 <field name="analytic_account_id" optional="show" />
                 <field name="machine_id" optional="show" />
-                <field name="assigend_employee_id" optional="show" />
+                <field name="assigned_employee_id" optional="show" />
                 <field name="detail_number" optional="hide" />
                 <field name="note" optional="show" />
             </field>
