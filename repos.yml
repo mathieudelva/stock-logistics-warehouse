@@ -37,6 +37,7 @@
     osi: git+ssh://git@github.com/ursais/account-invoicing.git
   merges:
     - oca 16.0
+    - oca refs/pull/1434/head # [MIG][16.0]account_mail_autosubscribe
   target: *default_target
 
 ./oca/account-payment:
@@ -66,6 +67,7 @@
   merges:
     - oca 16.0
     - oca refs/pull/272/head # [MIG][16.0]account_financial_risk
+    - oca refs/pull/276/head # [16.0][MIG] stock_financial_risk
   target: *default_target
 
 ./oca/l10n-usa:
@@ -75,6 +77,7 @@
     osi: git+ssh://git@github.com/ursais/l10n-usa.git
   merges:
     - oca 16.0
+    - oca refs/pull/102/head # 16.0 mig partner usps address validation
   target: *default_target
 
 ./oca/manufacture:
@@ -86,6 +89,7 @@
     - oca 16.0
     - oca refs/pull/979/head # [16.0][MIG] mrp_account_analytic
     - oca refs/pull/980/head # [16.0][MIG] mrp_account_analytic_wip: Migration to 16.0
+    - oca refs/pull/1012/head # [16.0][MIG] mrp_bom_tracking
   target: *default_target
 
 ./oca/partner-contact:
@@ -130,6 +134,9 @@
     - oca refs/pull/1820/head # [16.0][MIG] purchase_order_type
     - oca refs/pull/1815/head # [MIG][16.0]purchase_request_department
     - oca refs/pull/1818/head # [MIG][16.0]purchase_request_type
+    - oca refs/pull/1831/head # [16.0][MIG] purchase_reception_status
+    - oca refs/pull/1832/head # [16.0][MIG] purchase_picking_state
+    - oca refs/pull/1819/head # [16.0] [MIG] purchase_partner_approval
   target: *default_target
 
 ./oca/queue:
@@ -155,6 +162,7 @@
     - oca refs/pull/2403/head # 16.0][MIG] sale_procurement_group_by_line: Migration to 16.0
     - oca refs/pull/2435/head # [16.0] [MIG] sale_partner_approval
     - oca refs/pull/2399/head # [16.0][MIG] sale_partner_incoterm
+    - oca refs/pull/2467/head # [16.0][MIG] sale_product_approval
   target: *default_target
 
 ./oca/server-auth:
@@ -174,6 +182,7 @@
     osi: git+ssh://git@github.com/ursais/server-backend.git
   merges:
     - oca 16.0
+    - oca refs/pull/211/head # [16.0][MIG] base_user_role_company
   target: *default_target
 
 ./oca/server-tools:
@@ -203,6 +212,7 @@
   merges:
     - oca 16.0
     - oca refs/pull/1115/head # [MIG][16.0] mail_autosubscribe
+    - oca refs/pull/1112/head # [16.0][MIG] mail_restrict_send_button
   target: *default_target
 
 ./oca/stock-logistics-warehouse:
