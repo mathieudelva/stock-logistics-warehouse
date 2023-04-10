@@ -1,7 +1,7 @@
 <templates xml:space="preserve">
 
     <t
-        t-name="oak_mrp_bom_detail.BomOverviewTable"
+        t-name="oak_mrp_bom_report.BomOverviewTable"
         t-inherit="mrp.BomOverviewTable"
         t-inherit-mode="extension"
         owl="1"
@@ -15,7 +15,7 @@
     </t>
 
     <t
-        t-name="oak_mrp_bom_detail.BomOverviewLine"
+        t-name="oak_mrp_bom_report.BomOverviewLine"
         t-inherit="mrp.BomOverviewLine"
         t-inherit-mode="extension"
         owl="1"
@@ -28,7 +28,7 @@
     </t>
 
     <t
-        t-name="oak_mrp_bom_detail.BomOverviewSpecialLine"
+        t-name="oak_mrp_bom_report.BomOverviewSpecialLine"
         t-inherit="mrp.BomOverviewSpecialLine"
         t-inherit-mode="extension"
         owl="1"

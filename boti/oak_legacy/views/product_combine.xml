@@ -101,7 +101,9 @@
                             for="name"
                             string="Product Description"
                         />
-                        <h2><field name="name" placeholder="Product Name" /></h2>
+                        <h2>
+                            <field name="name" placeholder="Product Name" />
+                        </h2>
                     </div>
                     <notebook>
                         <page string="Engineer" name="engineer">
@@ -151,20 +153,34 @@
                                     />
                                 </group>
                             </group>
-                            <group string="Engineer Notes">
-                                <field
-                                    name="eng_note"
-                                    nolabel="1"
-                                    placeholder="This note is only for internal purposes."
-                                />
-                            </group>
-                            <group string="Internal Notes">
-                                <field
-                                    name="description"
-                                    nolabel="1"
-                                    placeholder="This note is only for internal purposes."
-                                />
-                            </group>
+                            <label for="eng_note" string="Engineer Notes" />
+                            <field
+                                name="eng_note"
+                                nolabel="0"
+                                placeholder="This note is only for internal purposes."
+                            />
+                            <label for="description" string="Internal Notes" />
+                            <field
+                                name="description"
+                                nolabel="0"
+                                placeholder="This note is only for internal purposes."
+                                widget="html"
+                            />
+                        </page>
+                        <page string="Manufacturing" name="manufacturing">
+                            <separator
+                                colspan="4"
+                                string="CNC Information"
+                                name="product_legacy_cnc_line"
+                            />
+                            <field name="cnc_info_line" widget="one2many">
+                                <tree name="CNC Programs" editable="bottom">
+                                    <field name="name" />
+                                    <field name="cnc_length" />
+                                    <field name="cnc_diameter" />
+                                    <field name="workcenter_id" />
+                                </tree>
+                            </field>
                         </page>
                     </notebook>
                 </sheet>

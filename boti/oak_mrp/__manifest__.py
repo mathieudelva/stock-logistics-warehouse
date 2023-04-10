@@ -22,6 +22,7 @@
     "depends": [
         "mrp",
         "oak_product",
+        "mrp_shop_floor_control",
     ],
     "data": [
         "views/mrp_production.xml",

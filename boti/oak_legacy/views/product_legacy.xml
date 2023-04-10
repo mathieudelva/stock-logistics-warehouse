@@ -128,20 +128,19 @@
                                     />
                                 </group>
                             </group>
-                            <group string="Engineer Notes">
-                                <field
-                                    name="eng_note"
-                                    nolabel="1"
-                                    placeholder="This note is only for internal purposes."
-                                />
-                            </group>
-                            <group string="Internal Notes">
-                                <field
-                                    name="description"
-                                    nolabel="1"
-                                    placeholder="This note is only for internal purposes."
-                                />
-                            </group>
+                            <label for="eng_note" string="Engineer Notes" />
+                            <field
+                                name="eng_note"
+                                nolabel="0"
+                                placeholder="This note is only for internal purposes."
+                            />
+                            <label for="description" string="Internal Notes" />
+                            <field
+                                name="description"
+                                nolabel="0"
+                                placeholder="This note is only for internal purposes."
+                                widget="html"
+                            />
                         </page>
                         <page string="Manufacturing" name="manufacturing">
                             <separator

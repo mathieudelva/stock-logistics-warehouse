@@ -28,6 +28,8 @@
         "base",
         "product",
         "product_state",
+        "sale_product_approval",
+        "sale_product_approval_mrp",
     ],
     "data": [
         "security/security.xml",
