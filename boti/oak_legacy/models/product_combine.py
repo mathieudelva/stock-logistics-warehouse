@@ -119,6 +119,14 @@ class ProductCombine(models.Model):
 
     active = fields.Boolean()
 
+    cnc_info_line = fields.One2many(
+        comodel_name="product.legacy.cnc.line",
+        inverse_name="product_legacy_id",
+        string="Legacy CNC Program Info",
+        copy=False,
+        readonly=True,
+    )
+
     def info(self, title, message):
         view = self.env.ref("oak_legacy.message_box")
         context = dict(self.env.context or {})
@@ -276,7 +284,6 @@ class ProductCombine(models.Model):
         # note only traverse the BoM if the Odoo BoM does not exist
         if not obom.id:
             obom = self.env["mrp.bom"].create(bval)
-            self.env.cache.invalidate()
             if obom.id:
                 # create an external id
                 self.create_verify_external_id(
@@ -322,7 +329,6 @@ class ProductCombine(models.Model):
                             if not exists_mrpbomline.ids:
                                 # add bom line
                                 mrpbomline = self.env["mrp.bom.line"].create(lval)
-                                self.env.cache.invalidate()
                                 # create external id
                                 if mrpbomline.id:
                                     self.create_verify_external_id(
@@ -458,6 +464,7 @@ class ProductCombine(models.Model):
             )
 
     def _get_sql_query(self):
+        # arrow notation is because column is now a json field
         return """
 CREATE VIEW public.product_combine
  AS
@@ -468,10 +475,10 @@ CREATE VIEW public.product_combine
     pt.detail_number_id,
     pt.generic_name_id,
     pt.class_id,
-    pt.name,
+    pt.name->>'en_US' as name,
     'Active'::text AS product_status,
     pt.type,
-    pt.description,
+    pt.description->>'en_US' as description,
     pt.finish_size,
     pt.eng_note,
     pt.uom_id,
@@ -569,7 +576,6 @@ UNION ALL
                     self.env["product.category"].search([("name", "=", "Draft")]).id
                 )
                 record = self.env["product.template"].create(val)
-                self.env.cache.invalidate()
                 if record.id > 0:
                     # create an external id
                     self.create_verify_external_id(
@@ -587,7 +593,6 @@ UNION ALL
         return record, ret_result, msg
 
     def write(self, vals):
-        res = False
 
         # if Legacy product write it
         if self.product_status == "Legacy":
@@ -607,18 +612,18 @@ UNION ALL
                 "legacy_write_date",
                 "legacy_create_date",
             ]
-            val = {}
+            legacy_vals = {}
 
             legacy_record = self.env["product.legacy"].search(
                 [("default_code", "=", self.default_code)]
             )  # get legacy record
 
-            for key, value in vals:
+            for key, value in vals.items():
                 if key in write_legacy_fields:
-                    val[key] = value
+                    legacy_vals[key] = value
 
-            if len(val) > 0:
-                super(legacy_record).write(val)  # update legacy record
+            if len(legacy_vals) > 0:
+                legacy_record.write(legacy_vals)  # update legacy record
 
         # if Active product write it
         if self.product_status == "Active":
@@ -636,20 +641,20 @@ UNION ALL
                 "uom_id",
                 "uom_po_id",
             ]
-            val = {}
+            product_vals = {}
 
             active_record = self.env["product.template"].search(
                 [("default_code", "=", self.default_code)]
             )  # get active record
 
-            for key, value in vals:
+            for key, value in vals.items():
                 if key in write_active_fields:
-                    val[key] = value
+                    product_vals[key] = value
 
-            if len(val) > 0:
-                super(active_record).write(val)  # update active record
+            if len(product_vals) > 0:
+                active_record.write(product_vals)  # update active record
 
-        return super(res)
+        return super().write({})
 
     def unlink(self):
         return super(
@@ -661,10 +666,15 @@ UNION ALL
     ):
         external_identifier = unique_identifier
 
+        try:
+            external_id = self.env["ir.model.data"]._xmlid_lookup(
+                prefix_identifier + "." + external_identifier
+            )
+        except ValueError:
+            external_id = False
+
         # check for external id
-        if not self.env["ir.model.data"].xmlid_to_res_id(
-            prefix_identifier + "." + external_identifier
-        ):
+        if not external_id:
             # Create the external ID
             self.env["ir.model.data"].create(
                 {
@@ -674,5 +684,4 @@ UNION ALL
                     "res_id": new_rec_id,
                 }
             )
-            self.env.cache.invalidate()
         return True

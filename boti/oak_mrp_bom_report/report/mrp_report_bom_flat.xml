@@ -46,7 +46,7 @@
                                 </thead>
                                 <tbody>
                                     <t
-                                        t-call="oak_mrp_bom_detail.report_mrp_bom_pdf_line_flat"
+                                        t-call="oak_mrp_bom_report.report_mrp_bom_pdf_line_flat"
                                     />
                                 </tbody>
                             </table>
@@ -122,7 +122,7 @@
             <t t-call-assets="mrp.assets_common" t-js="False" />
             <t t-foreach="docs" t-as="data">
                 <div class="page">
-                    <t t-call="oak_mrp_bom_detail.report_mrp_bom_flat" />
+                    <t t-call="oak_mrp_bom_report.report_mrp_bom_flat" />
                 </div>
                 <p style="page-break-before:always;"> </p>
             </t>

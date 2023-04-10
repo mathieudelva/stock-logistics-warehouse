@@ -33,7 +33,7 @@ class MrpWorkorder(models.Model):
 
     machine_id = fields.Many2one("maintenance.equipment", string="Machine")
 
-    employee_id = fields.Many2one("hr.employee", string="Employee")
+    assigned_employee_id = fields.Many2one("hr.employee", string="Employee")
 
     note = fields.Text()
 

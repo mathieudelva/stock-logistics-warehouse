@@ -7,7 +7,7 @@
     "license": "LGPL-3",
     "summary": "MRP add detail number + custom reports",
     "maintainers": ["Burr Oak Tool"],
-    "depends": ["oak_product"],
+    "depends": ["oak_mrp"],
     "data": [
         "data/report_paperformat_data.xml",
         "views/mrp_view.xml",
@@ -21,7 +21,7 @@
     "auto_install": False,
     "assets": {
         "web.assets_backend": [
-            "oak_mrp_bom_detail/static/src/xml/template.xml",
+            "oak_mrp_bom_report/static/src/xml/template.xml",
         ],
     },
 }

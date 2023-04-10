@@ -4,7 +4,7 @@ from odoo import _, api, models
 
 
 class ReportMrpBomMulti(models.AbstractModel):
-    _name = "report.oak_mrp_bom_detail.report_bom_multi"
+    _name = "report.oak_mrp_bom_report.report_bom_multi"
     _description = _("BOM Multi Level Report")
 
     @api.model

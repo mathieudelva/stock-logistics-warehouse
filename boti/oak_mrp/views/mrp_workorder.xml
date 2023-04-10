@@ -11,11 +11,11 @@
             ref="mrp.mrp_production_workorder_tree_editable_view"
         />
         <field name="arch" type="xml">
-            <field name="operation_note" position="before">
+            <field name="workcenter_id" position="after">
                 <field name="mto_origin" optional="hide" />
                 <field name="analytic_account_id" optional="show" />
                 <field name="machine_id" optional="show" />
-                <field name="employee_id" optional="show" />
+                <field name="assigned_employee_id" optional="show" />
                 <field name="detail_number" optional="hide" />
                 <field name="note" optional="show" />
             </field>
@@ -73,10 +73,10 @@
         <field name="name">mrp.workorder.capacity.leveling.tree.inherit</field>
         <field
             name="inherit_id"
-            ref="mrp_shop_floor_control.mrp_workorder_capacity_leveling_tree"
+            ref="mrp_sfc_queue_time_before.mrp_workorder_capacity_leveling_tree"
         />
         <field name="model">mrp.workorder</field>
-        <field name="priority">25</field>
+        <field name="priority">100</field>
         <field name="arch" type="xml">
             <field name="state" position="after">
                 <field name="mto_origin" optional="hide" />

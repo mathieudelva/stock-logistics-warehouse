@@ -5,13 +5,13 @@
         <field name="name">BoM Single Level</field>
         <field name="model">mrp.bom</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="paperformat_id" ref="oak_mrp_bom_detail.paperformat_bom_custom" />
-        <field name="report_name">oak_mrp_bom_detail.report_bom_flat</field>
-        <field name="report_file">oak_mrp_bom_detail.report_bom_flat</field>
+        <field name="paperformat_id" ref="oak_mrp_bom_report.paperformat_bom_custom" />
+        <field name="report_name">oak_mrp_bom_report.report_bom_flat</field>
+        <field name="report_file">oak_mrp_bom_report.report_bom_flat</field>
         <field
             name="print_report_name"
         >'Bom Single Level - %s' % object.display_name</field>
-        <field name="binding_model_id" ref="model_mrp_bom" />
+        <field name="binding_model_id" ref="mrp.model_mrp_bom" />
         <field name="binding_type">report</field>
     </record>
 
@@ -19,13 +19,13 @@
         <field name="name">BoM Multi Level-Page No Raw Matrl</field>
         <field name="model">mrp.bom</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="paperformat_id" ref="oak_mrp_bom_detail.paperformat_bom_custom" />
-        <field name="report_name">oak_mrp_bom_detail.report_bom_multi</field>
-        <field name="report_file">oak_mrp_bom_detail.report_bom_multi</field>
+        <field name="paperformat_id" ref="oak_mrp_bom_report.paperformat_bom_custom" />
+        <field name="report_name">oak_mrp_bom_report.report_bom_multi</field>
+        <field name="report_file">oak_mrp_bom_report.report_bom_multi</field>
         <field
             name="print_report_name"
         >'Bom Multi Level - %s' % object.display_name</field>
-        <field name="binding_model_id" ref="model_mrp_bom" />
+        <field name="binding_model_id" ref="mrp.model_mrp_bom" />
         <field name="binding_type">report</field>
     </record>
 

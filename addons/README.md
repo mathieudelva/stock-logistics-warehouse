@@ -32,9 +32,12 @@
 | mrp_shop_floor_control                   | purchased                 | Openvalue                 | Supports the E2E process starting from the Manufacturing Order Creation to its Closure.                |
 | oak_boti_ui                              | local                     | BOTI                      | UI Alterations for BOTI                                                                                |
 | oak_crm                                  | local                     | BOTI                      | CRM lead field additions                                                                               |
+| oak_legacy                               | local                     | BOTI                      | Product OAK Legacy Data                                                                                |
 | oak_partner                              | local                     | BOTI                      | Partner additional fields and tracking                                                                 |
 | oak_product                              | local                     | BOTI                      | Adds a Product App with links to product listing, adds additional product fields                       |
 | oak_maintenance                          | local                     | BOTI                      | Sage info for equipment                                                                                |
+| oak_mrp                                  | local                     | BOTI                      | Adds additional fields to production, workcenters, and work orders                                     |
+| oak_mrp_bom_report                       | local                     | BOTI                      | MRP add detail number + custom reports                                                                 |
 | oak_redis_session                        | local                     | BOTI                      | Redis for session                                                                                      |
 | oak_visits                               | local                     | BOTI                      | BOTI Customizations for acs_visits                                                                     |
 | partner_affiliate                        | partner-contact           | OCA                       | moves companies to affiliates tab out of contacts tab                                                  |
