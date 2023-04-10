@@ -1,0 +1,22 @@
+{
+    "name": "OAK Helpdesk to Sales Order",
+    "version": "16.0.1.0.0",
+    "category": "Burr Oak",
+    "author": "Burr Oak Tool, Open Source Integrators",
+    "website": "https://www.burroak.com",
+    "license": "AGPL-3",
+    "summary": "Create Sales Orders from Helpdesk Tickets",
+    "maintainers": ["Burr Oak Tool"],
+    "depends": ["helpdesk", "sale", "oak_sale"],
+    "data": [
+        "security/ir.model.access.csv",
+        "views/helpdesk_view.xml",
+        "views/sales_order_view.xml",
+        "wizard/create_sale_order_view.xml",
+        "data/mail_template_sale_order_helpdesk.xml",
+    ],
+    "demo": [],
+    "qweb": [],
+    "installable": True,
+    "auto_install": False,
+}

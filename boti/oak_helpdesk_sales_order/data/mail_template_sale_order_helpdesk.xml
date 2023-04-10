@@ -1,0 +1,28 @@
+<odoo>
+    <record id="mail_template_sale_order_helpdesk" model="mail.template">
+        <field name="name">Sale Order From Helpdesk - Send by Email</field>
+        <field name="email_from">no_reply@burroak.com</field>
+        <field name="subject">New Sale Quote/Order From Ticket</field>
+        <field name="model_id" ref="helpdesk.model_helpdesk_ticket" />
+        <field name="partner_to">{{ object.partner_id.id }}</field>
+        <field name="auto_delete" eval="True" />
+        <field
+            name="body_html"
+        ><![CDATA[
+        <p style="margin: 0px; padding: 0px; font-size: 13px;">
+            Hello,
+            <br/><br/>
+            Your request for a Quote and/or Order has been received and reviewed.
+            <br/>
+            Please do not reply to the ticket as it will be closed.
+            <br/>
+            Any future communication will now be available through the Quote and/or Sales Acknowledgement email thread.
+            <br/><br/>
+            Any questions please feel free to contact us.
+            <br/><br/>
+            Thank you!
+        </p>]]>
+        </field>
+        <field name="lang">{{ object.partner_id.lang }}</field>
+    </record>
+</odoo>
