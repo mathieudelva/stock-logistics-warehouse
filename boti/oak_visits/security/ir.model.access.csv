@@ -5,3 +5,4 @@ access_visit_product_status_public_user,visit_product_status_read,model_visit_pr
 access_visit_product_status_admin,visit_product_status_manage,model_visit_product_status,acs_visits.group_visit_manager,1,1,1,1
 access_visit_reason_public_user,visit_reason_read,model_visit_reason,acs_visits.group_visit_user,1,0,0,0
 access_visit_reason_admin,visit_reason_manage,model_visit_reason,acs_visits.group_visit_manager,1,1,1,1
+access_visit_read_only,visit_visit_user,model_visit_visit,base.group_user,1,0,0,0
