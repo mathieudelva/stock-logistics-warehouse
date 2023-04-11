@@ -77,6 +77,7 @@
 | purchase_request_type                    | OCA                       | purchase-workflow         | configurable _type_ on the purchase request                                                            |
 | queue_job                                | queue                     | OCA                       | A worker queue for long running tasks that are NOT cron jobs                                           |
 | sale_delivery_split_date                 | OCA                       | sale-workflow             | date per sales order line                                                                              |
+| sale_exception                           | OCA                       | sale-workflow             | exceptions for sales orders                                                                            |
 | sale_order_line_date                     | OCA                       | sale-workflow             | adds a commitment date to each sale order line and propagate it to stock moves and pickings            |
 | sale_order_revision                      | OCA                       | sale-workflow             | sales order revisions via cancel/new from cancelled                                                    |
 | sale_partner_approval                    | OCA                       | sale-workflow             | customer approval workflow                                                                             |

@@ -14,9 +14,10 @@ Odoo 16 repository
 /opt/odoo/.local/bin/gitaggregate -c repos.yml -d ./oca/manufacture
 ```
 
-## Missing requirements so far
+## Missing python lib requirements so far
 
 1. pdfminer (core apparently)
 2. redis (oak_redis_session)
 3. hiredis (oak_redis_session)
 4. plotly (mrp_shop_floor_control)
+5. xmltodict (partner_usps_address_validation)
