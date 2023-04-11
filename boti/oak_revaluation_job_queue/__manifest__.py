@@ -1,5 +1,5 @@
 {
-    "name": "Oak BOTI Queue Jobs for cost rolls",
+    "name": "Oak Queue Jobs for cost rolls",
     "summary": """
         Adds job queue jobs for cost rolls""",
     "description": """

@@ -3,7 +3,7 @@
     "summary": """
         APIS for OakApp""",
     "description": """
-        Adds API endpoints for the shop app
+        Adds API endpoints for the oak app
     """,
     "version": "16.0.1.0.0",
     "category": "Technical",
