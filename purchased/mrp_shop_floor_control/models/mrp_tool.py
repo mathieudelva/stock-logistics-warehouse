@@ -63,7 +63,7 @@ class MrpTool(models.Model):
         tool_name = self.search([("name", "=", self.name)])
         if len(tool_name) > 1:
             raise UserError(_("Tool Name already exists"))
-        tool_number = self.env["mro.tool"].search([("name", "=", self.tool_number)])
+        tool_number = self.env["mrp.tool"].search([("name", "=", self.tool_number)])
         if len(tool_number) > 1:
             raise UserError(_("Tool Number already exists"))
 
