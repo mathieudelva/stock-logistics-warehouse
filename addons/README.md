@@ -46,6 +46,7 @@
 | oak_mrp_bom_report                       | local                     | BOTI                      | MRP add detail number + custom reports                                                                 |
 | oak_partner                              | local                     | BOTI                      | Partner additional fields and tracking                                                                 |
 | oak_product                              | local                     | BOTI                      | Adds a Product App with links to product listing, adds additional product fields                       |
+| oak_permissions                          | local                     | BOTI                      | This module controls all custom permissions for boti                                                   |
 | oak_redis_session                        | local                     | BOTI                      | Redis for session                                                                                      |
 | oak_revaluation_job_queue                | local                     | BOTI                      | Queue job override for the cost roll                                                                   |
 | oak_sale                                 | local                     | BOTI                      | Additional sales fields                                                                                |

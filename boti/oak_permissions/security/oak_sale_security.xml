@@ -27,7 +27,7 @@
     <record id="sales_team.group_sale_salesman_all_leads" model="res.groups">
         <field
             name="implied_ids"
-            eval="[(4, ref('oak_sale.group_sale_view_all_edit_own'))]"
+            eval="[(4, ref('oak_permissions.group_sale_view_all_edit_own'))]"
         />
     </record>
 

@@ -10,14 +10,6 @@ This module adds additional fields to partners and sales orders.
 
 Fields:
 
-    Partners:
-        
-        parent_ref - related field partner parent Reference parent_id.ref
-
-        is_sales_rep - Boolean is external sales rep Partners
-
-        extrep_id - Many2one - External sales rep attached to this customer
-
     Sales Orders:
 
         partner_ref - related field partner Reference partner_id.ref
