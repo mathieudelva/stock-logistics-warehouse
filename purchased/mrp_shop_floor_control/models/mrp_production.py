@@ -292,8 +292,8 @@ class MrpProduction(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
+        production = super().create(vals_list)
         for vals in vals_list:
-            production = super().create(vals)
             new_tool_ids = []
             for tool in production.bom_id.tool_ids:
                 if tool.tool_id.id not in production.tool_ids.tool_id.ids:
@@ -809,24 +809,6 @@ class MrpProduction(models.Model):
                 production.state = "progress"
             elif any(not move.quantity_done == 0.0 for move in production.move_raw_ids):
                 production.state = "progress"
-
-    def _action_confirm_mo_backorders(self):
-        self.workorder_ids.unlink()
-        workorders_values = workorders_list = []
-        for operation in self.bom_id.operation_ids:
-            workorders_values += [
-                {
-                    "name": operation.name,
-                    "production_id": self.id,
-                    "workcenter_id": operation.workcenter_id.id,
-                    "product_uom_id": self.product_uom_id.id,
-                    "operation_id": operation.id,
-                    "state": "pending",
-                }
-            ]
-        for workorder_values in workorders_values:
-            self.env["mrp.workorder"].create(workorder_values)
-        return super()._action_confirm_mo_backorders()
 
 
 class MrpOrderTools(models.Model):
