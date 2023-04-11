@@ -536,6 +536,9 @@ class MRPPlanningEngineListItem(models.TransientModel):
                     )
 
     def mrp_display_document(self):
+        record = self.search([("id", "=", self.id)])
+        if not record:
+            raise UserError(_("Document not found. Please update the report."))
         for item in self:
             if item.mrp_origin == "op":
                 planned_order = self.env["mrp.planned.order"].search(
@@ -615,4 +618,4 @@ class MRPPlanningEngineListItem(models.TransientModel):
                 else:
                     raise UserError(_("Stock Move not found. Please update the list."))
             else:
-                raise UserError(_("Document not found."))
+                raise UserError(_("Document not found. Please update the report."))

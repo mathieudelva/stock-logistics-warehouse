@@ -3,7 +3,7 @@
 {
     "name": "MRP Planning Engine",
     "summary": "MRP Planning Engine",
-    "version": "16.0.1.0",
+    "version": "16.0.1.1",
     "category": "Manufacturing",
     "website": "www.openvalue.cloud",
     "author": "OpenValue",
