@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="oak_view_picking_form" model="ir.ui.view">
+        <field name="name">stock.picking.form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//form//header//button[@name='action_toggle_is_locked'][1]"
+                position="attributes"
+            >
+                    <attribute name="groups">oak_permissions.lock_stock_user</attribute>
+            </xpath>
+            <xpath
+                expr="//form//header//button[@name='action_toggle_is_locked'][2]"
+                position="attributes"
+            >
+                    <attribute name="groups">oak_permissions.lock_stock_user</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="picking_view_kanban_inherit_origin_add" model="ir.ui.view">
+        <field name="name">picking.view.kanban.inherit.origin.add</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.stock_picking_kanban" />
+        <field name="arch" type="xml">
+            <xpath expr="//kanban/templates/t/div/div[2]" position="after">
+                <div class="o_kanban_record_bottom">
+                    <field name="origin" />
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_picking_sale_tag_ids_view_form" model="ir.ui.view">
+        <field name="name">stock.picking.sale.tag.ids.view.form</field>
+        <field name="model">stock.picking</field>
+        <field name="priority">100</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+            <field name="origin" position="after">
+                <field
+                    name="sale_tag_ids"
+                    widget="many2many_tags"
+                    options="{'color_field': 'color', 'no_create_edit': True}"
+                />
+            </field>
+        </field>
+    </record>
+
+    <record id="stock_picking_sale_tag_ids_view_tree" model="ir.ui.view">
+        <field name="name">stock.picking.sale.tag.ids.view.tree</field>
+        <field name="model">stock.picking</field>
+        <field name="priority">100</field>
+        <field name="inherit_id" ref="stock.vpicktree" />
+        <field name="arch" type="xml">
+            <field name="origin" position="after">
+                <field
+                    name="sale_tag_ids"
+                    widget="many2many_tags"
+                    options="{'color_field': 'color', 'no_create_edit': True}"
+                />
+            </field>
+        </field>
+    </record>
+
+    <record id="stock_picking_sale_tag_ids_view_search" model="ir.ui.view">
+        <field name="name">stock.picking.sale.tag.ids.view.search</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search" />
+        <field name="arch" type="xml">
+            <field name="picking_type_id" position="after">
+                <field name="sale_tag_ids" string="Tags" />
+            </field>
+        </field>
+    </record>
+
+    <!-- Sale Stock Picking Note Views -->
+    <!-- TODO: RICKY this comes from module sale_stock_picking_note<record id="sale_stock_picking_note_picking_form_inherit_boti" model="ir.ui.view">
+        <field name="name">sale.stock.picking.note.picking.form</field>
+        <field name="model">stock.picking</field>
+        <field name="priority">100</field>
+        <field name="inherit_id" ref="sale_stock_picking_note.view_picking_form" />
+        <field name="arch" type="xml">
+            <field name="note" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </field>
+            <field name="customer_note" position="attributes">
+                <attribute name="attrs">{}</attribute>
+                <attribute name="readonly">1</attribute>
+            </field>
+        </field>
+    </record> -->
+
+</odoo>

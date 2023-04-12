@@ -1,0 +1,26 @@
+{
+    "name": "Burr Oak Tool Inventory",
+    "version": "16.0.1.0.0",
+    "category": "Burr Oak Tool",
+    "author": "Burr Oak Tool, Open Source Integrators",
+    "website": "https://www.burroak.com",
+    "license": "LGPL-3",
+    "summary": "Inventory configuration and customization",
+    "maintainers": ["Burr Oak Tool"],
+    "depends": [
+        "stock",
+        "product",
+        "oak_permissions",
+        "stock_inventory_revaluation_adjustment",
+        "stock_move_location",
+    ],
+    "data": [
+        "views/stock_quant.xml",
+        "views/stock_valuation_layer.xml",
+        "views/stock_picking.xml",
+        "report/report_deliveryslip.xml",
+    ],
+    "demo": [],
+    "installable": True,
+    "auto_install": False,
+}

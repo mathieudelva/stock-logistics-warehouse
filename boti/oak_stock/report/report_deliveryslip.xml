@@ -1,0 +1,215 @@
+<odoo>
+    <template id="stock.report_deliveryslip">
+        <t t-call="web.html_container">
+            <t t-as="doc" t-foreach="docs">
+                <t
+                    t-call="oak_stock.report_delivery_document_bot"
+                    t-lang="doc.partner_id.lang"
+                />
+            </t>
+        </t>
+    </template>
+    <template id="report_delivery_document_bot">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <div class="oe_structure" />
+                <table class="table borderless">
+                    <tr>
+                        <td
+                            style="border:none;text-align:center;vertical-align: middle;padding: 0px;margin: 0px;"
+                        >
+                            <strong style="font-size:20px;">Packing Slip
+                            </strong>
+                        </td>
+                    </tr>
+                </table>
+                <div class="container" style="font-size:14px;">
+                    <div class="row col-12">
+                        <div class="col-6">
+                            <strong>Delivery Address:</strong>
+                            <t t-if="doc.partner_id.name">
+                                <div t-field="doc.partner_id.name" />
+                            </t>
+                            <t t-if="not doc.partner_id.name">
+                                <div
+                                    t-field="doc.partner_id.commercial_partner_id.name"
+                                />
+                            </t>
+                            <div
+                                t-field="doc.partner_id"
+                                t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <table class="table table-sm o_main_table">
+                    <thead style="display: table-row-group;font-size:14px;">
+                        <tr>
+                            <th
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >Number</th>
+                            <th
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >Date</th>
+                            <th
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >Payment Terms</th>
+                            <th
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >Incoterms</th>
+                            <th
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >Ship Date</th>
+                            <th
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >Customer PO</th>
+                            <th
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >Shipping Terms</th>
+                            <th
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >Shipping Method</th>
+                            <th class="text-center">Order By</th>
+                        </tr>
+                    </thead>
+                    <tbody class="sale_tbody" style="font-size:14px;">
+                        <tr style="border-bottom: 1px solid #dee2e6;">
+                            <td
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >
+                                <t t-if="doc.sale_id">
+                                    <span t-esc="doc.sale_id.name" />
+                                </t>
+                            </td>
+                            <td
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >
+                                <t t-if="doc.date_done">
+                                    <span
+                                        t-esc="doc.date_done"
+                                        t-options="{'widget': 'date'}"
+                                    />
+                                </t>
+                            </td>
+                            <td
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >
+                                <t t-if="doc.sale_id.payment_term_id">
+                                    <span t-esc="doc.sale_id.payment_term_id.name" />
+                                </t>
+                            </td>
+                            <td
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >
+                                <t t-if="doc.sale_id.incoterm">
+                                    <span t-esc="doc.sale_id.incoterm.name" />
+                                </t>
+                            </td>
+                            <td
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >
+                                <t t-if="doc.scheduled_date">
+                                    <span
+                                        t-esc="doc.scheduled_date"
+                                        t-options="{'widget': 'date'}"
+                                    />
+                                </t>
+                            </td>
+                            <td
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >
+                                <t t-if="doc.sale_id.client_order_ref">
+                                    <span t-esc="doc.sale_id.client_order_ref" />
+                                </t>
+                            </td>
+                            <td
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >
+                                <t t-if="doc.sale_id.delivery_message">
+                                    <span t-esc="doc.sale_id.delivery_message" />
+                                </t>
+                            </td>
+                            <td
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >
+                                <t t-if="doc.sale_id.carrier_id">
+                                    <span t-esc="doc.sale_id.carrier_id.name" />
+                                </t>
+                            </td>
+                            <td class="text-center">
+                                <t t-if="doc.sale_id.sale_ordered_by_id">
+                                    <span t-esc="doc.sale_id.sale_ordered_by_id.name" />
+                                </t>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br />
+                <table
+                    border="0"
+                    class="table table-borderless"
+                    style="font-size:14px;"
+                >
+                    <tr style="padding: 0px;margin: 0px;" width="100%">
+                        <td style="border:none;padding: 0px;margin: 0px;" width="41%" />
+                        <td
+                            style="border:none;text-align:right;padding: 0px;margin: 0px;"
+                            width="59%"
+                        >ATTN:&amp;nbsp;
+                            <t t-esc="doc.sale_id.sale_attention_to_note or ''" />
+                        </td>
+                    </tr>
+                </table>
+                <br />
+                <table class="table table-sm o_main_table" style="font-size:14px;">
+                    <thead style="display: table-row-group">
+                        <tr>
+                            <th class="text-left" name="th_itemno">Item Number</th>
+                            <th class="text-left" name="th_description">Description</th>
+                            <th class="text-left" name="th_quantity">Qty Delivered</th>
+                        </tr>
+                    </thead>
+                    <tbody class="sale_tbody">
+                        <t t-as="line" t-foreach="doc.move_line_ids_without_package">
+                            <tr>
+                                <td name="td_itemno">
+                                    <span t-field="line.product_id.default_code" />
+                                </td>
+                                <td name="td_name">
+                                    <span t-field="line.product_id.name" />
+                                </td>
+                                <t t-if="doc.state != 'done'">
+                                    <td class="text-left" name="td_quantity">
+                                        <span t-field="line.product_uom_qty" />
+                                    </td>
+                                </t>
+                                <t t-if="doc.state == 'done'">
+                                    <td class="text-left" name="td_quantity">
+                                        <span t-field="line.qty_done" />
+                                    </td>
+                                </t>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+</odoo>

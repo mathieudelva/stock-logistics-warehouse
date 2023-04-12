@@ -51,6 +51,7 @@
 | oak_revaluation_job_queue                | local                     | BOTI                      | Queue job override for the cost roll                                                                   |
 | oak_sale                                 | local                     | BOTI                      | Additional sales fields                                                                                |
 | oak_sale_warranty                        | local                     | BOTI                      | Adds user driven text areas to sales orders                                                            |
+| oak_stock                                | local                     | BOTI                      | Inventory configuration and customization                                                              |
 | oak_visits                               | local                     | BOTI                      | BOTI Customizations for acs_visits                                                                     |
 | partner_affiliate                        | partner-contact           | OCA                       | moves companies to affiliates tab out of contacts tab                                                  |
 | partner_identification                   | partner-contact           | OCA                       | manage all sort of identification numbers and certificates which are assigned to a partner             |
@@ -93,6 +94,7 @@
 | stock_inventory_revaluation_adjustment   | OCA                       | stock-logistics-warehouse | Adds a cost change process workflow to products to allow users to adjust costs in bulk                 |
 | stock_inventory_revaluation_mrp          | OCA                       | stock-logistics-warehouse | Adds a manufacturing components to see what BoM's/Manufaturing Orders are affected by the cost changes |
 | stock_inventory_revaluation_wip          | OCA                       | stock-logistics-warehouse | 'Cost Type' and 'Activity Driven Costs' components and bring them into the cost adjustment details     |
+| stock_move_location                      | OCA                       | stock-logistics-warehouse | This module allows to move all stock in a stock location to an other one.                              |
 | stock_no_negative                        | stock-logistics-workflow  | OCA                       | Blocks negative stock                                                                                  |
 | stock_picking_back2draft                 | stock-logistics-workflow  | OCA                       | Cancelled pickings back to draft                                                                       |
 | stock_picking_sale_order_link            | stock-logistics-workflow  | OCA                       | smart button to Stock Transfers, to open the related Sales Order                                       |

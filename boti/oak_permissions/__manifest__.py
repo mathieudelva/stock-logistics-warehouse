@@ -13,6 +13,7 @@
     ],
     "data": [
         "security/oak_sale_security.xml",
+        "security/oak_stock_security.xml",
     ],
     "demo": [],
     "qweb": [],
