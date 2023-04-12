@@ -8,6 +8,89 @@ class AccountReport(models.AbstractModel):
     _inherit = "account.report"
     _description = "Account Report"
 
+    def get_add_lines(
+        self,
+        sheet,
+        y_offset,
+        date_default_col1_style,
+        date_default_style,
+        default_col1_style,
+        default_style,
+        level_0_style,
+        level_1_style,
+        level_2_col1_style,
+        level_2_col1_total_style,
+        level_2_style,
+        level_3_col1_style,
+        level_3_col1_total_style,
+        level_3_style,
+        lines,
+    ):
+        for y in range(0, len(lines)):
+            level = lines[y].get("level")
+            if lines[y].get("caret_options"):
+                style = level_3_style
+                col1_style = level_3_col1_style
+            elif level == 0:
+                y_offset += 1
+                style = level_0_style
+                col1_style = style
+            elif level == 1:
+                style = level_1_style
+                col1_style = style
+            elif level == 2:
+                style = level_2_style
+                col1_style = (
+                    "total" in lines[y].get("class", "").split(" ")
+                    and level_2_col1_total_style
+                    or level_2_col1_style
+                )
+            elif level == 3:
+                style = level_3_style
+                col1_style = (
+                    "total" in lines[y].get("class", "").split(" ")
+                    and level_3_col1_total_style
+                    or level_3_col1_style
+                )
+            else:
+                style = default_style
+                col1_style = default_col1_style
+
+            # write the first column, with a specific style to manage the indentation
+            cell_type, cell_value = self._get_cell_type_value(lines[y])
+            if cell_type == "date":
+                sheet.write_datetime(
+                    y + y_offset, 0, cell_value, date_default_col1_style
+                )
+            else:
+                if (
+                    len(cell_value.split(" ")) > 1
+                    and cell_value.split(" ")[0].isnumeric()
+                ):
+                    code = "".join([i for i in cell_value.split(" ")[0] if i.isdigit()])
+                    sheet.write(y + y_offset, 0, code, col1_style)
+                    account = " ".join([i for i in cell_value.split(" ")[1:]])
+                    sheet.write(y + y_offset, 1, account, col1_style)
+                else:
+                    sheet.write(y + y_offset, 0, cell_value, col1_style)
+
+            # write all the remaining cells
+            for x in range(1, len(lines[y]["columns"]) + 1):
+                cell_type, cell_value = self._get_cell_type_value(
+                    lines[y]["columns"][x - 1]
+                )
+                if cell_type == "date":
+                    sheet.write_datetime(
+                        y + y_offset,
+                        x + lines[y].get("colspan", 1),
+                        cell_value,
+                        date_default_style,
+                    )
+                else:
+                    sheet.write(
+                        y + y_offset, x + lines[y].get("colspan", 1), cell_value, style
+                    )
+
     def export_to_xlsx(self, options, response=None):
         def write_with_colspan(sheet, x, y, value, colspan, style):
             if colspan == 1:
@@ -181,70 +264,23 @@ class AccountReport(models.AbstractModel):
             lines = self._sort_lines(lines, options)
 
         # Add lines.
-        for y in range(0, len(lines)):
-            level = lines[y].get("level")
-            if lines[y].get("caret_options"):
-                style = level_3_style
-                col1_style = level_3_col1_style
-            elif level == 0:
-                y_offset += 1
-                style = level_0_style
-                col1_style = style
-            elif level == 1:
-                style = level_1_style
-                col1_style = style
-            elif level == 2:
-                style = level_2_style
-                col1_style = (
-                    "total" in lines[y].get("class", "").split(" ")
-                    and level_2_col1_total_style
-                    or level_2_col1_style
-                )
-            elif level == 3:
-                style = level_3_style
-                col1_style = (
-                    "total" in lines[y].get("class", "").split(" ")
-                    and level_3_col1_total_style
-                    or level_3_col1_style
-                )
-            else:
-                style = default_style
-                col1_style = default_col1_style
-
-            # write the first column, with a specific style to manage the indentation
-            cell_type, cell_value = self._get_cell_type_value(lines[y])
-            if cell_type == "date":
-                sheet.write_datetime(
-                    y + y_offset, 0, cell_value, date_default_col1_style
-                )
-            else:
-                if (
-                    len(cell_value.split(" ")) > 1
-                    and cell_value.split(" ")[0].isnumeric()
-                ):
-                    code = "".join([i for i in cell_value.split(" ")[0] if i.isdigit()])
-                    sheet.write(y + y_offset, 0, code, col1_style)
-                    account = " ".join([i for i in cell_value.split(" ")[1:]])
-                    sheet.write(y + y_offset, 1, account, col1_style)
-                else:
-                    sheet.write(y + y_offset, 0, cell_value, col1_style)
-
-            # write all the remaining cells
-            for x in range(1, len(lines[y]["columns"]) + 1):
-                cell_type, cell_value = self._get_cell_type_value(
-                    lines[y]["columns"][x - 1]
-                )
-                if cell_type == "date":
-                    sheet.write_datetime(
-                        y + y_offset,
-                        x + lines[y].get("colspan", 1),
-                        cell_value,
-                        date_default_style,
-                    )
-                else:
-                    sheet.write(
-                        y + y_offset, x + lines[y].get("colspan", 1), cell_value, style
-                    )
+        self.get_add_lines(
+            sheet,
+            y_offset,
+            date_default_col1_style,
+            date_default_style,
+            default_col1_style,
+            default_style,
+            level_0_style,
+            level_1_style,
+            level_2_col1_style,
+            level_2_col1_total_style,
+            level_2_style,
+            level_3_col1_style,
+            level_3_col1_total_style,
+            level_3_style,
+            lines,
+        )
 
         workbook.close()
         output.seek(0)
