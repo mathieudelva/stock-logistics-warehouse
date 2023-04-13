@@ -163,6 +163,7 @@
     - oca refs/pull/2435/head # [16.0] [MIG] sale_partner_approval
     - oca refs/pull/2399/head # [16.0][MIG] sale_partner_incoterm
     - oca refs/pull/2467/head # [16.0][MIG] sale_product_approval
+    - oca refs/pull/2436/head # [MIG][16.0]sale_stock_picking_note
   target: *default_target
 
 ./oca/server-auth:
