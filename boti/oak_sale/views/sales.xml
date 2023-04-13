@@ -40,9 +40,9 @@
             <xpath expr="//tree/field[@name='commitment_date']" position="after">
                 <field name="promise_date" optional="show" />
             </xpath>
-            <!-- TODO: RICKY this comes from  sale stock picking note <field name="picking_customer_note" position="attributes">
+            <field name="picking_customer_note" position="attributes">
                 <attribute name="string">Shipping Terms</attribute>
-            </field> -->
+            </field>
             <!-- TODO: RICKY this comes from  sale_stock_delivery_address <xpath
                 expr="//field[@name='order_line']/tree//field[@name='dest_address_id']"
                 position="attributes"
