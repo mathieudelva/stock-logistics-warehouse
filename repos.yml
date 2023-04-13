@@ -245,7 +245,6 @@
   merges:
     - oca 16.0
     - oca refs/pull/2404/head # [16.0][MIG] web_company_color
-    - oca refs/pull/2446/head # [16.0][MIG] web_m2x_options: Migration to 16.0
     - oca refs/pull/2448/head # [16.0][MIG] web_m2x_options_manager : Migrated to 16.0.
     - oca refs/pull/2412/head # [16.0][MIG] web_notify: Migration to 16.0
   target: *default_target
