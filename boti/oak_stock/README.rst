@@ -15,8 +15,6 @@ Fields:
         sale_tag_ids - Sale tags to keep pickings organized
 
     stock_quant:
-
-        categ_id - Product category
         
         standard_price - Product standard price
         

@@ -1,12 +1,11 @@
 <odoo>
 
-    <record id="view_stock_quant_tree_categ_inherit" model="ir.ui.view">
-        <field name="name">view.stock.quant.tree.categ.inherit</field>
+    <record id="view_stock_quant_tree_editable_inherit" model="ir.ui.view">
+        <field name="name">view.stock.quant.tree.editable.inherit</field>
         <field name="model">stock.quant</field>
-        <field name="inherit_id" ref="stock.view_stock_quant_tree" />
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_inventory_editable" />
         <field name="arch" type="xml">
-            <field name="product_id" position="after">
-                <field name="categ_id" />
+            <field name="product_uom_id" position="after">
                 <field name="standard_price" optional="show" />
             </field>
         </field>
@@ -17,14 +16,11 @@
         <field name="model">stock.quant</field>
         <field name="inherit_id" ref="stock.quant_search_view" />
         <field name="arch" type="xml">
-            <field name="product_id" position="after">
-                <field name="categ_id" />
-            </field>
             <filter name="productgroup" position="after">
                 <filter
                     name='group_by_categ_id'
                     string="Category"
-                    context="{'group_by': 'categ_id'}"
+                    context="{'group_by': 'product_categ_id'}"
                 />
             </filter>
         </field>

@@ -13,6 +13,7 @@
         "oak_permissions",
         "stock_inventory_revaluation_adjustment",
         "stock_move_location",
+        "sale_stock_picking_note",
     ],
     "data": [
         "views/stock_quant.xml",
