@@ -79,12 +79,14 @@
 | sale_delivery_split_date                 | OCA                       | sale-workflow             | date per sales order line                                                                              |
 | sale_exception                           | OCA                       | sale-workflow             | exceptions for sales orders                                                                            |
 | sale_order_line_date                     | OCA                       | sale-workflow             | adds a commitment date to each sale order line and propagate it to stock moves and pickings            |
+| sale_order_line_menu                     | OCA                       | sale-workflow             | adds menu item to view individual sales lines                                                          |
 | sale_order_revision                      | OCA                       | sale-workflow             | sales order revisions via cancel/new from cancelled                                                    |
 | sale_partner_approval                    | OCA                       | sale-workflow             | customer approval workflow                                                                             |
 | sale_partner_incoterm                    | OCA                       | sale-workflow             | incoterms for sales orders and contacts                                                                |
 | sale_procurement_group_by_line           | OCA                       | sale-workflow             | dep for delivery_split_date                                                                            |
 | sale_partner_approval                    | OCA                       | sale-workflow             | Control Partners that can be used in Sales Orders                                                      |
 | sale_product_approval_mrp                | OCA                       | sale-workflow             | product can be manufactured, a component of a manufacturing order or on a bom in the particular state  |
+| sale_stock_picking_note                  | OCA                       | sale-workflow             | Adds Picking Internal Note and Picking Customer Comments to other info in sales that show on picking   |
 | scrap_reason_code                        | stock-logistics-warehouse | OCA                       | Adds a reason code for scrapping operations                                                            |
 | stock_delivery_note                      | stock-logistics-workflow  | OCA                       | Adds a delivery note in stock pickings. Displayed on delivery reports.                                 |
 | stock_inventory_revaluation_adjustment   | OCA                       | stock-logistics-warehouse | Adds a cost change process workflow to products to allow users to adjust costs in bulk                 |
