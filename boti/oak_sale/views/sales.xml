@@ -33,9 +33,6 @@
                <field name="sales_rep_id" domain="[('is_sales_rep','=',True)]" />
                <field name="sales_rep_second_id" domain="[('is_sales_rep','=',True)]" />
             </field>
-            <field name="analytic_account_id" position="after">
-                <field name="analytic_group_id" />
-            </field>
             <field name="picking_policy" position="after">
                 <field name="carrier_id" />
                 <field name="delivery_message" />
@@ -46,24 +43,12 @@
             <field name="picking_customer_note" position="attributes">
                 <attribute name="string">Shipping Terms</attribute>
             </field>
-            <xpath
-                expr="//field[@name='order_line']/tree//field[@name='config_session_id']"
-                position="attributes"
-            >
-                <attribute name="optional">hide</attribute>
-            </xpath>
-            <xpath
-                expr="//field[@name='order_line']/tree//field[@name='blanket_order_line']"
-                position="attributes"
-            >
-                <attribute name="optional">hide</attribute>
-            </xpath>
-            <xpath
+            <!-- TODO: RICKY this comes from  sale_stock_delivery_address <xpath
                 expr="//field[@name='order_line']/tree//field[@name='dest_address_id']"
                 position="attributes"
             >
                 <attribute name="optional">hide</attribute>
-            </xpath>
+            </xpath> -->
         </field>
     </record>
 
@@ -238,8 +223,8 @@
         </field>
     </record>
 
-    <!-- Sale Stock Picking Note Views -->
-    <record id="sale_stock_picking_note_order_form_inherit_boti" model="ir.ui.view">
+    <!-- Sale Stock Picking Note Views This should be its own module, TODO RICKY -->
+    <!-- <record id="sale_stock_picking_note_order_form_inherit_boti" model="ir.ui.view">
         <field name="name">sale.stock.picking.note.order.form</field>
         <field name="model">sale.order</field>
         <field name="priority">100</field>
@@ -255,6 +240,6 @@
                 <attribute name="attrs">{}</attribute>
             </field>
         </field>
-    </record>
+    </record> -->
 
 </odoo>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- sales type to account -->
+    <record id="sale_type_account_form_view" model="ir.ui.view">
+        <field name="name">sale.type.account.form</field>
+        <field name="model">sale.type.account</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form string="Sales Type - Account">
+                <sheet>
+                    <group name="group_general">
+                        <field name="name" />
+                        <field name="sale_line_analytic_group_id" />
+                        <field name="account_id" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sale_type_account_tree_view" model="ir.ui.view">
+        <field name="name">sale.type.account.tree.view</field>
+        <field name="model">sale.type.account</field>
+        <field name="arch" type="xml">
+            <tree name="Sales Type - Account">
+                <field name="name" />
+                <field name="sale_line_analytic_group_id" />
+                <field name="account_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="sale_type_account_search_view" model="ir.ui.view">
+        <field name="name">sale.type.account.search</field>
+        <field name="model">sale.type.account</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <search string="Type Description">
+                <field name="name" filter_domain="[('name', 'ilike', self)]" />
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sale_type_account" model="ir.actions.act_window">
+        <field name="name">Sales-Type-Account</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.type.account</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="sale_type_account_tree_view" />
+        <field name="search_view_id" ref="sale_type_account_search_view" />
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="sale_type_account_menu"
+        name="Sales Type Account"
+        parent="account.menu_analytic_accounting"
+        action="action_sale_type_account"
+        sequence="3"
+        groups="analytic.group_analytic_accounting"
+        active="True"
+    />
+
+</odoo>

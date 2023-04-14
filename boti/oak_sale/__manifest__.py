@@ -1,6 +1,6 @@
 {
     "name": "OAK Sales Additions",
-    "version": "14.0.1.0.2",
+    "version": "16.0.2.0.1",
     "category": "Burr Oak",
     "license": "AGPL-3",
     "summary": "Sales - Partner field additions",
@@ -10,18 +10,23 @@
     "depends": [
         "base",
         "sale",
+        "oak_permissions",
+        "oak_partner",
+        "sale_exception",
+        "account_financial_risk",
     ],
     "data": [
-        "security/oak_sale_security.xml",
         "security/ir.model.access.csv",
+        "views/sale_leadtime_message.xml",
+        "views/sales.xml",
         "report/sale_report.xml",
         "report/sale_work_report_templates.xml",
-        "views/sales.xml",
-        "views/sale_leadtime_message.xml",
-        "views/css_template.xml",
-        "views/blanket_order_views.xml",
-        "views/stock_picking_view.xml",
     ],
+    "assets": {
+        "web.assets_backend": [
+            "oak_sale/static/src/css/styles.css",
+        ],
+    },
     "demo": [],
     "qweb": [],
     "installable": True,

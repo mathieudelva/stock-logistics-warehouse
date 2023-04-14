@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- insert a full access group and change default user group to read only-->
+
+    <record id="lock_stock_user" model="res.groups">
+        <field name="name">Lock/Unlock Stock Pickings</field>
+        <field
+            name="comment"
+        >The user will be able to lock or unlock stock picking.</field>
+    </record>
+
+    <record id="stock.group_stock_user" model="res.groups">
+        <field name="name">User: Read Only</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+        <field
+            name="comment"
+        >The user will have view only inventory data access.</field>
+    </record>
+
+    <record id="group_stock_edit_user" model="res.groups">
+        <field name="name">User: Full Access</field>
+        <field name="category_id" ref="base.module_category_inventory_inventory" />
+        <field name="implied_ids" eval="[(4, ref('stock.group_stock_user'))]" />
+        <field
+            name="comment"
+        >The user will have view and edit inventory data access.</field>
+    </record>
+
+    <record id="stock.group_stock_manager" model="res.groups">
+        <field
+            name="implied_ids"
+            eval="[(4, ref('oak_permissions.group_stock_edit_user')), (4, ref('oak_permissions.lock_stock_user'))]"
+        />
+    </record>
+
+    <function model="stock.quant" name="move_cwu_group_access">
+        <value>User: Read Only</value>
+        <value>User: Full Access</value>
+    </function>
+
+
+</odoo>

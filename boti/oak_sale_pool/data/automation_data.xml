@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="0">
+        <record id="sale_create_analytic_account" model="base.automation">
+            <field name="name">Create and Link analytic account for Sales Order</field>
+            <field name="model_id" ref="sale.model_sale_order" />
+            <field name="state">code</field>
+            <field name="code">
+# create and link analytic account on sales order creation
+acct=env['account.analytic.account'].create({
+         'name':record.name,
+         'partner_id':record.partner_id.id,
+         'group_id':record.sales_pool_id.id
+})
+
+record.write({'analytic_account_id': acct.id})
+            </field>
+            <field name="trigger">on_create</field>
+            <field name="filter_domain">[]</field>
+            <field name="active" eval="True" />
+        </record>
+</odoo>

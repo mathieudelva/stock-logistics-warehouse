@@ -1,0 +1,29 @@
+<odoo>
+
+    <record id="view_stock_quant_tree_editable_inherit" model="ir.ui.view">
+        <field name="name">view.stock.quant.tree.editable.inherit</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_inventory_editable" />
+        <field name="arch" type="xml">
+            <field name="product_uom_id" position="after">
+                <field name="standard_price" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="quant_search_view_categ_inherit" model="ir.ui.view">
+        <field name="name">stock.quant.search.categ.inherit</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.quant_search_view" />
+        <field name="arch" type="xml">
+            <filter name="productgroup" position="after">
+                <filter
+                    name='group_by_categ_id'
+                    string="Category"
+                    context="{'group_by': 'product_categ_id'}"
+                />
+            </filter>
+        </field>
+    </record>
+
+</odoo>
