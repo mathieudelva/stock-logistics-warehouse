@@ -7,17 +7,15 @@
 
             <field name="company_id" position="after">
                 <field name="analytic_account_id" />
+                <field name="mo_hold" />
             </field>
             <field name="analytic_account_id" position="attributes">
                 <attribute name="required">True</attribute>
             </field>
-            <field name="bom_id" position="after">
-                <field name="mo_hold" />
-            </field>
             <field name="mo_hold" position="after">
                 <field
                     name="mo_hold_reason"
-                    attrs="{'required':[('mo_hold','!=',False)]}"
+                    attrs="{'required':[('mo_hold','!=',False)], 'invisible': [('mo_hold', '=', False)]}"
                 />
             </field>
 

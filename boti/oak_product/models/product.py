@@ -6,7 +6,7 @@ class ProductTemplate(models.Model):
     _description = "Product Template"
     _order = "name"
 
-    default_code = fields.Char(default="/", tracking=True)
+    default_code = fields.Char(tracking=True)
 
     detail_number_id = fields.Many2one(
         "product.detail.number", "Detail Number", help="Product Detail Numbers"
