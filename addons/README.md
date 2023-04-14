@@ -60,6 +60,7 @@
 | partner_usps_address_validation          | partner-contact           | OCA                       | Module adds a tool to the Contacts page which validates the contact's address                          |
 | product_code_unique                      | product-attribute         | OCA                       | Set Product Internal Reference as Unique                                                               |
 | product_state                            | product-attribute         | OCA                       | Module introducing a state field on product template                                                   |
+| product_sequence                         | product-attribute         | OCA                       | This module allows to associate a sequence to the product reference                                    |
 | product_tier_validation                  | product-attribute         | OCA                       | Adds an approval workflow to Products                                                                  |
 | project_list                             | project                   | OCA                       | Projects List View                                                                                     |
 | project_role                             | project                   | OCA                       | Project role-based roster                                                                              |
