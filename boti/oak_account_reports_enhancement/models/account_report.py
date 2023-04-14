@@ -257,7 +257,6 @@ class AccountReport(models.AbstractModel):
             write_with_colspan(
                 sheet, x_offset, y_offset, column.get("name", ""), colspan, title_style
             )
-            x_offset += colspan
         y_offset += 1
 
         if options.get("order_column"):
