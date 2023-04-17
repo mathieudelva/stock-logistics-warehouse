@@ -51,6 +51,7 @@
 | oak_redis_session                        | local                     | BOTI                      | Redis for session                                                                                      |
 | oak_revaluation_job_queue                | local                     | BOTI                      | Queue job override for the cost roll                                                                   |
 | oak_sale                                 | local                     | BOTI                      | Additional sales fields                                                                                |
+| oak_sale_pool                            | local                     | BOTI                      | This module adds additional fields sales orders and analytic account automated creation.               |
 | oak_sale_warranty                        | local                     | BOTI                      | Adds user driven text areas to sales orders                                                            |
 | oak_stock                                | local                     | BOTI                      | Inventory configuration and customization                                                              |
 | oak_visits                               | local                     | BOTI                      | BOTI Customizations for acs_visits                                                                     |

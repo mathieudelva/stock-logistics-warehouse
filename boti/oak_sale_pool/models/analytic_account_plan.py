@@ -1,8 +1,8 @@
 from odoo import fields, models
 
 
-class AccountAnalyticGroup(models.Model):
-    _inherit = "account.analytic.group"
+class AccountAnalyticPlan(models.Model):
+    _inherit = "account.analytic.plan"
 
     prefix = fields.Char(trim=False)
     suffix = fields.Char(trim=False)
@@ -14,7 +14,7 @@ class AccountAnalyticAccount(models.Model):
 
     def name_get(self):
         for analytic in self:
-            if analytic.group_id:
+            if analytic.plan_id:
                 so_id = self.env["sale.order"].search(
                     [("analytic_account_id", "=", analytic.id)], limit=1
                 )
@@ -29,10 +29,10 @@ class AccountAnalyticAccount(models.Model):
                 else:
                     name = analytic.name + " - " + partner_name
 
-                if analytic.group_id.prefix:
-                    name = analytic.group_id.prefix + name
-                if analytic.group_id.suffix:
-                    name = name + analytic.group_id.suffix
+                if analytic.plan_id.prefix:
+                    name = analytic.plan_id.prefix + name
+                if analytic.plan_id.suffix:
+                    name = name + analytic.plan_id.suffix
                 res.append((analytic.id, name))
                 return res
             else:
