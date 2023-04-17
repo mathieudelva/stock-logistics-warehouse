@@ -8,16 +8,7 @@
     "summary": "Field Service additions",
     "maintainers": ["Burr Oak Tool"],
     "depends": [
-        "project",
-        "project_timeline",
-        "project_template",
-        "project_list",
         "industry_fsm",
-        "industry_fsm_forecast",
-        "industry_fsm_report",
-        "industry_fsm_sale",
-        "industry_fsm_sale_report",
-        "industry_fsm_stock",
     ],
     "data": [
         "data/customer_service_worksheet.xml",
