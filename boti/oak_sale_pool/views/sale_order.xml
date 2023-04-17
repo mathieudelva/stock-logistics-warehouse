@@ -23,7 +23,7 @@
                 position="after"
             >
                 <field
-                    name="sale_line_analytic_group_id"
+                    name="sale_line_analytic_plan_id"
                     domain="[('parent_id.name', 'ilike', 'Sales')]"
                 />
             </xpath>
@@ -32,13 +32,13 @@
                 position="after"
             >
                 <field
-                    name="sale_line_analytic_group_id"
+                    name="sale_line_analytic_plan_id"
                     domain="[('parent_id.name', 'ilike', 'Sales')]"
                     optional="show"
                 />
             </xpath>
             <field name="analytic_account_id" position="after">
-                <field name="analytic_group_id" />
+                <field name="analytic_plan_id" />
             </field>
         </field>
     </record>

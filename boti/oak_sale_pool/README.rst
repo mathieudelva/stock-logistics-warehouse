@@ -14,6 +14,17 @@ Fields:
 
         pool - one2many analytic account group
 
+        custom_aa_name - text, Custom Account Analytic Name
+
+        use_custom_name - bool, checkbox to use custom name
+
+        analytic_plan_id - m2o, links to a plan trough analytic account
+
+    Sales Orders:
+
+        sale_line_analytic_plan_id - m2o, link to analytic plan
+
+
 Contributors
 ------------
 

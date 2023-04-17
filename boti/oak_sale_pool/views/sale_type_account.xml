@@ -11,7 +11,7 @@
                 <sheet>
                     <group name="group_general">
                         <field name="name" />
-                        <field name="sale_line_analytic_group_id" />
+                        <field name="sale_line_analytic_plan_id" />
                         <field name="account_id" />
                     </group>
                 </sheet>
@@ -25,7 +25,7 @@
         <field name="arch" type="xml">
             <tree name="Sales Type - Account">
                 <field name="name" />
-                <field name="sale_line_analytic_group_id" />
+                <field name="sale_line_analytic_plan_id" />
                 <field name="account_id" />
             </tree>
         </field>
