@@ -34,6 +34,7 @@
 | mrp_sfc_queue_time_before                | purchased                 | Openvalue                 | Allows queue time before for planning                                                                  |
 | mrp_shop_floor_control                   | purchased                 | Openvalue                 | Supports the E2E process starting from the Manufacturing Order Creation to its Closure.                |
 | oak_api                                  | local                     | BOTI                      | Adds API endpoints for the oak app                                                                     |
+| oak_account_analytic_group               | local                     | BOTI                      | Accounting customization analytic group used as sales type.                                            |
 | oak_account_reports_enhancement          | local                     | BOTI                      | Accounting Reports Enhancement                                                                         |
 | oak_boti_ui                              | local                     | BOTI                      | UI Alterations for BOTI                                                                                |
 | oak_crm                                  | local                     | BOTI                      | CRM lead field additions                                                                               |
@@ -86,6 +87,8 @@
 | sale_order_line_menu                     | OCA                       | sale-workflow             | adds menu item to view individual sales lines                                                          |
 | sale_order_revision                      | OCA                       | sale-workflow             | sales order revisions via cancel/new from cancelled                                                    |
 | sale_partner_approval                    | OCA                       | sale-workflow             | customer approval workflow                                                                             |
+| sale_product_approval_purchase           | OCA                       | sale-workflow             | Purchase Order Product Apploval Workflow                                                               |
+| sale_product_approval_stock              | OCA                       | sale-workflow             | Delivery Order Approval Workflow                                                                       |
 | sale_partner_incoterm                    | OCA                       | sale-workflow             | incoterms for sales orders and contacts                                                                |
 | sale_procurement_group_by_line           | OCA                       | sale-workflow             | dep for delivery_split_date                                                                            |
 | sale_partner_approval                    | OCA                       | sale-workflow             | Control Partners that can be used in Sales Orders                                                      |
