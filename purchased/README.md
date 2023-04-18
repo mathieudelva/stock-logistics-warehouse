@@ -12,3 +12,4 @@
 | mail_smtp_imap_by_company_replyto        | https://apps.odoo.com/apps/modules/16.0/mail_smtp_imap_by_company_replyto        | Geminate            | 2023-03-24   |
 | mail_smtp_imap_by_company                | https://apps.odoo.com/apps/modules/16.0/mail_smtp_imap_by_company                | Geminate            | 2023-03-24   |
 | support_helpdesk_ticket_merge_enterprise | https://apps.odoo.com/apps/modules/16.0/support_helpdesk_ticket_merge_enterprise | Probuse             | 2023-03-24   |
+| shipstation_shipping_odoo_integration | https://apps.odoo.com/apps/modules/16.0/shipstation_shipping_odoo_integration/ | Vraja             | 2023-04-18   |
