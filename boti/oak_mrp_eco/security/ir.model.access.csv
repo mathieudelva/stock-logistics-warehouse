@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_eco_add_product,eco.add.product,model_mrp_eco_add_product,mrp_plm.group_plm_user,1,0,0,0
+access_eco_add_product_admin,eco.add.product.admin,model_mrp_eco_add_product,sale_product_approval.group_product_administrator,1,1,1,1
+access_eco_add_multi_product,eco.add.multi_product,model_eco_add_multi_product,mrp_plm.group_plm_user,1,0,0,0
+access_eco_add_multi_product_admin,eco.add.multi.product.admin,model_eco_add_multi_product,sale_product_approval.group_product_administrator,1,1,1,1

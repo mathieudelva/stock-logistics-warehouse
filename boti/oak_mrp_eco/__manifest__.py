@@ -1,0 +1,20 @@
+{
+    "name": "OAK ECO related products",
+    "version": "16.0.1.0.1",
+    "category": "Burr Oak",
+    "author": "Burr Oak Tool, Open Source Integrators",
+    "website": "https://www.burroak.com",
+    "license": "AGPL-3",
+    "summary": "Attach related products to ECO",
+    "maintainers": ["Burr Oak Tool"],
+    "depends": ["mrp_plm", "mrp", "product", "product_state"],
+    "data": [
+        "security/ir.model.access.csv",
+        "views/mrp_eco_views.xml",
+        "wizard/eco_add_multi_products.xml",
+    ],
+    "demo": [],
+    "qweb": [],
+    "installable": True,
+    "auto_install": False,
+}

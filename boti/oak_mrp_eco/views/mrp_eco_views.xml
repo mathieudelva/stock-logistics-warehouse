@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="mrp_eco_view_form_oak" model="ir.ui.view">
+        <field name="name">mrp.eco.view.form.oak</field>
+        <field name="model">mrp.eco</field>
+        <field name="inherit_id" ref="mrp_plm.mrp_eco_view_form" />
+        <field name="priority" eval="100" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_tmpl_id']" position="after">
+                <field name="eco_product_state_id" />
+            </xpath>
+            <xpath expr="//page[@name='extra_info']" position="after">
+                <page
+                    string="Additional Products"
+                    name="additional_products"
+                    attrs="{'invisible': [('type', '!=', 'product')]}"
+                >
+                    <header>
+                        <button
+                            name="button_additional_products"
+                            string="Add Multiple Products"
+                            type="object"
+                        />
+                    </header>
+                    <field name="eco_add_product_ids">
+                        <tree editable="bottom" create="1" delete="1" multi_edit="1">
+                            <field name="product_tmpl_id" />
+                            <field name="eco_product_state_id" />
+                            <field name="child_eco_id" />
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mrp_eco_parent_action_product_tmpl" model="ir.actions.act_window">
+        <field name="name">Engineering Parent Change Orders</field>
+        <field name="res_model">mrp.eco.add.product</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('product_tmpl_id', '=', active_id)]</field>
+        <field name="context">{'default_product_tmpl_id': active_id}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+              No Parent Engineering Change Order Found
+            </p>
+        </field>
+    </record>
+
+    <record id="product_template_view_form_inherit_plm_parent" model="ir.ui.view">
+        <field name="name">product.template.view.form.inherit.plm.parent</field>
+        <field name="inherit_id" ref="mrp.product_template_form_view_bom_button" />
+        <field name="model">product.template</field>
+        <field name="priority" eval="100" />
+        <field name="arch" type="xml">
+            <button name="action_view_mos" position="before">
+                <t groups="mrp_plm.group_plm_user">
+                    <button
+                        class="oe_stat_button"
+                        name="%(mrp_eco_parent_action_product_tmpl)d"
+                        type="action"
+                        icon="fa-wrench"
+                        groups="mrp_plm.group_plm_user"
+                    >
+                    <field
+                            string="Parent ECOs"
+                            name="eco_parent_count"
+                            widget="statinfo"
+                        />
+                </button>
+                </t>
+            </button>
+        </field>
+    </record>
+
+    <record id="replace_button_mrp_plm" model="ir.ui.view">
+        <field name="name">replace.button.mrp.plm</field>
+        <field name="model">mrp.eco.type</field>
+        <field name="inherit_id" ref="mrp_plm.mrp_eco_type_dashboard_view_kanban" />
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <xpath expr="//button[hasclass('btn-primary')]" position="replace">
+                <button
+                    class="btn btn-primary"
+                    name="get_plm_title_in_menu"
+                    type="object"
+                >
+                        <span><t
+                            t-esc="record.nb_ecos.value"
+                        /> Engineering Changes</span>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>
