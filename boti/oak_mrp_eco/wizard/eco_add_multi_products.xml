@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="eco_add_product_multi_view_form" model="ir.ui.view">
+        <field name="name">eco.add.multi.product.form</field>
+        <field name="model">eco.add.multi.product</field>
+        <field name="arch" type="xml">
+            <form string="Products">
+                    <label for="global_state" string="Product State  " />
+                    <field name="global_state" required="True" />
+                    <field name="product_ids" domain="[]" />
+                    <footer>
+                        <button
+                        name="add_products"
+                        type="object"
+                        string="Add"
+                        class="btn-primary"
+                    />
+                        <button
+                        string="Cancel"
+                        class="btn-secondary"
+                        special="cancel"
+                    />
+                    </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="eco_add_multi_product_action" model="ir.actions.act_window">
+        <field name="name">ECO Add Multi Products</field>
+        <field name="res_model">eco.add.multi.product</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

@@ -46,6 +46,7 @@
 | oak_maintenance                          | local                     | BOTI                      | Sage info for equipment                                                                                |
 | oak_mrp                                  | local                     | BOTI                      | Adds additional fields to production, workcenters, and work orders                                     |
 | oak_mrp_bom_report                       | local                     | BOTI                      | MRP add detail number + custom reports                                                                 |
+| oak_mrp_eco                              | local                     | BOTI                      | This module allows additional products on eco                                                          |
 | oak_partner                              | local                     | BOTI                      | Partner additional fields and tracking                                                                 |
 | oak_product                              | local                     | BOTI                      | Adds a Product App with links to product listing, adds additional product fields                       |
 | oak_permissions                          | local                     | BOTI                      | This module controls all custom permissions for boti                                                   |
