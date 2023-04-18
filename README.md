@@ -13,6 +13,10 @@ Odoo 16 repository
 /opt/odoo/.local/bin/gitaggregate -c repos.yml -p
 /opt/odoo/.local/bin/gitaggregate -c repos.yml -d ./oca/manufacture
 ```
+```
+export GITHUB_TOKEN="xxxx"
+/opt/odoo/.local/bin/gitaggregate -c repos.yml show-all-prs
+```
 
 ## Missing python lib requirements so far
 
