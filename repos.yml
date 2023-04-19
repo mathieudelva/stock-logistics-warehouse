@@ -47,6 +47,8 @@
     osi: git+ssh://git@github.com/ursais/account-payment.git
   merges:
     - oca 16.0
+    - oca refs/pull/564/head # [16.0][MIG] account_payment_batch_process
+    - oca refs/pull/566/head # [16.0][MIG] account_payment_term_discount
     - oca refs/pull/571/head # [16.0][MIG] account_payment_batch_process_discount
   target: *default_target
 

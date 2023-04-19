@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="customer_statements_form_view_inherit" model="ir.ui.view">
+        <field name="name">customer.statements.followup.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account_followup.customer_statements_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//form//sheet" position="after">
+               <field name="state" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

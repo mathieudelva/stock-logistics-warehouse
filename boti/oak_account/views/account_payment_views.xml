@@ -1,0 +1,19 @@
+<odoo>
+    <record id="view_account_payment_search_ext" model="ir.ui.view">
+        <field name="name">view.account.payment.search.ext</field>
+        <field name="model">account.payment</field>
+        <field
+            name="inherit_id"
+            ref="account_check_printing.view_payment_check_printing_search"
+        />
+        <field name="arch" type="xml">
+            <filter name="checks_to_send" position="after">
+                <filter
+                    string="Required for remittance slip"
+                    name="remittance_slip"
+                    domain="[('is_stubbed_crop', '=', True), ('state', '=', 'posted')]"
+                />
+            </filter>
+        </field>
+    </record>
+</odoo>

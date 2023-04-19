@@ -1,0 +1,386 @@
+<odoo>
+    <template id="account.report_invoice">
+        <t t-call="web.html_container">
+            <t t-as="doc" t-foreach="docs">
+                <t
+                    t-set="lang"
+                    t-value="doc.invoice_user_id.sudo().lang if doc.move_type in ('in_invoice', 'in_refund') else doc.partner_id.lang"
+                />
+                <t
+                    t-call="oak_account.report_invoice_document_bot"
+                    t-if="doc._get_name_invoice_report() == 'account.report_invoice_document'"
+                    t-lang="lang"
+                />
+            </t>
+        </t>
+    </template>
+    <template id="account.report_invoice_with_payments">
+        <t t-call="web.html_container">
+            <t t-as="doc" t-foreach="docs">
+                <t
+                    t-set="lang"
+                    t-value="doc.invoice_user_id.sudo().lang if doc.move_type in ('in_invoice', 'in_refund') else doc.partner_id.lang"
+                />
+                <t t-set="print_with_payments" t-value="True" />
+                <t
+                    t-call="oak_account.report_invoice_document_bot"
+                    t-if="doc._get_name_invoice_report() == 'account.report_invoice_document'"
+                    t-lang="lang"
+                />
+            </t>
+        </t>
+    </template>
+    <template id="report_invoice_document_bot">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <div class="oe_structure" />
+                <t t-set="inv_sale_id" />
+                <t t-as="s_date" t-foreach="cust_docs">
+                    <t t-if="s_date['inv_id'] == doc.id">
+                        <t t-set="inv_sale_id" t-value="s_date['sale_id']" />
+                    </t>
+                </t>
+                <table class="table borderless">
+                    <tr>
+                        <td
+                            style="border:none;text-align:center;vertical-align: middle;padding: 0px;margin: 0px;"
+                        >
+                            <strong style="font-size:20px;">Invoice
+                            </strong>
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="container" style="font-size:14px;">
+                    <div class="row col-12">
+                        <div class="col-4">
+                            <strong>Invoicing Address:</strong>
+                            <t t-if="doc.partner_id.name">
+                                <div t-field="doc.partner_id.name" />
+                            </t>
+                            <t t-if="not doc.partner_id.name">
+                                <div
+                                    t-field="doc.partner_id.commercial_partner_id.name"
+                                />
+                            </t>
+                            <div
+                                t-field="doc.partner_id"
+                                t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;], &quot;no_marker&quot;: True,}"
+                            />
+                        </div>
+                        <div class="col-3" />
+                        <div class="col-5">
+                            <strong>Delivery Address:</strong>
+                            <t t-if="doc.partner_shipping_id.name">
+                                <div t-field="doc.partner_shipping_id.name" />
+                            </t>
+                            <t t-if="not doc.partner_shipping_id.name">
+                                <div
+                                    t-field="doc.partner_shipping_id.commercial_partner_id.name"
+                                />
+                            </t>
+                            <div
+                                t-field="doc.partner_shipping_id"
+                                t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"
+                            />
+                            <br />
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table table-sm o_main_table">
+                    <thead style="display: table-row-group;font-size:14px;">
+                        <tr>
+                            <th
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >Number</th>
+                            <th
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >Date</th>
+                            <th
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >Payment Terms</th>
+                            <th
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >Incoterms</th>
+                            <th class="text-center">Ship Date</th>
+                        </tr>
+                    </thead>
+                    <tbody class="sale_tbody" style="font-size:14px;">
+                        <tr>
+                            <td
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >
+                                <span t-esc="doc.name or ''" />
+                            </td>
+                            <td
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >
+                                <span t-field="doc.invoice_date" />
+                            </td>
+                            <td
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >
+                                <span t-esc="doc.invoice_payment_term_id.name" />
+                            </td>
+                            <td
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >
+                                <span t-esc="doc.invoice_incoterm_id.name or ''" />
+                            </td>
+
+                            <td class="text-center">
+                                <t t-as="s_date" t-foreach="cust_docs">
+                                    <t t-if="s_date['inv_id'] == doc.id">
+                                        <t t-if="len(s_date['ship_date']) &gt;1">
+                                            <t
+                                                t-as="ship_date"
+                                                t-foreach="s_date['ship_date']"
+                                            >
+                                                <t
+                                                    t-esc="ship_date"
+                                                    t-options="{'widget': 'date'}"
+                                                />,&amp;nbsp;</t>
+                                        </t>
+                                        <t t-if="not len(s_date['ship_date']) &gt;1">
+                                            <t
+                                                t-esc="s_date['ship_date'][0]"
+                                                t-options="{'widget': 'date'}"
+                                            />
+                                        </t>
+                                    </t>
+                                </t>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <thead style="display: table-row-group;font-size:14px;">
+                        <tr>
+                            <th
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >Tracking Number</th>
+                            <th
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >Customer PO</th>
+                            <th
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >Shipping Terms</th>
+                            <th
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >Shipping Method</th>
+                            <th class="text-center">Order By</th>
+                        </tr>
+                    </thead>
+                    <tbody class="sale_tbody" style="font-size:14px;">
+                        <tr>
+                            <td
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >
+                                <t t-as="s_date" t-foreach="cust_docs">
+                                    <t t-if="s_date['inv_id'] == doc.id">
+                                        <t t-if="len(s_date['track_no']) &gt;1">
+                                            <t
+                                                t-as="track_no"
+                                                t-foreach="s_date['track_no']"
+                                            >
+                                                <t t-esc="track_no" />,&amp;nbsp;</t>
+                                        </t>
+                                        <t t-if="not len(s_date['track_no']) &gt;1">
+                                            <t t-esc="s_date['track_no'][0]" />
+                                        </t>
+                                    </t>
+                                </t>
+                            </td>
+                            <td
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >
+                                <span t-esc="inv_sale_id.client_order_ref or ''" />
+                            </td>
+                            <td
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >
+                                <!-- <span t-esc="inv_sale_id.picking_customer_note or ''"/> -->
+                            </td>
+                            <td
+                                class="text-center"
+                                style="border-right: 1px solid #dee2e6;"
+                            >
+                                <span t-esc="inv_sale_id.carrier_id.name or ''" />
+                            </td>
+                            <td class="text-center">
+                                <span
+                                    t-esc="inv_sale_id.sale_ordered_by_id.name or ''"
+                                />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table
+                    border="0"
+                    class="table table-borderless"
+                    style="font-size:14px;"
+                >
+                    <tr style="padding: 0px;margin: 0px;" width="100%">
+                        <td
+                            style="border:none;padding: 0px;margin: 0px;"
+                            width="41%"
+                        >Notes:&amp;nbsp;
+                            <span t-esc="doc.invoice_note or ''" />
+                        </td>
+                        <td
+                            style="border:none;text-align:right;padding: 0px;margin: 0px;"
+                            width="59%"
+                        >ATTN:&amp;nbsp;
+                            <t t-esc="inv_sale_id.sale_attention_to_note or ''" />
+                        </td>
+                    </tr>
+                </table>
+                <table class="table table-sm o_main_table" style="font-size:14px;">
+                    <thead style="display: table-row-group">
+                        <tr>
+                            <th class="text-left" name="th_itemno">Item Number</th>
+                            <th class="text-left" name="th_description">Description</th>
+                            <th class="text-right" name="th_quantity">Quantity</th>
+                            <th class="text-right" name="th_priceunit">Unit Price</th>
+                            <th class="text-right" name="th_subtotal">
+                                <span
+                                    groups="account.group_show_line_subtotals_tax_excluded"
+                                >Amount</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="sale_tbody">
+                        <t t-set="current_subtotal" t-value="0" />
+                        <t t-as="line" t-foreach="doc.invoice_line_ids">
+                            <t
+                                groups="account.group_show_line_subtotals_tax_excluded"
+                                t-set="current_subtotal"
+                                t-value="current_subtotal + line.price_subtotal"
+                            />
+                            <t
+                                groups="account.group_show_line_subtotals_tax_included"
+                                t-set="current_subtotal"
+                                t-value="current_subtotal + line.price_total"
+                            />
+                            <tr
+                                t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''"
+                            >
+                                <t t-if="line.display_type in ['product']">
+                                    <td name="td_itemno">
+                                        <span t-field="line.product_id.default_code" />
+                                    </td>
+                                    <td name="td_name">
+                                        <span t-field="line.name" />
+                                    </td>
+                                    <td class="text-right" name="td_quantity">
+                                        <span t-field="line.quantity" />
+                                        <span t-field="line.product_uom_id.name" />
+                                    </td>
+                                    <td class="text-right" name="td_priceunit">
+                                        <span t-field="line.price_unit" />
+                                    </td>
+                                    <td
+                                        class="text-right o_price_total"
+                                        name="td_subtotal"
+                                    >
+                                        <span
+                                            groups="account.group_show_line_subtotals_tax_excluded"
+                                            t-field="line.price_subtotal"
+                                        />
+                                        <span
+                                            groups="account.group_show_line_subtotals_tax_included"
+                                            t-field="line.price_total"
+                                        />
+                                    </td>
+                                </t>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+                <br />
+                <div class="clearfix" name="so_total_summary" style="font-size:14px;">
+                    <div class="row" id="total" name="total">
+                        <div
+                            t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto"
+                        >
+                            <table class="table table-sm">
+                                <tr class="border-black o_subtotal" style="">
+                                    <td name="td_amount_untaxed_label">
+                                        <strong>Subtotal</strong>
+                                    </td>
+                                    <td class="text-right" name="td_amount_untaxed">
+                                        <span t-field="doc.amount_untaxed" />
+                                    </td>
+                                </tr>
+                                <tr class="border-black o_total">
+                                    <td name="td_amount_total_label">
+                                        <strong>Total</strong>
+                                    </td>
+                                    <td class="text-right" name="td_amount_total">
+                                        <span t-field="doc.amount_total" />
+                                    </td>
+                                </tr>
+                                <t t-if="print_with_payments">
+                                    <t t-if="doc.payment_state != 'invoicing_legacy'">
+                                        <t
+                                            t-set="payments_vals"
+                                            t-value="doc.invoice_payments_widget and doc.invoice_payments_widget['content']"
+                                        />
+                                        <t t-foreach="payments_vals" t-as="line">
+                                            <tr>
+                                                <td>
+                                                    <i
+                                                        class="oe_form_field text-right oe_payment_label"
+                                                    >Paid on <t
+                                                            t-esc="line['date']"
+                                                            t-options="{'widget':'date'}"
+                                                        /></i>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span
+                                                        t-esc="line['amount']"
+                                                        t-options="{'widget':'monetary','display_currency': doc.currency_id}"
+                                                    />
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="len(payments_vals) &gt;0">
+                                            <tr class="border-black">
+                                                <td>
+                                                    <strong>Amount Due</strong>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span
+                                                        t-field="doc.amount_residual"
+                                                    />
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </t>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <p t-if="doc.narration" name="comment">
+                    <span t-field="doc.narration" />
+                </p>
+            </div>
+        </t>
+    </template>
+</odoo>
