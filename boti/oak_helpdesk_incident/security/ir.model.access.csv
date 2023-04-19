@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_helpdesk_incident_cause,helpdesk.incident.cause,model_helpdesk_incident_cause,helpdesk.group_helpdesk_user,1,0,0,0
+access_helpdesk_incident_cause_admin,helpdesk.incident.cause.admin,model_helpdesk_incident_cause,helpdesk.group_helpdesk_manager,1,1,1,1
+access_helpdesk_incident_source,helpdesk.incident.source,model_helpdesk_incident_source,helpdesk.group_helpdesk_user,1,0,0,0
+access_helpdesk_incident_source_admin,helpdesk.incident.source.admin,model_helpdesk_incident_source,helpdesk.group_helpdesk_manager,1,1,1,1
+access_helpdesk_case_items,helpdesk.case.items,model_helpdesk_case_items,helpdesk.group_helpdesk_user,1,1,1,0
+access_helpdesk_case_items_admin,helpdesk.case.items.admin,model_helpdesk_case_items,helpdesk.group_helpdesk_manager,1,1,1,1
+access_helpdesk_return_reasons,helpdesk.return.reasons,model_helpdesk_return_reasons,helpdesk.group_helpdesk_user,1,0,0,0
+access_helpdesk_return_reasons_admin,helpdesk.return.reasons.admin,model_helpdesk_return_reasons,helpdesk.group_helpdesk_manager,1,1,1,1

@@ -38,7 +38,9 @@
 | oak_api                                  | oak                       | BOTI      | Adds API endpoints for the oak app                                                                     |
 | oak_boti_ui                              | oak                       | BOTI      | UI Alterations for BOTI                                                                                |
 | oak_crm                                  | oak                       | BOTI      | CRM lead field additions                                                                               |
+| oak_helpdesk                             | oak                       | BOTI      | This module modifies the helpdesk tree view, adds additional fields & communication functionality      |
 | oak_helpdesk_eco                         | oak                       | BOTI      | Adds create eco from helpdesk ticket, links tickets to plm/eco records                                 |
+| oak_helpdesk_incident                    | oak                       | BOTI      | This module adds information about Customer Incidents including Warranty to helpdesk tickets           |
 | oak_helpdesk_project                     | oak                       | BOTI      | Adds create project from helpdesk ticket, links tickets to project records                             |
 | oak_helpdesk_sales_order                 | oak                       | BOTI      | Adds create Sales Order from helpdesk ticket, links tickets to sales order records                     |
 | oak_helpdesk_task                        | oak                       | BOTI      | Adds create task from helpdesk ticket, links tickets to task records                                   |

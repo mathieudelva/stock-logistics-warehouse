@@ -1,0 +1,23 @@
+{
+    "name": "OAK Helpdesk Incident Tracking",
+    "version": "16.0.1.0.1",
+    "category": "Burr Oak",
+    "author": "Burr Oak Tool, Open Source Integrators",
+    "website": "https://www.burroak.com",
+    "license": "AGPL-3",
+    "summary": "Helpdesk can track incidents for warranty",
+    "maintainers": ["Burr Oak Tool"],
+    "depends": ["oak_helpdesk", "oak_legacy"],
+    "data": [
+        "security/ir.model.access.csv",
+        "views/helpdesk_incident_cause.xml",
+        "views/helpdesk_incident_source.xml",
+        "views/helpdesk.xml",
+        "views/helpdesk_return_reasons.xml",
+        "report/rga_report.xml",
+    ],
+    "demo": [],
+    "qweb": [],
+    "installable": True,
+    "auto_install": False,
+}

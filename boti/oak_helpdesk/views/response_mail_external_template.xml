@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+
+        <record id="email_ticket_response_custom_external" model="mail.template">
+           <field
+            name="name"
+        >Support Ticket Overview to Customer - Send by Email</field>
+           <field name="email_from">no_reply@burroak.com</field>
+           <field name="subject">Your ticket - ${object.name} has been resolved</field>
+           <field name="model_id" ref="helpdesk.model_helpdesk_ticket" />
+           <field name="auto_delete" eval="True" />
+            <field
+            name="body_html"
+        ><![CDATA[
+
+<p>Hello,
+
+% set access_action = object.get_access_action()
+% set access_url = access_action['type'] == 'ir.actions.act_url' and access_action['url']
+% set is_online = access_action and access_action['type'] == 'ir.actions.act_url'
+
+</p><p>Your ticket #${object.id} -&nbsp;${object.name} has been resolved!</p><p><br></p><p>Attached to this email is a overview of your ticket! </p><p><br></p><p>Please do not reply to this message.</p><p><br></p><table style="min-width:590px;background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;" width="590" cellspacing="0" cellpadding="0" border="0">
+                <tbody><tr><td valign="middle" align="left">
+                    ${object.company_id.name}
+                </td></tr>
+                <tr><td style="opacity:0.7;" valign="middle" align="left">
+                    ${object.company_id.phone}
+                    % if object.company_id.email
+                        | <a href="'mailto:%s' % ${object.company_id.email}" style="color: #454748;">${object.company_id.email}</a>
+                    % endif
+                    % if object.company_id.website
+                        | <a href="'%s' % ${object.company_id.website}" style="color: #454748;">
+                        ${object.company_id.website}
+                    </a>
+                    % endif
+                </td></tr>
+            </tbody></table>
+
+            ]]></field>
+            <field name="report_template" ref="action_external_ticket_report" />
+            <field name="report_name">Ticket Overview</field>
+        </record>
+</odoo>

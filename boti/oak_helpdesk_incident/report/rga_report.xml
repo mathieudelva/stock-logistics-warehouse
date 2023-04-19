@@ -1,0 +1,1217 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+
+  <record id="action_report_rga" model="ir.actions.report">
+      <field name="name">RGA</field>
+      <field name="model">helpdesk.ticket</field>
+      <field name="report_type">qweb-pdf</field>
+      <field name="report_name">oak_helpdesk_incident.report_rga</field>
+      <field name="report_file">oak_helpdesk_incident.report_rga</field>
+      <field name="print_report_name">'RGA'</field>
+      <field name="binding_model_id" ref="model_helpdesk_ticket" />
+      <field name="binding_type">report</field>
+  </record>
+
+  <template id="report_rga">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="doc">
+        <t t-call="oak_helpdesk_incident.report_rga_document" />
+      </t>
+    </t>
+  </template>
+
+  <template id="report_rga_document">
+      <t t-call="web.external_layout">
+        <div class="page" />
+    </t>
+  </template>
+
+  <template
+        id="report_rga_document_data"
+        inherit_id="oak_helpdesk_incident.report_rga_document"
+    >
+     <data>
+      <xpath expr="/t/t/div" position="inside">
+        <div class="row">
+          <div class="col h2">
+            <span>New Title</span>
+          </div>
+        </div>
+      </xpath>
+      <xpath expr="/t/t/div/div/div" position="attributes">
+        <attribute name="class" separator=" " add="text-center" />
+      </xpath>
+      <xpath expr="/t/t/div/div/div" position="attributes">
+        <attribute name="class" separator=" " add="bg-white-50" />
+      </xpath>
+      <xpath expr="/t/t/div/div/div" position="attributes">
+        <attribute name="class" separator=" " add="bg-400" remove="bg-white-50" />
+      </xpath>
+      <xpath expr="/t/t/div/div/div/span" position="replace">
+        <span>Return Goods Authorization (RGA) Form<br /></span>
+      </xpath>
+      <xpath expr="/t/t/div/div/div" position="attributes">
+        <attribute
+                    name="class"
+                    separator=" "
+                    add="text-o-color-4"
+                    remove="text-center"
+                />
+      </xpath>
+      <xpath expr="/t/t/div/div/div" position="attributes">
+        <attribute
+                    name="class"
+                    separator=" "
+                    add="text-white"
+                    remove="text-o-color-4"
+                />
+      </xpath>
+      <xpath expr="/t/t/div/div/div" position="attributes">
+        <attribute name="class" separator=" " add="text-center" />
+      </xpath>
+      <xpath expr="/t/t/div/div" position="before">
+        <div class="row">
+          <div class="col-6">
+            <span>New Column</span>
+          </div>
+          <div class="col-6">
+            <span>New Column</span>
+          </div>
+        </div>
+      </xpath>
+      <xpath expr="/t/t/div/div[1]/div[1]" position="attributes">
+        <attribute name="style" separator=";" add="margin-bottom:20px" />
+      </xpath>
+      <xpath expr="/t/t/div/div[1]/div[1]/span" position="replace">
+        <span>Case #: <br /></span>
+      </xpath>
+      <xpath expr="/t/t/div/div[1]/div[1]/span/br" position="before">
+        <span t-field="doc.id" />
+      </xpath>
+      <xpath expr="/t/t/div/div[1]/div[2]/span" position="replace">
+        <span>Print Date: <br /></span>
+      </xpath>
+      <xpath expr="/t/t/div/div[2]/div" position="attributes">
+        <attribute name="class" separator=" " add="bg-600" remove="bg-400" />
+      </xpath>
+      <xpath expr="/t/t/div/div[2]/div" position="attributes">
+        <attribute name="style" separator=";" add="background-color:#105A75" />
+      </xpath>
+      <xpath expr="/t/t/div/div[2]/div" position="attributes">
+        <attribute name="class" separator=" " add="bg-400" remove="bg-600" />
+      </xpath>
+      <xpath expr="/t/t/div/div[2]/div" position="attributes">
+        <attribute name="class" separator=" " add="bg-white-50" remove="bg-400" />
+      </xpath>
+      <xpath expr="/t/t/div/div[2]/div" position="attributes">
+        <attribute name="class" separator=" " add="bg-400" remove="bg-white-50" />
+      </xpath>
+      <xpath expr="/t/t/div/div[2]" position="after">
+        <div class="row">
+          <div class="col">
+            <span
+                            t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"
+                        />
+          </div>
+        </div>
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/div[3]/div[1]" position="replace" />
+      <xpath expr="/t/t/div/div[3]" position="after">
+        <div class="row">
+          <div class="col-6">
+            <span>New Column</span>
+          </div>
+          <div class="col-6">
+            <span>New Column</span>
+          </div>
+        </div>
+      </xpath>
+      <xpath expr="/t/t/div/div[3]" position="after">
+        <div class="row">
+          <div class="col">
+            <span>New Text Block</span>
+          </div>
+        </div>
+      </xpath>
+      <xpath expr="/t/t/div/div[4]/div/span" position="replace">
+        <span>Please return form and parts to:<br /></span>
+      </xpath>
+      <xpath expr="/t/t/div/div[4]/div/span" position="attributes">
+        <attribute name="style" separator=";" add="margin-bottom:30px" />
+      </xpath>
+      <xpath expr="/t/t/div/div[4]/div" position="attributes">
+        <attribute name="style" separator=";" add="margin-bottom:30px" />
+      </xpath>
+      <xpath expr="/t/t/div/div[5]/div[1]/span" position="replace">
+        <span>
+          <p>Burr Oak Tool Inc.<br />Attn: Warranty Specialist</p>
+          <p>239 E. Bogen Rd</p>
+          <p>Sturgis, MI 49091<br /></p>
+        </span>
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/div[5]/div[1]" position="replace" />
+      <xpath expr="/t[1]/t[1]/div[1]/div[5]/div[1]" position="replace" />
+      <xpath expr="/t/t/div/div[5]" position="after">
+        <div class="row">
+          <div class="col-6">
+            <span>New Column</span>
+          </div>
+          <div class="col-6">
+            <span>New Column</span>
+          </div>
+        </div>
+      </xpath>
+      <xpath expr="/t/t/div/div[6]/div[1]/span" position="replace">
+        <span>
+          <p>New Col<br /></p>
+        </span>
+      </xpath>
+      <xpath expr="/t/t/div/div[6]/div[1]/span/p/br" position="after">
+        <span>New Text Block</span>
+      </xpath>
+      <xpath expr="/t/t/div/div[6]/div[1]/span/p" position="after">
+        <span>New Text Block</span>
+      </xpath>
+      <xpath
+                expr="/t[1]/t[1]/div[1]/div[6]/div[1]/span[1]/span[1]"
+                position="replace"
+            />
+      <xpath
+                expr="/t[1]/t[1]/div[1]/div[6]/div[1]/span[1]/p[1]/span[1]"
+                position="replace"
+            />
+      <xpath expr="/t/t/div/div[6]/div[1]/span/p" position="replace">
+        <p>New Col<br /></p>
+      </xpath>
+      <xpath expr="/t/t/div/div[6]/div[1]/span/p" position="replace">
+        <p>New Col &lt;br&gt; Hello<br /></p>
+      </xpath>
+      <xpath expr="/t/t/div/div[6]/div[1]/span/p" position="replace">
+        <p>New Col &lt;br&gt; Hello<br /></p>
+      </xpath>
+      <xpath expr="/t/t/div/div[6]/div[1]/span/p" position="replace">
+        <p
+                >Burr Oak Tool Inc. &lt;br&gt; Attn: Warranty Specialist &lt;br&gt; 239 E. Bogen Rd &lt;br&gt; Sturgis, MI 49091<br
+                    /></p>
+      </xpath>
+      <xpath expr="/t/t/div/div[6]/div[2]/span" position="replace">
+        <span>Phone: (269<br /></span>
+      </xpath>
+      <xpath expr="/t/t/div/div[6]/div[2]/span" position="replace">
+        <span>Phone: (269) 6<br /></span>
+      </xpath>
+      <xpath expr="/t/t/div/div[6]/div[2]/span" position="replace">
+        <span
+                >Phone: (269) 651-9393 &lt;br&gt; Fax: (269) 651-4324 &lt;br&gt; Email: oakparts@burroak.com<br
+                    /></span>
+      </xpath>
+      <xpath expr="/t/t/div/div[6]" position="after">
+        <div class="row">
+          <div class="col h2">
+            <span>New Title</span>
+          </div>
+        </div>
+      </xpath>
+      <xpath expr="/t/t/div/div[7]/div/span" position="replace">
+        <span>Items to be returned:<br /></span>
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/div[7]/div[1]" position="attributes">
+        <attribute name="class">col h3</attribute>
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/div[7]/div[1]" position="attributes">
+        <attribute name="class">col h5</attribute>
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/div[7]/div[1]" position="attributes">
+        <attribute name="class">col h4</attribute>
+      </xpath>
+      <xpath expr="/t/t/div/div[7]" position="after">
+        <table class="table o_report_block_table">
+          <thead>
+            <tr>
+              <th>
+                <span>Name</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr t-foreach="doc.case_item_ids" t-as="table_line">
+              <td>
+                <span t-field="table_line.display_name" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </xpath>
+      <xpath expr="/t/t/div/table/thead/tr/th" position="before">
+        <th>
+          <span>Return Orders Count</span>
+        </th>
+      </xpath>
+      <xpath expr="/t/t/div/table/thead/tr/th[1]" position="after">
+        <th>
+          <span>ID</span>
+        </th>
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/table[1]" position="replace" />
+      <xpath expr="/t/t/div/div[7]" position="after">
+        <table class="table o_report_block_table">
+          <thead>
+            <tr>
+              <th>
+                <span>Name</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr t-foreach="doc.case_item_ids" t-as="table_line">
+              <td>
+                <span t-field="table_line.display_name" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </xpath>
+      <xpath expr="/t/t/div/table/thead/tr/th" position="before">
+        <th>
+          <span>Code</span>
+        </th>
+      </xpath>
+      <xpath expr="/t/t/div/table/tbody/tr/td" position="before">
+        <td>
+          <span t-field="table_line.ref_default_code" />
+        </td>
+      </xpath>
+      <xpath expr="/t/t/div/table/thead/tr/th[1]" position="before">
+        <th>
+          <span>Quantity</span>
+        </th>
+      </xpath>
+      <xpath expr="/t/t/div/table/tbody/tr/td[1]" position="before">
+        <td>
+          <span t-field="table_line.quantity" />
+        </td>
+      </xpath>
+      <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/tbody[1]/tr[1]/td[3]"
+                position="replace"
+            />
+      <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/thead[1]/tr[1]/th[3]"
+                position="replace"
+            />
+      <xpath expr="/t/t/div/table/thead/tr/th[2]" position="after">
+        <th>
+          <span>Item Description</span>
+        </th>
+      </xpath>
+      <xpath expr="/t/t/div/table/tbody/tr/td[2]" position="after">
+        <td>
+          <span t-field="table_line.description" />
+        </td>
+      </xpath>
+      <xpath expr="/t/t/div/table/thead/tr" position="attributes">
+        <attribute name="class" separator=" " add="bg-200" />
+      </xpath>
+      <xpath expr="/t/t/div/table/thead/tr" position="attributes">
+        <attribute name="class" separator=" " add="text-white" />
+      </xpath>
+      <xpath expr="/t/t/div/table/thead/tr" position="attributes">
+        <attribute name="class" separator=" " add="bg-400" remove="bg-200" />
+      </xpath>
+      <xpath expr="/t/t/div/div[2]/div" position="attributes">
+        <attribute name="class" separator=" " add="bg-400" remove="bg-400" />
+      </xpath>
+      <xpath expr="/t/t/div/table/thead/tr" position="attributes">
+        <attribute name="class" separator=" " add="o_bold" />
+      </xpath>
+      <xpath expr="/t/t/div/table/thead/tr" position="attributes">
+        <attribute name="class" separator=" " remove="o_bold" />
+      </xpath>
+      <xpath expr="/t/t/div/table/thead/tr" position="attributes">
+        <attribute name="class" separator=" " add="text-center" />
+      </xpath>
+      <xpath expr="/t/t/div/table/tbody/tr" position="attributes">
+        <attribute name="class" separator=" " add="text-center" />
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/table[1]/thead[1]/tr[1]" position="attributes">
+        <attribute
+                    name="class"
+                >text-white bg-400 text-center bordercolor="black"</attribute>
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/table[1]/thead[1]/tr[1]" position="attributes">
+        <attribute name="class">text-white bg-400 text-center</attribute>
+      </xpath>
+      <xpath expr="/t/t/div/table/thead/tr/th[2]/span" position="replace">
+        <span>Item Number<br /></span>
+      </xpath>
+      <xpath expr="/t/t/div/table/thead/tr" position="attributes">
+        <attribute name="class" separator=" " add="bg-600" remove="bg-400" />
+      </xpath>
+      <xpath expr="/t/t/div/div[2]/div" position="attributes">
+        <attribute name="class" separator=" " add="bg-600" remove="bg-400" />
+      </xpath>
+      <xpath expr="/t/t/div/table" position="after">
+        <div class="row">
+          <div class="col h2">
+            <span>New Title</span>
+          </div>
+        </div>
+      </xpath>
+      <xpath expr="/t/t/div/div[8]/div/span" position="replace">
+        <span>Reasons for return:<br /></span>
+      </xpath>
+      <xpath expr="/t/t/div/div[8]/div" position="attributes">
+        <attribute name="class" separator=" " add="text-center" />
+      </xpath>
+      <xpath expr="/t/t/div/div[8]/div" position="attributes">
+        <attribute name="class" separator=" " add="bg-600" />
+      </xpath>
+      <xpath expr="/t/t/div/div[8]/div" position="attributes">
+        <attribute name="class" separator=" " add="text-left" remove="text-center" />
+      </xpath>
+      <xpath expr="/t/t/div/div[8]/div" position="attributes">
+        <attribute name="class" separator=" " add="h4" remove="h2" />
+      </xpath>
+      <xpath expr="/t/t/div/div[8]" position="after">
+        <div class="row">
+          <div class="col">
+            <span t-field="doc.name" />
+          </div>
+        </div>
+      </xpath>
+      <xpath expr="/t/t/div/div[9]" position="after">
+        <table class="table o_report_block_table">
+          <thead>
+            <tr>
+              <th>
+                <span>Name</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr t-foreach="doc.case_item_ids" t-as="table_line">
+              <td>
+                <span t-field="table_line.display_name" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </xpath>
+      <xpath expr="/t/t/div/div[9]/div" position="attributes">
+        <attribute name="style" separator=";" add="margin-bottom:50px" />
+      </xpath>
+      <xpath expr="/t/t/div/div[9]/div" position="attributes">
+        <attribute name="class" separator=" " add="text-center" />
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/div[9]/div[1]" position="attributes">
+        <attribute name="class">col text-center border</attribute>
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/div[9]/div[1]" position="attributes">
+        <attribute name="class">col text-center border-19</attribute>
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/div[9]/div[1]" position="attributes">
+        <attribute name="class">col text-center border</attribute>
+      </xpath>
+      <xpath expr="/t/t/div/table[2]" position="attributes">
+        <attribute name="class" separator=" " add="table-bordered" />
+      </xpath>
+      <xpath
+                expr="/t[1]/t[1]/div[1]/table[2]/tbody[1]/tr[1]/td[1]/span[1]"
+                position="attributes"
+            >
+        <attribute name="t-field" />
+      </xpath>
+      <xpath expr="/t/t/div/table[2]/thead/tr/th" position="replace">
+        <th>
+          <span>Return Terms &amp; Conditions<br /></span>
+        </th>
+      </xpath>
+      <xpath expr="/t/t/div/div[9]/div" position="attributes">
+        <attribute name="style" separator=";" add="margin-top:50px" />
+      </xpath>
+      <xpath expr="/t/t/div/table[2]" position="attributes">
+        <attribute name="class" separator=" " add="text-center" />
+      </xpath>
+      <xpath expr="/t/t/div/table[2]/thead/tr" position="attributes">
+        <attribute name="class" separator=" " add="bg-600" />
+      </xpath>
+      <xpath expr="/t/t/div/table[2]/tbody/tr/td" position="replace">
+        <td
+                >1. Authorization for returns is signified with a Return Goods Authorization (RGA) form &lt;br&gt; 2. Items must be returned within 30 days of authorization &lt;br&gt; 3. Restocking fees may be charged &lt;br&gt; 4. Products shipped back to Burr Oak Tool must be clearly marked with the BOT assigned case number and a copy of this RGA &lt;br&gt; 5. Returns must be sent via prepaid transportation &lt;br&gt; 6. International customers please note on your commercial invoice "U.S. Goods Being Returned"<br
+                    /></td>
+      </xpath>
+      <xpath expr="/t/t/div/table[2]/tbody/tr/td" position="attributes">
+        <attribute name="class" separator=" " add="text-left" />
+      </xpath>
+      <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/tbody[1]/tr[1]/td[1]"
+                position="attributes"
+            >
+        <attribute name="class">bordered</attribute>
+      </xpath>
+      <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/tbody[1]/tr[1]/td[1]"
+                position="attributes"
+            >
+        <attribute name="class">border</attribute>
+      </xpath>
+      <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/tbody[1]/tr[1]/td[2]"
+                position="attributes"
+            >
+        <attribute name="class">border</attribute>
+      </xpath>
+      <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/tbody[1]/tr[1]/td[3]"
+                position="attributes"
+            >
+        <attribute name="class">border</attribute>
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/div[9]/div[1]" position="attributes">
+        <attribute name="class">col text-center border border-width:5px</attribute>
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/div[9]/div[1]" position="attributes">
+        <attribute name="class">col text-center border border-width:40px</attribute>
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/div[9]/div[1]" position="attributes">
+        <attribute name="class">col text-center border</attribute>
+      </xpath>
+      <xpath expr="/t/t/div/table[1]" position="after">
+        <div class="row">
+          <div class="col-6">
+            <span>New Column</span>
+          </div>
+          <div class="col-6">
+            <span>New Column</span>
+          </div>
+        </div>
+      </xpath>
+      <xpath expr="/t/t/div/div[8]" position="after">
+        <div class="row address">
+          <div class="col-5">
+            <div t-field="doc.partner_id" t-options-widget="'contact'" />
+          </div>
+          <div class="col-5 offset-2" />
+        </div>
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/div[9]/div[1]" position="replace" />
+      <xpath expr="/t[1]/t[1]/div[1]/div[8]/div[1]" position="replace" />
+      <xpath expr="/t[1]/t[1]/div[1]/div[8]" position="replace" />
+      <xpath expr="/t/t/div/div[8]" position="after">
+        <table class="table o_report_block_table">
+          <thead>
+            <tr>
+              <th>
+                <span>Name</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr t-foreach="doc.partner_id.child_ids" t-as="table_line">
+              <td>
+                <span t-field="table_line.display_name" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/table[2]" position="replace" />
+      <xpath expr="/t/t/div/table[1]" position="after">
+        <div class="row address">
+          <div class="col-5">
+            <div t-field="doc.partner_id" t-options-widget="'contact'" />
+          </div>
+          <div class="col-5 offset-2" />
+        </div>
+      </xpath>
+      <xpath expr="/t/t/div/div[8]/div[2]" position="inside">
+        <span t-field="doc.sale_line_id.id" />
+      </xpath>
+      <xpath expr="/t/t/div/div[8]/div[1]/div" position="attributes">
+        <attribute name="style" separator=";" add="margin-bottom:10px" />
+      </xpath>
+      <xpath expr="/t/t/div/div[11]/div" position="attributes">
+        <attribute
+                    name="style"
+                    separator=";"
+                    add="margin-bottom:20px"
+                    remove="margin-bottom:50px"
+                />
+      </xpath>
+      <xpath expr="/t/t/div/div[11]/div" position="attributes">
+        <attribute
+                    name="style"
+                    separator=";"
+                    add="margin-top:20px"
+                    remove="margin-top:50px"
+                />
+      </xpath>
+      <xpath expr="/t/t/div/table[1]" position="after">
+        <div class="row">
+          <div class="col-6">
+            <span>New Column</span>
+          </div>
+          <div class="col-6">
+            <span>New Column</span>
+          </div>
+        </div>
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/div[9]/div[1]" position="replace" />
+      <xpath expr="/t/t/div/div[9]" position="after">
+        <div class="row address">
+          <div class="col-5">
+            <div t-field="doc.partner_id" t-options-widget="'contact'" />
+          </div>
+          <div class="col-5 offset-2" />
+        </div>
+      </xpath>
+      <xpath expr="/t/t/div/div[10]/div[1]/div" position="attributes">
+        <attribute name="style" separator=";" add="margin-bottom:10px" />
+      </xpath>
+      <xpath expr="/t/t/div/div[8]/div[1]/span" position="replace">
+        <span>
+          <b>Customer Info</b>
+          <br />
+        </span>
+      </xpath>
+      <xpath expr="/t/t/div/div[8]/div[2]/span" position="replace">
+        <span>
+          <b>Sales Order Info</b>
+          <br />
+        </span>
+      </xpath>
+      <xpath expr="/t/t/div/div[8]/div[2]/span/br" position="after">
+        <span>New Text Block</span>
+      </xpath>
+      <xpath expr="/t/t/div/div[8]/div[2]/span/span" position="after">
+        <span t-field="doc.ref_saleorder_legacy" />
+      </xpath>
+      <xpath expr="/t/t/div/div[8]/div[2]/span/span[1]" position="replace">
+        <span>SOP: <br /></span>
+      </xpath>
+      <xpath
+                expr="/t[1]/t[1]/div[1]/div[8]/div[2]/span[1]/span[1]"
+                position="replace"
+            />
+      <xpath
+                expr="/t[1]/t[1]/div[1]/div[8]/div[2]/span[1]/span[1]"
+                position="replace"
+            />
+      <xpath expr="/t/t/div/div[10]/div[2]" position="inside">
+        <span>New Text Block</span>
+      </xpath>
+      <xpath expr="/t/t/div/div[10]/div[2]" position="attributes">
+        <attribute name="class" separator=" " add="text-left" />
+      </xpath>
+      <xpath expr="/t/t/div/div[10]/div[2]" position="attributes">
+        <attribute name="class" separator=" " add="offset-0" remove="offset-2" />
+      </xpath>
+      <xpath expr="/t/t/div/div[10]/div[2]" position="attributes">
+        <attribute name="class" separator=" " add="offset-1" remove="offset-2" />
+      </xpath>
+      <xpath expr="/t/t/div/div[10]/div[2]/span" position="replace">
+        <span>SOP: <br /></span>
+      </xpath>
+      <xpath expr="/t/t/div/div[10]/div[2]/span/br" position="before">
+        <span t-field="doc.ref_saleorder_legacy" />
+      </xpath>
+      <xpath expr="/t/t/div/div[10]/div[2]/span/span" position="after">
+        <span t-field="doc.sale_line_id.id" />
+      </xpath>
+      <xpath expr="/t/t/div/div[6]/div[1]/span/p" position="attributes">
+        <attribute name="style" separator=";" add="margin-bottom:10px" />
+      </xpath>
+      <xpath expr="/t/t/div/div[10]/div[2]/span/span[1]" position="after">
+        <span t-field="doc.sale_line_id.display_name" />
+      </xpath>
+      <xpath expr="/t/t/div/div[10]/div[2]/span/span[1]" position="after">
+        <span t-field="doc.ref_saleorder.display_name" />
+      </xpath>
+      <xpath
+                expr="/t[1]/t[1]/div[1]/div[10]/div[2]/span[1]/span[1]"
+                position="attributes"
+            >
+        <attribute name="t-if">doc.ref_saleorder is False</attribute>
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/table[2]/tbody[1]/tr[1]" position="attributes">
+        <attribute name="t-foreach">doc.id</attribute>
+      </xpath>
+      <xpath expr="/t/t/div/table[2]/tbody/tr/td" position="replace">
+        <td
+                    class="text-left"
+                >1. Authorization for returns is signified with a Return Goods Authorization (RGA) form &lt;br&gt; 2. Items must be returned within 30 days of authorization &lt;br&gt; 3. Restocking fees may be charged &lt;br&gt; 4. Products shipped back to Burr Oak Tool must be clearly marked with the BOT assigned case number and a copy of this RGA &lt;br&gt; 5. Returns must be sent via prepaid transportation &lt;br&gt; 6. International customers please note on your commercial invoice "U.S. Goods Being Returned"<br
+                    /></td>
+      </xpath>
+      <xpath
+                expr="/t[1]/t[1]/div[1]/table[2]/tbody[1]/tr[1]/td[1]"
+                position="replace"
+            />
+      <xpath expr="/t[1]/t[1]/div[1]/table[2]" position="replace" />
+      <xpath expr="/t/t/div/div[13]" position="after">
+        <div class="row">
+          <div class="col h2">
+            <span>New Title</span>
+          </div>
+        </div>
+      </xpath>
+      <xpath expr="/t/t/div/div[14]" position="after">
+        <div class="row">
+          <div class="col">
+            <span>New Text Block</span>
+          </div>
+        </div>
+      </xpath>
+      <xpath expr="/t/t/div/div[14]/div" position="attributes">
+        <attribute name="class" separator=" " add="bg-600" />
+      </xpath>
+      <xpath expr="/t/t/div/div[14]/div" position="attributes">
+        <attribute name="class" separator=" " add="h4" remove="h2" />
+      </xpath>
+      <xpath expr="/t/t/div/div[14]/div/span" position="replace">
+        <span>Return Terms &amp; Conditions<br /></span>
+      </xpath>
+      <xpath expr="/t/t/div/div[14]/div" position="attributes">
+        <attribute name="class" separator=" " add="text-center" />
+      </xpath>
+      <xpath expr="/t/t/div/div[15]/div/span" position="replace">
+        <span
+                >1. Authorization for returns is signified with a Return Goods Authorization (RGA) form &lt;br&gt; 2. Items must be returned within 30 days of authorization &lt;br&gt; 3. Restocking fees may be charged &lt;br&gt; 4. Products shipped back to Burr Oak Tool must be clearly marked with the BOT assigned case number and a copy of this RGA &lt;br&gt; 5. Returns must be sent via prepaid transportation &lt;br&gt; 6. International customers please note on your commercial invoice "U.S. Goods Being Returned"</span>
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/div[15]/div[1]" position="attributes">
+        <attribute name="class">col border</attribute>
+      </xpath>
+      <xpath expr="/t/t/div/div[15]/div" position="attributes">
+        <attribute name="style" separator=";" add="margin-top:-5px" />
+      </xpath>
+      <xpath expr="/t/t/div/div[15]/div" position="attributes">
+        <attribute name="style" separator=";" add="margin-top:-10px" />
+      </xpath>
+      <xpath expr="/t/t/div/div[15]/div" position="attributes">
+        <attribute name="style" separator=";" add="margin-top:-8px" />
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/table[1]/tbody[1]/tr[1]" position="attributes">
+        <attribute name="t-if">table_line.to_be_returned is True</attribute>
+      </xpath>
+      <xpath expr="/t/t/div/div[4]" position="attributes">
+        <attribute name="style" separator=";" add="margin-bottom:-10px" />
+      </xpath>
+      <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/tbody[1]/tr[1]/td[1]"
+                position="attributes"
+            >
+        <attribute name="class" />
+      </xpath>
+      <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/tbody[1]/tr[1]/td[2]"
+                position="attributes"
+            >
+        <attribute name="class" />
+      </xpath>
+      <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/tbody[1]/tr[1]/td[3]"
+                position="attributes"
+            >
+        <attribute name="class" />
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/table[1]/tbody[1]/tr[1]" position="attributes">
+        <attribute name="class">text-center border</attribute>
+      </xpath>
+      <xpath expr="/t/t/div/div[2]/div" position="attributes">
+        <attribute name="class" separator=" " add="h3" remove="h2" />
+      </xpath>
+      <xpath expr="/t/t/div/table/thead/tr" position="attributes">
+        <attribute name="class" separator=" " add="small" />
+      </xpath>
+      <xpath expr="/t/t/div/table/tbody/tr" position="attributes">
+        <attribute name="class" separator=" " add="small" />
+      </xpath>
+      <xpath expr="/t/t/div/div[12]/div" position="attributes">
+        <attribute name="class" separator=" " add="h5" remove="h4" />
+      </xpath>
+      <xpath expr="/t/t/div/div[14]/div" position="attributes">
+        <attribute name="class" separator=" " add="h5" remove="h4" />
+      </xpath>
+      <xpath expr="/t/t/div/div[15]/div" position="attributes">
+        <attribute name="class" separator=" " add="small" />
+      </xpath>
+      <xpath expr="/t/t/div/div[6]/div[1]/span/p" position="attributes">
+        <attribute
+                    name="style"
+                    separator=";"
+                    add="margin-bottom:20px"
+                    remove="margin-bottom:10px"
+                />
+      </xpath>
+      <xpath expr="/t/t/div/div[10]/div[1]/div" position="attributes">
+        <attribute name="class" separator=" " add="small" />
+      </xpath>
+      <xpath expr="/t/t/div/div[10]/div[2]" position="attributes">
+        <attribute name="class" separator=" " add="small" />
+      </xpath>
+      <xpath expr="/t/t/div/div[10]/div[2]/span/br" position="before">
+        <span t-field="doc.ref_saleorder.display_name" />
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/div[10]/div[2]" position="replace" />
+      <xpath expr="/t/t/div/div[9]" position="after">
+        <div class="row">
+          <div class="col-6">
+            <span>New Column</span>
+          </div>
+          <div class="col-6">
+            <span>New Column</span>
+          </div>
+        </div>
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/div[11]" position="replace" />
+      <xpath expr="/t/t/div/div[10]" position="after">
+        <div class="row address">
+          <div class="col-5">
+            <div t-field="doc.partner_id" t-options-widget="'contact'" />
+          </div>
+          <div class="col-5 offset-2" />
+        </div>
+      </xpath>
+      <xpath expr="/t/t/div/div[11]/div[1]/div" position="attributes">
+        <attribute name="style" separator=";" add="margin-bottom:20px" />
+      </xpath>
+      <xpath expr="/t/t/div/div[11]/div[1]/div" position="attributes">
+        <attribute name="class" separator=" " add="h1" />
+      </xpath>
+      <xpath expr="/t/t/div/div[11]/div[1]/div" position="attributes">
+        <attribute name="class" separator=" " add="small" remove="h1" />
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/div[10]/div[1]" position="replace" />
+      <xpath expr="/t/t/div/div[11]/div[2]" position="inside">
+        <span>New Text Block</span>
+      </xpath>
+      <xpath expr="/t/t/div/div[11]/div[2]" position="attributes">
+        <attribute name="class" separator=" " add="offset-0" remove="offset-2" />
+      </xpath>
+      <xpath expr="/t/t/div/div[11]/div[2]" position="attributes">
+        <attribute name="class" separator=" " add="offset-1" remove="offset-0" />
+      </xpath>
+      <xpath expr="/t[1]/t[1]/div[1]/div[10]/div[1]" position="replace" />
+      <xpath expr="/t/t/div/div[11]/div[2]/span" position="replace">
+        <span>
+          <p>SOP:  <br /></p>
+        </span>
+      </xpath>
+      <xpath expr="/t/t/div/div[11]/div[2]/span/p/br" position="before">
+        <span t-field="doc.ref_saleorder_legacy" />
+      </xpath>
+      <xpath expr="/t/t/div/div[11]/div[2]/span/p/span" position="after">
+        <span t-field="doc.ref_saleorder.display_name" />
+      </xpath>
+      <xpath
+                expr="/t[1]/t[1]/div[1]/div[11]/div[2]/span[1]/p[1]/span[1]"
+                position="attributes"
+            >
+        <attribute name="t-if">doc.ref_saleorder.id is False</attribute>
+      </xpath>
+      <xpath expr="/t/t/div/div[6]/div[1]/span/p" position="attributes">
+        <attribute name="style" separator=";" remove="margin-bottom:20px" />
+      </xpath>
+      <xpath expr="/t/t/div/div[6]" position="attributes">
+        <attribute name="style" separator=";" add="margin-bottom:20px" />
+      </xpath>
+      <xpath expr="/t/t/div/div[7]/div" position="attributes">
+        <attribute name="class" separator=" " add="h5" remove="h4" />
+      </xpath>
+      <xpath expr="/t/t/div/div[11]/div[2]/span/p" position="attributes">
+        <attribute name="class" separator=" " add="small" />
+      </xpath>
+      <xpath expr="/t/t/div/div[11]/div[1]/div" position="attributes">
+        <attribute name="style" separator=";" remove="margin-bottom:20px" />
+      </xpath>
+      <xpath expr="/t/t/div/div[11]" position="attributes">
+        <attribute name="style" separator=";" add="margin-bottom:20px" />
+      </xpath>
+      <xpath expr="/t/t/div/table/tbody/tr" position="attributes">
+        <attribute name="style" separator=";" add="margin-bottom:-5px" />
+      </xpath>
+      <xpath expr="/t/t/div/table/tbody/tr" position="attributes">
+        <attribute name="style" separator=";" add="margin-top:-5px" />
+      </xpath>
+      <xpath expr="/t/t/div/table/tbody/tr" position="attributes">
+        <attribute name="style" separator=";" add="margin-top:-50px" />
+      </xpath>
+      <xpath expr="/t/t/div/table/tbody/tr" position="attributes">
+        <attribute name="style" separator=";" />
+      </xpath>
+      <xpath expr="/t/t/div/table/tbody/tr" position="attributes">
+        <attribute name="style" separator=";" remove="margin-bottom:-5px" />
+      </xpath>
+      <xpath expr="/t/t/div/div[1]/div[2]/span/br" position="before">
+        <span>New Text Block</span>
+      </xpath>
+      <xpath expr="/t/t/div/div[1]/div[2]/span/span" position="replace">
+        <span>New Text Block <br /><pre
+                        style="box-sizing: border-box; font-family: SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace; font-size: 13.125px; margin-top: 0px; margin-bottom: 1rem; overflow: auto; display: block; color: rgb(33, 37, 41); border-radius: 0.125rem; padding: 1rem; background-color: rgb(248, 249, 250); white-space: pre-wrap; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"
+                    >&lt;span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/&gt; </pre></span>
+      </xpath>
+      <xpath expr="/t/t/div/div[1]/div[2]/span/span" position="replace">
+        <span>New Text Block  </span>
+      </xpath>
+      <xpath expr="/t/t/div/div[1]/div[2]/span/span" position="replace">
+        <span>
+          <p>New Text Block<br /></p>
+          <div
+                        class="line number32 index31 alt1"
+                        style="box-sizing: content-box !important; margin: 0px !important; padding: 0px 1em 0px 0px !important; border: 0px !important; font-size: var(--font-din); vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px rgb(255, 255, 255) !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-weight: 400; font-style: normal; direction: ltr !important; box-shadow: none !important; min-height: auto !important; white-space: pre !important; color: rgb(39, 50, 57); font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: 0.162px; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"
+                    ><code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >&lt;</code><code
+                            class="keyword"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 700 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 102, 153) !important;"
+                        >input</code><code
+                            class="color1"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: gray !important;"
+                        >type</code><code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >=</code><code
+                            class="string"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 255) !important;"
+                        >"date"</code><code
+                            class="color1"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: gray !important;"
+                        >name</code><code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >=</code><code
+                            class="string"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 255) !important;"
+                        >"begin"</code> </div>
+          <div
+                        class="line number33 index32 alt2"
+                        style="box-sizing: content-box !important; margin: 0px !important; padding: 0px 1em 0px 0px !important; border: 0px !important; font-size: var(--font-din); vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px rgb(255, 255, 255) !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-weight: 400; font-style: normal; direction: ltr !important; box-shadow: none !important; min-height: auto !important; white-space: pre !important; color: rgb(39, 50, 57); font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: 0.162px; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"
+                    >
+            <code
+                            class="undefined spaces"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important;"
+                        >        </code>
+            <code
+                            class="color1"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: gray !important;"
+                        >placeholder</code>
+            <code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >=</code>
+            <code
+                            class="string"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 255) !important;"
+                        >"dd-mm-yyyy"</code>
+            <code
+                            class="color1"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: gray !important;"
+                        >value</code>
+            <code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >=</code>
+            <code
+                            class="string"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 255) !important;"
+                        >""</code>
+          </div>
+          <div
+                        class="line number34 index33 alt1"
+                        style="box-sizing: content-box !important; margin: 0px !important; padding: 0px 1em 0px 0px !important; border: 0px !important; font-size: var(--font-din); vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px rgb(255, 255, 255) !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-weight: 400; font-style: normal; direction: ltr !important; box-shadow: none !important; min-height: auto !important; white-space: pre !important; color: rgb(39, 50, 57); font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: 0.162px; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"
+                    >
+            <code
+                            class="undefined spaces"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important;"
+                        >        </code>
+            <code
+                            class="color1"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: gray !important;"
+                        >min</code>
+            <code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >=</code>
+            <code
+                            class="string"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 255) !important;"
+                        >"1997-01-01"</code>
+            <code
+                            class="color1"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: gray !important;"
+                        >max</code>
+            <code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >=</code>
+            <code
+                            class="string"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 255) !important;"
+                        >"2030-12-31"</code>
+            <code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >&gt;</code>
+          </div>
+        </span>
+      </xpath>
+      <xpath expr="/t/t/div/div[1]/div[2]/span/span" position="replace">
+        <span>
+          <p>New Text Block<br /></p>
+          <div
+                        class="line number32 index31 alt1"
+                        style="box-sizing: content-box !important; margin: 0px !important; padding: 0px 1em 0px 0px !important; border: 0px !important; font-size: var(--font-din); vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px rgb(255, 255, 255) !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-weight: 400; font-style: normal; direction: ltr !important; box-shadow: none !important; min-height: auto !important; white-space: pre !important; color: rgb(39, 50, 57); font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: 0.162px; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"
+                    ><code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >&lt;</code><code
+                            class="keyword"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 700 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 102, 153) !important;"
+                        >input</code><code
+                            class="color1"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: gray !important;"
+                        >type</code><code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >=</code><code
+                            class="string"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 255) !important;"
+                        >"date"</code><code
+                            class="color1"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: gray !important;"
+                        >name</code><code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >=</code><code
+                            class="string"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 255) !important;"
+                        >"begin"</code> </div>
+          <div
+                        class="line number33 index32 alt2"
+                        style="box-sizing: content-box !important; margin: 0px !important; padding: 0px 1em 0px 0px !important; border: 0px !important; font-size: var(--font-din); vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px rgb(255, 255, 255) !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-weight: 400; font-style: normal; direction: ltr !important; box-shadow: none !important; min-height: auto !important; white-space: pre !important; color: rgb(39, 50, 57); font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: 0.162px; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"
+                    >
+            <code
+                            class="undefined spaces"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important;"
+                        >        </code>
+            <code
+                            class="color1"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: gray !important;"
+                        >placeholder</code>
+            <code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >=</code>
+            <code
+                            class="string"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 255) !important;"
+                        >"dd-mm-yyyy"</code>
+            <code
+                            class="color1"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: gray !important;"
+                        >value</code>
+            <code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >=</code>
+            <code
+                            class="string"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 255) !important;"
+                        >""</code>
+          </div>
+          <div
+                        class="line number34 index33 alt1"
+                        style="box-sizing: content-box !important; margin: 0px !important; padding: 0px 1em 0px 0px !important; border: 0px !important; font-size: var(--font-din); vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px rgb(255, 255, 255) !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-weight: 400; font-style: normal; direction: ltr !important; box-shadow: none !important; min-height: auto !important; white-space: pre !important; color: rgb(39, 50, 57); font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: 0.162px; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"
+                    >
+            <code
+                            class="undefined spaces"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important;"
+                        >        </code>
+            <code
+                            class="color1"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: gray !important;"
+                        >min</code>
+            <code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >=</code>
+            <code
+                            class="string"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 255) !important;"
+                        >"1997-01-01"</code>
+            <code
+                            class="color1"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: gray !important;"
+                        >max</code>
+            <code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >=</code>
+            <code
+                            class="string"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 255) !important;"
+                        >"2030-12-31"</code>
+            <code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >&gt;</code>
+          </div>
+        </span>
+      </xpath>
+      <xpath expr="/t/t/div/div[1]/div[2]/span/span" position="replace">
+        <span>
+          <p>New Text Block<br /></p>
+          <div
+                        class="line number32 index31 alt1"
+                        style="box-sizing: content-box !important; margin: 0px !important; padding: 0px 1em 0px 0px !important; border: 0px !important; font-size: var(--font-din); vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px rgb(255, 255, 255) !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-weight: 400; font-style: normal; direction: ltr !important; box-shadow: none !important; min-height: auto !important; white-space: pre !important; color: rgb(39, 50, 57); font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: 0.162px; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"
+                    >
+            <code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >&lt;</code>
+            <code
+                            class="keyword"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 700 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 102, 153) !important;"
+                        >input</code>
+            <code
+                            class="color1"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: gray !important;"
+                        >type</code>
+            <code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >=</code>
+            <code
+                            class="string"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 255) !important;"
+                        >"date"</code>
+            <code
+                            class="color1"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: gray !important;"
+                        >name</code>
+            <code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >=</code>
+            <code
+                            class="string"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 255) !important;"
+                        >"begin"</code>
+          </div>
+          <div
+                        class="line number33 index32 alt2"
+                        style="box-sizing: content-box !important; margin: 0px !important; padding: 0px 1em 0px 0px !important; border: 0px !important; font-size: var(--font-din); vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px rgb(255, 255, 255) !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-weight: 400; font-style: normal; direction: ltr !important; box-shadow: none !important; min-height: auto !important; white-space: pre !important; color: rgb(39, 50, 57); font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: 0.162px; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"
+                    >
+            <code
+                            class="undefined spaces"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important;"
+                        />
+            <code
+                            class="color1"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: gray !important;"
+                        >placeholder</code>
+            <code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >=</code>
+            <code
+                            class="string"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 255) !important;"
+                        >"dd-mm-yyyy"</code>
+            <code
+                            class="color1"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: gray !important;"
+                        >value</code>
+            <code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >=</code>
+            <code
+                            class="string"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 255) !important;"
+                        >""</code>
+          </div>
+          <div
+                        class="line number34 index33 alt1"
+                        style="box-sizing: content-box !important; margin: 0px !important; padding: 0px 1em 0px 0px !important; border: 0px !important; font-size: var(--font-din); vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px rgb(255, 255, 255) !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-weight: 400; font-style: normal; direction: ltr !important; box-shadow: none !important; min-height: auto !important; white-space: pre !important; color: rgb(39, 50, 57); font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: 0.162px; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"
+                    >
+            <code
+                            class="undefined spaces"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important;"
+                        />
+            <code
+                            class="color1"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: gray !important;"
+                        >min</code>
+            <code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >=</code>
+            <code
+                            class="string"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 255) !important;"
+                        >"1997-01-01"</code>
+            <code
+                            class="color1"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: gray !important;"
+                        >max</code>
+            <code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >=</code>
+            <code
+                            class="string"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 255) !important;"
+                        >"2030-12-31"</code>
+            <code
+                            class="plain"
+                            style="box-sizing: content-box !important; margin: 0px !important; padding: 0px !important; border: 0px !important; font-size: 11pt !important; vertical-align: baseline !important; border-radius: 0px !important; background: 0px 0px !important; inset: auto !important; float: none !important; height: auto !important; line-height: 1.2em !important; outline: 0px !important; overflow: auto hidden !important; position: static !important; text-align: left !important; width: auto !important; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace !important; font-weight: 400 !important; font-style: normal !important; direction: ltr !important; box-shadow: none !important; display: inline !important; min-height: auto !important; color: rgb(0, 0, 0) !important;"
+                        >&gt;</code>
+          </div>
+        </span>
+      </xpath>
+      <xpath
+                expr="/t[1]/t[1]/div[1]/div[1]/div[2]/span[1]/span[1]/div[1]"
+                position="replace"
+            />
+      <xpath
+                expr="/t[1]/t[1]/div[1]/div[1]/div[2]/span[1]/span[1]/div[1]"
+                position="replace"
+            />
+      <xpath
+                expr="/t[1]/t[1]/div[1]/div[1]/div[2]/span[1]/span[1]/div[1]"
+                position="replace"
+            />
+      <xpath
+                expr="/t[1]/t[1]/div[1]/div[1]/div[2]/span[1]/span[1]"
+                position="replace"
+            />
+      <xpath expr="/t/t/div/div[1]/div[2]/span/br" position="before">
+        <span t-field="doc.display_timer" />
+      </xpath>
+      <xpath
+                expr="/t[1]/t[1]/div[1]/div[1]/div[2]/span[1]/span[1]"
+                position="attributes"
+            >
+        <attribute name="t-field" />
+      </xpath>
+      <xpath expr="/t/t/div/div[1]/div[2]/span/span" position="replace">
+        <span>
+          <p>TIMEE<br /></p>
+        </span>
+      </xpath>
+      <xpath
+                expr="/t[1]/t[1]/div[1]/div[1]/div[2]/span[1]/span[1]"
+                position="replace"
+            />
+      <xpath expr="/t/t/div/div[1]/div[2]/span/br" position="before">
+        <span>New Text Block</span>
+      </xpath>
+      <xpath expr="/t/t/div/div[1]/div[2]/span/span" position="replace">
+        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%m-%d-%Y')" />
+      </xpath>
+    </data>
+  </template>
+
+</odoo>
