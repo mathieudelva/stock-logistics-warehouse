@@ -98,6 +98,7 @@
 | sale_product_approval_stock              | sale-workflow             | OCA       | Delivery Order Approval Workflow                                                                       |
 | sale_stock_picking_note                  | sale-workflow             | OCA       | Adds Picking Internal Note and Picking Customer Comments to other info in sales that show on picking   |
 | scrap_reason_code                        | stock-logistics-warehouse | OCA       | Adds a reason code for scrapping operations                                                            |
+| shipstation_shipping_odoo_integration    | purchased                 | Vraja     | Shipstation shipping integrations                                                                      |
 | stock_delivery_note                      | stock-logistics-workflow  | OCA       | Adds a delivery note in stock pickings. Displayed on delivery reports.                                 |
 | stock_financial_risk                     | stock-logistics-workflow  | OCA       | Adds a delivery note in stock pickings. Displayed on delivery reports.                                 |
 | stock_inventory_revaluation_adjustment   | stock-logistics-warehouse | OCA       | Adds a cost change process workflow to products to allow users to adjust costs in bulk                 |
