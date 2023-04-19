@@ -8,37 +8,21 @@
            <field name="email_from">no_reply@burroak.com</field>
            <field
             name="subject"
-        >Internal Overview For Ticket - ${object.name} *Do Not Send to Customer*</field>
+        >Internal Overview For Ticket - {{object.id}} *Do Not Send to Customer*</field>
            <field name="model_id" ref="helpdesk.model_helpdesk_ticket" />
            <field name="auto_delete" eval="True" />
-            <field
-            name="body_html"
-        ><![CDATA[
+            <field name="body_html" type="html">
+                <div>
+                    Hello,<br /><br />
+                    <p>Attached to this email is an overview for ticket #<t
+                        t-out="object.id or ''"
+                    >15</t> - <t t-out="object.name or ''">Subject</t>.</p><br />
+                    <p><font
+                        style="background-color:rgb(255, 255, 0);"
+                    >Note: This is meant for internal use only, do not send to customers!</font></p>
 
-<p>Hello,</p>
-<p>
-    <br>
-</p>
-<p>Attached to this email is an overview for ticket #${object.id} - ${object.name}.</p>
-<p>
-    <br>
-</p>
-<p><font style="background-color:rgb(255, 255, 0);">Note: This is meant for internal use only, do not send to customers!</font></p>
-<p><br></p>
-<p>- OdooBot<br></p>
-<table style="min-width:590px;background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;" width="590" cellspacing="0" cellpadding="0" border="0">
-    <tbody>
-        <tr>
-            <td style="opacity:0.7;" valign="middle" align="left">
-                <br>
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-<p></p>
-
-            ]]></field>
+                </div>
+            </field>
             <field name="report_template" ref="action_internal_ticket_report" />
             <field name="report_name">Ticket Overview</field>
         </record>
