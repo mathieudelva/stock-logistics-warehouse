@@ -14,6 +14,7 @@
         "oak_partner",
         "sale_exception",
         "account_financial_risk",
+        "sale_stock_picking_note",
     ],
     "data": [
         "security/ir.model.access.csv",

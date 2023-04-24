@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- source form view -->
+    <record id="helpdesk_incident_source_form_view" model="ir.ui.view">
+        <field name="name">helpdesk.incident.source.form</field>
+        <field name="model">helpdesk.incident.source</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form string="Helpdesk Incident Source">
+                <sheet>
+                    <group name="group_general">
+                        <field name="name" />
+                    </group>
+                    <group string="Incident Source Description">
+                        <field
+                            name="description"
+                            nolabel="1"
+                            placeholder="Description of source"
+                        />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="helpdesk_incident_source_tree_view" model="ir.ui.view">
+        <field name="name">helpdesk.incident.source.tree.view</field>
+        <field name="model">helpdesk.incident.source</field>
+        <field name="arch" type="xml">
+            <tree name="Helpdesk Incident Source">
+                <field name="name" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="helpdesk_incident_source_search_view" model="ir.ui.view">
+        <field name="name">helpdesk.incident.source.search</field>
+        <field name="model">helpdesk.incident.source</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <search string="Source">
+                <field
+                    name="name"
+                    string="Name"
+                    filter_domain="[('name', 'ilike', self)]"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record id="action_helpdesk_incident_source" model="ir.actions.act_window">
+        <field name="name">Sources</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">helpdesk.incident.source</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="helpdesk_incident_source_tree_view" />
+        <field name="search_view_id" ref="helpdesk_incident_source_search_view" />
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="helpdesk_incident_source_menu"
+        name="Incident Sources"
+        parent="helpdesk.helpdesk_menu_config"
+        action="action_helpdesk_incident_source"
+        sequence="7"
+        groups="helpdesk.group_helpdesk_manager"
+        active="True"
+    />
+
+</odoo>

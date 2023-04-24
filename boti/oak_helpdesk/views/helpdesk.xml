@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- helpdesk tree view -->
+    <record id="oak_helpdesk_ticket_tree_inherit" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.tree.inherit</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="priority">100</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='stage_id']" position="replace">
+                <field name="stage_id" invisible="1" />
+            </xpath>
+            <xpath expr="//tree/field[@name='priority']" position="replace">
+                <field name="priority" invisible="1" />
+            </xpath>
+            <xpath expr="//tree/field[@name='name']" position="before">
+                <field name="stage_id" optional="show" />
+                <field name="id" string="Ticket #" readonly="1" optional="hide" />
+                <field name="priority" optional="hide" />
+            </xpath>
+            <xpath expr="//tree/field[@name='activity_ids']" position="after">
+                <field
+                    name="activity_user_id"
+                    widget="many2one_avatar_user"
+                    optional="hide"
+                />
+                <field name="activity_due_date" optional="hide" widget="date" />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- helpdesk ticket search extension-->
+    <record id="oak_helpdesk_tickets_view_search" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.oak.search</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="priority">100</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_search" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='stage']" position="after">
+                <field
+                    name="message_ids"
+                    string="Chatter"
+                    filter_domain="[('message_ids.body','ilike',self)]"
+                />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

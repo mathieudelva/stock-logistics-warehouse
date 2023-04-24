@@ -1,0 +1,960 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+
+    <record id="action_internal_ticket_report" model="ir.actions.report">
+        <field name="name">Internal Ticket Report</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">oak_helpdesk.internal_ticket_report</field>
+        <field name="report_file">oak_helpdesk.internal_ticket_report</field>
+        <field name="print_report_name">'Internal Ticket Report'</field>
+        <field name="binding_model_id" ref="model_helpdesk_ticket" />
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="internal_ticket_report">
+        <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="oak_helpdesk.internal_ticket_report_document" />
+        </t>
+        </t>
+    </template>
+
+    <template id="internal_ticket_report_document">
+        <t t-call="web.internal_layout">
+            <div class="page" />
+        </t>
+    </template>
+
+    <template
+        id="internal_ticket_report_document_data"
+        inherit_id="oak_helpdesk.internal_ticket_report_document"
+    >
+        <data>
+            <xpath expr="/t/t/div" position="inside">
+                <div class="row">
+                <div class="col">
+                    <span>New Text Block</span>
+                </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div" position="after">
+                <div class="row">
+                <div class="col">
+                    <span t-field="doc.display_name" />
+                </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[2]/div/span" position="attributes">
+                <attribute name="class" separator=" " add="o_bold" />
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/div[1]/div[1]" position="replace" />
+            <xpath expr="/t/t/div/div[2]/div/span" position="attributes">
+                <attribute name="style" separator=";" add="margin-top:10px" />
+            </xpath>
+            <xpath expr="/t/t/div/div[1]" position="after">
+                <div class="row">
+                <div class="col">
+                    <span>New Text Block</span>
+                </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[2]/div/span" position="replace">
+                <span> </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[3]/div" position="attributes">
+                <attribute name="class" separator=" " add="text-left" />
+            </xpath>
+            <xpath expr="/t/t/div/div[3]/div" position="attributes">
+                <attribute
+                    name="class"
+                    separator=" "
+                    add="text-center"
+                    remove="text-left"
+                />
+            </xpath>
+            <xpath expr="/t/t/div/div[3]/div" position="attributes">
+                <attribute name="class" separator=" " add="h1" />
+            </xpath>
+            <xpath expr="/t/t/div/div[3]/div" position="attributes">
+                <attribute
+                    name="class"
+                    separator=" "
+                    add="text-left"
+                    remove="text-center"
+                />
+            </xpath>
+            <xpath expr="/t/t/div/div[3]/div" position="attributes">
+                <attribute name="class" separator=" " add="h2" remove="h1" />
+            </xpath>
+            <xpath expr="/t/t/div/div[3]/div" position="attributes">
+                <attribute name="class" separator=" " add="h3" remove="h2" />
+            </xpath>
+            <xpath expr="/t/t/div/div[3]" position="after">
+                <div class="row">
+                <div class="col">
+                    <span>New Text Block</span>
+                </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[4]" position="after">
+                <div class="row">
+                <div class="col-6">
+                    <span>New Column</span>
+                </div>
+                <div class="col-6">
+                    <span>New Column</span>
+                </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[5]/div[1]/span" position="after">
+                <span t-field="doc.team_id.display_name" />
+            </xpath>
+            <xpath expr="/t/t/div/div[5]/div[1]/span[1]" position="replace">
+                <span>Helpdesk Team  </span>
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/div[5]/div[1]/span[1]" position="attributes">
+                <attribute name="class">o_bold</attribute>
+            </xpath>
+            <xpath expr="/t/t/div/div[5]/div[2]/span" position="replace">
+                <span>Customer</span>
+            </xpath>
+            <xpath expr="/t/t/div/div[5]/div[2]/span" position="replace">
+                <span>
+                <b>Customer</b>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[5]/div[2]/span/b" position="after">
+                <span t-field="doc.partner_id.display_name" />
+            </xpath>
+            <xpath expr="/t/t/div/div[5]/div[2]/span/b" position="replace">
+                <b>Customer   </b>
+            </xpath>
+            <xpath expr="/t/t/div/div[5]" position="after">
+                <div class="row">
+                <div class="col-6">
+                    <span>New Column</span>
+                </div>
+                <div class="col-6">
+                    <span>New Column</span>
+                </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[4]/div/span" position="replace">
+                <span> </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[5]/div[1]/span[1]" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:20px" />
+            </xpath>
+            <xpath expr="/t/t/div/div[5]/div[1]/span[1]" position="attributes">
+                <attribute
+                    name="style"
+                    separator=";"
+                    add="margin-bottom:30px"
+                    remove="margin-bottom:20px"
+                />
+            </xpath>
+            <xpath expr="/t/t/div/div[5]/div[1]/span[1]" position="attributes">
+                <attribute
+                    name="style"
+                    separator=";"
+                    add="margin-bottom:100px"
+                    remove="margin-bottom:30px"
+                />
+            </xpath>
+            <xpath expr="/t/t/div/div[5]/div[1]/span[1]" position="attributes">
+                <attribute
+                    name="style"
+                    separator=";"
+                    add="margin-bottom:0px"
+                    remove="margin-bottom:100px"
+                />
+            </xpath>
+            <xpath expr="/t/t/div/div[5]/div[1]/span[1]" position="attributes">
+                <attribute name="style" separator=";" />
+            </xpath>
+            <xpath expr="/t/t/div/div[6]/div[1]/span" position="replace">
+                <span>
+                <b>Assigned To   </b>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[6]/div[1]/span/b" position="after">
+                <span t-field="doc.user_id.display_name" />
+            </xpath>
+            <xpath expr="/t/t/div/div[6]/div[2]/span" position="replace">
+                <span>
+                <b>Customer Email   </b>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[6]/div[2]/span/b" position="after">
+                <span t-field="doc.partner_email" />
+            </xpath>
+            <xpath expr="/t/t/div/div[6]" position="after">
+                <div class="row">
+                <div class="col-6">
+                    <span>New Column</span>
+                </div>
+                <div class="col-6">
+                    <span>New Column</span>
+                </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[7]/div[1]/span" position="replace">
+                <span>
+                <b>Ticket Type   </b>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[7]/div[1]/span/b" position="after">
+                <span t-field="doc.ticket_type_id.display_name" />
+            </xpath>
+            <xpath expr="/t/t/div/div[7]/div[2]/span" position="replace">
+                <span>
+                <b>Email cc   </b>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[7]/div[2]/span/b" position="after">
+                <span t-field="doc.email_cc" />
+            </xpath>
+            <xpath expr="/t/t/div/div[7]/div[1]/span/b" position="replace">
+                <b>Ticket  &lt;br&gt;Type   </b>
+            </xpath>
+            <xpath expr="/t/t/div/div[7]/div[1]/span/b" position="replace">
+                <b>Ticket Type   </b>
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/div[4]/div[1]" position="replace" />
+            <xpath expr="/t/t/div/div[3]/div" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:20px" />
+            </xpath>
+            <xpath expr="/t/t/div/div[5]/div[1]" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:20px" />
+            </xpath>
+            <xpath expr="/t/t/div/div[5]/div[1]" position="attributes">
+                <attribute
+                    name="style"
+                    separator=";"
+                    add="margin-bottom:5px"
+                    remove="margin-bottom:20px"
+                />
+            </xpath>
+            <xpath expr="/t/t/div/div[3]/div" position="attributes">
+                <attribute name="style" separator=";" add="margin-top:2px" />
+            </xpath>
+            <xpath expr="/t/t/div/div[5]/div[1]" position="attributes">
+                <attribute
+                    name="style"
+                    separator=";"
+                    add="margin-bottom:3px"
+                    remove="margin-bottom:5px"
+                />
+            </xpath>
+            <xpath expr="/t/t/div/div[6]/div[1]" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:3px" />
+            </xpath>
+            <xpath expr="/t/t/div/div[4]" position="after">
+                <div class="row">
+                <div class="col">
+                    <span>New Text Block</span>
+                </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[5]/div/span" position="replace">
+                <span>
+                <b>Ticket #   </b>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[5]/div" position="attributes">
+                <attribute name="class" separator=" " add="h5" />
+            </xpath>
+            <xpath expr="/t/t/div/div[5]/div/span/b" position="after">
+                <span t-field="doc.id" />
+            </xpath>
+            <xpath expr="/t/t/div/div[5]/div/span/span" position="attributes">
+                <attribute name="class" separator=" " add="o_bold" />
+            </xpath>
+            <xpath expr="/t/t/div/div[8]" position="after">
+                <div class="row">
+                <div class="col">
+                    <span>New Text Block</span>
+                </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[9]/div/span" position="replace">
+                <span>
+                <b>Description</b>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[9]/div/span/b" position="replace">
+                <b>Description &lt;br&gt;</b>
+            </xpath>
+            <xpath expr="/t/t/div/div[9]/div/span/b" position="after">
+                <span t-field="doc.description" />
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/div[9]/div[1]/span[1]/b[1]"
+                position="attributes"
+            >
+                <attribute name="t-if">doc.description</attribute>
+            </xpath>
+            <xpath expr="/t/t/div/div[9]" position="after">
+                <div class="row">
+                <div class="col-6">
+                    <span>New Column</span>
+                </div>
+                <div class="col-6">
+                    <span>New Column</span>
+                </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[10]/div[1]/span" position="replace">
+                <span> </span>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/div[8]/div[2]/span[1]/b[1]"
+                position="attributes"
+            >
+                <attribute name="t-if">doc.email_cc</attribute>
+            </xpath>
+            <xpath expr="/t/t/div/div[8]" position="after">
+                <div class="row">
+                <div class="col-6">
+                    <span>New Column</span>
+                </div>
+                <div class="col-6">
+                    <span>New Column</span>
+                </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[9]/div[1]/span" position="replace">
+                <span> </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[9]/div[2]/span" position="replace">
+                <span>
+                <b>Merge Ticket </b>
+                </span>
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/div[11]" position="replace" />
+            <xpath expr="/t/t/div/div[8]/div[2]" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:3px" />
+            </xpath>
+            <xpath expr="/t/t/div/div[6]/div[2]" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:3px" />
+            </xpath>
+            <xpath expr="/t/t/div/div[7]/div[2]" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:3px" />
+            </xpath>
+            <xpath expr="/t/t/div/div[9]/div[2]/span/b" position="after">
+                <span t-field="doc.primary_ticket_id.description" />
+            </xpath>
+            <xpath expr="/t/t/div/div[9]/div[2]/span/b" position="after">
+                <span t-field="doc.primary_ticket_id" />
+            </xpath>
+            <xpath expr="/t/t/div/div[9]/div[2]/span/b" position="after">
+                <span t-field="doc.has_secondary" />
+            </xpath>
+            <xpath expr="/t/t/div/div[9]/div[2]/span/b" position="replace">
+                <b>
+                <b>Primary Merged Ticket   </b>
+                </b>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/div[9]/div[2]/span[1]/b[1]/b[1]"
+                position="attributes"
+            >
+                <attribute name="t-if">doc.has_secondary is True</attribute>
+            </xpath>
+            <xpath expr="/t/t/div/div[9]" position="after">
+                <div class="row">
+                <div class="col-6">
+                    <span>New Column</span>
+                </div>
+                <div class="col-6">
+                    <span>New Column</span>
+                </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[10]/div[2]/span" position="replace">
+                <span>
+                <b>Primary Merge Ticket   </b>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[9]/div[2]/span/b/b" position="replace">
+                <b t-if="doc.has_secondary is True">Is Primary Merged Ticket   </b>
+            </xpath>
+            <xpath expr="/t/t/div/div[10]/div[2]/span/b" position="after">
+                <span t-field="doc.primary_ticket_id.display_name" />
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/div[10]/div[2]/span[1]/b[1]"
+                position="attributes"
+            >
+                <attribute name="t-if">doc.merge_reason</attribute>
+            </xpath>
+            <xpath expr="/t/t/div/div[10]/div[1]/span" position="replace">
+                <span> </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[10]" position="after">
+                <div class="row">
+                <div class="col">
+                    <span>New Text Block</span>
+                </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[11]" position="after">
+                <div class="row">
+                <div class="col-6">
+                    <span>New Column</span>
+                </div>
+                <div class="col-6">
+                    <span>New Column</span>
+                </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[12]/div[1]/span" position="replace">
+                <span> </span>
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/div[11]/div[1]" position="replace" />
+            <xpath expr="/t[1]/t[1]/div[1]/div[10]/div[2]" position="replace" />
+            <xpath expr="/t/t/div/div[8]" position="after">
+                <div class="row">
+                <div class="col-6">
+                    <span>New Column</span>
+                </div>
+                <div class="col-6">
+                    <span>New Column</span>
+                </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[13]" position="after">
+                <div class="row">
+                <div class="col-6">
+                    <span>New Column</span>
+                </div>
+                <div class="col-6">
+                    <span>New Column</span>
+                </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[10]" position="after">
+                <div class="row">
+                <div class="col-6">
+                    <span>New Column</span>
+                </div>
+                <div class="col-6">
+                    <span>New Column</span>
+                </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[11]/div[2]/span" position="replace">
+                <span>
+                <b>Primary Merge Ticket   </b>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[9]/div[2]/span" position="replace">
+                <span>Primary Merge Ticket   </span>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/div[10]/div[2]/span[1]/b[1]/b[1]"
+                position="attributes"
+            >
+                <attribute name="t-if" />
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/div[10]/div[2]/span[1]/span[2]"
+                position="replace"
+            />
+            <xpath
+                expr="/t[1]/t[1]/div[1]/div[10]/div[2]/span[1]/span[2]"
+                position="replace"
+            />
+            <xpath
+                expr="/t[1]/t[1]/div[1]/div[8]/div[2]/span[1]/b[1]"
+                position="attributes"
+            >
+                <attribute name="t-if" />
+            </xpath>
+            <xpath expr="/t/t/div/div[11]/div[2]/span/b" position="after">
+                <span t-field="doc.primary_ticket_id.display_name" />
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/div[9]/div[1]" position="replace" />
+            <xpath expr="/t[1]/t[1]/div[1]/div[9]/div[1]" position="replace" />
+            <xpath expr="/t/t/div/div[8]/div[2]/span/span" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:3px" />
+            </xpath>
+            <xpath expr="/t/t/div/div[10]/div[2]" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:3px" />
+            </xpath>
+            <xpath expr="/t/t/div/div[11]/div[2]" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:3px" />
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/div[14]" position="replace" />
+            <xpath expr="/t/t/div/div[11]/div[1]/span" position="replace">
+                <span />
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/div[14]" position="replace" />
+            <xpath expr="/t[1]/t[1]/div[1]/div[12]" position="replace" />
+            <xpath
+                expr="/t[1]/t[1]/div[1]/div[13]/div[1]/span[1]/b[1]"
+                position="attributes"
+            >
+                <attribute name="t-if" />
+            </xpath>
+            <xpath expr="/t/t/div/div[13]" position="after">
+                <table class="table o_report_block_table">
+                <thead>
+                    <tr>
+                    <th>
+                        <span>Name</span>
+                    </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="doc.message_ids" t-as="table_line">
+                    <td>
+                        <span t-field="table_line.display_name" />
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/tbody[1]/tr[1]/td[1]/span[1]"
+                position="attributes"
+            >
+                <attribute name="t-field">table_line.body</attribute>
+            </xpath>
+            <xpath expr="/t/t/div/table/tbody/tr/td/span" position="before">
+                <span
+                    t-field="table_line.author_avatar"
+                    t-options-widget="&quot;image&quot;"
+                />
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/tbody[1]/tr[1]/td[1]/span[1]"
+                position="attributes"
+            >
+                <attribute name="t-field">table_line.author_id.display_name</attribute>
+            </xpath>
+            <xpath expr="/t/t/div/table/tbody/tr/td/span[1]" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:5px" />
+            </xpath>
+            <xpath expr="/t/t/div/table/tbody/tr/td/span[2]" position="after">
+                <span t-field="table_line.create_date" />
+            </xpath>
+            <xpath expr="/t/t/div/table/tbody/tr/td/span[1]" position="attributes">
+                <attribute name="style" separator=";" add="margin-right:5px" />
+            </xpath>
+            <xpath expr="/t/t/div/table/tbody/tr/td/span[1]" position="after">
+                <span t-field="table_line.create_date" />
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/tbody[1]/tr[1]/td[1]/span[4]"
+                position="replace"
+            />
+            <xpath expr="/t/t/div/table/thead/tr/th/span" position="replace">
+                <span>
+                <span
+                        style="color: rgb(33, 37, 41); font-family: Lato; font-size: 18px; font-weight: 700;"
+                    >Message and Communication History</span>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[13]" position="after">
+                <div class="row">
+                <div class="col">
+                    <span>New Text Block</span>
+                </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[13]/div" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:3px" />
+            </xpath>
+            <xpath expr="/t/t/div/div[14]/div/span" position="replace">
+                <span>Followers</span>
+            </xpath>
+            <xpath expr="/t/t/div/div[14]/div/span" position="after">
+                <span t-field="doc.message_is_follower" />
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/div[14]/div[1]" position="replace" />
+            <xpath expr="/t/t/div/div[14]" position="after">
+                <table class="table o_report_block_table">
+                <thead>
+                    <tr>
+                    <th>
+                        <span>Name</span>
+                    </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="doc.message_follower_ids" t-as="table_line">
+                    <td>
+                        <span t-field="table_line.display_name" />
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
+            </xpath>
+            <xpath expr="/t/t/div/table[1]/thead/tr/th/span" position="replace">
+                <span>
+                <b>Followers</b>
+                </span>
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/div[8]/div[2]" position="attributes">
+                <attribute name="t-if">doc.email_cc</attribute>
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/div[10]/div[2]" position="attributes">
+                <attribute name="t-if">doc.primary_ticket_id</attribute>
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/div[11]/div[2]" position="attributes">
+                <attribute name="t-if">doc.merge_reason</attribute>
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/div[13]/div[1]" position="replace" />
+            <xpath expr="/t/t/div/div[14]" position="after">
+                <div class="row">
+                <div class="col">
+                    <span>New Text Block</span>
+                </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[15]/div/span" position="replace">
+                <span>
+                <b>Description</b>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[15]/div" position="attributes">
+                <attribute name="style" separator=";" add="margin-bottom:20px" />
+            </xpath>
+            <xpath expr="/t/t/div/div[15]/div/span/b" position="after">
+                <span>New Text Block</span>
+            </xpath>
+            <xpath expr="/t/t/div/div[15]/div/span/span" position="replace">
+                <span>
+                <i>No Description<br /></i>
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[15]/div/span/b" position="replace">
+                <b />
+            </xpath>
+            <xpath expr="/t/t/div/div[15]/div/span/b" position="replace">
+                <p>Description    </p>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/div[15]/div[1]/span[1]/span[1]"
+                position="replace"
+            />
+            <xpath expr="/t/t/div/div[15]/div/span/p" position="replace">
+                <p><b>Description   </b> </p>
+            </xpath>
+            <xpath expr="/t/t/div/div[15]/div/span/p/b" position="after">
+                <span>New Text Block</span>
+            </xpath>
+            <xpath expr="/t/t/div/div[15]/div/span/p/span" position="replace">
+                <span>No Description<br /></span>
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/table[2]" position="replace" />
+            <xpath expr="/t/t/div/table" position="after">
+                <div class="row">
+                <div class="col h2">
+                    <span>New Title</span>
+                </div>
+                </div>
+            </xpath>
+            <xpath expr="/t/t/div/div[16]" position="after">
+                <table class="table o_report_block_table">
+                <thead>
+                    <tr>
+                    <th>
+                        <span>Name</span>
+                    </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="doc.message_ids" t-as="table_line">
+                    <td>
+                        <span t-field="table_line.display_name" />
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[2]/tbody[1]/tr[1]/td[1]/span[1]"
+                position="attributes"
+            >
+                <attribute name="t-field">table_line.body</attribute>
+            </xpath>
+            <xpath expr="/t/t/div/table[2]/tbody/tr/td/span" position="after">
+                <span t-field="doc.tracking" />
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/table[2]" position="replace" />
+            <xpath expr="/t/t/div/div[16]" position="after">
+                <table class="table o_report_block_table">
+                <thead>
+                    <tr>
+                    <th>
+                        <span>Name</span>
+                    </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="doc.message_ids" t-as="table_line">
+                    <td>
+                        <span t-field="table_line.display_name" />
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[2]/tbody[1]/tr[1]/td[1]/span[1]"
+                position="attributes"
+            >
+                <attribute name="t-field">table_line.tracking_value_ids</attribute>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[2]/tbody[1]/tr[1]/td[1]/span[1]"
+                position="attributes"
+            >
+                <attribute name="t-field">table_line.body</attribute>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[2]/tbody[1]/tr[1]/td[1]/span[1]"
+                position="attributes"
+            >
+                <attribute name="t-field">table_line.description</attribute>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[2]/tbody[1]/tr[1]/td[1]/span[1]"
+                position="attributes"
+            >
+                <attribute name="t-field">table_line.canned_response_ids</attribute>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[2]/tbody[1]/tr[1]/td[1]/span[1]"
+                position="attributes"
+            >
+                <attribute name="t-field">table_line.letter_ids</attribute>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[2]/tbody[1]/tr[1]/td[1]/span[1]"
+                position="attributes"
+            >
+                <attribute name="t-field">table_line.body</attribute>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[2]/tbody[1]/tr[1]/td[1]/span[1]"
+                position="attributes"
+            >
+                <attribute name="t-field" />
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/table[2]" position="replace" />
+            <xpath expr="/t/t/div/div[16]" position="after">
+                <table class="table o_report_block_table">
+                <thead>
+                    <tr>
+                    <th>
+                        <span>Name</span>
+                    </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="doc.message_ids" t-as="table_line">
+                    <td>
+                        <span t-field="table_line.display_name" />
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[2]/tbody[1]/tr[1]/td[1]/span[1]"
+                position="attributes"
+            >
+                <attribute name="t-field">table_line.body</attribute>
+            </xpath>
+            <xpath expr="/t/t/div/table[2]/tbody/tr/td/span" position="after">
+                <span t-field="table_line.description" />
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[2]/tbody[1]/tr[1]/td[1]/span[1]"
+                position="attributes"
+            >
+                <attribute name="t-field">table_line.tracking_value_ids</attribute>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[2]/tbody[1]/tr[1]/td[1]/span[1]"
+                position="attributes"
+            >
+                <attribute name="t-field">table_line.tracking_value_ids</attribute>
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/table[2]" position="replace" />
+            <xpath expr="/t/t/div/div[16]" position="after">
+                <table class="table o_report_block_table">
+                <thead>
+                    <tr>
+                    <th>
+                        <span>Name</span>
+                    </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="doc.message_ids" t-as="table_line">
+                    <td>
+                        <span t-field="table_line.display_name" />
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[2]/tbody[1]/tr[1]/td[1]/span[1]"
+                position="attributes"
+            >
+                <attribute name="t-field">table_line.tracking_value_ids</attribute>
+            </xpath>
+            <xpath expr="/t/t/div/div[15]/div/span/p/span" position="replace">
+                <span>No Description<br /></span>
+            </xpath>
+            <xpath expr="/t/t/div/div[15]/div/span/p/span" position="replace">
+                <span>
+                <i>No Description</i>
+                <br />
+                </span>
+            </xpath>
+            <xpath expr="/t/t/div/div[15]/div/span/p/span/i" position="before">
+                <span t-field="doc.description" />
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/div[15]/div[1]/span[1]/p[1]/span[1]/i[1]"
+                position="attributes"
+            >
+                <attribute name="t-if">doc.description is False</attribute>
+            </xpath>
+            <xpath expr="/t/t/div/div[16]/div/span" position="replace">
+                <span>Messages</span>
+            </xpath>
+            <xpath expr="/t/t/div/div[16]/div" position="attributes">
+                <attribute name="class" separator=" " add="bg-400" />
+            </xpath>
+            <xpath expr="/t/t/div/div[16]/div" position="attributes">
+                <attribute name="class" separator=" " add="text-o-color-4" />
+            </xpath>
+            <xpath expr="/t/t/div/div[16]/div" position="attributes">
+                <attribute
+                    name="class"
+                    separator=" "
+                    add="text-white"
+                    remove="text-o-color-4"
+                />
+            </xpath>
+            <xpath expr="/t/t/div/div[16]/div" position="attributes">
+                <attribute name="class" separator=" " add="bg-600" remove="bg-400" />
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/table[2]/thead[1]" position="replace" />
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[2]/tbody[1]/tr[1]/td[1]/span[1]"
+                position="attributes"
+            >
+                <attribute name="t-field">table_line.body</attribute>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[2]/tbody[1]/tr[1]/td[1]"
+                position="attributes"
+            >
+                <attribute name="t-if">table_line.body</attribute>
+            </xpath>
+            <xpath expr="/t/t/div/table[2]/tbody/tr/td/span" position="before">
+                <span t-field="table_line.author_id.name" />
+            </xpath>
+            <xpath expr="/t/t/div/table[2]/tbody/tr/td/span[1]" position="attributes">
+                <attribute name="class" separator=" " add="o_bold" />
+            </xpath>
+            <xpath expr="/t/t/div/table[2]/tbody/tr/td/span[1]" position="after">
+                <span>New Text Block</span>
+            </xpath>
+            <xpath expr="/t/t/div/table[2]/tbody/tr/td/span[2]" position="replace">
+                <span> - </span>
+            </xpath>
+            <xpath expr="/t/t/div/table[2]/tbody/tr/td/span[2]" position="after">
+                <span t-field="table_line.date" />
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[2]/tbody[1]/tr[1]"
+                position="attributes"
+            >
+                <attribute name="class">border-black</attribute>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[2]/tbody[1]/tr[1]"
+                position="attributes"
+            >
+                <attribute name="class" />
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[2]/tbody[1]/tr[1]"
+                position="attributes"
+            >
+                <attribute name="class">border-black</attribute>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/tbody[1]/tr[1]/td[1]"
+                position="attributes"
+            >
+                <attribute name="class">border-0</attribute>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/thead[1]/tr[1]"
+                position="attributes"
+            >
+                <attribute name="class">border-0</attribute>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/thead[1]/tr[1]/th[1]"
+                position="attributes"
+            >
+                <attribute name="class">border-0</attribute>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/thead[1]/tr[1]/th[1]"
+                position="attributes"
+            >
+                <attribute name="class">border-bottom</attribute>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/thead[1]/tr[1]/th[1]"
+                position="attributes"
+            >
+                <attribute name="class" />
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/thead[1]/tr[1]/th[1]"
+                position="attributes"
+            >
+                <attribute name="class">border-bottom</attribute>
+            </xpath>
+            <xpath expr="/t[1]/t[1]/div[1]/table[1]" position="attributes">
+                <attribute name="class">table o_report_block_table col-6</attribute>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/thead[1]/tr[1]/th[1]"
+                position="attributes"
+            >
+                <attribute name="class">bottom-0</attribute>
+            </xpath>
+            <xpath expr="/t/t/div/table[1]/thead/tr/th" position="replace">
+                <th class="border-bottom">
+                <span>
+                    <b>Followers:</b>
+                </span>
+                </th>
+            </xpath>
+            <xpath
+                expr="/t[1]/t[1]/div[1]/table[1]/thead[1]/tr[1]/th[1]"
+                position="attributes"
+            >
+                <attribute name="class">border-0</attribute>
+            </xpath>
+        </data>
+
+    </template>
+
+</odoo>

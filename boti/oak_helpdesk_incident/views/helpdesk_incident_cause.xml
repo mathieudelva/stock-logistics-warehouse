@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- cause form view -->
+    <record id="helpdesk_incident_cause_form_view" model="ir.ui.view">
+        <field name="name">helpdesk.incident.cause.form</field>
+        <field name="model">helpdesk.incident.cause</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form string="Helpdesk Incident Causes">
+                <sheet>
+                    <group name="group_general">
+                        <field name="name" />
+                    </group>
+                    <group string="Incident Cause Description">
+                        <field
+                            name="description"
+                            nolabel="1"
+                            placeholder="Description of Cause"
+                        />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="helpdesk_incident_cause_tree_view" model="ir.ui.view">
+        <field name="name">helpdesk.incident.cause.tree.view</field>
+        <field name="model">helpdesk.incident.cause</field>
+        <field name="arch" type="xml">
+            <tree name="Helpdesk Incident Causes">
+                <field name="name" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="helpdesk_incident_cause_search_view" model="ir.ui.view">
+        <field name="name">helpdesk.incident.cause.search</field>
+        <field name="model">helpdesk.incident.cause</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <search string="Cause">
+                <field
+                    name="name"
+                    string="Name"
+                    filter_domain="[('name', 'ilike', self)]"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record id="action_helpdesk_incident_cause" model="ir.actions.act_window">
+        <field name="name">Causes</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">helpdesk.incident.cause</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="helpdesk_incident_cause_tree_view" />
+        <field name="search_view_id" ref="helpdesk_incident_cause_search_view" />
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="helpdesk_incident_cause_menu"
+        name="Incident Causes"
+        parent="helpdesk.helpdesk_menu_config"
+        action="action_helpdesk_incident_cause"
+        sequence="6"
+        groups="helpdesk.group_helpdesk_manager"
+        active="True"
+    />
+
+</odoo>
