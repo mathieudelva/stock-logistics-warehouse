@@ -14,20 +14,19 @@ class PurchaseOrder(models.Model):
 
     def action_purchase_confirm_send(self):
         self.ensure_one()
-        template_id = self.env["ir.model.data"].xmlid_to_res_id(
-            "oak_purchase.mail_template_purchase_confirmation",
-            raise_if_not_found=False,
+        template_id = self.env.ref(
+            "oak_purchase.mail_template_purchase_confirmation", raise_if_not_found=False
         )
+
         lang = self.env.context.get("lang")
-        template = self.env["mail.template"].browse(template_id)
-        if template.lang:
-            lang = template._render_lang(self.ids)[self.id]
+        if template_id.lang:
+            lang = template_id._render_lang(self.ids)[self.id]
         ctx = {
             "default_model": "purchase.order",
             "active_model": "purchase.order",
             "default_res_id": self.ids[0],
             "default_use_template": bool(template_id),
-            "default_template_id": template_id,
+            "default_template_id": template_id.id,
             "default_composition_mode": "comment",
             "mark_so_as_sent": True,
             "custom_layout": "mail.mail_notification_paynow",

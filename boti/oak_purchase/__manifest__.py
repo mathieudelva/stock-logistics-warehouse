@@ -6,27 +6,12 @@
     "summary": "Purchase Modifications",
     "author": "Burr Oak Tool, Open Source Integrators",
     "website": "https://www.burroak.com",
-    "maintainers": ["rlopez"],
+    "maintainers": ["BOTI"],
     "depends": [
-        # Core modules
         "purchase",
-        # OCA modules
-        "purchase_cancel_reason",
-        "purchase_delivery_split_date",
-        # "purchase_last_price_info", - still broken in multicompany
-        "purchase_location_by_line",
-        #"purchase_open_qty",
-        "purchase_order_line_menu",
-        "purchase_order_line_price_history",
-        "purchase_order_type",
-        "purchase_picking_state",
-        "purchase_request",
-        "purchase_request_department",
-        "purchase_request_tier_validation",
-        "purchase_request_type",
-        "purchase_reception_status",
-        # Purchased modules
-        "merge_purchase_order",
+        "purchase_analytic",
+        "purchase_last_price_info",
+        "mrp_planning_engine",
     ],
     "data": [
         "views/purchase.xml",

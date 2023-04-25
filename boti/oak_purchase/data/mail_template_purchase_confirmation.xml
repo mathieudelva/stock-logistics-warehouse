@@ -1,67 +1,65 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<odoo noupdate="0">
-        <record id="mail_template_purchase_confirmation" model="mail.template">
-            <field name="name">Purchase Order: Vendor Confirm Delivery</field>
-            <field name="model_id" ref="purchase.model_purchase_order" />
-            <field
+<odoo>
+    <record id="mail_template_purchase_confirmation" model="mail.template">
+        <field name="name">Purchase Order: Vendor Confirm Delivery</field>
+        <field name="model_id" ref="purchase.model_purchase_order" />
+        <field
             name="email_from"
-        >${(object.user_id.email_formatted or object.company_id.email or user.email_formatted) | safe}</field>
-            <field
+        >{{(object.user_id.email_formatted or object.company_id.email or user.email_formatted)}}</field>
+        <field
             name="subject"
-        >${object.company_id.name} Order (Ref ${ object.name or 'n/a' })</field>
-            <field name="partner_to">${object.partner_id.id}</field>
-            <field name="body_html" type="html">
-                <div style="margin: 0px; padding: 0px;">
-                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                        Dear ${object.partner_id.name}
-                        % if object.partner_id.parent_id:
-                            (${object.partner_id.parent_id.name})
-                        % endif
-                        <br />
-                        <br />
-                        Please confirm the delivery of purchase order <strong
-                    >${object.name}</strong>
-
-                        for delivery on
-                        <strong>${format_date(object.date_planned)}</strong>.
-                    </p>
-                    <br />
-                    <br />
+        >{{object.company_id.name}} Order (Ref {{ object.name or 'n/a' }})</field>
+        <field name="partner_to">{{object.partner_id.id}}</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    <p>Dear <t t-esc="object.partner_id.name" /></p>
                     <p>
-                        Could you please confirm it will be delivered on time?
+                        <t t-if="object.partner_id.parent_id">
+                            (<t t-esc="object.partner_id.parent_id.name" />)
+                        </t>
                     </p>
-                    <br />
-                    <br />
-                    <div
+                    <p>Please confirm the delivery of purchase order <span
+                            style="font-weight:bold;"
+                            t-out="object.name or ''"
+                        >P00015</span> for delivery on <span
+                            style="font-weight:bold;"
+                            t-out="format_date(object.date_planned) or ''"
+                        >05/05/2021</span>.</p>
+                </p>
+                <br />
+                <br />
+                <p>
+                    Could you please confirm it will be delivered on time?
+                </p>
+                <br />
+                <br />
+                <div
                     style="margin: 0px; padding: 0px; font-size:13px; text-align: center;"
                 >
-                        <a
-                        href="${object.get_confirm_url(confirm_type='reminder')}"
+                    <a
+                        t-attf-href="{{object.get_confirm_url(confirm_type='reminder')}}"
                         style="margin-right: 10px; background-color: #cc333f; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;"
-                    >
-                            Yes
-                        </a>
-                        <a
-                        href="${object.get_update_url()}"
+                    >Yes</a>
+                    <a
+                        t-attf-href="{{object.get_update_url()}}"
                         style="margin-left: 10px; background-color: #cc333f; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;"
-                    >
-                            No, Update Dates
-                        </a>
-                    </div>
-                    <br />
-                    <br />
-                    <div
+                    >No, Update Dates</a>
+                </div>
+                <br />
+                <br />
+                <div
                     style="margin: 0px; padding: 0px; font-size:13px; text-align: left;"
                 >
-                        If you have any questions, please do not hesitate to contact us.
-                        <div><br /></div>
+                    If you have any questions, please do not hesitate to contact us.
+                    <div><br /></div>
                     Best regards,
                 </div>
-                </div>
-            </field>
-            <field name="report_template" ref="purchase.action_report_purchase_order" />
-            <field name="report_name">PO_${(object.name or '').replace('/','_')}</field>
-            <field name="lang">${object.partner_id.lang}</field>
-            <field name="auto_delete" eval="True" />
-        </record>
+            </div>
+        </field>
+        <field name="report_template" ref="purchase.action_report_purchase_order" />
+        <field name="report_name">PO_{{(object.name or '').replace('/','_')}}</field>
+        <field name="lang">{{object.partner_id.lang}}</field>
+        <field name="auto_delete" eval="True" />
+    </record>
 </odoo>

@@ -7,6 +7,7 @@ class PurchaseOrderLine(models.Model):
     requested_date = fields.Datetime(string="Requested Receipt Date", index=True)
 
     def write(self, vals):
+        old_date = None
         for rec in self:
             old_date = rec.requested_date
         res = super(PurchaseOrderLine, self).write(vals)
@@ -15,9 +16,9 @@ class PurchaseOrderLine(models.Model):
             new_date = vals["requested_date"]
             self.order_id.message_post(
                 body=_(
-                    "Requested Date Changed <br> %(old_date)s -> %(new_date)s",
-                    old_date,
-                    new_date,
+                    "Requested Date Changed <br> %(olddate)s -> %(newdate)s",
+                    olddate=old_date,
+                    newdate=new_date,
                 )
             )
         return res

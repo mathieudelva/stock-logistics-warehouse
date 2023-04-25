@@ -135,10 +135,9 @@
             <xpath expr="//field[@name='product_qty']" position="after">
                 <field name="qty_received" />
                 <field name="mto_origin" optional="hide" />
-                <field name="account_analytic_id" optional="hide" />
             </xpath>
             <xpath expr="//field[@name='date_planned']" position="after">
-                <field name="requested_date" widget="date" optional="hide" />
+                <field name="requested_date" optional="hide" />
             </xpath>
         </field>
     </record>
