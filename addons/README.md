@@ -53,6 +53,7 @@
 | oak_permissions                          | oak                       | BOTI      | This module controls all custom permissions for boti                                                   |
 | oak_product                              | oak                       | BOTI      | Adds a Product App with links to product listing, adds additional product fields                       |
 | oak_project                              | oak                       | BOTI      | Adds tracking for some project fields                                                                  |
+| oak_purchase                             | oak                       | BOTI      | This module modifies purchase views, adds a mail template for vendor to confirm or deny delivery date  |
 | oak_redis_session                        | oak                       | BOTI      | Redis for session                                                                                      |
 | oak_revaluation_job_queue                | oak                       | BOTI      | Queue job override for the cost roll                                                                   |
 | oak_sale                                 | oak                       | BOTI      | Additional sales fields                                                                                |
@@ -72,9 +73,11 @@
 | project_list                             | project                   | OCA       | Projects List View                                                                                     |
 | project_role                             | project                   | OCA       | Project role-based roster                                                                              |
 | project_template                         | project                   | OCA       | Project Templates                                                                                      |
+| purchase_analytic                        | account-analytic          | OCA       | This module add analytic distribution on purchase order.                                               |
 | purchase_delivery_split_date             | purchase-workflow         | OCA       | Purchase order ship date per line                                                                      |
 | purchase_deposit                         | purchase-workflow         | OCA       | purchase order to register deposit similar to that in sales order                                      |
 | purchase_exception                       | purchase-workflow         | OCA       | Base Exceptions for purchasing                                                                         |
+| purchase_last_price_info                 | purchase-workflow         | OCA       | This module adds the last purchase info of the product.                                                |
 | purchase_order_line_menu                 | purchase-workflow         | OCA       | Adds a menu item to list all Purchase Order lines                                                      |
 | purchase_order_line_price_history        | purchase-workflow         | OCA       | see the price history of a product from a purchase order line                                          |
 | purchase_order_type                      | purchase-workflow         | OCA       | configurable _type_ on the purchase orders                                                             |

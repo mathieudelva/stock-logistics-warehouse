@@ -1,0 +1,26 @@
+{
+    "name": "OAK Purchase Additions",
+    "version": "16.0.1.0.0",
+    "category": "Purchase",
+    "license": "Other proprietary",
+    "summary": "Purchase Modifications",
+    "author": "Burr Oak Tool, Open Source Integrators",
+    "website": "https://www.burroak.com",
+    "maintainers": ["BOTI"],
+    "depends": [
+        "purchase",
+        "purchase_analytic",
+        "purchase_last_price_info",
+        "mrp_planning_engine",
+    ],
+    "data": [
+        "views/purchase.xml",
+        "data/mail_template_purchase_confirmation.xml",
+        "views/purchase_portal.xml",
+        "views/product_view.xml",
+        "report/purchase_order_templates.xml",
+    ],
+    "installable": True,
+    "application": False,
+    "auto_install": False,
+}
