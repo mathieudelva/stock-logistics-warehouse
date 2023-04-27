@@ -11,7 +11,7 @@
     # Categories can be used to filter modules in modules listing
     # for the full list
     "category": "Project",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "price": 599.00,
     "currency": "EUR",
     "license": "Other proprietary",

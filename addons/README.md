@@ -14,6 +14,7 @@
 | auth_user_case_insensitive               | server-auth               | OCA       | makes user logins case insensitive                                                                     |
 | base_cron_exclusion                      | server-tools              | OCA       | Limit cron jobs running at the same time for the same thing                                            |
 | base_exception                           | server-tools              | OCA       | Dependency for all exception modules                                                                   |
+| base_import_security_group               | server-tools              | OCA       | Security group to control import permissions                                                           |
 | base_revision                            | server-ux                 | OCA       | Dependency for sale_order_revision                                                                     |
 | base_tier_validation                     | server-ux                 | OCA       | Dependency for all tier validation modules                                                             |
 | base_user_role                           | server-backend            | OCA       | Allows for grouping permissions into user roles that can be applied                                    |
@@ -38,6 +39,7 @@
 | oak_api                                  | oak                       | BOTI      | Adds API endpoints for the oak app                                                                     |
 | oak_boti_ui                              | oak                       | BOTI      | UI Alterations for BOTI                                                                                |
 | oak_crm                                  | oak                       | BOTI      | CRM lead field additions                                                                               |
+| oak_field_service                        | oak                       | BOTI      | Adds customized worksheets for the field service tasks to fill out                                     |
 | oak_helpdesk                             | oak                       | BOTI      | This module modifies the helpdesk tree view, adds additional fields & communication functionality      |
 | oak_helpdesk_eco                         | oak                       | BOTI      | Adds create eco from helpdesk ticket, links tickets to plm/eco records                                 |
 | oak_helpdesk_incident                    | oak                       | BOTI      | This module adds information about Customer Incidents including Warranty to helpdesk tickets           |
@@ -47,8 +49,8 @@
 | oak_legacy                               | oak                       | BOTI      | Product OAK Legacy Data                                                                                |
 | oak_maintenance                          | oak                       | BOTI      | Sage info for equipment                                                                                |
 | oak_mrp                                  | oak                       | BOTI      | Adds additional fields to production, workcenters, and work orders                                     |
-| oak_mrp_eco                              | oak                       | BOTI      | This module allows additional products on eco                                                          |
 | oak_mrp_bom_report                       | oak                       | BOTI      | MRP add detail number + custom reports                                                                 |
+| oak_mrp_eco                              | oak                       | BOTI      | This module allows additional products on eco                                                          |
 | oak_partner                              | oak                       | BOTI      | Partner additional fields and tracking                                                                 |
 | oak_permissions                          | oak                       | BOTI      | This module controls all custom permissions for boti                                                   |
 | oak_product                              | oak                       | BOTI      | Adds a Product App with links to product listing, adds additional product fields                       |

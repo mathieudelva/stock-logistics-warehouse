@@ -8,10 +8,10 @@
             <field name="numbercall">-1</field>
             <field name="user_id">1</field>
             <field name="state">code</field>
-            <field name="active" eval="False"/>
-            <field name="user_id" ref="base.user_root"/>
-            <field name="doall" eval="False"/>
-            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="active" eval="False" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="doall" eval="False" />
+            <field name="model_id" ref="stock.model_stock_picking" />
             <field name="code">model.import_delivery_order_using_cron()</field>
         </record>
         <record model="ir.cron" id="import_sale_orders_to_shipstation_cronjob">
@@ -21,10 +21,13 @@
 	        <field name="numbercall">-1</field>
 		    <field name="user_id">1</field>
 			<field name="state">code</field>
-	        <field name="active" eval="False"/>
-            <field name="user_id" ref="base.user_root"/>
-	        <field name="doall" eval="False"/>
-	        <field name="model_id" ref="shipstation_shipping_odoo_integration.model_shipstation_store_vts"/>
+	        <field name="active" eval="False" />
+            <field name="user_id" ref="base.user_root" />
+	        <field name="doall" eval="False" />
+	        <field
+                name="model_id"
+                ref="shipstation_shipping_odoo_integration.model_shipstation_store_vts"
+            />
 			<field name="code">model.import_sale_orders_using_cron()</field>
 	    </record>
     </data>

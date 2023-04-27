@@ -227,7 +227,9 @@ class BryntumGantt(http.Controller):
                     "rollup": task.bryntum_rollup,
                     "manuallyScheduled": task.manually_scheduled
                     if project.bryntum_auto_scheduling
-                    else True,
+                    else True
+                    if task.manually_scheduled is None
+                    else task.manually_scheduled,
                     "baselines": self.get_baselines(task, tz, self.get_gantt_date),
                     "segments": self.get_segments(task, tz, self.get_gantt_date),
                 }
@@ -480,12 +482,19 @@ class BryntumGantt(http.Controller):
         data_json = loads(data)
         task_env = request.env["project.task"]
         create_int_ids = []
+        id_map = {}
 
         for rec in data_json:
             if not self.is_gantt_new_id(rec.get("id")):
                 continue
             data = self.field_related(rec, self.default_fields)
+
+            if data["parent_id"] is None:
+                data["parent_id"] = id_map.get(rec.get("parentId")) or None
+
             task = task_env.create(data)
-            create_int_ids.append((rec.get("id"), self.task_id_template % task.id))
+            generated_id = task.id
+            id_map[rec.get("id")] = generated_id
+            create_int_ids.append((rec.get("id"), self.task_id_template % generated_id))
 
         return {"success": True, "status": "created", "ids": create_int_ids}

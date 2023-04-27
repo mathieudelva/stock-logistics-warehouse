@@ -6,10 +6,10 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree string="Shipstation Operation Detail" create='false'>
-                <field name="name"/>
-                <field name="shipstation_operation"/>
-                <field name="shipstation_operation_type"/>
-                <field name="create_date"/>
+                <field name="name" />
+                <field name="shipstation_operation" />
+                <field name="shipstation_operation_type" />
+                <field name="create_date" />
             </tree>
         </field>
     </record>
@@ -23,33 +23,36 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="name" readonly="1"></field>
-                            <field name="shipstation_operation" readonly="1"/>
-                            <field name="shipstation_operation_type" readonly="1"/>
+                            <field name="name" readonly="1" />
+                            <field name="shipstation_operation" readonly="1" />
+                            <field name="shipstation_operation_type" readonly="1" />
                             <field name="total_orders" />
                         </group>
                         <group>
-                            <field name="create_date" readonly="1"/>
-                            <field name="company_id" readonly="1"/>
+                            <field name="create_date" readonly="1" />
+                            <field name="company_id" readonly="1" />
                             <field name="shipstation_store_id" />
-					        <field name="import_order_from_date"  readonly="1"/>
+					        <field name="import_order_from_date" readonly="1" />
 					        <field name="import_order_to_date" readonly="1" />
-                            <field name="message" readonly="1"/>
+                            <field name="message" readonly="1" />
                         </group>
                     </group>
                     <group string="Shipstation Operation Details" colspan="4">
                         <field name="operation_ids" nolabel="1" readonly="1">
                             <tree decoration-danger="fault_operaion==True">
-                                <field name="shipstation_operation_type" invisible="1"/>
+                                <field
+                                    name="shipstation_operation_type"
+                                    invisible="1"
+                                />
 
-                                <field name="shipstation_operation" invisible="1"/>
-                                <field name="company_id" readonly="1"/>
+                                <field name="shipstation_operation" invisible="1" />
+                                <field name="company_id" readonly="1" />
 
 
-                                <field name="fault_operaion"/>
+                                <field name="fault_operaion" />
 
-                                <field name="shipstation_request_message"/>
-                                <field name="shipstation_response_message"/>
+                                <field name="shipstation_request_message" />
+                                <field name="shipstation_response_message" />
                             </tree>
                         </field>
                     </group>
@@ -100,13 +103,13 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree string="Shipstation Operation Details" create='false'>
-                <field name="shipstation_operation"/>
-                <field name="operation_id"/>
-                <field name="shipstation_operation_type"/>
+                <field name="shipstation_operation" />
+                <field name="operation_id" />
+                <field name="shipstation_operation_type" />
 
-                <field name="shipstation_request_message"/>
-                <field name="shipstation_response_message"/>
-                <field name="create_date"/>
+                <field name="shipstation_request_message" />
+                <field name="shipstation_response_message" />
+                <field name="create_date" />
             </tree>
         </field>
     </record>
@@ -121,8 +124,8 @@
                     <group readonly="1">
                         <group>
 
-                            <field name="shipstation_request_message"/>
-                            <field name="shipstation_response_message"/>
+                            <field name="shipstation_request_message" />
+                            <field name="shipstation_response_message" />
 
                         </group>
                     </group>
@@ -166,7 +169,7 @@
         <field name="name">Shipstation Operation Detail</field>
         <field name="res_model">shipstation.operation.detail</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="view_shipstation_operation_detail"/>
+        <field name="view_id" ref="view_shipstation_operation_detail" />
         <!--<field name="search_view_id" ref="search_form_shipstation_operation_detail"/>-->
     </record>
 
@@ -179,14 +182,22 @@
     </record>
 
 
-    <menuitem id="menu_shipstation_operation_detail" name="Shipstation Operation Detail"
-              parent="shipstation_odoo_integration_menuitem" sequence="4"
-              action="action_shipstation_operation_detail"/>
+    <menuitem
+        id="menu_shipstation_operation_detail"
+        name="Shipstation Operation Detail"
+        parent="shipstation_odoo_integration_menuitem"
+        sequence="4"
+        action="action_shipstation_operation_detail"
+    />
 
 
-    <menuitem id="menu_shipstation_operation_details" name="Fault Details"
-              parent="shipstation_odoo_integration_menuitem" sequence="5"
-              action="action_shipstation_operation_details"/>
+    <menuitem
+        id="menu_shipstation_operation_details"
+        name="Fault Details"
+        parent="shipstation_odoo_integration_menuitem"
+        sequence="5"
+        action="action_shipstation_operation_details"
+    />
 
 
     <record id="seq_shipstation_operation_detail" model="ir.sequence">
@@ -194,7 +205,7 @@
         <field name="code">shipstation.operation.detail</field>
         <field name="padding">5</field>
         <field name="prefix">SHIP-</field>
-        <field name="company_id" eval="False"/>
+        <field name="company_id" eval="False" />
     </record>
     <!---->
 </odoo>
