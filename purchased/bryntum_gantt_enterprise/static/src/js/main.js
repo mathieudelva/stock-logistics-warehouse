@@ -1,6 +1,6 @@
 /*!
  *
- * Bryntum Gantt for Odoo 5.0.1
+ * Bryntum Gantt for Odoo 5.3.2
  * Copyright(c) 2021 Bryntum AB
  * https://bryntum.com/contact
  * https://www.bryntum.com/legal/Bryntum-Odoo-Apps-EUL.pdf
@@ -63,6 +63,7 @@ odoo.define('bryntum.gantt.widget', function (require) {
 
             if (domain.length) {
                 window.o_gantt.projectID = domain[0][2];
+                window.o_gantt.lang = this.state.context.lang;
                 console.log(window.o_gantt.projectID);
             } else {
                 window.o_gantt.projectID = 0;
@@ -102,8 +103,8 @@ odoo.define('bryntum.gantt.widget', function (require) {
         icon: 'fa-th-list',
         viewType: 'BryntumGantt',
         jsLibs: [
-            'bryntum_gantt_enterprise/static/gantt_src/js/app.js?v201',
-            'bryntum_gantt_enterprise/static/gantt_src/js/chunk-vendors.js?v201'
+            'bryntum_gantt_enterprise/static/gantt_src/js/app.js?v202',
+            'bryntum_gantt_enterprise/static/gantt_src/js/chunk-vendors.js?v202'
         ],
         config: _.extend({}, BasicView.prototype.config, {
             Controller: BryntumGanttController,

@@ -16,4 +16,3 @@ from . import shipstation_delivery_package
 from . import stock_picking_vts
 from . import stock_quant
 from . import stock_package_type
-
