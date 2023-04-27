@@ -11,11 +11,8 @@
                     <group name="group_general">
                         <field name="name" string="Disclaimer ID" />
                         <field name="company_id" />
-                    </group>
-                    <group string="Warranty Text">
                         <field
                             name="description"
-                            nolabel="1"
                             placeholder="Warranty Policy Disclaimer Text."
                             wizard="html"
                         />

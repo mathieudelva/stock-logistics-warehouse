@@ -10,10 +10,14 @@
             <xpath expr="//page[@name='other_information']/group" position="after">
                 <group>
                     <group name="warranty_info" string="Report Additions">
-                        <field name="warranty_text_ids" nolabel="1">
+                        <field name="warranty_text_ids">
                             <tree editable="bottom" nolabel="1">
                                 <field name="sequence" widget="handle" />
-                                <field name="warranty_text_id" widget="Many2one" />
+                                <field
+                                    name="warranty_text_id"
+                                    widget="Many2one"
+                                    nolabel="1"
+                                />
                                 <field name="sale_order_id" invisible="1" />
                             </tree>
                         </field>
