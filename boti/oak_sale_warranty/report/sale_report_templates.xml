@@ -323,7 +323,6 @@
                                 t-value="current_subtotal + line.price_total"
                             />
                             <tr
-                                t-if="not line.hide_from_customer"
                                 t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''"
                             >
                                 <t t-if="not line.display_type">
@@ -343,7 +342,7 @@
                                     <td class="text-right" name="td_priceunit">
                                         <span
                                             t-options='{"widget": "float", "precision": 2}'
-                                            t-esc="line.display_unit_price"
+                                            t-esc="line.price_unit"
                                         />
                                     </td>
                                     <td
@@ -352,7 +351,7 @@
                                     >
                                         <span
                                             groups="account.group_show_line_subtotals_tax_excluded"
-                                            t-field="line.display_subtotal_price"
+                                            t-field="line.price_subtotal"
                                         />
                                         <span
                                             groups="account.group_show_line_subtotals_tax_included"
