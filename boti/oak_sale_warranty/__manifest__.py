@@ -18,7 +18,6 @@
         "report/sale_report_templates.xml",
         "views/sales.xml",
         "views/warranty_policy.xml",
-        "report/sale_report_templates.xml",
         "views/res_config_settings_views.xml",
     ],
     "demo": [],

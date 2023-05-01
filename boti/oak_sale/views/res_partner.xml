@@ -1,0 +1,18 @@
+<odoo>
+
+    <!--inherit and add group to res.partner.view.buttons
+         button box group modification for read only-->
+    <record id="res_partner_view_buttons_oak" model="ir.ui.view">
+        <field name="name">res.partner.view.buttons.oak</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="sale.res_partner_view_buttons" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@icon='fa-usd']" position="attributes">
+                <attribute
+                    name="groups"
+                >sales_team.group_sale_salesman,oak_permissions.group_sale_read_only</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

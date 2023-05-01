@@ -37,7 +37,7 @@
                 <field name="carrier_id" />
                 <field name="delivery_message" />
             </field>
-            <xpath expr="//tree/field[@name='commitment_date']" position="after">
+            <xpath expr="//tree/field[@name='customer_lead']" position="after">
                 <field name="promise_date" optional="show" />
             </xpath>
             <field name="picking_customer_note" position="attributes">
@@ -168,7 +168,7 @@
         <field name="model">sale.order.line</field>
         <field name="inherit_id" ref="sale.view_order_line_tree" />
         <field name="arch" type="xml">
-            <field name="commitment_date" position="after">
+            <field name="product_uom" position="after">
                 <field name="promise_date" />
             </field>
             <field name="price_subtotal" position="before">
