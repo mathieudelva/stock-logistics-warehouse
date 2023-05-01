@@ -9,7 +9,7 @@ class AccountFollowupReport(models.AbstractModel):
     _inherit = "account.followup.report"
 
     @api.model
-    def send_email(self, options):
+    def _send_email(self, options):
         """
         Send by mail the followup to the customer
         """
