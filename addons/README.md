@@ -39,6 +39,7 @@
 | oak_api                                  | oak                       | BOTI      | Adds API endpoints for the oak app                                                                     |
 | oak_boti_ui                              | oak                       | BOTI      | UI Alterations for BOTI                                                                                |
 | oak_crm                                  | oak                       | BOTI      | CRM lead field additions                                                                               |
+| oak_documents_helpdesk                   | oak                       | BOTI      | This module allows for helpdesk attachments to be saved in a centralized location                      |
 | oak_field_service                        | oak                       | BOTI      | Adds customized worksheets for the field service tasks to fill out                                     |
 | oak_helpdesk                             | oak                       | BOTI      | This module modifies the helpdesk tree view, adds additional fields & communication functionality      |
 | oak_helpdesk_eco                         | oak                       | BOTI      | Adds create eco from helpdesk ticket, links tickets to plm/eco records                                 |
