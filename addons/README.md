@@ -51,6 +51,7 @@
 | oak_mrp                                  | oak                       | BOTI      | Adds additional fields to production, workcenters, and work orders                                     |
 | oak_mrp_bom_report                       | oak                       | BOTI      | MRP add detail number + custom reports                                                                 |
 | oak_mrp_eco                              | oak                       | BOTI      | This module allows additional products on eco                                                          |
+| oak_mrp_sawlist                          | oak                       | BOTI      | This module creates a view for sawlist, adds tolerances to mrp & other additional fields               |
 | oak_partner                              | oak                       | BOTI      | Partner additional fields and tracking                                                                 |
 | oak_permissions                          | oak                       | BOTI      | This module controls all custom permissions for boti                                                   |
 | oak_product                              | oak                       | BOTI      | Adds a Product App with links to product listing, adds additional product fields                       |

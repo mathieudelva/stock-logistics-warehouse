@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- oak_tolerance form view -->
+    <record id="oak_tolerance_form_view" model="ir.ui.view">
+        <field name="name">oak.tolerance.form</field>
+        <field name="model">oak.tolerance</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form string="Tolerances">
+                <sheet>
+                    <group name="group_general">
+                        <field name="name" />
+                        <field name="nformat" />
+                        <separator string="Tolerance Description" />
+                        <field
+                            name="description"
+                            nolabel="1"
+                            placeholder="Tolerance Description"
+                        />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="oak_tolerance_tree_view" model="ir.ui.view">
+        <field name="name">oak.tolerance.tree.view</field>
+        <field name="model">oak.tolerance</field>
+        <field name="arch" type="xml">
+            <tree name="Tolerances">
+                <field name="name" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="oak_tolerance_search_view" model="ir.ui.view">
+        <field name="name">oak.tolerance.search</field>
+        <field name="model">oak.tolerance</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <search string="Tolerances">
+                <field
+                    name="name"
+                    string="Tolerance"
+                    filter_domain="[('material_code', 'ilike', self)]"
+                />
+                <field
+                    name="description"
+                    string="Description"
+                    filter_domain="[('name', 'ilike', self)]"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record id="action_oak_tolerance" model="ir.actions.act_window">
+        <field name="name">Tolerancess</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">oak.tolerance</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="oak_tolerance_tree_view" />
+        <field name="search_view_id" ref="oak_tolerance_search_view" />
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="oak_tolerance_menu"
+        name="Tolerances"
+        parent="oak_legacy.top_oak_product_menu"
+        action="action_oak_tolerance"
+        sequence="4"
+        groups="oak_product.product_boti_group_admin"
+        active="True"
+    />
+
+</odoo>
