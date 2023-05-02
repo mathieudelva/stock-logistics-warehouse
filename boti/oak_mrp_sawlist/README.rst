@@ -22,10 +22,6 @@ Fields:
 
         ovr_qty = override qty
     
-    mrp_production:
-
-        analytic_plan_id = analytic plan of analytic account
-
     oak_tolerance:
 
         name = tolerance name

@@ -1,13 +1,9 @@
-from odoo import fields, models
+from odoo import models
 
 
 class MrpProduction(models.Model):
     _inherit = "mrp.production"
     _description = "Production Order"
-
-    analytic_plan_id = fields.Many2one(
-        related="analytic_account_id.plan_id", store=True
-    )
 
     def load_components(self):
         # Clear move raws if we are changing the product.
