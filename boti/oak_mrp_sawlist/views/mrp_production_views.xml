@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="mrp_production_form_oak_view" model="ir.ui.view">
+        <field name="name">mrp.production.oak.form</field>
+        <field name="model">mrp.production</field>
+        <field name="priority" eval="105" />
+        <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+        <field name="arch" type="xml">
+            <field name="user_id" position="before">
+                <field name="date_planned_finished" />
+            </field>
+        </field>
+    </record>
+</odoo>

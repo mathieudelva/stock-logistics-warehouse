@@ -25,6 +25,8 @@ Fields:
         mo_hold - Checkbox to manually put mo on hold
 
         mo_hold_reason - required text field when mo on hold is checked
+
+        analytic_plan_id = analytic plan of analytic account
         
     mrp_workcenter:
 

@@ -18,6 +18,9 @@
                     attrs="{'required':[('mo_hold','!=',False)], 'invisible': [('mo_hold', '=', False)]}"
                 />
             </field>
+            <field name="analytic_account_id" position="after">
+                <field name="analytic_plan_id" />
+            </field>
 
         </field>
     </record>

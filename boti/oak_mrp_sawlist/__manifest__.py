@@ -1,0 +1,22 @@
+{
+    "name": "OAK Saw List",
+    "version": "16.0.1.0.0",
+    "category": "Burr Oak Tool",
+    "author": "Burr Oak Tool, Open Source Integrators",
+    "website": "https://www.burroak.com",
+    "license": "LGPL-3",
+    "summary": """This module creates a view for sawlist,
+    adds tolerances to mrp & other additional fields""",
+    "maintainers": ["Burr Oak Tool"],
+    "depends": ["mrp", "oak_product", "oak_legacy"],
+    "data": [
+        "security/ir.model.access.csv",
+        "views/product_views.xml",
+        "views/oak_tolerance.xml",
+        "views/mrp_workorder_views.xml",
+        "views/mrp_production_views.xml",
+    ],
+    "demo": [],
+    "installable": True,
+    "auto_install": False,
+}

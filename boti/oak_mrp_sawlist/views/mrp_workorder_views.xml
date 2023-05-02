@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="mrp_production_workorder_tree_view_oak" model="ir.ui.view">
+        <field name="name">mrp.production.work.order.oak.tree</field>
+        <field name="model">mrp.workorder</field>
+        <field name="priority" eval="106" />
+        <field
+            name="inherit_id"
+            ref="mrp.mrp_production_workorder_tree_editable_view"
+        />
+        <field name="arch" type="xml">
+            <field name="workcenter_id" position="after">
+                <field name="operation_note" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="mrp_production_workorder_tree_view_saw" model="ir.ui.view">
+        <field name="name">mrp.production.work.order.saw.tree</field>
+        <field name="model">mrp.workorder</field>
+        <field name="mode">primary</field>
+        <field name="priority" eval="105" />
+        <field
+            name="inherit_id"
+            ref="mrp.mrp_production_workorder_tree_editable_view"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">0</attribute>
+                <attribute name="sample">1</attribute>
+            </xpath>
+            <field name="workcenter_id" position="after">
+                <field name="production_id" string="MO" />
+                <field name="product_id" />
+                <field name="finish_size" />
+                <field name="material" />
+                <field name="raw_size" />
+                <field name="raw_length" />
+                <field name="qty_production" string="Qty Reqd" />
+                <field name="ovr_qty" widget="float" />
+            </field>
+            <button name="button_finish" position="replace">
+                <button
+                    name="button_finish"
+                    type="object"
+                    string="Done"
+                    class="btn-success"
+                    attrs="{'invisible': ['|', ('production_state', 'in', ('draft', 'done')), ('working_state', '=', 'blocked')]}"
+                />
+            </button>
+        </field>
+    </record>
+
+    <record id="mrp_production_workorder_form_view_saw" model="ir.ui.view">
+        <field name="name">mrp.production.work.order.saw.form</field>
+        <field name="model">mrp.workorder</field>
+        <field name="priority" eval="105" />
+        <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='time_tracking']" position="replace">
+                <page
+                    string="Time Tracking"
+                    name="time_tracking"
+                    groups="mrp.group_mrp_manager"
+                >
+                        <field
+                        name="time_ids"
+                        context="{'default_workcenter_id': workcenter_id, 'default_workorder_id': id}"
+                    >
+                            <tree editable="bottom">
+                                <field name="date_start" />
+                                <field name="date_end" />
+                                <field
+                                name="duration"
+                                widget="mrp_time_counter"
+                                sum="Total duration"
+                                readonly="0"
+                            />
+                                <field name="user_id" />
+                                <field name="workcenter_id" invisible="1" />
+                                <field name="company_id" invisible="1" />
+                                <field
+                                name="loss_id"
+                                string="Productivity"
+                                optional="hide"
+                            />
+                            </tree>
+                            <form>
+                                <group>
+                                    <group>
+                                        <field name="date_start" />
+                                        <field name="date_end" />
+                                        <field
+                                        name="duration"
+                                        widget="mrp_time_counter"
+                                        readonly="0"
+                                    />
+                                        <field name="company_id" invisible="1" />
+                                    </group>
+                                    <group>
+                                        <field name="user_id" />
+                                        <field name="workcenter_id" />
+                                        <field name="company_id" invisible="1" />
+                                        <field name="loss_id" />
+                                    </group>
+                                </group>
+                            </form>
+                        </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_mrp_production_workorder_saw_form_view_filter" model="ir.ui.view">
+        <field name="name">mrp.production.work.order.saw.select</field>
+        <field name="model">mrp.workorder</field>
+        <field name="arch" type="xml">
+            <search string="Search Work Orders">
+                <field name="name" string="Work Order" />
+                <field name="workcenter_id" />
+                <field name="production_id" />
+                <filter
+                    string="In Progress"
+                    name="progress"
+                    domain="[('state', '=', 'progress')]"
+                />
+                <filter
+                    string="Ready"
+                    name="ready"
+                    domain="[('state', '=', 'ready')]"
+                />
+                <filter
+                    string="Pending"
+                    name="pending"
+                    domain="[('state', '=', 'pending')]"
+                />
+                <filter
+                    string="Finished"
+                    name="finish"
+                    domain="[('state', '=', 'done')]"
+                />
+                <filter
+                    string="Available"
+                    name="available"
+                    domain="[('production_availability', '=', 'assigned')]"
+                />
+                <separator />
+                <filter
+                    string="Saw"
+                    name="saw"
+                    domain="['|','|','&amp;',('state', '=', 'progress'),('state', '=', 'ready'),('state', '=', 'progress'),('workcenter_id', 'ilike', 'SAW #')]"
+                />
+                <separator />
+                <filter
+                    string="Late"
+                    name="late"
+                    domain="['&amp;',('date_planned_start', '&lt;', current_date), ('state', '=', 'ready')]"
+                    help="Production started late"
+                />
+                <group expand="0" string="Group By">
+                    <filter
+                        string="Work Center"
+                        name="work_center"
+                        domain="[]"
+                        context="{'group_by': 'workcenter_id'}"
+                    />
+                    <filter
+                        string="Manufacturing Order"
+                        name="production"
+                        domain="[]"
+                        context="{'group_by': 'production_id'}"
+                    />
+                    <filter
+                        string="Status"
+                        name="status"
+                        domain="[]"
+                        context="{'group_by': 'state'}"
+                    />
+                    <filter
+                        string="Material"
+                        name="material"
+                        domain="[]"
+                        context="{'group_by': 'material'}"
+                    />
+                    <filter
+                        string="Raw Size"
+                        name="raw_size"
+                        domain="[]"
+                        context="{'group_by': 'raw_size'}"
+                    />
+                    <filter
+                        string="Scheduled Date"
+                        name="scheduled_month"
+                        domain="[]"
+                        context="{'group_by': 'date_planned_start'}"
+                    />
+                </group>
+             </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="mrp_workorder_saw_todo">
+        <field name="name">Saw Work Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.workorder</field>
+        <field name="view_mode">tree,kanban,form,calendar,pivot,graph,gantt</field>
+        <field
+            name="search_view_id"
+            ref="view_mrp_production_workorder_saw_form_view_filter"
+        />
+        <field
+            name="context"
+        >{'search_default_ready': True, 'search_default_progress': True, 'search_default_pending': True}</field>
+        <field name="view_id" ref="mrp_production_workorder_tree_view_saw" />
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            No work orders to do!
+          </p><p>
+            Work orders are operations to do as part of a manufacturing order.
+            Operations are defined in the bill of materials or added in the manufacturing order directly.
+          </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_mrp_workorder_saw_todo"
+        name="Saw Work Orders"
+        action="mrp_workorder_saw_todo"
+        parent="mrp.menu_mrp_manufacturing"
+        sequence="12"
+    />
+
+</odoo>
