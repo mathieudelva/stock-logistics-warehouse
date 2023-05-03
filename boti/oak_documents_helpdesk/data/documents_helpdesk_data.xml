@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+
+    <!-- Folders -->
+
+    <record id="documents_helpdesk_folder" model="documents.folder" forcecreate="0">
+        <field name="name">Helpdesk</field>
+        <field name="sequence">16</field>
+        <field name="group_ids" eval="[(4, ref('base.group_user'))]" />
+        <field name="read_group_ids" eval="[(4, ref('base.group_user'))]" />
+    </record>
+
+    <!-- Facets -->
+
+    <record id="documents_helpdesk_documents" model="documents.facet" forcecreate="0">
+        <field name="name">Documents</field>
+        <field name="sequence">6</field>
+        <field name="folder_id" ref="documents_helpdesk_folder" />
+    </record>
+
+    <!-- company default setting -->
+
+    <record id="base.main_company" model="res.company">
+        <field name="documents_helpdesk_folder" ref="documents_helpdesk_folder" />
+    </record>
+
+</odoo>
