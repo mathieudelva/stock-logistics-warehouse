@@ -47,10 +47,14 @@
     <record id="oak_purchase_order_view_tree_inherit" model="ir.ui.view">
         <field name="name">purchase.order.view.tree</field>
         <field name="model">purchase.order</field>
+        <field name="priority" eval="100" />
         <field name="inherit_id" ref="purchase.purchase_order_view_tree" />
         <field name="arch" type="xml">
             <xpath expr="//tree/field[@name='partner_id']" position="before">
                 <field name="vendor_ref" readonly="True" />
+            </xpath>
+            <!--This is Odoo's recepit status, which we don't like because it's confusing, using an addon instead -->
+            <xpath expr="//tree/field[@name='receipt_status']" position="replace">
             </xpath>
         </field>
     </record>
