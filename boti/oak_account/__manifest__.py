@@ -3,7 +3,7 @@
 
 {
     "name": "Oak Account Customization",
-    "version": "16.0.1.1.0",
+    "version": "16.0.1.2.0",
     "license": "AGPL-3",
     "author": "Open Source Integrators",
     "maintainers": ["Open Source Integrators"],
@@ -27,12 +27,6 @@
         "views/account_payment_views.xml",
         "views/stock_picking_view.xml",
         "views/partner_view.xml",
-        "reports/account_invoice_report_view.xml",
-        "reports/payment_receipt_report.xml",
-        "reports/print_check.xml",
-        "reports/commercial_report.xml",
     ],
-    "auto_install": False,
-    "application": False,
     "installable": True,
 }
