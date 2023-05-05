@@ -15,6 +15,13 @@
                     />
                     <field name="state" invisible="1" />
                 </header>
+                <field name="need_validation" invisible="1" />
+                <field name="validated" invisible="1" />
+                <field name="rejected" invisible="1" />
+                <field name="can_review" invisible="1" />
+                <field name="next_review" invisible="1" />
+                <field name="review_ids" invisible="1" />
+
                 <sheet>
                     <div class="oe_title">
                         <label

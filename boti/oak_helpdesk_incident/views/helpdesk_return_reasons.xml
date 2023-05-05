@@ -12,13 +12,12 @@
                     <group name="group_general">
                         <field name="name" />
                     </group>
-                    <group string="Return Reason Description">
+                    <separator string="Return Reason Description" />
                         <field
-                            name="description"
-                            nolabel="1"
-                            placeholder="Description of Return Reason"
-                        />
-                    </group>
+                        name="description"
+                        nolabel="1"
+                        placeholder="Description of Return Reason"
+                    />
                 </sheet>
             </form>
         </field>

@@ -30,6 +30,7 @@
         "product_state",
         "sale_product_approval",
         "sale_product_approval_mrp",
+        "product_tier_validation",
     ],
     "data": [
         "security/security.xml",

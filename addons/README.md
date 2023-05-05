@@ -109,7 +109,7 @@
 | scrap_reason_code                        | stock-logistics-warehouse | OCA       | Adds a reason code for scrapping operations                                                            |
 | shipstation_shipping_odoo_integration    | purchased                 | Vraja     | Shipstation shipping integrations                                                                      |
 | stock_delivery_note                      | stock-logistics-workflow  | OCA       | Adds a delivery note in stock pickings. Displayed on delivery reports.                                 |
-| stock_financial_risk                     | stock-logistics-workflow  | OCA       | Adds a delivery note in stock pickings. Displayed on delivery reports.                                 |
+| stock_financial_risk                     | credit-control            | OCA       | Adds a delivery note in stock pickings. Displayed on delivery reports.                                 |
 | stock_inventory_revaluation_adjustment   | stock-logistics-warehouse | OCA       | Adds a cost change process workflow to products to allow users to adjust costs in bulk                 |
 | stock_inventory_revaluation_mrp          | stock-logistics-warehouse | OCA       | Adds a manufacturing components to see what BoM's/Manufaturing Orders are affected by the cost changes |
 | stock_inventory_revaluation_wip          | stock-logistics-warehouse | OCA       | 'Cost Type' and 'Activity Driven Costs' components and bring them into the cost adjustment details     |

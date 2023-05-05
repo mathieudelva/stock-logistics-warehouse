@@ -12,13 +12,12 @@
                     <group name="group_general">
                         <field name="name" />
                     </group>
-                    <group string="Incident Cause Description">
+                    <separator string="Incident Cause Description" />
                         <field
-                            name="description"
-                            nolabel="1"
-                            placeholder="Description of Cause"
-                        />
-                    </group>
+                        name="description"
+                        nolabel="1"
+                        placeholder="Description of Cause"
+                    />
                 </sheet>
             </form>
         </field>
