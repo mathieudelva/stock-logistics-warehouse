@@ -15,9 +15,9 @@
     - oca 16.0
     - oca refs/pull/540/head # [16.0][MIG] account_analytic_wip
     - oca refs/pull/538/head # [16.0][MIG] analytic_activity_based_cost
-    - oca refs/pull/494/head # 16.0 mig mrp analytic
     - oca refs/pull/550/head # [16.0][MIG] mrp_analytic_child_mo: migration to 16.0
     - oca refs/pull/548/head # [WIP][16.0][MIG] mrp_analytic_sale_project
+    - oca refs/pull/553/head # mrp_analytic
   target: &default_target bot bot/16.0
 
 ./oca/account-financial-tools:
