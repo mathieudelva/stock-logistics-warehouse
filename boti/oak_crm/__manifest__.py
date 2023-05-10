@@ -1,7 +1,6 @@
 {
     "name": "Oak CRM Additions",
-    "summary": """
-        Adds additional fields to CRM sales leads""",
+    "summary": "Adds additional fields to CRM sales leads",
     "description": """
         Adds Product Family Category and Product Family model types
         Adds Product family and category to crm leads
@@ -13,15 +12,13 @@
     "author": "Burr Oak Tool Inc",
     "website": "https://www.burroak.com",
     "maintainers": ["emsmith"],
-    "depends": [
-        "base",
-        "crm",
-    ],
+    "depends": ["crm", "oak_permissions", "sale"],
     "data": [
         "security/ir.model.access.csv",
+        "views/crm_lead.xml",
         "views/product_family_category.xml",
         "views/product_family.xml",
-        "views/crm_lead.xml",
+        "views/res_partner.xml",
     ],
     "installable": True,
     "application": False,

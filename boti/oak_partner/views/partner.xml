@@ -163,44 +163,6 @@
         </field>
     </record>
 
-    <!--inherit and add group to res.partner.view.buttons
-         button box group modification for read only-->
-    <record id="res_partner_view_buttons_oak" model="ir.ui.view">
-        <field name="name">res.partner.view.buttons.oak</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="sale.res_partner_view_buttons" />
-        <field name="arch" type="xml">
-            <xpath expr="//button[@icon='fa-usd']" position="attributes">
-                <attribute
-                    name="groups"
-                >sales_team.group_sale_salesman, oak_sale.group_sale_read_only</attribute>
-            </xpath>
-        </field>
-    </record>
-
-    <!--inherit and add group to res.partner.view.buttons-->
-    <record id="view_res_partner_form_crm_inherited1_oak" model="ir.ui.view">
-        <field name="name">view.res.partner.form.crm.inherited1.oak</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="crm.view_partners_form_crm1" />
-        <field name="arch" type="xml">
-            <!-- button box group modification for read only-->
-            <xpath
-                expr="//button[@name='action_view_opportunity']"
-                position="attributes"
-            >
-                <attribute
-                    name="groups"
-                >sales_team.group_sale_salesman, oak_sale.group_sale_read_only</attribute>
-            </xpath>
-            <xpath expr="//button[@name='schedule_meeting']" position="attributes">
-                <attribute
-                    name="groups"
-                >sales_team.group_sale_salesman, oak_sale.group_sale_read_only</attribute>
-            </xpath>
-        </field>
-    </record>
-
     <!-- Partner kanban view inherte -->
     <record id="oak_partner_kanban_view_inherit" model="ir.ui.view">
         <field name="name">res.partner.kanban.inherit</field>

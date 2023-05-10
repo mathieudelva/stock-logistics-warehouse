@@ -1,0 +1,410 @@
+<odoo>
+
+    <template id="report_commercial_invoice_tmp">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="lang" t-value="doc.partner_id.lang" />
+                <t t-set="print_with_payments" t-value="True" />
+                <t t-call="oak_account.report_commercial_invoice" t-lang="lang" />
+            </t>
+        </t>
+    </template>
+
+    <record id="account_commercial_invoices" model="ir.actions.report">
+        <field name="name">Commercial Invoices</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">oak_account.report_commercial_invoice_tmp</field>
+        <field name="report_file">oak_account.report_commercial_invoice_tmp</field>
+        <field
+            name="print_report_name"
+        >'Commercial Invoice - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="stock.model_stock_picking" />
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_commercial_invoice">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="oe_structure" />
+                        <table class="table borderless">
+                            <tr>
+                                <td
+                                style="border:none;text-align:center;vertical-align: middle;padding: 0px;margin: 0px;"
+                            >
+                                    <strong style="font-size:20px;">Commercial Invoice
+                                    </strong>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="container" style="font-size:14px;">
+                            <div class="row col-12">
+                                <div class="col-4">
+                                    <strong>Invoicing Address:</strong>
+                                    <t t-if="doc.partner_id.name">
+                                        <div t-field="doc.partner_id.name" />
+                                    </t>
+                                    <t t-if="not doc.partner_id.name">
+                                        <div
+                                        t-field="doc.partner_id.commercial_partner_id.name"
+                                    />
+                                    </t>
+                                    <div
+                                    t-field="doc.partner_id"
+                                    t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;], &quot;no_marker&quot;: True,}"
+                                />
+                                </div>
+                                <div class="col-3" />
+                                <div class="col-5">
+                                    <strong>Delivery Address:</strong>
+                                    <t t-if="doc.sale_id.partner_shipping_id.name">
+                                        <div
+                                        t-field="doc.sale_id.partner_shipping_id.name"
+                                    />
+                                    </t>
+                                    <t t-if="not doc.sale_id.partner_shipping_id.name">
+                                        <div
+                                        t-field="doc.sale_id.partner_shipping_id.commercial_partner_id.name"
+                                    />
+                                    </t>
+                                    <div
+                                    t-field="doc.sale_id.partner_shipping_id"
+                                    t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"
+                                />
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-sm o_main_table">
+                            <thead style="display: table-row-group;font-size:14px;">
+                                <tr>
+                                    <th
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                >Number</th>
+                                    <th
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                >Date</th>
+                                    <th
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                >Payment Terms</th>
+                                    <th
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                >Incoterms</th>
+                                    <th class="text-center">Ship Date</th>
+                                </tr>
+                            </thead>
+                            <tbody class="sale_tbody" style="font-size:14px;">
+                                <t
+                                t-as="move_id"
+                                t-foreach="doc.get_move_details()['cust_docs']"
+                            >
+                                    <tr style="border-bottom: 1px solid #dee2e6;">
+                                        <td
+                                        class="text-center"
+                                        style="border-right: 1px solid #dee2e6;"
+                                    >
+                                            <span t-esc="doc.name or ''" />
+                                        </td>
+                                        <td
+                                        class="text-center"
+                                        style="border-right: 1px solid #dee2e6;"
+                                    >
+                                            <span
+                                            t-esc="doc.date_done"
+                                            t-options="{'widget': 'date'}"
+                                        />
+                                        </td>
+                                        <td
+                                        class="text-center"
+                                        style="border-right: 1px solid #dee2e6;"
+                                    >
+                                            <span
+                                            t-esc="doc.sale_id.payment_term_id.name or ''"
+                                        />
+                                        </td>
+                                        <td
+                                        class="text-center"
+                                        style="border-right: 1px solid #dee2e6;"
+                                    >
+                                            <span
+                                            t-esc="doc.sale_id.incoterm.name or ''"
+                                        />
+                                        </td>
+                                        <td class="text-center">
+                                            <span
+                                            t-esc="doc.date_done"
+                                            t-options="{'widget': 'date'}"
+                                        />
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                            <thead style="display: table-row-group;font-size:14px;">
+                                <tr>
+                                    <th
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                >Tracking Number</th>
+                                    <th
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                >Customer PO</th>
+                                    <th
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                >Shipping Terms</th>
+                                    <th
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                >Shipping Method</th>
+                                    <th class="text-center">Order By</th>
+                                </tr>
+                            </thead>
+                            <tbody class="sale_tbody" style="font-size:14px;">
+                                <tr>
+                                    <td
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                >
+                                        <span t-esc="doc.carrier_tracking_ref" />
+                                    </td>
+                                    <td
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                >
+                                        <span
+                                        t-if="doc.sale_id"
+                                        t-esc="doc.sale_id.client_order_ref or ''"
+                                    />
+                                    </td>
+                                    <!-- <td class="text-center" style="border-right: 1px solid #dee2e6;">
+                                        <span t-if="doc.sale_id" t-esc="doc.customer_note or ''"/>
+                                    </td> -->
+                                    <td
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                >
+                                        <span
+                                        t-if="doc.sale_id"
+                                        t-esc="doc.sale_id.carrier_id.name or ''"
+                                    />
+                                    </td>
+                                    <!-- <td class="text-center">
+                                        <span t-if="doc.sale_id" t-esc="doc.sale_id.sale_ordered_by_id.name or ''"/>
+                                    </td> -->
+                                </tr>
+                            </tbody>
+                            <thead style="display: table-row-group;font-size:14px;">
+                                <tr>
+                                    <th
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                >Sales Order</th>
+                                    <th
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                />
+                                    <th
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                />
+                                    <th
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                />
+                                    <th class="text-center">Shipment City</th>
+                                </tr>
+                            </thead>
+                            <tbody class="sale_tbody" style="font-size:14px;">
+                                <tr style="border-bottom: 1px solid #dee2e6;">
+                                    <td
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                >
+                                        <span t-esc="doc.sale_id.name" />
+                                    </td>
+                                    <td
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                />
+                                    <td
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                />
+                                    <td
+                                    class="text-center"
+                                    style="border-right: 1px solid #dee2e6;"
+                                />
+                                    <td class="text-center">
+                                        <t>
+                                            <span t-esc="doc.ship_city" />
+                                        </t>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table
+                        border="0"
+                        class="table table-borderless"
+                        style="font-size:14px;"
+                    >
+                            <t
+                            t-as="move_id"
+                            t-foreach="doc.get_move_details()['cust_docs']"
+                        >
+                                <tr style="padding: 0px;margin: 0px;" width="100%">
+                                    <td
+                                    style="border:none;padding: 0px;margin: 0px;width:50%;"
+                                >Notes:&amp;nbsp;
+                                        <!-- <span t-esc="doc.sale_id.order_note"/> -->
+                                    </td>
+                                    <td
+                                    style="border:none;text-align:left;padding: 0px;margin: 0px;"
+                                    width="50%"
+                                >ATTN:&amp;nbsp;
+                                        <t
+                                        t-if="doc.sale_id"
+                                        t-esc="doc.sale_id.sale_attention_to_note or ''"
+                                    />
+                                    </td>
+                                </tr>
+                            </t>
+                        </table>
+                        <table
+                        class="table table-sm o_main_table"
+                        style="font-size:14px;"
+                    >
+                            <thead style="display: table-row-group">
+                                <tr>
+                                    <th
+                                    class="text-left"
+                                    name="th_itemno"
+                                >Item Number</th>
+                                    <th
+                                    class="text-left"
+                                    name="th_country_of_origin"
+                                >Country Of Origin</th>
+                                    <th
+                                    class="text-left"
+                                    name="th_description"
+                                >Description</th>
+                                    <th
+                                    class="text-right"
+                                    name="th_quantity"
+                                >Quantity</th>
+                                    <th
+                                    class="text-right"
+                                    name="th_priceunit"
+                                >Unit Price</th>
+                                    <th class="text-right" name="th_subtotal">
+                                        <span
+                                        groups="account.group_show_line_subtotals_tax_excluded"
+                                    >Amount</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="sale_tbody">
+                                <t t-set="current_subtotal" t-value="0" />
+                                <t t-foreach="o.get_do_lines()" t-as="ml">
+                                    <tr>
+                                        <t>
+                                            <td name="td_itemno">
+                                                <span
+                                                t-esc="ml.get('default_code')"
+                                            /><br />
+                                            </td>
+                                            <td name="td_name">
+                                                <span
+                                                t-esc="ml.get('country_of_origin')"
+                                            /><br />
+                                            </td>
+                                            <td>
+                                                <span
+                                                t-esc="ml.get('description')"
+                                            /><br />
+                                            </td>
+                                            <td class="text-right">
+                                                <span
+                                                t-esc="ml.get('product_qty')"
+                                            /><br />
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="ml.get('price')" /><br />
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="ml.get('amount')" /><br />
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <br />
+                        <div
+                        class="clearfix"
+                        name="so_total_summary"
+                        style="font-size:14px;"
+                    >
+                            <div class="row" id="total" name="total">
+                                <div
+                                t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto"
+                            >
+                                    <table class="table table-sm">
+                                        <t t-foreach="o.get_do_lines()" t-as="ml">
+                                            <tr
+                                            class="border-black o_subtotal"
+                                            style=""
+                                        >
+                                                <td name="td_amount_untaxed_label">
+                                                    <strong>Subtotal</strong>
+                                                </td>
+                                                <td
+                                                class="text-right"
+                                                name="td_amount_untaxed"
+                                            >
+                                                    <span t-esc="ml.get('price')" /><br
+                                                />
+                                                </td>
+                                            </tr>
+                                            <tr class="border-black o_total">
+                                                <td name="td_amount_total_label">
+                                                    <strong>Total</strong>
+                                                </td>
+                                                <td
+                                                class="text-right"
+                                                name="td_amount_total"
+                                            >
+                                                    <span t-esc="ml.get('price')" /><br
+                                                />
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <br />
+                            <div
+                            class="row"
+                            style="border:none;padding: 0px;margin: 0px;"
+                            width="41%"
+                        >
+                                <span t-esc="o.sale_id.note or ''" />
+                            </div>
+                            <br />
+                            <span
+                            style="font-size:10.0pt"
+                        >These items are controlled by the U.S. Government and authorized for export only to the country of ultimate destination for use by the ultimate consignee or end-user (s) herein identified.  They may not be resold, transferred, or otherwise disposed of, to any other country or to any other person other than the authorized ultimate consignee or end-user (s), either in their original form or after being incorporated into other items, without first obtaining approval from the U.S. government or as otherwise authorized by U.S law and regulations.</span>
+                        </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

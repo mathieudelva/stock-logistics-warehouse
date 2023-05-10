@@ -9,7 +9,7 @@
     "maintainers": ["emsmith"],
     "depends": [
         "base",
-        "sale",
+        "sale_stock",
         "oak_permissions",
         "oak_partner",
         "sale_exception",
@@ -20,6 +20,7 @@
         "security/ir.model.access.csv",
         "views/sale_leadtime_message.xml",
         "views/sales.xml",
+        "views/res_partner.xml",
         "report/sale_report.xml",
         "report/sale_work_report_templates.xml",
     ],
