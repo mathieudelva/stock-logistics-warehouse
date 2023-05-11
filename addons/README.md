@@ -57,6 +57,7 @@
 | oak_permissions                          | oak                       | BOTI      | This module controls all custom permissions for boti                                                   |
 | oak_product                              | oak                       | BOTI      | Adds a Product App with links to product listing, adds additional product fields                       |
 | oak_project                              | oak                       | BOTI      | Adds tracking for some project fields                                                                  |
+| oak_project_task_helpdesk                | oak                       | BOTI      | This module allows creating and attaching Helpdesk Tickets from a Project Tasks                        |
 | oak_purchase                             | oak                       | BOTI      | This module modifies purchase views, adds a mail template for vendor to confirm or deny delivery date  |
 | oak_redis_session                        | oak                       | BOTI      | Redis for session                                                                                      |
 | oak_revaluation_job_queue                | oak                       | BOTI      | Queue job override for the cost roll                                                                   |

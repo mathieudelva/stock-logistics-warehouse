@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="helpdesk_ticket_view_form" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.form.inherit</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <field string="Tickets" name="helpdesk_ticket_task_id" invisible="1" />
+                <button
+                    string="Parent Task"
+                    class="oe_stat_button"
+                    name="action_view_ticket_task"
+                    type="object"
+                    icon="fa-puzzle-piece"
+                    attrs="{'invisible': [('helpdesk_ticket_task_id', '=', False)]}"
+                    groups="base.group_user"
+                    help="Task used to create this Ticket"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

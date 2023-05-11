@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+        <record id="view_task_form2" model="ir.ui.view">
+            <field name="name">project.task.form.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2" />
+            <field name="arch" type="xml">
+                <xpath expr="header" position="inside">
+                    <field name="allow_helpesk_ticket_creation" invisible="1" />
+                    <button
+                    class="btn btn-secondary"
+                    name="action_generate_helpdesk_ticket"
+                    type="object"
+                    string="New Helpdesk Ticket"
+                    groups="project.group_project_user"
+                    attrs="{'invisible': [('allow_helpesk_ticket_creation', '=', False)]}"
+                />
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button
+                    class="oe_stat_button"
+                    name="action_view_helpdesk_ticket"
+                    type="object"
+                    icon="fa-ticket"
+                    attrs="{'invisible': [('helpdesk_task_count', '=', 0)]}"
+                    groups="project.group_project_user"
+                >
+                        <field
+                        string="Sub-Ticket(s)"
+                        name="helpdesk_task_count"
+                        widget="statinfo"
+                    />
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="oak_project_view_form_inherit" model="ir.ui.view">
+            <field name="name">project.view.form.inherit</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project" />
+            <field name="arch" type="xml">
+                <xpath
+                expr="//div[@id='project_milestone_setting']/.."
+                position="after"
+            >
+                    <div class="o_setting_box mt-4" id="project_helpdesk_setting">
+                        <div class="o_setting_left_pane">
+                            <field name="allow_helpesk_ticket_creation" />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="allow_helpesk_ticket_creation" />
+                            <div class="text-muted">
+                                Create Helpdesk Tickets from existing Project Tasks
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+</odoo>

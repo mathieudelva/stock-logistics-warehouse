@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+        <record id="create_ticket_view_form" model="ir.ui.view">
+            <field name="name">Create a new Helpdesk Ticket from this task</field>
+            <field name="model">project.create.ticket</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="2">
+                            <group>
+                                <field name="helpdesk_ticket_task_id" invisible="1" />
+                                <field name="name" />
+                                <field name="company_id" invisible="1" />
+                                <field name="partner_id" />
+                                <field name="team_id" />
+                                <field name="description" />
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button
+                        string="Create &amp; View Helpdesk Ticket"
+                        class="btn btn-primary"
+                        name="action_generate_and_view_project_task"
+                        type="object"
+                    />
+                        <button
+                        string="Create Helpdesk Ticket"
+                        class="btn btn-primary"
+                        name="action_generate_helpdesk_ticket"
+                        type="object"
+                    />
+                        <button
+                        string="Discard"
+                        class="btn btn-secondary"
+                        special="cancel"
+                    />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+</odoo>
