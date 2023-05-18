@@ -228,6 +228,7 @@
     osi: git+ssh://git@github.com/ursais/stock-logistics-warehouse.git
   merges:
     - oca 16.0
+    - oca refs/pull/1665/head # stock_archive_constraint
     - oca refs/pull/1663/head # [16.0][MIG] stock_inventory_revaluation_wip
     - oca refs/pull/1662/head # [16.0][MIG] stock_inventory_revaluation_mrp
     - oca refs/pull/1661/head # [16.0][MIG] stock_inventory_revaluation_adjustment
