@@ -25,7 +25,6 @@
         "views/account_move.xml",
         "views/account_move_line.xml",
         "views/account_payment_views.xml",
-        "views/stock_picking_view.xml",
         "views/partner_view.xml",
     ],
     "installable": True,

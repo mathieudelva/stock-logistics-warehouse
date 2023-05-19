@@ -14,6 +14,7 @@
         "oak_account",
     ],
     "data": [
+        "views/stock_picking_view.xml",
         "reports/commercial_report.xml",
     ],
     "installable": True,
