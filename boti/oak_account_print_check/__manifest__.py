@@ -12,8 +12,10 @@
     "category": "Accounting",
     "depends": [
         "oak_account",
+        "l10n_us_check_printing_micr",
     ],
     "data": [
+        "views/account_payment_views.xml",
         "reports/print_check.xml",
     ],
     "installable": True,

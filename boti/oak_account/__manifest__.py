@@ -15,7 +15,6 @@
         "account_followup",
         "account_intrastat",
         "delivery",
-        "l10n_us_check_printing_micr",
         "mrp",
         "purchase",
         "oak_sale",
@@ -24,7 +23,6 @@
     "data": [
         "views/account_move.xml",
         "views/account_move_line.xml",
-        "views/account_payment_views.xml",
         "views/partner_view.xml",
     ],
     "installable": True,
