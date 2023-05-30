@@ -24,7 +24,9 @@ class MrpRoutingWorkcenter(models.Model):
         "operation_id",
         string="Operation Information",
     )
-    cost_roll_up_version = fields.Boolean(related="bom_id.cost_roll_up_version", store=True)
+    cost_roll_up_version = fields.Boolean(
+        related="bom_id.cost_roll_up_version", store=True
+    )
 
     def create(self, vals):
         res = super().create(vals)
@@ -39,6 +41,12 @@ class MrpRoutingWorkcenter(models.Model):
             ) or 0
 
     subtotal = fields.Float(compute="_compute_line_subtotal")
+
+    def _compute_driven_cost(self):
+        for rec in self:
+            rec.total_driver_cost = sum(opt.subtotal for opt in rec.operation_info_ids)
+
+    total_driver_cost = fields.Float(compute="_compute_driven_cost", string="Total")
 
 
 class OperationInformation(models.Model):

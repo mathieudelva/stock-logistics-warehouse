@@ -95,6 +95,11 @@
                             </group>
                         </form>
                     </field>
+                    <group colspan="4">
+                        <group class="oe_subtotal_footer oe_right">
+                            <field name="total_driver_cost"/>
+                        </group>
+                    </group>
                 </page>
             </notebook>
         </field>
