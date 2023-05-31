@@ -66,10 +66,12 @@ class CostAdjustmentLine(models.Model):
         self and self.ensure_one()
         product = self.product_id
         level = self.level
-        ops_lines = self._get_impacted_bom_operations(product)
+        cost_types, ops_lines = self._get_impacted_bom_operations(product)
         vals = []
         for ops_line in ops_lines:
             impacted_products = ops_line.bom_id.get_produced_items()
+            if ops_line.bom_id != impacted_products.bom_ids[0]:
+                continue
             for impacted_product in impacted_products:
                 add_cost = self.difference_cost * (ops_line.time_cycle / 60.0)
                 vals.append(
@@ -87,6 +89,24 @@ class CostAdjustmentLine(models.Model):
         if vals:
             add_details = AdjDetails.create(vals)
             details |= add_details
+
+        # identify the cost type services that are impacted
+        vals = []
+        for cost_type in cost_types:
+            add_cost = self.difference_cost
+            vals.append(
+                {
+                    "cost_adjustment_line_id": self.id,
+                    "product_id": cost_type.id,
+                    "quantity": 1,
+                    "cost_increase": add_cost,
+                    "parent_product_id": product.id,
+                    "level": level,
+                }
+            )
+        if vals:
+            add_details = AdjDetails.create(vals)
+            details |= add_details
         return details
 
     @api.model
@@ -97,7 +117,7 @@ class CostAdjustmentLine(models.Model):
                 ("activity_cost_ids.product_id", "in", products.ids),
             ]
         )
-        cost_types = products | impacted_cost_types
-        return self.env["mrp.routing.workcenter"].search(
-            [("workcenter_id.analytic_product_id", "in", cost_types.ids)]
-        )
+        cost_types = impacted_cost_types
+        operations = self.env["mrp.routing.workcenter"].search(
+            [("workcenter_id.analytic_product_id", "in", cost_types.ids),('active','=',True)])
+        return impacted_cost_types, operations
