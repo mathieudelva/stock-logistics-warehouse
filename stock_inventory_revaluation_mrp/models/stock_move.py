@@ -103,13 +103,13 @@ class StockMove(models.Model):
         accounts = self._get_account_for_wip()
 
         if cost < 0:
-            debit_acc = stock_revaluation_account
+            debit_acc = accounts['expense']
             credit_acc = accounts['stock_wip']
         else:
             credit_acc = stock_revaluation_account
             debit_acc = accounts['stock_wip']
 
-        acc_src = stock revaluation account
+        acc_src = accounts['expense']
         acc_dest = stock_production account
         
         am_vals.append(self.with_company(company_from)._prepare_wip_account_move_line(quantity, cost, credit_acc, debit_acc, accounts['stock_journal'], description))
@@ -129,7 +129,7 @@ class StockMove(models.Model):
                     cost_diff = move.product_id.standard_price - svl.unit_cost
                     amount_diff = cost_diff * svl.quantity
                     if amount_diff != 0:
-                        move._wip_validate_entries(svl.quantity, description, amount_diff)
+                        move._wip_validate_entries(svl.quantity, "Revaluation", amount_diff)
             else:
                 continue
         return True
