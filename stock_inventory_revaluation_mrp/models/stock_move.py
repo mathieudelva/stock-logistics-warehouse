@@ -106,7 +106,7 @@ class StockMove(models.Model):
             credit_acc = accounts['expense'].id
             debit_acc = accounts['stock_wip'].id
 
-        aml_vals = self._prepare_wip_account_move_line(quantity, cost, credit_acc, debit_acc, description)
+        aml_vals = self._prepare_wip_account_move_line(quantity, abs(cost), credit_acc, debit_acc, description)
         am_vals = {
             'journal_id': accounts['stock_journal'].id,
             'line_ids': aml_vals,
