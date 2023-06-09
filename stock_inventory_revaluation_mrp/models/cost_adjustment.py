@@ -72,7 +72,7 @@ class CostAdjustment(models.Model):
 
         # identify wip items
         orders = self.line_ids.mrp_production_ids.filtered(lambda o: o.state in ('progress','to_close'))
-        moves = self.env['stock.move'].search([('raw_material_production_id', 'in', [orders.id]),('state','=','done')])
+        moves = self.env['stock.move'].search([('raw_material_production_id', 'in', orders.ids),('state','=','done')])
 
         # raw material delta entries
         delta_products = self.line_ids.mapped('product_id').mapped('id')

@@ -125,6 +125,8 @@ class StockMove(models.Model):
         # for each move
         for move in self:
             if move.product_id.type == 'product' and move.product_id.valuation == 'real_time':
+                if not move.product_id.id in delta.keys():
+                    continue
                 cost_diff = delta[move.product_id.id]
                 amount_diff = cost_diff * abs(move.product_uom_qty)
                 if amount_diff != 0:
