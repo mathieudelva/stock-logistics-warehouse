@@ -70,11 +70,15 @@ class CostAdjustment(models.Model):
 
     def _run_wip_adjustment(self):
 
-        orders = self.line_ids.mrp_production_ids.filtered(lambda o: o.state in ('progres','to_close'))
-        moves = self.env['stock.move'].search([('raw_material_production_id', 'in', orders.id),('state','=','done')])
+        orders = self.line_ids.mrp_production_ids.filtered(lambda o: o.state in ('progress','to_close'))
+        orders = orders[3]
+        moves = self.env['stock.move'].search([('raw_material_production_id', 'in', [orders.id]),('state','=','done')])
 
         # raw material delta entries
-        moves._account_move_wip_entries()
+        delta_products = self.line_ids.mapped('product_id').mapped('id')
+        delta_cost = self.line_ids.mapped('difference_cost')
+        delta_dict = {delta_products[i]: delta_cost[i] for i in range(len(delta_products))}
+        moves._account_move_wip_entries(delta_dict)
 
         # operations delta entries
 

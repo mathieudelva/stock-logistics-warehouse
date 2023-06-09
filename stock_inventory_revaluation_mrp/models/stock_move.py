@@ -40,7 +40,7 @@ class StockMove(models.Model):
             }
         )
 
-        dest_location = self.stock_move_id.location_dest_id or (
+        dest_location = self.location_dest_id or (
             self.product_id.type == "product"
             and self.product_id.property_stock_production
         )
@@ -97,39 +97,39 @@ class StockMove(models.Model):
             # if the move isn't owned by the company, we don't make any valuation
             return am_vals
 
-        company_from = self._is_out() and self.mapped('move_line_ids.location_id.company_id') or False
-        company_to = self._is_in() and self.mapped('move_line_ids.location_dest_id.company_id') or False
-
-        accounts = self._get_account_for_wip()
+        accounts = self._get_accounts_for_wip()
 
         if cost < 0:
-            debit_acc = accounts['expense']
-            credit_acc = accounts['stock_wip']
+            debit_acc = accounts['expense'].id
+            credit_acc = accounts['stock_wip'].id
         else:
-            credit_acc = stock_revaluation_account
-            debit_acc = accounts['stock_wip']
+            credit_acc = accounts['expense'].id
+            debit_acc = accounts['stock_wip'].id
 
-        acc_src = accounts['expense']
-        acc_dest = stock_production account
+        aml_vals = self._prepare_wip_account_move_line(quantity, cost, credit_acc, debit_acc, description)
+        am_vals = {
+            'journal_id': accounts['stock_journal'].id,
+            'line_ids': aml_vals,
+            'date': fields.Date.context_today(self),
+            'ref': description,
+            'stock_move_id': self.id,
+            'move_type': 'entry',
+        }
         
-        am_vals.append(self.with_company(company_from)._prepare_wip_account_move_line(quantity, cost, credit_acc, debit_acc, accounts['stock_journal'], description))
-
         account_moves = self.env['account.move'].sudo().create(am_vals)
         account_moves._post()
        
 
     # write JE for the stock_moves
-    def _account_move_wip_entries(self):
-
+    def _account_move_wip_entries(self, delta):
         # for each move
         for move in self:
-            if move.product_type == 'stock' and move.with_company(svl.company_id).product_id.valuation == 'real_time':
-                svls = self.env['stock.valuation.layer'].search([('stock_move_id','=',move.id)])
-                for svl  in svls:
-                    cost_diff = move.product_id.standard_price - svl.unit_cost
-                    amount_diff = cost_diff * svl.quantity
-                    if amount_diff != 0:
-                        move._wip_validate_entries(svl.quantity, "Revaluation", amount_diff)
+            if move.product_id.type == 'product' and move.product_id.valuation == 'real_time':
+                cost_diff = delta[move.product_id.id]
+                amount_diff = cost_diff * abs(move.product_uom_qty)
+                if amount_diff != 0:
+                    description = "{} {}-{}".format("WIP Revaluation", move.raw_material_production_id.name,move.product_id.name)
+                    move._wip_validate_entries(move.product_uom_qty, description, amount_diff)
             else:
                 continue
         return True
