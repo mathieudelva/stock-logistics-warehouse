@@ -63,4 +63,18 @@ class CostAdjustment(models.Model):
             if product.bom_ids and (product.bom_ids[0] not in boms):
                 product.bom_ids[0].update_bom_version()
 
+        # update JEs for items in WIP
+        self._run_wip_adjustment()
+
         return res
+
+    def _run_wip_adjustment(self):
+
+        orders = self.line_ids.mrp_production_ids.filtered(lambda o: o.state in ('progres','to_close'))
+        moves = self.env['stock.move'].search([('raw_material_production_id', 'in', orders.id),('state','=','done')])
+
+        # raw material delta entries
+        moves._account_move_wip_entries()
+
+        # operations delta entries
+
