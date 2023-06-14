@@ -21,18 +21,22 @@ class BoM(models.Model):
     active_ref_bom = fields.Boolean(string="Active Reference BOM")
     cost_roll_up_version = fields.Boolean(string="Cost Roll Version", default=False)
 
+    def _compute_bom_total_cost(self):
+        for rec in self:
+            rec.bom_total_cost = rec.material_total_cost + rec.operation_total_cost
+
     def _compute_material_total_cost(self):
         for rec in self:
             rec.material_total_cost = sum(mtl.subtotal for mtl in rec.bom_line_ids)
 
-    material_total_cost = fields.Float(compute="_compute_material_total_cost")
-    
     def _compute_operation_total_cost(self):
         for rec in self:
             rec.operation_total_cost = sum(opt.subtotal for opt in rec.operation_ids)
 
+    material_total_cost = fields.Float(compute="_compute_material_total_cost")
     operation_total_cost = fields.Float(compute="_compute_operation_total_cost")
-
+    bom_total_cost = fields.Float(compute="_compute_bom_total_cost")
+    
     def copy(self, default=None):
         # cost roll version, no copies allowed
         if self.cost_roll_up_version and not self.env.context.get('allow', False):
