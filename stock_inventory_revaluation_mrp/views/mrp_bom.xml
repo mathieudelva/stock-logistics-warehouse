@@ -10,7 +10,7 @@
         	</xpath>
             <xpath expr="//group/group[1]" position="inside">
                 <field name="create_date"/>
-		<field name="bom_total_cost"/>
+		<field name="bom_total_cost" attrs="{'invisible': [('cost_roll_up_version', '=', False)]}"/>
             </xpath>
             <xpath expr="//field[@name='bom_line_ids']/tree/field[@name='product_qty']" position="after">
                 <field name="unit_cost" readonly="1"
@@ -45,9 +45,6 @@
             <field name="type" position="after">
                 <field name="create_date"/>
             </field>
-            <xpath expr="//tree" position="attributes">
-                <attribute name="default_order">create_date desc</attribute>
-            </xpath>
         </field>
     </record>
 
