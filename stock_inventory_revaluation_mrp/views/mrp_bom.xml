@@ -10,6 +10,7 @@
         	</xpath>
             <xpath expr="//group/group[1]" position="inside">
                 <field name="create_date"/>
+		<field name="bom_total_cost"/>
             </xpath>
             <xpath expr="//field[@name='bom_line_ids']/tree/field[@name='product_qty']" position="after">
                 <field name="unit_cost" readonly="1"

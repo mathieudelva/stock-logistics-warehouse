@@ -49,7 +49,7 @@ class CostAdjustmentLine(models.Model):
         List MOs where Product is used as raw material
         """
         domain = [
-            ("state", "in", ["draft", "confirmed", "progress","to_close"]),
+            ("state", "in", ["confirmed","progress","to_close"]),
             ("move_raw_ids.product_id", "in", self.product_id.ids),
         ]
         return self.env["mrp.production"].search(domain)
