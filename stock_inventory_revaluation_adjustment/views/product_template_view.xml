@@ -80,7 +80,7 @@
         <button name="action_cancel" position="attributes">
             <attribute
                     name="confirm"
-                >If you cancel this cost adjustment, all its cost adjustment lines including the proposed cost will be lost. Are you sure
+                >If you cancel this cost adjustment, all its cost adjustment lines will be lost. Are you sure
                 you want to discard it?</attribute>
         </button>
         <button name="action_draft" position="attributes">
