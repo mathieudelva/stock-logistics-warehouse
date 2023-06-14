@@ -151,8 +151,8 @@ class CostAdjustment(models.Model):
 
     def action_cancel(self):
         todo = self.filtered(lambda x: x.state not in ["posted"])
-        todo.line_ids.mapped('product_id').proposed_cost = 0.0
-        self.product_ids.proposed_cost = 0.0
+        #todo.line_ids.mapped('product_id').proposed_cost = 0.0
+        #self.product_ids.proposed_cost = 0.0
         todo.line_ids.unlink()
         todo.write({"state": "cancel"})
 
