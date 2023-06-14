@@ -5,6 +5,7 @@ from . import cost_adjustment_detail
 from . import cost_adjustment_line
 from . import cost_adjustment
 from . import product_template
+from . import stock_move
 from . import mrp_bom
 from . import mrp_workcenter
 from . import res_company
