@@ -171,6 +171,7 @@
                                 context="{'search_default_has_proposed_cost':1}"
                             >
                             <tree create="false" editable="bottom">
+				<field name="default_code"/>
                                 <field name="name" />
                                 <field name="proposed_cost" />
                                 <field name="standard_price" readonly="1" />

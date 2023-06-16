@@ -78,13 +78,22 @@ class BoM(models.Model):
                 limit = (len(version_boms) - no_of_bom_version)
                 unlink_boms = version_boms[0:limit+1]
                 unlink_boms.with_context(allow=True).unlink()
-            new_bom = bom.copy(
-                {
-                  "active": False,
-                  "active_ref_bom": True,
-                  "cost_roll_up_version": True,
-                }
-            )
+            if not bom.product_id.proposed_cost_ignore_bom:
+               new_bom = bom.copy(
+                        {
+                                "active": False,
+                                "active_ref_bom": True,
+                                "cost_roll_up_version": True,
+                        }
+               )
+            else:
+                new_bom = bom.copy(
+                        {
+                                "active": False,
+                                "active_ref_bom": True,
+                                "cost_roll_up_version": False,
+                        }
+                )
             for line in new_bom.bom_line_ids:
                 line.write({"unit_cost": line.product_id.standard_price})
             for operatine in new_bom.operation_ids.filtered(
