@@ -11,9 +11,9 @@
 		<field name="parent_product_id" string="Product" />
                 <field name="product_id" />
                 <field name="bom_id" />
-                <field name="level" optional="show" />
+                <field name="level_view" optional="show" />
                 <field name="bom_line_id" optional="show" />
-                <field name="quantity" />
+                <field name="quantity_view" />
                 <field
                     name="bom_product_qty_on_hand"
                     invisible="not context.get('qty_details')"
