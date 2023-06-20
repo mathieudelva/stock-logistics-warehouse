@@ -65,6 +65,9 @@ class BoM(models.Model):
         bom_obj = self.env["mrp.bom"]
         no_of_bom_version = self.env.company.no_of_bom_version
         for bom in self:
+            # ignore bom rollup set on product
+            if bom.product_id.proposed_cost_ignore_bom:
+                continue
             version_boms = bom_obj.search(
                 [
                     ("product_tmpl_id", "=", bom.product_tmpl_id.id),
