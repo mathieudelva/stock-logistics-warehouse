@@ -50,6 +50,7 @@ class CostAdjustmentDetail(models.Model):
         string="BoM Line",
     )
     quantity = fields.Float()
+    quantity_view = fields.Float(string="Quantity", related="quantity", store=False)
     bom_id = fields.Many2one(
         "mrp.bom",
         string="From Impacted BoM",
@@ -70,7 +71,7 @@ class CostAdjustmentDetail(models.Model):
         compute="_compute_bom_product_qty_on_hand", string="On Hand Qty", store=True
     )
     level = fields.Integer()
-
+    level_view = fields.Integer(string="Level", related="level", store=False)
     @api.depends("bom_id")
     def _compute_bom_product_qty_on_hand(self):
         for line in self:
