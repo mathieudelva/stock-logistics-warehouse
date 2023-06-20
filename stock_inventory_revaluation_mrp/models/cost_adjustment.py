@@ -36,14 +36,16 @@ class CostAdjustment(models.Model):
         if self.explode_subassemblies and level == 1:
             subcomponents = products._get_bom_structure_products()
             products |= subcomponents.filtered("proposed_cost")
+        # first level 
         lines = super()._populate_adjustment_lines(products)
+        # higher level boms
         for line in lines:
             line.level = level
             details = line._create_impacted_bom_lines()
             line.bom_impact_ids = details
             if details:
                 new_products = details.product_id
-                self._populate_adjustment_lines(new_products, level=level + 1)
+                lines = self._populate_adjustment_lines(new_products, level=level + 1)
         return lines
 
     def action_post(self):

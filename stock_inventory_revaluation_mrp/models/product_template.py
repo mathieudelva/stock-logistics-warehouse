@@ -25,39 +25,73 @@ class ProductProduct(models.Model):
 
     proposed_cost_ignore_bom = fields.Boolean()
 
-    def _get_rollup_cost(self):
-        cost = self.proposed_cost or self.standard_price
+    def _get_rollup_cost(self, computed_products):
+        if computed_products:
+            if self.id not in computed_products.keys():
+                cost = self.standard_price
+            else:
+                if computed_products[self.id] > 0:
+                    cost = computed_products[self.id]
+                else:
+                    cost = self.proposed_cost or self.standard_price
+        else:
+            cost = self.proposed_cost or self.standard_price
         return cost
 
-    def calculate_proposed_cost(self):
+    def calculate_proposed_cost(self, computed_products=None, adjustment_id = False):
         DecimalPrecision = self.env["decimal.precision"]
-        computed_products = {}
+        
+        # initial call
+        if computed_products==None:
+            computed_products={}
+
+        if computed_products == {} and adjustment_id and not adjustment_id.line_ids:
+            computed_products = dict.fromkeys(adjustment_id.mapped('product_ids').ids, -1)
+            for product in adjustment_id.product_ids:
+                if not product.bom_ids:
+                    computed_products[product.id] = product._get_rollup_cost(computed_products)
+
+        # recursive call
+        else:
+            for line in adjustment_id.line_ids:
+                if line.product_id.id not in computed_products.keys():
+                    computed_products[line.product_id.id] = line.product_id.proposed_cost
+
         products = self.filtered(
             lambda x: (x.bom_ids or x.is_cost_type) and not x.proposed_cost_ignore_bom
         )
+
+        # get cost for lowest level products
+        if self - products:
+            for product in (self-products):
+                if product.id not in computed_products.keys():
+                    computed_products[product.id] = product._get_rollup_cost(computed_products)
+
         for product in products:
             # cost type services
             if product.is_cost_type:
                 total = total_uom = 0
                 for act_cost_rule in product.activity_cost_ids:
-                    linetotal = act_cost_rule.product_id._get_rollup_cost()
-                    total_uom += linetotal * act_cost_rule.factor
+                    line_total = act_cost_rule.product_id._get_rollup_cost(computed_products)
+                    computed_products[act_cost_rule.product_id.id] = line_total
+                    total_uom += line_total * act_cost_rule.factor
+                computed_products[product.id] = total_uom
             # products
             else:
                 bom = self.env["mrp.bom"]._bom_find(product)[product]
                 # First recompute "Proposed Cost" for the BoM components that also have a BoM
                 components = bom.bom_line_ids.product_id
                 components = components.filtered(
-                    lambda pr: pr.id not in [*computed_products]
+                    lambda pr: pr.id not in [*computed_products] or computed_products[pr.id] == -1
                 )
-                intermediates = components.calculate_proposed_cost()
-                computed_products.update(intermediates)
+
+                intermediates = components.calculate_proposed_cost(computed_products=computed_products,adjustment_id=adjustment_id)
 
                 # Add the costs for all Components and Operations,
                 # using the Active Cost when available, or the Proposed Cost otherwise
                 cost_components = sum(
                     x.product_id.uom_id._compute_price(
-                        x.product_id._get_rollup_cost(), x.product_uom_id
+                        computed_products[x.product_id.id], x.product_uom_id
                     )
                     * x.product_qty
                     for x in bom.bom_line_ids
@@ -66,13 +100,13 @@ class ProductProduct(models.Model):
                     "analytic_product_id"
                 )
                 op_products = op_products.filtered(
-                    lambda pr: pr.id not in [*computed_products]
+                    lambda pr: pr.id not in [*computed_products] or computed_products[pr.id] == -1
                 )
-                op_cost_types = op_products.calculate_proposed_cost()
-                computed_products.update(op_cost_types)
+
+                op_cost_types = op_products.calculate_proposed_cost(computed_products=computed_products, adjustment_id=adjustment_id)
 
                 cost_operations = sum(
-                    x.workcenter_id.analytic_product_id._get_rollup_cost()
+                    x.workcenter_id.analytic_product_id._get_rollup_cost(computed_products)
                     * (x.time_cycle / 60)
                     for x in bom.operation_ids
                 )
@@ -82,11 +116,8 @@ class ProductProduct(models.Model):
                 )
 
             # Set proposed cost if different from the actual cost
-            has_proposed_cost = False
-            if product.standard_price != total_uom:
-                has_proposed_cost = True
-            product.proposed_cost = total_uom if has_proposed_cost else 0.0
-            computed_products[product.id] = 1
+            product.proposed_cost = total_uom
+            computed_products[product.id] = total_uom
 
         return computed_products
 
@@ -98,9 +129,9 @@ class ProductProduct(models.Model):
         bom_structure = assemblies
         for product in assemblies:
             bom = BOM._bom_find(product)[product]
-            product_bom = bom.get(product)
-            components = product_bom.bom_line_ids.product_id
-            bom_structure |= components._get_bom_structure_products()
+            if bom and bom.product_tmpl_id:
+                components = bom.bom_line_ids.product_id
+                bom_structure |= components._get_bom_structure_products()
         return bom_structure
 
     def update_bom_version(self):

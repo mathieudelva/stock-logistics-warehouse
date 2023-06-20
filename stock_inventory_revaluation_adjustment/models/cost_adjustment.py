@@ -7,7 +7,6 @@ from odoo.tools.float_utils import float_is_zero
 
 from odoo.addons.base.models.ir_model import MODULE_UNINSTALL_FLAG
 
-
 class CostAdjustment(models.Model):
     _name = "stock.cost.adjustment"
     _description = "Cost Adjustment"
@@ -201,7 +200,7 @@ class CostAdjustment(models.Model):
         """
         self.ensure_one()
         if product.bom_ids or product.is_cost_type:
-            product.calculate_proposed_cost()
+            product.calculate_proposed_cost(adjustment_id=self)
         return {
             "cost_adjustment_id": self.id,
             "product_id": product.id,
