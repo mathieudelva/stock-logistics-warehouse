@@ -30,12 +30,15 @@
                     attrs="{'invisible': [('bom_count', '=' , 0)]}"
                 />
             </xpath>
+	    <xpath expr="//field[@name='proposed_cost']" position="attributes">
+		    <attribute name="attrs">{'readonly':[('proposed_cost_ignore_bom','=',False),('bom_count','!=',0)]}</attribute>
+            </xpath>
             <span name="proposed_cost_uom" position="after">
                 <button
                     name="calculate_proposed_cost"
                     string="Calculate Proposed Cost"
                     type="object"
-                    attrs="{'invisible': ['|', ('proposed_cost_ignore_bom', '=', True), '&amp;', ('bom_count', '=', 0), ('is_cost_type', '=', False)]}"
+                    attrs="{'invisible': True}"
                     help="
                     Recalculates the `Proposed Cost` for all BoM components.
                     Then adds the costs for all Components and Operations,
