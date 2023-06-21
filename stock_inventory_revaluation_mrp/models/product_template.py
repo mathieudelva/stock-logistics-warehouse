@@ -1,7 +1,8 @@
 # Copyright 2021 - Open Source Integrators
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import fields, models
+from odoo import fields, models, _
 from odoo.tools.float_utils import float_compare
+from odoo.exceptions import ValidationError
 
 
 class ProductTemplate(models.Model):
@@ -28,6 +29,8 @@ class ProductProduct(models.Model):
     def _get_rollup_cost(self, computed_products):
         if computed_products:
             if self.id not in computed_products.keys():
+                if not self.standard_price:
+                    raise ValidationError(_("Standard Cost is not set on product - %s" % (self.default_code)))
                 cost = self.standard_price
             else:
                 if computed_products[self.id] > 0:
