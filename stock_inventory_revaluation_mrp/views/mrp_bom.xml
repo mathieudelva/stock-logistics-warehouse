@@ -54,8 +54,8 @@
         <field name="inherit_id" ref="mrp.view_mrp_bom_filter"/>
         <field name="arch" type="xml">
             <filter name="phantom" position="after">
-                <filter string="Cost Roll Version" name="cost_roll_up_version" domain="[('cost_roll_up_version', '=', True)]"/>
-                <filter string="Active Reference BOM" name="active_ref_bom" domain="[('active_ref_bom', '=', True)]"/>
+                <filter string="Cost Roll Version" name="cost_roll_up_version" domain="[('cost_roll_up_version', '=', True),('active','=',False)]"/>
+                <filter string="Active Reference BOM" name="active_ref_bom" domain="[('active_ref_bom', '=', True),('active','=',False)]"/>
             </filter>
         </field>
     </record>
