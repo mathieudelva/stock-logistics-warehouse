@@ -26,11 +26,16 @@ class ProductProduct(models.Model):
 
     proposed_cost_ignore_bom = fields.Boolean()
 
-    def _get_rollup_cost(self, computed_products):
+    def _get_rollup_cost(self, adjustment_id, computed_products):
         if computed_products:
             if self.id not in computed_products.keys():
-                if not self.standard_price:
-                    raise ValidationError(_("Standard Cost is not set on product - %s" % (self.default_code)))
+                if self.type == 'product' and not self.standard_price:
+                    adjustment_id.message_post(
+                        body=_(
+                            "Standard Cost on product %(item)s is 0.0",
+                            item=self.default_code,
+                        )
+                    )
                 cost = self.standard_price
             else:
                 if computed_products[self.id] > 0:
@@ -52,7 +57,7 @@ class ProductProduct(models.Model):
             computed_products = dict.fromkeys(adjustment_id.mapped('product_ids').ids, -1)
             for product in adjustment_id.product_ids:
                 if not product.bom_ids:
-                    computed_products[product.id] = product._get_rollup_cost(computed_products)
+                    computed_products[product.id] = product._get_rollup_cost(adjustment_id, computed_products)
 
         # recursive call
         else:
@@ -68,14 +73,14 @@ class ProductProduct(models.Model):
         if self - products:
             for product in (self-products):
                 if product.id not in computed_products.keys():
-                    computed_products[product.id] = product._get_rollup_cost(computed_products)
+                    computed_products[product.id] = product._get_rollup_cost(adjustment_id, computed_products)
 
         for product in products:
             # cost type services
             if product.is_cost_type:
                 total = total_uom = 0
                 for act_cost_rule in product.activity_cost_ids:
-                    line_total = act_cost_rule.product_id._get_rollup_cost(computed_products)
+                    line_total = act_cost_rule.product_id._get_rollup_cost(adjustment_id, computed_products)
                     computed_products[act_cost_rule.product_id.id] = line_total
                     total_uom += line_total * act_cost_rule.factor
                 computed_products[product.id] = total_uom
@@ -109,7 +114,7 @@ class ProductProduct(models.Model):
                 op_cost_types = op_products.calculate_proposed_cost(computed_products=computed_products, adjustment_id=adjustment_id)
 
                 cost_operations = sum(
-                    x.workcenter_id.analytic_product_id._get_rollup_cost(computed_products)
+                    x.workcenter_id.analytic_product_id._get_rollup_cost(adjustment_id, computed_products)
                     * (x.time_cycle / 60)
                     for x in bom.operation_ids
                 )
