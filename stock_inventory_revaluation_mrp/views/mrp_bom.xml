@@ -66,8 +66,9 @@
         <field name="inherit_id" ref="mrp.mrp_routing_workcenter_tree_view"/>
         <field name="arch" type="xml">
             <field name="time_cycle" position="after">
-                <field name="unit_cost"/>
-                <field name="subtotal"/>
+		<field name="cost_roll_up_version" invisible='1'/>
+                <field name="unit_cost" attrs="{'invisible': [('cost_roll_up_version', '=', False)]}" optional="hide"/>
+                <field name="subtotal" attrs="{'invisible': [('cost_roll_up_version', '=', False)]}" optional="hide"/>
             </field>
         </field>
     </record>
