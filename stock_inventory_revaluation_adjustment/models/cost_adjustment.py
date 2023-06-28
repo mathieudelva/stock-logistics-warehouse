@@ -136,6 +136,7 @@ class CostAdjustment(models.Model):
             self.write({"state": "done", "date": fields.Datetime.now()})
         return True
 
+    # UI call from button
     def action_post(self):
         # multi-company check
         if self.company_id !=  self.env.company:
@@ -145,23 +146,28 @@ class CostAdjustment(models.Model):
                     )
             )
         else:
-            self.ensure_one()
-            if not self.user_has_groups("stock.group_stock_manager"):
-                raise UserError(_("Only a stock manager can post a cost adjustment."))
-            if self.state != "done":
-                raise UserError(
-                    _(
-                        "You can't post the cost adjustment '%s', maybe this cost adjustment "
-                        "has been already posted or isn't ready.",
-                        self.name,
-                    )
+            return self._action_post()
+        
+        
+    # asynchronous action
+    def _action_post(self):
+        self.ensure_one()
+        if not self.user_has_groups("stock.group_stock_manager"):
+            raise UserError(_("Only a stock manager can post a cost adjustment."))
+        if self.state != "done":
+            raise UserError(
+                _(
+                    "You can't post the cost adjustment '%s', maybe this cost adjustment "
+                    "has been already posted or isn't ready.",
+                    self.name,
                 )
-            self._check_negative()
-            self._remove_unchanged_lines()
-            for line in self.line_ids:
-                line.product_id.standard_price = line.product_cost
-                line.product_id.proposed_cost = 0.0
-            self.write({"state": "posted", "date": fields.Datetime.now()})
+            )
+        self._check_negative()
+        self._remove_unchanged_lines()
+        for line in self.line_ids:
+            line.product_id.standard_price = line.product_cost
+            line.product_id.proposed_cost = 0.0
+        self.write({"state": "posted", "date": fields.Datetime.now()})
         return True
 
     def action_cancel(self):
