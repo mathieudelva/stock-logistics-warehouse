@@ -112,60 +112,100 @@ class CostAdjustment(models.Model):
             )
 
     def action_validate(self):
-        self.ensure_one()
-        if not self.user_has_groups("stock.group_stock_manager"):
-            raise UserError(_("Only a stock manager can validate a cost adjustment."))
-        if self.state != "confirm":
-            raise UserError(
-                _(
-                    "You can't validate the cost adjustment '%s', maybe this cost adjustment "
-                    "has been already validated or isn't ready.",
-                    self.name,
-                )
+        # multi-company check
+        if self.company_id !=  self.env.company:
+            self.message_post(
+                body=_(
+                    "Company Mismatch. Please run under the right company."
+                    )
             )
-        self._check_negative()
-        self._remove_unchanged_lines()
-        self.write({"state": "done", "date": fields.Datetime.now()})
+        else:
+            self.ensure_one()
+            if not self.user_has_groups("stock.group_stock_manager"):
+                raise UserError(_("Only a stock manager can validate a cost adjustment."))
+            if self.state != "confirm":
+                raise UserError(
+                    _(
+                        "You can't validate the cost adjustment '%s', maybe this cost adjustment "
+                        "has been already validated or isn't ready.",
+                        self.name,
+                    )
+                )
+            self._check_negative()
+            self._remove_unchanged_lines()
+            self.write({"state": "done", "date": fields.Datetime.now()})
         return True
 
     def action_post(self):
-        self.ensure_one()
-        if not self.user_has_groups("stock.group_stock_manager"):
-            raise UserError(_("Only a stock manager can post a cost adjustment."))
-        if self.state != "done":
-            raise UserError(
-                _(
-                    "You can't post the cost adjustment '%s', maybe this cost adjustment "
-                    "has been already posted or isn't ready.",
-                    self.name,
-                )
+        # multi-company check
+        if self.company_id !=  self.env.company:
+            self.message_post(
+                body=_(
+                    "Company Mismatch. Please run under the right company."
+                    )
             )
-        self._check_negative()
-        self._remove_unchanged_lines()
-        for line in self.line_ids:
-            line.product_id.standard_price = line.product_cost
-            line.product_id.proposed_cost = 0.0
-        self.write({"state": "posted", "date": fields.Datetime.now()})
+        else:
+            self.ensure_one()
+            if not self.user_has_groups("stock.group_stock_manager"):
+                raise UserError(_("Only a stock manager can post a cost adjustment."))
+            if self.state != "done":
+                raise UserError(
+                    _(
+                        "You can't post the cost adjustment '%s', maybe this cost adjustment "
+                        "has been already posted or isn't ready.",
+                        self.name,
+                    )
+                )
+            self._check_negative()
+            self._remove_unchanged_lines()
+            for line in self.line_ids:
+                line.product_id.standard_price = line.product_cost
+                line.product_id.proposed_cost = 0.0
+            self.write({"state": "posted", "date": fields.Datetime.now()})
         return True
 
     def action_cancel(self):
-        todo = self.filtered(lambda x: x.state not in ["posted"])
-        #todo.line_ids.mapped('product_id').proposed_cost = 0.0
-        #self.product_ids.proposed_cost = 0.0
-        todo.line_ids.unlink()
-        todo.write({"state": "cancel"})
+        # multi-company check
+        if self.company_id !=  self.env.company:
+            self.message_post(
+                body=_(
+                    "Company Mismatch. Please run under the right company."
+                    )
+            )
+        else:
+            todo = self.filtered(lambda x: x.state not in ["posted"])
+            #todo.line_ids.mapped('product_id').proposed_cost = 0.0
+            #self.product_ids.proposed_cost = 0.0
+            todo.line_ids.unlink()
+            todo.write({"state": "cancel"})
 
     def action_draft(self):
-        todo = self.filtered(lambda x: x.state not in ["posted"])
-        # clear the proposed cost saved on impacted products
-        (todo.line_ids.mapped('product_id') - self.product_ids).proposed_cost = 0.0
-        todo.line_ids.unlink()
-        todo.write({"state": "draft"})
+        # multi-company check
+        if self.company_id !=  self.env.company:
+            self.message_post(
+                body=_(
+                    "Company Mismatch. Please run under the right company."
+                    )
+            )
+        else:
+            todo = self.filtered(lambda x: x.state not in ["posted"])
+            # clear the proposed cost saved on impacted products
+            (todo.line_ids.mapped('product_id') - self.product_ids).proposed_cost = 0.0
+            todo.line_ids.unlink()
+            todo.write({"state": "draft"})
 
     def action_start(self):
         self.ensure_one()
         self.state = "computing"
-        self._action_start()
+        # multi-company check
+        if self.company_id !=  self.env.company:
+            self.message_post(
+                body=_(
+                    "Company Mismatch. Please run under the right company."
+                    )
+            )
+        else:
+            self._action_start()
         return True
 
     def action_reload(self):
