@@ -78,12 +78,16 @@ class ProductProduct(models.Model):
         for product in products:
             # cost type services
             if product.is_cost_type:
-                total = total_uom = 0
-                for act_cost_rule in product.activity_cost_ids:
-                    line_total = act_cost_rule.product_id._get_rollup_cost(adjustment_id, computed_products)
-                    computed_products[act_cost_rule.product_id.id] = line_total
-                    total_uom += line_total * act_cost_rule.factor
-                computed_products[product.id] = total_uom
+                if product.activity_cost_ids:
+                    total = total_uom = 0
+                    for act_cost_rule in product.activity_cost_ids:
+                        line_total = act_cost_rule.product_id._get_rollup_cost(adjustment_id, computed_products)
+                        computed_products[act_cost_rule.product_id.id] = line_total
+                        total_uom += line_total * act_cost_rule.factor
+
+                    # Set proposed cost if different from the actual cost
+                    product.proposed_cost = total_uom
+                    computed_products[product.id] = total_uom
             # products
             else:
                 bom = self.env["mrp.bom"]._bom_find(product)[product]
@@ -123,9 +127,9 @@ class ProductProduct(models.Model):
                     total / bom.product_qty, product.uom_id
                 )
 
-            # Set proposed cost if different from the actual cost
-            product.proposed_cost = total_uom
-            computed_products[product.id] = total_uom
+                # Set proposed cost if different from the actual cost
+                product.proposed_cost = total_uom
+                computed_products[product.id] = total_uom
 
         return computed_products
 
