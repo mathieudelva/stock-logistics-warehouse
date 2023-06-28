@@ -212,6 +212,25 @@ class CostAdjustment(models.Model):
         return True
 
     def _action_start(self):
+        # multi-company check
+        if self.company_id !=  self.env.company:
+            self.state = 'draft'
+            self.message_post(
+                body=_(
+                    "Company Mismatch. Please run under the right company."
+                    )
+            )
+            raise UserError(
+                _(
+                    "Company Mismatch. Please run under the right company."
+                )
+            )
+        else:
+            self.message_post(
+                body=_(
+                    "Impact computation started."
+                    )
+            )
         # To use Job Queue, post this method to the Queue
         todo = self.filtered(
             lambda x: x.product_ids and x.state in ["draft", "computing", "confirm"]
