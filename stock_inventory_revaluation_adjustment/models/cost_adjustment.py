@@ -246,6 +246,14 @@ class CostAdjustment(models.Model):
             adjustment._populate_adjustment_lines(adjustment.product_ids)
             adjustment.write({"state": "confirm", "date": fields.Datetime.now()})
 
+    def _filter_products(self, products):
+        """
+        Given a list of Products
+        filters the products
+        Abstract method. Implement to override. 
+        """
+        return products
+
     def _populate_adjustment_lines(self, products):
         """
         Given a list of Products
@@ -253,6 +261,7 @@ class CostAdjustment(models.Model):
         If a line aready exists, don't create a duplicate
         """
         self.ensure_one()
+        products = self.filter_products(products)
         missing = products - self.line_ids.product_id
         vals = [self._prepare_adjustment_line_values(x) for x in missing]
         return vals and self.line_ids.create(vals) or []
