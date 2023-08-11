@@ -123,8 +123,21 @@ class ProductProduct(models.Model):
                     for x in bom.operation_ids
                 )
                 total = cost_components + cost_operations
+
+                if not bom.product_qty:
+                    adjustment_id.message_post(
+                        body=_(
+                            "Product Qty is not set on BOM %(id) - product %(item)s is 0.0",
+                            id=bom.id,
+                            item=bom.product_tmpl_id.name,
+                        )
+                    )
+                    product_qty = 1
+                else:
+                    product_qty = bom.product_qty
+
                 total_uom = bom.product_uom_id._compute_price(
-                    total / bom.product_qty, product.uom_id
+                    total / product_qty, product.uom_id
                 )
 
                 # Set proposed cost if different from the actual cost
