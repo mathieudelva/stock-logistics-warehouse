@@ -137,7 +137,7 @@ class ProductProduct(models.Model):
                     product_qty = bom.product_qty
 
                 total_uom = bom.product_uom_id._compute_price(
-                    total / bom.product_qty, product.uom_id
+                    total / product_qty, product.uom_id
                 )
 
                 # Set proposed cost if different from the actual cost
