@@ -60,6 +60,9 @@ class CostAdjustment(models.Model):
         else:
             res = super().action_post()
 
+            # flush product updates before updating active reference boms
+            self._cr.commit()
+
             # bom's that are impacted as a result of cost change
             adjustment_details = self.env["stock.cost.adjustment.detail"].search(
                 [

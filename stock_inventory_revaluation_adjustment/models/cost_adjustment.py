@@ -261,7 +261,7 @@ class CostAdjustment(models.Model):
         If a line aready exists, don't create a duplicate
         """
         self.ensure_one()
-        products = self.filter_products(products)
+        products = self._filter_products(products)
         missing = products - self.line_ids.product_id
         vals = [self._prepare_adjustment_line_values(x) for x in missing]
         return vals and self.line_ids.create(vals) or []
