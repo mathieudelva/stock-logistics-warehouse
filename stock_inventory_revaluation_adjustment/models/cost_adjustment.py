@@ -99,7 +99,6 @@ class CostAdjustment(models.Model):
             )
 
     def _remove_unchanged_lines(self):
-        import pdb;pdb.set_trace()
         precision = self.env["decimal.precision"].precision_get("Product Price")
         for line in self.line_ids:
             if float_is_zero(
