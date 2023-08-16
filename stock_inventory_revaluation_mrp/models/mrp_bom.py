@@ -26,12 +26,14 @@ class BoM(models.Model):
             rec.bom_total_cost = rec.material_total_cost + rec.operation_total_cost
 
     def _compute_material_total_cost(self):
+        precision = self.env["decimal.precision"].precision_get("Product Price")
         for rec in self:
-            rec.material_total_cost = round(sum(round(mtl.subtotal,2) for mtl in rec.bom_line_ids),2)
+            rec.material_total_cost = round(sum(round(mtl.subtotal, precision) for mtl in rec.bom_line_ids),precision)
 
     def _compute_operation_total_cost(self):
+        precision = self.env["decimal.precision"].precision_get("Product Price")
         for rec in self:
-            rec.operation_total_cost = round(sum(round(opt.subtotal,2) for opt in rec.operation_ids),2)
+            rec.operation_total_cost = round(sum(round(opt.subtotal,precision) for opt in rec.operation_ids),precision)
 
     material_total_cost = fields.Float(compute="_compute_material_total_cost")
     operation_total_cost = fields.Float(compute="_compute_operation_total_cost")
