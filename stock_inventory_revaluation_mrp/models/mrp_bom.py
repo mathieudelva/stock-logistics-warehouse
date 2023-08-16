@@ -27,11 +27,11 @@ class BoM(models.Model):
 
     def _compute_material_total_cost(self):
         for rec in self:
-            rec.material_total_cost = sum(mtl.subtotal for mtl in rec.bom_line_ids)
+            rec.material_total_cost = round(sum(round(mtl.subtotal,2) for mtl in rec.bom_line_ids),2)
 
     def _compute_operation_total_cost(self):
         for rec in self:
-            rec.operation_total_cost = sum(opt.subtotal for opt in rec.operation_ids)
+            rec.operation_total_cost = round(sum(round(opt.subtotal,2) for opt in rec.operation_ids),2)
 
     material_total_cost = fields.Float(compute="_compute_material_total_cost")
     operation_total_cost = fields.Float(compute="_compute_operation_total_cost")

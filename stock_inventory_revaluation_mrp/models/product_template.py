@@ -86,8 +86,8 @@ class ProductProduct(models.Model):
                         total_uom += line_total * act_cost_rule.factor
 
                     # Set proposed cost if different from the actual cost
-                    product.proposed_cost = total_uom
-                    computed_products[product.id] = total_uom
+                    product.proposed_cost = round(total_uom,2)
+                    computed_products[product.id] = round(total_uom,2)
             # products
             else:
                 bom = self.env["mrp.bom"]._bom_find(product)[product]
@@ -132,8 +132,8 @@ class ProductProduct(models.Model):
                     total_uom = total
 
                 # Set proposed cost if different from the actual cost
-                product.proposed_cost = total_uom
-                computed_products[product.id] = total_uom
+                product.proposed_cost = round(total_uom,2)
+                computed_products[product.id] = round(total_uom,2)
 
         return computed_products
 
