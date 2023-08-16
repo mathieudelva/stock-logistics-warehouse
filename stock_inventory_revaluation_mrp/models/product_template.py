@@ -47,7 +47,7 @@ class ProductProduct(models.Model):
         return cost
 
     def calculate_proposed_cost(self, computed_products=None, adjustment_id = False):
-        DecimalPrecision = self.env["decimal.precision"]
+        precision = self.env["decimal.precision"].precision_get("Product Price")
         
         # initial call
         if computed_products==None:
@@ -86,8 +86,8 @@ class ProductProduct(models.Model):
                         total_uom += line_total * act_cost_rule.factor
 
                     # Set proposed cost if different from the actual cost
-                    product.proposed_cost = total_uom
-                    computed_products[product.id] = total_uom
+                    product.proposed_cost = round(total_uom,precision)
+                    computed_products[product.id] = round(total_uom,precision)
             # products
             else:
                 bom = self.env["mrp.bom"]._bom_find(product)[product]
@@ -132,8 +132,8 @@ class ProductProduct(models.Model):
                     total_uom = total
 
                 # Set proposed cost if different from the actual cost
-                product.proposed_cost = total_uom
-                computed_products[product.id] = total_uom
+                product.proposed_cost = round(total_uom,precision)
+                computed_products[product.id] = round(total_uom,precision)
 
         return computed_products
 

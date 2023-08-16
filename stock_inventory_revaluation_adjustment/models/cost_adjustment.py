@@ -101,6 +101,9 @@ class CostAdjustment(models.Model):
     def _remove_unchanged_lines(self):
         precision = self.env["decimal.precision"].precision_get("Product Price")
         for line in self.line_ids:
+            # we are revising an existing bom product to refresh active reference, allow
+            if line.product_id in self.product_ids:
+                continue
             if float_is_zero(
                 line.difference_cost,
                 precision_digits=precision,
