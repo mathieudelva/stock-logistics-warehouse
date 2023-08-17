@@ -169,7 +169,7 @@ class CostAdjustment(models.Model):
         self._remove_unchanged_lines()
         for line in self.line_ids:
             line.product_id.standard_price = line.product_cost
-            line.product_id.proposed_cost = 0.0
+        self.line_ids.mapped('product_id').write({'proposed_cost': 0.0})
         self.write({"state": "posted", "date": fields.Datetime.now()})
         return True
 
@@ -267,6 +267,18 @@ class CostAdjustment(models.Model):
         products = self._filter_products(products)
         missing = products - self.line_ids.product_id
         vals = [self._prepare_adjustment_line_values(x) for x in missing]
+        zero_cost_list = []
+        for val in vals:
+            zero_cost_list += val.pop('zero_cost_list')
+        if len(zero_cost_list):
+            zero_cost_list = sorted(list(set(zero_cost_list)))
+            self.message_post(
+                body=_(
+                    "Standard Cost on product%(item)s is 0.0",
+                    item=zero_cost_list,
+                    )
+                )
+
         return vals and self.line_ids.create(vals) or []
 
     def _prepare_adjustment_line_values(self, product):
@@ -276,14 +288,18 @@ class CostAdjustment(models.Model):
         :rtype: list
         """
         self.ensure_one()
+        zero_cost_list = []
         if product.bom_ids or product.is_cost_type:
-            product.calculate_proposed_cost(adjustment_id=self)
+            computed = product.calculate_proposed_cost(adjustment_id=self)
+            zero_cost_ids = [k for k,v in computed.items() if v == 0]
+            zero_cost_list = self.env["product.product"].browse(zero_cost_ids).mapped('default_code')
         return {
             "cost_adjustment_id": self.id,
             "product_id": product.id,
             "product_original_cost": product.standard_price,
             "product_cost": product.proposed_cost or product.standard_price,
             "qty_on_hand": product.sudo().quantity_svl,
+            "zero_cost_list": zero_cost_list,
         }
 
     def action_open_cost_adjustment_lines(self):
