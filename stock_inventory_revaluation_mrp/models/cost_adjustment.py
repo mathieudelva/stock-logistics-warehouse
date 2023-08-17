@@ -58,28 +58,51 @@ class CostAdjustment(models.Model):
             )
             res = False
         else:
-            res = super().action_post()
+            res = self._action_post()
 
-            # flush product updates before updating active reference boms
-            self._cr.commit()
-
-            # bom's that are impacted as a result of cost change
-            adjustment_details = self.env["stock.cost.adjustment.detail"].search(
-                [
-                    ("cost_adjustment_line_id.cost_adjustment_id", "=", self.id),
-                ]
-            )
-            boms = adjustment_details.mapped('bom_id')
-            boms.update_bom_version()
-
-            #bom's that are input as changed
-            for product in self.product_ids:
-                if product.bom_ids and (product.bom_ids[0] not in boms):
-                    product.bom_ids[0].update_bom_version()
-
-            # update JEs for items in WIP
-            self._run_wip_adjustment()
         return res
+
+    # asynchronous action
+    def _action_post(self):
+        self.ensure_one()
+        if not self.user_has_groups("stock.group_stock_manager"):
+            raise UserError(_("Only a stock manager can post a cost adjustment."))
+        if self.state != "done":
+            raise UserError(
+                _(
+                    "You can't post the cost adjustment '%s', maybe this cost adjustment "
+                    "has been already posted or isn't ready.",
+                    self.name,
+                )
+            )
+        self._check_negative()
+        self._remove_unchanged_lines()
+        for line in self.line_ids:
+            line.product_id.standard_price = line.product_cost
+        self.line_ids.mapped('product_id').write({'proposed_cost': 0.0})
+        self.write({"state": "posted", "date": fields.Datetime.now()})
+
+        # flush product updates before updating active reference boms
+        self._cr.commit()
+
+        # bom's that are impacted as a result of cost change
+        adjustment_details = self.env["stock.cost.adjustment.detail"].search(
+            [
+               ("cost_adjustment_line_id.cost_adjustment_id", "=", self.id),
+            ]
+        )
+        boms = adjustment_details.mapped('bom_id')
+        boms.update_bom_version()
+
+        #bom's that are input as changed
+        for product in self.product_ids:
+            if product.bom_ids and (product.bom_ids[0] not in boms):
+                product.bom_ids[0].update_bom_version()
+
+        # update JEs for items in WIP
+        self._run_wip_adjustment()
+        
+        return True
 
     def _run_wip_adjustment(self):
 
