@@ -44,6 +44,8 @@
         <field name="arch" type="xml">
             <field name="type" position="after">
                 <field name="create_date"/>
+		<field name="cost_roll_up_version"/>
+		<field name="active_ref_bom"/>
             </field>
         </field>
     </record>
