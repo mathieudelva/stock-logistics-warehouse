@@ -29,13 +29,6 @@ class ProductProduct(models.Model):
     def _get_rollup_cost(self, adjustment_id, computed_products):
         if computed_products:
             if self.id not in computed_products.keys():
-                if self.type == 'product' and not self.standard_price:
-                    adjustment_id.message_post(
-                        body=_(
-                            "Standard Cost on product %(item)s is 0.0",
-                            item=self.default_code,
-                        )
-                    )
                 cost = self.standard_price
             else:
                 if computed_products[self.id] > 0:
