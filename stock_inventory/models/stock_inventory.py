@@ -68,7 +68,11 @@ class InventoryAdjustmentsGroup(models.Model):
 
     @api.depends("stock_quant_ids")
     def _compute_count_stock_quants(self):
-        self.count_stock_quants = len(self.stock_quant_ids)
+        self.count_stock_quants = len(
+            self.stock_quant_ids.filtered(
+                lambda s: s.location_id.usage in ('internal', 'transit')
+            )
+        )
         count_todo = len(
             self.stock_quant_ids.search(
                 [("id", "in", self.stock_quant_ids.ids), ("to_do", "=", "True")]
